@@ -1,0 +1,118 @@
+.htmx-indicator{
+  opacity:0;
+  transition: opacity 200ms ease-in;
+}
+
+.htmx-request .htmx-indicator{
+  opacity:1
+}
+
+.htmx-request.htmx-indicator{
+  opacity:1
+}
+
+@tailwind base;
+@tailwind components;
+
+@layer base {
+  * {
+    @apply text-base md:text-xl;
+  }
+
+  a {
+    @apply decoration-dashed underline;
+  }
+
+  p {
+    @apply my-1.5;
+  }
+
+  img {
+    @apply mt-1.5 mb-7;
+  }
+
+  ul {
+    @apply list-disc p-3 list-outside ml-4;
+  }
+
+  ol {
+    @apply list-decimal p-3 list-outside ml-4;
+  }
+
+  h1 {
+    @apply font-bold text-2xl md:text-3xl my-5;
+  }
+
+  h2 {
+    @apply font-bold text-xl md:text-2xl my-5;
+  }
+
+  h3 {
+    @apply font-bold text-lg md:text-xl my-5;
+  }
+}
+
+@layer components {
+  /**
+   * "mdgen" targets HTML output generated from markdown.
+   *
+   * See:
+   *  1. https://github.com/yuin/goldmark (markdown -> html rendering)
+   *  2. https://github.com/alecthomas/chroma (syntax highlighting for code
+   *     blocks)
+   **/
+  .mdgen {
+    @apply mb-3;
+
+    pre:not(.chroma) {
+      @apply bg-gray-900 font-mono p-1 w-full block;
+    }
+
+    :not(.chroma) > code {
+      @apply bg-gray-600 font-mono p-0.5;
+    }
+
+    pre:not(.chroma) > code {
+      @apply bg-gray-900 font-mono p-0.5 w-full block overflow-auto;
+    }
+
+    pre.chroma {
+      @apply border-none p-2 my-3 overflow-auto;
+    }
+
+    .macro-photo {
+      @apply w-full md:w-3/4;
+    }
+
+    .vimtip {
+      @apply text-black p-3 bg-orange-200 w-full rounded-s shadow-sm mt-4 mb-4;
+
+      > h3 {
+        @apply bg-orange-300 p-2 rounded-s m-0 font-semibold;
+      }
+
+      > p {
+        @apply px-2;
+      }
+
+      code {
+        @apply bg-orange-100;
+      }
+    }
+
+    .restored-from-archive {
+      @apply text-black p-3 bg-rose-300 w-full rounded-s shadow-sm mt-2 mb-4;
+
+      > h3 {
+        @apply bg-rose-400 p-2 rounded-s m-0 font-semibold;
+      }
+
+      > p {
+        @apply px-2;
+      }
+    }
+  }
+
+}
+
+@tailwind utilities;

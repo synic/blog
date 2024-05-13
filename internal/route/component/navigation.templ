@@ -1,0 +1,30 @@
+package component
+
+import (
+	"fmt"
+)
+
+templ navLink(url, label string, isLast bool) {
+	<li
+		hx-get={ url }
+		hx-target="#content"
+		hx-push-url="true"
+		hx-trigger="click"
+		id={ fmt.Sprintf("nav-link-%s", label) }
+		hx-on::after-request="document.getElementById('search').value = '';"
+		class={
+			"cursor-pointer border-l border-gray-700 item-center py-3 w-22 text-center hover:bg-gray-700 hover:text-white",
+			templ.KV("md:rounded-tr-xl", isLast),
+		}
+	>
+		<a class="px-5 no-underline" onclick="return false;" href={ templ.URL(url) }>
+			{ label }
+		</a>
+	</li>
+}
+
+templ NavigationLinks() {
+	<ul class="flex flex-row content-end p-0 m-0 list-none list-inside grow-0 shrink">
+		@navLink("/about/", "About", true)
+	</ul>
+}

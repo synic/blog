@@ -1,0 +1,29 @@
+package component
+
+import (
+	"github.com/synic/adamthings.me/internal/config"
+)
+
+templ aboutLink(url, label string) {
+	<li>
+		<a href={ templ.URL(url) } class="no-underline">{ label }</a> -
+		<a href={ templ.URL(url) }>{ url }</a>
+	</li>
+}
+
+templ AboutView(c config.SiteConfig) {
+	@BaseLayout(c, "About Me") {
+		<div class="flex flex-row w-full">
+			<div class="grow">
+				<h2 class="mt-0 text-rose-500">About Me</h2>
+				<p class="mt-0">
+					I'll fill this out later. Maybe.
+				</p>
+				<ol class="list-disc">
+					@aboutLink("https://github.com/synic", "GitHub")
+					@aboutLink("https://instagram.com/adamthings.me", "Instagram")
+				</ol>
+			</div>
+		</div>
+	}
+}

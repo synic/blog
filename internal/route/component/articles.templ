@@ -1,0 +1,97 @@
+package component
+
+import (
+	"fmt"
+
+	"github.com/synic/adamthings.me/internal/config"
+	"github.com/synic/adamthings.me/internal/types"
+)
+
+func htxmLoadingAttrs(isLast bool, pd types.PageData) templ.Attributes {
+	attrs := templ.Attributes{}
+
+	if isLast && pd.TotalPages > pd.Page-1 {
+		attrs["hx-get"] = fmt.Sprintf("/?page=%d&perPage=%d&search=%s&tag=%s", pd.Page+1, pd.PerPage, pd.Search, pd.Tag)
+		attrs["hx-trigger"] = "revealed"
+		attrs["hx-swap"] = "afterend"
+		attrs["hx-indicator"] = "#articles-loading-indicator"
+	}
+
+	return attrs
+}
+
+templ ArticlesView(c config.SiteConfig, pd types.PageData) {
+	@BaseLayout(c, "") {
+		if pd.Page <= 1 {
+			if (pd.Tag != "" || pd.Search != "") {
+				<h1 class="mt-3 mb-6 font-bold">
+					if pd.Tag != "" {
+						Tag: { pd.Tag }
+					} else if pd.Search != "" {
+						Search results: { pd.Search }
+					}
+				</h1>
+			}
+		}
+		for i, a := range pd.Items {
+			<div { htxmLoadingAttrs(i >= len(pd.Items) - 1, pd)... }>
+				<div
+					class="cursor-pointer"
+					id={ fmt.Sprintf("article-%s", a.Slug) }
+					hx-get={ a.Url }
+					scrolls
+					hx-target="#content"
+					hx-swap="innerHTML show:window:top"
+					hx-push-url="true"
+					hx-trigger="click"
+				>
+					<div>
+						<a
+							class="font-bold no-underline"
+							href={ templ.URL(a.Url) }
+							onclick="return false;"
+						>
+							<h1 class={ "text-rose-500", templ.KV("mt-0", i == 0) }>
+								{ a.Title }
+							</h1>
+						</a>
+						<div class="mt-3 text-sm italic">
+							if a.IsPublished {
+								Published: { a.PublishedAt.Format("Jan 2, 2006") }
+							} else {
+								<span class="text-sm text-red-200">
+									Unpublished
+								</span>
+							}
+						</div>
+					</div>
+					<div class="mt-3 mdgen">
+						@templ.Raw(a.Summary)
+					</div>
+					<a
+						hx-get={ a.Url }
+						hx-target="#content"
+						hx-swap="innerHTML show:top"
+						hx-push-url="true"
+						hx-trigger="click"
+						href={ templ.URL(a.Url) }
+						onclick="return false;"
+					>
+						<i class="text-sm">Read more...</i>
+					</a>
+				</div>
+				if i < len(pd.Items) - 1 || pd.Page <= pd.TotalPages {
+					<hr class="my-8 h-px bg-gray-200 border-0 dark:bg-gray-700"/>
+				}
+			</div>
+		}
+		if pd.Page == 1 {
+			if len(pd.Items) <= 0 {
+				No articles found.
+			}
+			<div id="articles-loading-indicator" class="w-full text-center htmx-indicator">
+				Loading more...
+			</div>
+		}
+	}
+}

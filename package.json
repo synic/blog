@@ -1,0 +1,10 @@
+{
+  "name": "adamthings.me",
+  "version": "1.0.0",
+  "description": "",
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "tailwindcss": "^3.4.1"
+  }
+}

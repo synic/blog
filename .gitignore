@@ -1,0 +1,32 @@
+logs/
+
+# air
+.tmp
+.pidfile
+
+# neovim
+.null-ls*
+
+# build
+/bin/*
+
+# environments
+.env
+
+# misc
+.DS_Store
+
+# templ
+*_templ.go
+
+# test articles
+*foo*.md
+mine/
+
+# go workspaces
+/go.work.sum
+/go.work
+
+# tailwind
+/node_modules
+/assets/static/css/compiled/*

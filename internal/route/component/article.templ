@@ -1,0 +1,42 @@
+package component
+
+import (
+	"fmt"
+	"github.com/synic/adamthings.me/internal/config"
+	"github.com/synic/adamthings.me/internal/model"
+)
+
+templ ArticleView(c config.SiteConfig, a model.Article) {
+	@BaseLayout(c, a.Title) {
+		<div id={ fmt.Sprintf("article-%s", a.Slug) }>
+			<div>
+				<a
+					class="font-bold no-underline"
+					href={ templ.URL(a.Url) }
+					hx-get={ a.Url }
+					hx-target="#content"
+					hx-push-url="true"
+				>
+					<h1 class="mt-0 text-rose-500">{ a.Title }</h1>
+				</a>
+				<div class="mt-3 text-sm italic">
+					if a.IsPublished {
+						Published: { a.PublishedAt.Format("Jan 2, 2006") }
+					} else {
+						<span class="text-sm text-red-200">
+							Unpublished
+						</span>
+					}
+				</div>
+			</div>
+			<div class="mt-3 mdgen">
+				@templ.Raw(a.Body)
+			</div>
+			<hr class="my-8 h-px bg-gray-200 border-0 dark:bg-gray-700"/>
+			<div>
+				Filed Under:&nbsp;
+				@TagLinks(a.Tags)
+			</div>
+		</div>
+	}
+}

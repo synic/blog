@@ -1,7 +1,7 @@
 GOPATH?=`realpath workspace`
 BIN="./bin/blog-serve"
 CSSDIR=./assets/css
-TEMPL_VERSION=v0.2.648
+TEMPL_VERSION=v0.2.663
 AIR_VERSION=v1.49.0
 
 AIR_TEST := $(shell command -v air 2> /dev/null)

@@ -153,7 +153,7 @@ func parseArticleSlugFromFileName(fn string) (string, error) {
 
 func readAllArticles(
 	articleDirectory string,
-	isDebuging bool,
+	isDebugging bool,
 ) (ArticleRepository, error) {
 	entries, err := os.ReadDir(articleDirectory)
 
@@ -169,13 +169,13 @@ func readAllArticles(
 
 	for _, entry := range entries {
 		name := entry.Name()
-		path := path.Join("articles", name)
+		articlePath := path.Join("articles", name)
 
-		if strings.HasSuffix(path, ".md") {
-			data, err := os.ReadFile(path)
+		if strings.HasSuffix(articlePath, ".md") {
+			data, err := os.ReadFile(articlePath)
 
 			if err != nil {
-				log.Printf("error reading article `%s`: %v", path, err)
+				log.Printf("error reading article `%s`: %v", articlePath, err)
 				continue
 			}
 
@@ -187,7 +187,7 @@ func readAllArticles(
 			}
 
 			if !article.IsPublished {
-				if !isDebuging {
+				if !isDebugging {
 					log.Printf("article file `%s` does not contain a publish date, skipping.", name)
 					continue
 				}

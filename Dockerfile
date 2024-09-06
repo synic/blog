@@ -15,8 +15,8 @@ RUN set -x \
 FROM gcr.io/distroless/static-debian12:9efbcaacd8eac4960b315c502adffdbf3398ce62
 
 WORKDIR /
-COPY --from=build-base /app/bin/blog-serve-release /blog-serve
+COPY --from=build-base /app/bin/blog-release /blog
 COPY --from=build-base /app/assets /assets
 COPY --from=build-base /app/articles /articles
 
-CMD ["./blog-serve"]
+CMD ["./blog serve"]

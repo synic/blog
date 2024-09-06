@@ -8,7 +8,6 @@ ENV GOPATH=/go
 ENV PATH="${PATH}:/go/bin"
 RUN set -x \
     && apk add --no-cache nodejs=20.15.1-r0 npm=10.8.0-r0 make=4.4.1-r2  \
-    && make install-builddeps \
     && make release \
     && rm -rf node_modules
 

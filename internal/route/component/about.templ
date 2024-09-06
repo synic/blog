@@ -1,9 +1,5 @@
 package component
 
-import (
-	"github.com/synic/adamthings.me/internal/config"
-)
-
 templ aboutLink(url, label string) {
 	<li>
 		<a href={ templ.URL(url) } class="no-underline">{ label }</a> -
@@ -11,8 +7,8 @@ templ aboutLink(url, label string) {
 	</li>
 }
 
-templ AboutView(c config.SiteConfig) {
-	@BaseLayout(c, "About Me") {
+templ AboutView() {
+	@BaseLayout("About Me") {
 		<div class="flex flex-row w-full">
 			<div class="grow">
 				<h2 class="mt-0 text-rose-500">About Me</h2>

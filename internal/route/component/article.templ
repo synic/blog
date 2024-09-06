@@ -2,12 +2,11 @@ package component
 
 import (
 	"fmt"
-	"github.com/synic/adamthings.me/internal/config"
 	"github.com/synic/adamthings.me/internal/model"
 )
 
-templ ArticleView(c config.SiteConfig, a model.Article) {
-	@BaseLayout(c, a.Title) {
+templ ArticleView(a model.Article) {
+	@BaseLayout(a.Title) {
 		<div id={ fmt.Sprintf("article-%s", a.Slug) }>
 			<div>
 				<a

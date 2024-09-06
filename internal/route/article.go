@@ -5,18 +5,20 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/synic/adamthings.me/internal/config"
 	"github.com/synic/adamthings.me/internal/model"
 	"github.com/synic/adamthings.me/internal/route/component"
+	"github.com/synic/adamthings.me/internal/storage"
 	"github.com/synic/adamthings.me/internal/types"
 )
 
 type articleRouter struct {
-	conf config.SiteConfig
+	repo               storage.ArticleRepository
+	articlesPerPage    int
+	maxArticlesPerPage int
 }
 
-func NewArticleRouter(conf config.SiteConfig) articleRouter {
-	return articleRouter{conf: conf}
+func NewArticleRouter(repo storage.ArticleRepository) articleRouter {
+	return articleRouter{repo: repo, articlesPerPage: 30, maxArticlesPerPage: 50}
 }
 
 func (h articleRouter) index(w http.ResponseWriter, r *http.Request) {
@@ -32,11 +34,11 @@ func (h articleRouter) index(w http.ResponseWriter, r *http.Request) {
 	tag := r.URL.Query().Get("tag")
 
 	if tag != "" {
-		articles, err = h.conf.Repo.FindByTag(r.Context(), tag)
+		articles, err = h.repo.FindByTag(r.Context(), tag)
 	} else if search != "" {
-		articles, err = h.conf.Repo.Search(r.Context(), search)
+		articles, err = h.repo.Search(r.Context(), search)
 	} else {
-		articles, err = h.conf.Repo.FindAll(r.Context())
+		articles, err = h.repo.FindAll(r.Context())
 	}
 
 	if err != nil {
@@ -48,8 +50,8 @@ func (h articleRouter) index(w http.ResponseWriter, r *http.Request) {
 
 func (h articleRouter) article(w http.ResponseWriter, r *http.Request) {
 	slug := r.PathValue("slug")
-	article, _ := h.conf.Repo.FindOneBySlug(r.Context(), slug)
-	RenderTempl(w, r, component.ArticleView(h.conf, article))
+	article, _ := h.repo.FindOneBySlug(r.Context(), slug)
+	RenderTempl(w, r, component.ArticleView(article))
 }
 
 func (h articleRouter) renderAndPageArticles(
@@ -59,7 +61,7 @@ func (h articleRouter) renderAndPageArticles(
 	search, tag string,
 ) {
 	page := 0
-	perPage := h.conf.ArticlesPerPage
+	perPage := h.articlesPerPage
 
 	i, err := strconv.Atoi(r.URL.Query().Get("page"))
 
@@ -71,8 +73,8 @@ func (h articleRouter) renderAndPageArticles(
 
 	if err == nil {
 		perPage = i
-		if perPage > h.conf.MaxArticlesPerPage {
-			perPage = h.conf.MaxArticlesPerPage
+		if perPage > h.maxArticlesPerPage {
+			perPage = h.maxArticlesPerPage
 		}
 	}
 
@@ -82,7 +84,6 @@ func (h articleRouter) renderAndPageArticles(
 	RenderTempl(
 		w, r,
 		component.ArticlesView(
-			h.conf,
 			types.PageData{
 				Page:       page + 1,
 				PerPage:    perPage,

@@ -2,8 +2,6 @@ package component
 
 import (
 	"fmt"
-
-	"github.com/synic/adamthings.me/internal/config"
 	"github.com/synic/adamthings.me/internal/types"
 )
 
@@ -20,8 +18,8 @@ func htxmLoadingAttrs(isLast bool, pd types.PageData) templ.Attributes {
 	return attrs
 }
 
-templ ArticlesView(c config.SiteConfig, pd types.PageData) {
-	@BaseLayout(c, "") {
+templ ArticlesView(pd types.PageData) {
+	@BaseLayout("") {
 		if pd.Page <= 1 {
 			if (pd.Tag != "" || pd.Search != "") {
 				<h1 class="mt-3 mb-6 font-bold">

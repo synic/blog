@@ -1,10 +1,6 @@
 package component
 
-import (
-	"github.com/synic/adamthings.me/internal/config"
-)
-
-templ BaseLayout(c config.SiteConfig, title string) {
+templ BaseLayout(title string) {
 	if !isPartial(ctx) {
 		<!DOCTYPE html>
 		<html lang="en">

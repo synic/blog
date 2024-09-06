@@ -17,9 +17,6 @@ logs/
 # misc
 .DS_Store
 
-# templ
-*_templ.go
-
 # test articles
 *foo*.md
 mine/
@@ -30,4 +27,3 @@ mine/
 
 # tailwind
 /node_modules
-/assets/static/css/compiled/*

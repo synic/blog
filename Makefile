@@ -1,6 +1,6 @@
 GOPATH?=`realpath workspace`
 BIN=./bin/blog
-TEMPL_VERSION=v0.2.663
+TEMPL_VERSION=v0.2.778
 AIR_VERSION=v1.49.0
 
 AIR_TEST := $(shell command -v air 2> /dev/null)
@@ -39,7 +39,7 @@ build: codegen
 	go build -tags debug -o ${BIN}-debug .
 
 .PHONY: codegen
-codegen:
+codegen: install-devdeps
 	go generate ./...
 
 .PHONY: release

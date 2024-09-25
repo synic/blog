@@ -3,7 +3,7 @@ module github.com/synic/adamthings.me
 go 1.23.0
 
 require (
-	github.com/a-h/templ v0.2.663
+	github.com/a-h/templ v0.2.778
 	github.com/alecthomas/chroma/v2 v2.12.0
 	github.com/joho/godotenv v1.5.1
 	github.com/sethvargo/go-envconfig v1.1.0

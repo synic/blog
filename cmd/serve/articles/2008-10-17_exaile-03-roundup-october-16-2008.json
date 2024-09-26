@@ -1,0 +1,11 @@
+{
+  "published_at": "2008-10-17T00:44:45-07:00",
+  "body": "\u003c!-- :metadata:\n\ntitle: Exaile 0.3 Roundup for October 16, 2008\ntags: Exaile\npublished: 2008-10-17T00:44:45-0700\nsummary:\n\nIt's been longer than a week since the last roundup, so I figured it was time.\nSince the first 0.3 alpha release, the following items have been implemented:\n\n--\u003e\n\u003cp\u003eIt's been longer than a week since the last roundup, so I figured it was\ntime.  Since the first 0.3 alpha release, the following items have been\nimplemented:\n\u003c/p\u003e\n\u003cp\u003e\n\u003cul\u003e\n\u003cli\u003eSmart Playlists can now be edited via the GUI\u003c/li\u003e\n\u003cli\u003eThe beginnings of the Preferences dialog\u003c/li\u003e\n\u003cli\u003eRating display, and the ability to change the rating of the currently\nplaying track\u003c/li\u003e\n\u003c/ul\u003e\n\u003c/p\u003e\n\u003cp\u003eBefore the next alpha (and it will still be alpha), we plan on getting the\nMakefile working, ratings complete, and at least a working version of the\nPreferences dialog.  I'll let you know how it goes :)\u003c/p\u003e\n\u003cdiv class=\"restored-from-archive\"\u003e\n  \u003ch3\u003eRestored from VimTips archive\u003c/h3\u003e\n  \u003cp\u003e\n  This article was restored from the VimTips archive. There's probably\n  missing images and broken links (and even some flash references), but it\n  was still important to me to bring them back.\n  \u003c/p\u003e\n\u003c/div\u003e\n",
+  "summary": "\u003cp\u003eIt's been longer than a week since the last roundup, so I figured it was time.\nSince the first 0.3 alpha release, the following items have been implemented:\u003c/p\u003e\n",
+  "title": "Exaile 0.3 Roundup for October 16, 2008",
+  "slug": "exaile-03-roundup-october-16-2008",
+  "tags": [
+    "Exaile"
+  ],
+  "is_published": true
+}

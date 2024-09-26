@@ -1,0 +1,12 @@
+{
+  "published_at": "2009-07-24T18:32:27-07:00",
+  "body": "\u003c!-- :metadata:\n\ntitle: Exaile's Very First Bugday Event\ntags: Exaile, Programming\npublished: 2009-07-24T18:32:27-0700\nsummary:\n\nNext Tuesday (July 28th) starting at 14:00 GMT (7:00 am MST) the Exaile team\nwill be hosting the very first Exaile bugday.  Our goal will be to hammer out\nas many bugs as we possibly can.  SiDi has set up a \u003ca\nhref='http://launchpad.net/~exaile-bugday'\u003eLaunchpad Group\u003c/a\u003e that will have\nit's own branch (based from the 0.3 trunk) so that people wanting to\nparticipate will be able to commit their changes.\n\n--\u003e\n\u003cp\u003eNext Tuesday (July 28th) starting at 14:00 GMT (7:00 am MST) the Exaile team\nwill be hosting the very first Exaile bugday.  Our goal will be to hammer out\nas many bugs as we possibly can.  SiDi has set up a \u003ca\nhref='http://launchpad.net/~exaile-bugday'\u003eLaunchpad Group\u003c/a\u003e that will have\nit's own branch (based from the 0.3 trunk) so that people wanting to\nparticipate will be able to commit their changes.\u003c/p\u003e\n\u003cp\u003eIn order to attend, please join our IRC channel at irc.freenode.net/#exaile.\nEven if you don't plan on fixing any bugs, it should be a good time (that is,\nif you're a nerdy Exaile user).\u003c/p\u003e\n\u003cp\u003eIf you have questions and are too lazy to get on IRC, please email our mailing\nlist: exaile-users@googlegroups.com\u003c/p\u003e\n\u003cdiv class=\"restored-from-archive\"\u003e\n  \u003ch3\u003eRestored from VimTips archive\u003c/h3\u003e\n  \u003cp\u003e\n  This article was restored from the VimTips archive. There's probably\n  missing images and broken links (and even some flash references), but it\n  was still important to me to bring them back.\n  \u003c/p\u003e\n\u003c/div\u003e\n",
+  "summary": "\u003cp\u003eNext Tuesday (July 28th) starting at 14:00 GMT (7:00 am MST) the Exaile team\nwill be hosting the very first Exaile bugday.  Our goal will be to hammer out\nas many bugs as we possibly can.  SiDi has set up a \u003ca\nhref='http://launchpad.net/~exaile-bugday'\u003eLaunchpad Group\u003c/a\u003e that will have\nit's own branch (based from the 0.3 trunk) so that people wanting to\nparticipate will be able to commit their changes.\u003c/p\u003e\n",
+  "title": "Exaile's Very First Bugday Event",
+  "slug": "exailes-very-first-bugday-event",
+  "tags": [
+    "Exaile",
+    "Programming"
+  ],
+  "is_published": true
+}

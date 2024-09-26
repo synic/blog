@@ -1,16 +1,13 @@
 package model
 
-import (
-	"time"
-)
+import "time"
 
 type Article struct {
-	PublishedAt time.Time
-	Body        string
-	Summary     string
-	Title       string
-	Url         string
-	Slug        string
-	Tags        []string
-	IsPublished bool
+	PublishedAt time.Time `json:"published_at"`
+	Body        string    `json:"body"`
+	Summary     string    `json:"summary"`
+	Title       string    `json:"title"`
+	Slug        string    `json:"slug"`
+	Tags        []string  `json:"tags"`
+	IsPublished bool      `json:"is_published"`
 }

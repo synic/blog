@@ -41,7 +41,6 @@ build: codegen vet
 
 .PHONY: codegen
 codegen: install-devdeps
-	go generate ./...
 	templ generate
 	@./node_modules/.bin/tailwindcss --postcss \
 		-i ./internal/web/css/main.css \

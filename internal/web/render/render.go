@@ -5,7 +5,7 @@ import (
 
 	"github.com/a-h/templ"
 
-	"github.com/synic/adamthings.me/internal/web/component"
+	"github.com/synic/adamthings.me/internal/web/view"
 )
 
 type renderTemplConfig struct {
@@ -41,5 +41,5 @@ func Templ(
 }
 
 func Error(w http.ResponseWriter, r *http.Request, status int, title, message string) {
-	Templ(w, r, component.ErrorView(title, message), WithStatus(status))
+	Templ(w, r, view.ErrorView(title, message), WithStatus(status))
 }

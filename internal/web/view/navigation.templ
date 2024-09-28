@@ -1,8 +1,8 @@
-package component
+package view
 
 import "fmt"
 
-templ navLink(url, label string, isLast bool) {
+templ navLink(url, label string) {
 	<li
 		hx-get={ url }
 		hx-target="#content"
@@ -10,10 +10,7 @@ templ navLink(url, label string, isLast bool) {
 		hx-trigger="click"
 		id={ fmt.Sprintf("nav-link-%s", label) }
 		hx-on::after-request="document.getElementById('search').value = '';"
-		class={
-			"cursor-pointer border-l border-gray-700 item-center py-3 w-22 text-center hover:bg-gray-700 hover:text-white",
-			templ.KV("md:rounded-tr-xl", isLast),
-		}
+		class="py-3 text-center border-l border-gray-700 cursor-pointer hover:text-white hover:bg-gray-700 item-center w-22 last:md:rounded-tr-xl"
 	>
 		<a class="px-5 no-underline" onclick="return false;" href={ templ.URL(url) }>
 			{ label }
@@ -23,6 +20,6 @@ templ navLink(url, label string, isLast bool) {
 
 templ NavigationLinks() {
 	<ul class="flex flex-row content-end p-0 m-0 list-none list-inside grow-0 shrink">
-		@navLink("/about/", "About", true)
+		@navLink("/archive/", "Archive")
 	</ul>
 }

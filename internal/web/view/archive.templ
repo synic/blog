@@ -1,0 +1,79 @@
+package view
+
+import (
+	"fmt"
+	"sort"
+)
+
+type tagInfo struct {
+	tag   string
+	count int
+}
+
+func sortedTags(tagCounts map[string]int) []tagInfo {
+	tags := make([]tagInfo, 0, len(tagCounts))
+	for key, value := range tagCounts {
+		tags = append(tags, tagInfo{tag: key, count: value})
+	}
+
+	sort.Slice(tags, func(i, j int) bool {
+		return tags[i].tag < tags[j].tag
+	})
+
+	return tags
+}
+
+templ aboutLink(url, label string) {
+	<li>
+		<a href={ templ.URL(url) } class="no-underline">{ label }</a> -
+		<a href={ templ.URL(url) }>{ url }</a>
+	</li>
+}
+
+templ ArchiveView(tags map[string]int) {
+	@BaseLayout("About Me") {
+		<div class="flex flex-col w-full">
+			<div
+				class="block pb-4 md:hidden grow"
+				hx-on::after-request="document.getElementById('search').value = '';"
+			>
+				<h2 class="mt-0 text-rose-500">Search</h2>
+				<input
+					class="flex-auto px-2 font-normal bg-gray-700 rounded border border-gray-600 border-solid outline-gray-600 max-w-56"
+					placeholder="Search..."
+					type="text"
+					name="search"
+					hx-post="/"
+					hx-target="#content"
+					hx-push-url="true"
+					hx-include="[id='search']"
+					id="search"
+				/>
+			</div>
+			<div class="pb-4 grow">
+				<h2 class="mt-0 text-rose-500">Tags</h2>
+				<p class="mt-0">
+					<ul class="flex flex-row flex-wrap p-0 m-0 list-none list-inside">
+						for _, t := range sortedTags(tags) {
+							<li class="py-0.5 px-1 mr-1 mb-1 text-center bg-gray-700 rounded border-gray-600 border-solid cursor-pointer">
+								<a class="px-1 no-underline" href={ templ.URL(fmt.Sprintf("/?tag=%s", t.tag)) }>
+									{ t.tag } ({ fmt.Sprintf("%d",t.count) })
+								</a>
+							</li>
+						}
+					</ul>
+				</p>
+			</div>
+			<div class="grow">
+				<h2 class="mt-0 text-rose-500">About Me</h2>
+				<p class="mt-0">
+					Software Developer, Amateur Photographer, and NeoVim enthusiast :)
+				</p>
+				<ol class="list-disc">
+					@aboutLink("https://github.com/synic", "GitHub")
+					@aboutLink("https://instagram.com/adamthings.me", "Instagram")
+				</ol>
+			</div>
+		</div>
+	}
+}

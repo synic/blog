@@ -82,7 +82,7 @@ func main() {
 
 	server := http.NewServeMux()
 	static := http.StripPrefix("/static/", http.FileServer(http.FS(sub)))
-	route.NewDefaultRouter(static).Mount(server)
+	server.Handle("GET /static/", static)
 	route.NewArticleRouter(repo).Mount(server)
 
 	log.Printf("Serving on %s...", bind)

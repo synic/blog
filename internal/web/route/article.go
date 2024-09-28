@@ -1,7 +1,7 @@
 package route
 
 import (
-	"fmt"
+	"log"
 	"net/http"
 	"strconv"
 
@@ -70,7 +70,9 @@ func (h articleRouter) index(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if err != nil {
-		fmt.Printf("error finding articles: %s\n", err)
+		log.Printf("error finding articles: %s", err)
+		render.Error(w, r, 404, "Not Found", "Sorry, no articles could be found.")
+		return
 	}
 
 	h.renderAndPageArticles(w, r, articles, search, tag)

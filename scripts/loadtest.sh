@@ -9,5 +9,9 @@ then
     go install github.com/rogerwelin/cassowary/cmd/cassowary@v0.16.0
 fi
 
-cassowary run -u $BLOG_HOST \
-    -c $USERS -n $COUNT -f scripts/.loadtest-urls.txt
+cassowary run \
+    -u $BLOG_HOST \
+    -c $USERS \
+    -n $COUNT \
+    -f scripts/.loadtest-urls.txt \
+    -H "Accept-Encoding: identity"

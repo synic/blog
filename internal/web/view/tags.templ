@@ -17,7 +17,7 @@ templ TagLinks(tags []string) {
 					href={ templ.URL(fmt.Sprintf("/?tag=%s", t)) }
 					hx-get={ fmt.Sprintf("/?tag=%s", t) }
 					hx-target="#content"
-					hx-on::after-request="document.getElementById('search').value = '';"
+					hx-on::after-request="document.getElementById('search-nav').value = '';"
 					hx-push-url="true"
 				>
 					{ t }

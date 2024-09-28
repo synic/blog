@@ -9,7 +9,7 @@ templ navLink(url, label string) {
 		hx-push-url="true"
 		hx-trigger="click"
 		id={ fmt.Sprintf("nav-link-%s", label) }
-		hx-on::after-request="document.getElementById('search').value = '';"
+		hx-on::after-request="document.getElementById('search-nav').value = '';"
 		class="py-3 text-center border-l border-gray-700 cursor-pointer hover:text-white hover:bg-gray-700 item-center w-22 last:md:rounded-tr-xl"
 	>
 		<a class="px-5 no-underline" onclick="return false;" href={ templ.URL(url) }>

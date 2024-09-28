@@ -36,7 +36,7 @@ Art Manager (it's basically just like the old one)</li>
 to allow you to drag and drop the album art search methods</li>
  </ul>
 </p>
- <p><img src='http://www.vimtips.org/media/images/screenie.jpg'
+ <p><img src='/media/images/screenie.jpg'
 alt='Screenshot of album art preferences' border='0' /></p>
  <p>
  Also, I've

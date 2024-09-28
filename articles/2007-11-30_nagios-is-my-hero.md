@@ -88,12 +88,12 @@ Nagios gives you a nifty web interface to see what's going on.  Here are some
 screenshots:
 
 <b>The Status Map</b><br><br>
-<img src='http://media.vimtips.org/images/statusmap.png'><br><br>
+<img src='/images/statusmap.png'><br><br>
 ... I mostly included this screenshot because it looks cool.  It looks tons
 cooler when you have hundreds of machines being monitored - if one of the
 machines has a problem, the green circle around it shows as red.<br><br>
 <b>The Host Overview</b><br><br>
-<img src='http://media.vimtips.org/images/allservers.png'><br><br>
+<img src='/images/allservers.png'><br><br>
 As you can see in that last screenshot, we currenly have one critical notice.
 That's a degraded array that, even though I had written a script to check for
 such a situation, we wouldn't have known about without installing Nagios (for

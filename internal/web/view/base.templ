@@ -1,4 +1,4 @@
-package component
+package view
 
 templ BaseLayout(title string) {
 	if !isPartial(ctx) {
@@ -33,7 +33,7 @@ templ BaseLayout(title string) {
 							<input
 								class="hidden flex-auto px-2 my-2 mr-4 font-normal bg-gray-700 rounded border border-gray-600 border-solid md:block outline-gray-600 max-w-56"
 								placeholder="Search..."
-								type="Search"
+								type="text"
 								name="search"
 								id="search"
 								hx-post="/"

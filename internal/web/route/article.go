@@ -7,9 +7,9 @@ import (
 
 	"github.com/synic/adamthings.me/internal/model"
 	"github.com/synic/adamthings.me/internal/store"
-	"github.com/synic/adamthings.me/internal/web/component"
 	"github.com/synic/adamthings.me/internal/web/pagination"
 	"github.com/synic/adamthings.me/internal/web/render"
+	"github.com/synic/adamthings.me/internal/web/view"
 )
 
 type articleRouterConfig struct {
@@ -87,7 +87,7 @@ func (h articleRouter) article(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	render.Templ(w, r, component.ArticleView(article))
+	render.Templ(w, r, view.ArticleView(article))
 }
 
 func (h articleRouter) renderAndPageArticles(
@@ -119,7 +119,7 @@ func (h articleRouter) renderAndPageArticles(
 
 	render.Templ(
 		w, r,
-		component.ArticlesView(
+		view.ArticlesView(
 			pagination.PageData{
 				Page:       page + 1,
 				PerPage:    perPage,
@@ -132,7 +132,12 @@ func (h articleRouter) renderAndPageArticles(
 	)
 }
 
+func (h articleRouter) links(w http.ResponseWriter, r *http.Request) {
+	render.Templ(w, r, view.ArchiveView(h.repo.TagInfo(r.Context())))
+}
+
 func (h articleRouter) Mount(server *http.ServeMux) {
 	server.HandleFunc("/{$}", h.index)
 	server.HandleFunc("GET /articles/{date}/{slug}", h.article)
+	server.HandleFunc("/archive/", h.links)
 }

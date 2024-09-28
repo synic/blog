@@ -12,7 +12,7 @@ import (
 )
 
 type ArticleRepository struct {
-	tags            []string
+	tags            map[string]int
 	slugLookupIndex map[string]int
 	articles        []*model.Article
 }
@@ -20,9 +20,9 @@ type ArticleRepository struct {
 func NewArticleRepository(
 	articles []*model.Article,
 ) (*ArticleRepository, error) {
-	tags := make(map[string]struct{})
 	r := &ArticleRepository{
 		slugLookupIndex: make(map[string]int, len(articles)),
+		tags:            make(map[string]int, len(articles)*2),
 	}
 
 	sort.Slice(articles, func(i, j int) bool {
@@ -32,17 +32,26 @@ func NewArticleRepository(
 	for i, a := range articles {
 		r.slugLookupIndex[a.Slug] = i
 		for _, t := range a.Tags {
-			tags[t] = struct{}{}
+			count, _ := r.tags[t]
+			count += 1
+			r.tags[t] = count
 		}
 	}
 
 	r.articles = articles
-	r.tags = slices.Collect(maps.Keys(tags))
 
 	return r, nil
 }
 
-func (r *ArticleRepository) FindAll(_ context.Context) ([]*model.Article, error) {
+func (r *ArticleRepository) TagInfo(context.Context) map[string]int {
+	return r.tags
+}
+
+func (r *ArticleRepository) Tags(context.Context) []string {
+	return slices.Collect(maps.Keys(r.tags))
+}
+
+func (r *ArticleRepository) FindAll(context.Context) ([]*model.Article, error) {
 	return r.articles, nil
 }
 
@@ -71,8 +80,8 @@ func (r *ArticleRepository) FindOneBySlug(
 	return nil, fmt.Errorf("article for slug `%s` not found", slug)
 }
 
-func (r *ArticleRepository) FindAllTags(context.Context) ([]string, error) {
-	return r.tags, nil
+func (r *ArticleRepository) FindAllTags(ctx context.Context) ([]string, error) {
+	return r.Tags(ctx), nil
 }
 
 func (r *ArticleRepository) FindByTag(

@@ -133,7 +133,8 @@ func (h articleRouter) renderAndPageArticles(
 }
 
 func (h articleRouter) links(w http.ResponseWriter, r *http.Request) {
-	render.Templ(w, r, view.ArchiveView(h.repo.TagInfo(r.Context())))
+	articles, _ := h.repo.FindAll(r.Context())
+	render.Templ(w, r, view.ArchiveView(len(articles), h.repo.TagInfo(r.Context())))
 }
 
 func (h articleRouter) Mount(server *http.ServeMux) {

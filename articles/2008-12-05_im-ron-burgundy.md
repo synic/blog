@@ -16,7 +16,7 @@ only at around 45% complete.
 
 -->
 
-<p><img src="http://www.vimtips.org/media/images/0d.jpg" align="right"> So
+<p><img src="/media/images/0d.jpg" align="right"> So
 yesterday, I started working on putting together a 16 drive storage machine
 that will serve as a temporary backup for the holidays.  The machine in
 question has a 3ware SATA RAID controller, which in turn has a configuration

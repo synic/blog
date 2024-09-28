@@ -73,11 +73,11 @@ considering the change:</p>
     </p>
     <p style='width: 100%; padding-bottom: 10px'>
 <center>
-<a href='http://www.vimtips.org/media/images/visualvoicemail.png'><img
-border='0' src='http://www.vimtips.org/media/images/visualvoicemail.png'
+<a href='/media/images/visualvoicemail.png'><img
+border='0' src='/media/images/visualvoicemail.png'
 width='200'></a>
-<a href='http://www.vimtips.org/media/images/visualvoicemailwarning.png'><img
-border='0' src='http://www.vimtips.org/media/images/visualvoicemailwarning.png'
+<a href='/media/images/visualvoicemailwarning.png'><img
+border='0' src='/media/images/visualvoicemailwarning.png'
 width='200'></a></center>
     </p>
 <div style='height: 20px'>&nbsp;</div>

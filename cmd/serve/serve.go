@@ -90,6 +90,7 @@ func main() {
 	wrapped := middleware.Wrap(server,
 		middleware.LoggingMiddleware(log.Default()),
 		middleware.IsHtmxPartialMiddleware(),
+		middleware.GzipMiddleware(),
 	)
 
 	if err = http.ListenAndServe(bind, wrapped); err != nil {

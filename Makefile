@@ -15,7 +15,7 @@ dev: install-devdeps
 		-build.cmd "make build" \
 		-build.bin "DEBUG=true ./bin/blog-debug serve" \
 		-build.delay "1000" \
-		-build.exclude_dir 'logs,node_modules,bin' \
+		-build.exclude_dir 'logs,node_modules,bin,cmd/serve/assets/css' \
 		-build.exclude_file 'Dockerfile,docker-compose.yaml' \
 		-build.exclude_regex '_test.go,.null-ls,_templ.go' \
 		-build.include_ext 'go,templ,css,json,js' \
@@ -69,7 +69,9 @@ vet:
 .PHONY: gen-syntax-css
 gen-syntax-css:
 	pygmentize -S catppuccin-mocha -f html -a .chroma \
-		> ${CSSDIR}/syntax.css
+		> internal/web/css/syntax.css
+	./node_modules/.bin/css-minify -f internal/web/css/syntax.css \
+		--output cmd/serve/assets/css
 
 .PHONY: mkdirs
 mkdirs:

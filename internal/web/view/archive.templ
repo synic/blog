@@ -67,8 +67,15 @@ templ ArchiveView(articleCount int, tags map[string]int) {
 				<p class="mt-0">
 					<ul class="flex flex-row flex-wrap p-0 m-0 list-none list-inside">
 						for _, t := range sortedTags(tags) {
-							<li class="py-0.5 px-1 mr-1 mb-1 text-center bg-gray-700 rounded border-gray-600 border-solid cursor-pointer">
-								<a class="px-1 no-underline" href={ templ.URL(fmt.Sprintf("/?tag=%s", t.tag)) }>
+							<li
+								class="py-0.5 px-1 mr-1 mb-1 text-center bg-gray-700 rounded border-gray-600 border-solid cursor-pointer"
+								hx-get={ fmt.Sprintf("/?tag=%s", t.tag) }
+								hx-target="#content"
+								hx-trigger="click"
+								id={ fmt.Sprintf("tag-link-%s", t.tag) }
+								hx-on::after-request="document.getElementById('search-nav').value = '';"
+							>
+								<a onclick="return false;" class="px-1 no-underline" href={ templ.URL(fmt.Sprintf("/?tag=%s", t.tag)) }>
 									{ t.tag } ({ fmt.Sprintf("%d",t.count) })
 								</a>
 							</li>

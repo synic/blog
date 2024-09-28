@@ -57,7 +57,7 @@ func navLink(url, label string) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" hx-on::after-request=\"document.getElementById(&#39;search&#39;).value = &#39;&#39;;\" class=\"py-3 text-center border-l border-gray-700 cursor-pointer hover:text-white hover:bg-gray-700 item-center w-22 last:md:rounded-tr-xl\"><a class=\"px-5 no-underline\" onclick=\"return false;\" href=\"")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" hx-on::after-request=\"document.getElementById(&#39;search-nav&#39;).value = &#39;&#39;;\" class=\"py-3 text-center border-l border-gray-700 cursor-pointer hover:text-white hover:bg-gray-700 item-center w-22 last:md:rounded-tr-xl\"><a class=\"px-5 no-underline\" onclick=\"return false;\" href=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

@@ -6,5 +6,8 @@
   "license": "MIT",
   "devDependencies": {
     "tailwindcss": "^3.4.10"
+  },
+  "dependencies": {
+    "css-minify": "^2.0.0"
   }
 }

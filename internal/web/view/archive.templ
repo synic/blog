@@ -47,6 +47,7 @@ templ ArchiveView(articleCount int, tags map[string]int) {
 					type="text"
 					name="search"
 					hx-post="/"
+					hx-swap="innerHTML show:window:top"
 					hx-target="#content"
 					hx-push-url="true"
 					hx-include="#search"
@@ -55,6 +56,7 @@ templ ArchiveView(articleCount int, tags map[string]int) {
 				<button
 					class="px-2 text-center text-gray-700 border-gray-700 bg-sky-700 text-slate-300"
 					hx-post="/"
+					hx-swap="innerHTML show:window:top"
 					hx-target="#content"
 					hx-push-url="true"
 					hx-include="#search"
@@ -71,6 +73,8 @@ templ ArchiveView(articleCount int, tags map[string]int) {
 								class="py-0.5 px-1 mr-1 mb-1 text-center bg-gray-700 rounded border-gray-600 border-solid cursor-pointer"
 								hx-get={ fmt.Sprintf("/?tag=%s", t.tag) }
 								hx-target="#content"
+								hx-swap="innerHTML show:window:top"
+								hx-push-url="true"
 								hx-trigger="click"
 								id={ fmt.Sprintf("tag-link-%s", t.tag) }
 								hx-on::after-request="document.getElementById('search-nav').value = '';"

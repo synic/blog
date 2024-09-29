@@ -137,7 +137,7 @@ func ArchiveView(articleCount int, tags map[string]int) templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"flex flex-col w-full\"><h2 class=\"mt-0 text-rose-500\">Archive</h2><div class=\"pb-4 grow\">Total articles: ")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"flex flex-col w-full\"><h1 class=\"mt-0 text-rose-500\">Archive</h1><div class=\"pb-4 grow\">Total articles: ")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

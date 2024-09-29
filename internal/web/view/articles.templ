@@ -22,7 +22,7 @@ templ ArticlesView(pd pagination.PageData) {
 	@BaseLayout("") {
 		if pd.Page <= 1 {
 			if (pd.Tag != "" || pd.Search != "") {
-				<h1 class="pb-0 mb-0 font-bold">
+				<h1 class="pb-0 my-0 font-bold">
 					if pd.Tag != "" {
 						Tag: { pd.Tag }
 					} else if pd.Search != "" {

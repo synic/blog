@@ -61,7 +61,7 @@ func ArticlesView(pd pagination.PageData) templ.Component {
 			ctx = templ.InitializeContext(ctx)
 			if pd.Page <= 1 {
 				if pd.Tag != "" || pd.Search != "" {
-					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<h1 class=\"pb-0 mt-3 mb-0 font-bold\">")
+					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<h1 class=\"pb-0 my-0 font-bold\">")
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}

@@ -45,7 +45,7 @@ func (Deps) Dev() error {
 			return err
 		}
 
-		if err = sh.Run("npm", "i"); err != nil {
+		if err = sh.RunV("npm", "i"); err != nil {
 			return err
 		}
 	}
@@ -59,25 +59,19 @@ func (Build) Dev() error {
 	mg.Deps(Codegen, Vet)
 
 	return sh.Run(
-		"go",
-		"build",
+		"go", "build",
 		"-race",
-		"-tags",
-		"debug",
-		"-o",
-		binDebug,
+		"-tags", "debug",
+		"-o", binDebug,
 		"./cmd/serve/serve.go",
 	)
 }
 
 func (Build) Release() error {
 	return sh.Run(
-		"go",
-		"build",
-		"-tags",
-		"release",
-		"-o",
-		binRelease,
+		"go", "build",
+		"-tags", "release",
+		"-o", binRelease,
 		"./cmd/serve/serve.go",
 	)
 }
@@ -89,45 +83,47 @@ func Codegen() error {
 		return err
 	}
 
-	return sh.Run(
+	return sh.RunV(
 		"./node_modules/.bin/tailwindcss",
 		"--postcss",
-		"-i",
-		"./internal/web/css/main.css",
-		"-o",
-		"./cmd/serve/assets/css/main.css",
+		"-i", "./internal/web/css/main.css",
+		"-o", "./cmd/serve/assets/css/main.css",
 		"--minify",
 	)
 }
 
 type Articles mg.Namespace
 
-func (Articles) Compile() error {
-	return sh.Run("go",
+func compileArticles(recompile bool) error {
+	args := []string{
 		"run",
 		"cmd/compile/compile.go",
-		"-i",
-		"./articles",
-		"-o",
-		"./cmd/serve/articles",
-	)
+		"-i", "articles",
+		"-o", "cmd/serve/articles",
+	}
+
+	if recompile {
+		args = append(args, "-recompile", "-v")
+	}
+
+	return sh.RunV("go", args...)
+}
+
+func (Articles) Compile() error {
+	return compileArticles(false)
 }
 
 func (Articles) Recompile() error {
-	return sh.Run("go",
-		"run",
-		"cmd/compile/compile.go",
-		"-i",
-		"./articles",
-		"-o",
-		"./cmd/serve/articles",
-		"-recompile",
-		"-v",
-	)
+	return compileArticles(true)
 }
 
 func Pygmentize() error {
-	data, err := sh.Output("pygmentize", "-S", cssTheme, "-f", "html", "-a", ".chroma")
+	data, err := sh.Output(
+		"pygmentize",
+		"-S", cssTheme,
+		"-f", "html",
+		"-a", ".chroma",
+	)
 
 	if err != nil {
 		return err
@@ -142,12 +138,10 @@ func Pygmentize() error {
 	f.WriteString(data)
 	f.Close()
 
-	return sh.Run(
+	return sh.RunV(
 		"./node_modules/.bin/css-minify",
-		"-f",
-		"./internal/web/css/syntax.css",
-		"--output",
-		"./cmd/serve/assets/css",
+		"-f", "./internal/web/css/syntax.css",
+		"--output", "./cmd/serve/assets/css",
 	)
 }
 

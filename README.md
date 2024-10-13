@@ -2,4 +2,9 @@
 
 View at [https://adamthings.me](https://adamthings.me)
 
-To run, type `make`
+To run, type the following:
+
+```bash
+$ go install github.com/magefile/mage@latest
+$ mage
+```

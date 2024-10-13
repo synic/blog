@@ -17,11 +17,16 @@ var (
 	airVersion   = "v1.49.0"
 	templVersion = "v0.2.778"
 
+	Default    = Dev
 	bin        = "./bin/blog"
 	binDebug   = fmt.Sprintf("%s-debug", bin)
 	binRelease = fmt.Sprintf("%s-release", bin)
 	cssTheme   = "catppuccin-mocha"
-	Default    = Dev
+
+	runCmd      = sh.RunCmd("go", "run")
+	buildCmd    = sh.RunCmd("go", "build")
+	tailwindCmd = sh.RunCmd("./node_modules/.bin/tailwindcss")
+	minifyCmd   = sh.RunCmd("./node_modules/.bin/css-minify")
 )
 
 func Dev() error {
@@ -58,33 +63,29 @@ type Build mg.Namespace
 func (Build) Dev() error {
 	mg.Deps(Codegen, Vet)
 
-	return sh.Run(
-		"go", "build",
-		"-race",
-		"-tags", "debug",
-		"-o", binDebug,
-		"./cmd/serve/serve.go",
-	)
+	return buildCmd("-race", "-tags", "debug", "-o", binDebug, "./cmd/serve/serve.go")
 }
 
 func (Build) Release() error {
-	return sh.Run(
-		"go", "build",
-		"-tags", "release",
-		"-o", binRelease,
-		"./cmd/serve/serve.go",
-	)
+	return buildCmd("-tags", "release", "-o", binRelease, "./cmd/serve/serve.go")
 }
 
 func Codegen() error {
 	mg.Deps(Deps.Dev)
 
-	if err := sh.Run("templ", "generate"); err != nil {
+	_, err := exec.LookPath("templ")
+
+	if err == nil {
+		err = sh.Run("templ", "generate")
+	} else {
+		err = runCmd(fmt.Sprintf("github.com/a-h/templ/cmd/templ@%s", templVersion), "generate")
+	}
+
+	if err != nil {
 		return err
 	}
 
-	return sh.RunV(
-		"./node_modules/.bin/tailwindcss",
+	return tailwindCmd(
 		"--postcss",
 		"-i", "./internal/web/css/main.css",
 		"-o", "./cmd/serve/assets/css/main.css",
@@ -138,10 +139,11 @@ func Pygmentize() error {
 	f.WriteString(data)
 	f.Close()
 
-	return sh.RunV(
-		"./node_modules/.bin/css-minify",
-		"-f", "./internal/web/css/syntax.css",
-		"--output", "./cmd/serve/assets/css",
+	return minifyCmd(
+		"-f",
+		"./internal/web/css/syntax.css",
+		"--output",
+		"./cmd/serve/assets/css",
 	)
 }
 

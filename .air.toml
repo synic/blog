@@ -3,7 +3,7 @@ tmp_dir = ".tmp"
 
 [build]
   bin = "bin/blog-debug"
-  full_bin = "DEBUG=true ./bin/blog-debug serve"
+  full_bin = "./bin/blog-debug serve"
   cmd = "mage build:dev"
   delay = 1000
   exclude_dir = ["logs", "bin", "node_modules", "cmd/serve/assets"]

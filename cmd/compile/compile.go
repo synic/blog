@@ -6,6 +6,7 @@ import (
 	"flag"
 	"fmt"
 	"os"
+	"path"
 	"path/filepath"
 	"strings"
 	"time"
@@ -70,8 +71,8 @@ func main() {
 			continue
 		}
 
-		in := fmt.Sprintf("%s/%s", *inputDir, file.Name())
-		out := fmt.Sprintf("%s/%s.json", *outputDir, strings.TrimSuffix(file.Name(), ext))
+		in := path.Join(*inputDir, file.Name())
+		out := path.Join(*outputDir, fmt.Sprintf("%s.json", strings.TrimSuffix(file.Name(), ext)))
 
 		shouldCompile, err := shouldCompile(in, out)
 

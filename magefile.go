@@ -6,44 +6,48 @@ import (
 	"errors"
 	"fmt"
 	"os"
-	"os/exec"
+	"path/filepath"
 
 	"github.com/magefile/mage/mg"
 	"github.com/magefile/mage/sh"
+	"github.com/synic/magex"
 )
 
 var (
 	// dev dependencies
-	airVersion   = "v1.49.0"
-	templVersion = "v0.2.778"
+	airVersion = "v1.49.0"
 
 	Default    = Dev
-	bin        = "./bin/blog"
+	bin        = filepath.FromSlash("bin/blog")
 	binDebug   = fmt.Sprintf("%s-debug", bin)
 	binRelease = fmt.Sprintf("%s-release", bin)
 	cssTheme   = "catppuccin-mocha"
 
 	runCmd      = sh.RunCmd("go", "run")
 	buildCmd    = sh.RunCmd("go", "build")
-	tailwindCmd = sh.RunCmd("./node_modules/.bin/tailwindcss")
-	minifyCmd   = sh.RunCmd("./node_modules/.bin/css-minify")
+	tailwindCmd = sh.RunCmd(filepath.FromSlash("node_modules/.bin/tailwindcss"))
+	minifyCmd   = sh.RunCmd(filepath.FromSlash("node_modules/.bin/css-minify"))
 
-	goCommands = map[string]GoCommand{
-		"air":   {url: "github.com/cosmtrek/air", version: airVersion},
-		"templ": {url: "github.com/a-h/templ/cmd/templ", version: templVersion},
-	}
+	// aliases
+	P = filepath.FromSlash
 )
 
 func Dev() error {
 	mg.Deps(Deps.Dev)
 
-	return runGoCmdWith(map[string]string{"DEBUG": "true"}, "air")
+	p, err := magex.MaybeInstallToolV("air", "github.com/cosmtrek/air", airVersion)
+
+	if err != nil {
+		return err
+	}
+
+	return sh.RunWithV(map[string]string{"DEBUG": "true"}, p)
 }
 
 type Deps mg.Namespace
 
 func (Deps) Dev() error {
-	if _, err := os.Stat("./node_modules/.bin/tailwindcss"); err != nil {
+	if _, err := os.Stat(P("node_modules/.bin/tailwindcss")); err != nil {
 		if !errors.Is(err, os.ErrNotExist) {
 			return err
 		}
@@ -62,17 +66,29 @@ func (Build) Dev() error {
 	mg.Deps(Codegen, Vet)
 	mg.Deps(Articles.Compile)
 
-	return buildCmd("-race", "-tags", "debug", "-o", binDebug, "./cmd/serve/serve.go")
+	return buildCmd("-race", "-tags", "debug", "-o", binDebug, P("cmd/serve/serve.go"))
 }
 
 func (Build) Release() error {
-	return buildCmd("-tags", "release", "-o", binRelease, "./cmd/serve/serve.go")
+	return buildCmd("-tags", "release", "-o", binRelease, P("cmd/serve/serve.go"))
 }
 
 func Codegen() error {
 	mg.Deps(Deps.Dev)
 
-	err := runGoCmd("templ", "generate")
+	version, err := magex.ModuleVersion("github.com/a-h/templ")
+
+	if err != nil {
+		return err
+	}
+
+	p, err := magex.MaybeInstallToolV("templ", "github.com/a-h/templ/cmd/templ", version)
+
+	if err != nil {
+		return err
+	}
+
+	err = sh.Run(p, "generate")
 
 	if err != nil {
 		return err
@@ -80,10 +96,8 @@ func Codegen() error {
 
 	return tailwindCmd(
 		"--postcss",
-		"-i",
-		"./internal/web/css/main.css",
-		"-o",
-		"./cmd/serve/assets/css/main.css",
+		"-i", P("internal/web/css/main.css"),
+		"-o", P("cmd/serve/assets/css/main.css"),
 		"--minify",
 	)
 }
@@ -91,7 +105,12 @@ func Codegen() error {
 type Articles mg.Namespace
 
 func compileArticles(recompile bool) error {
-	args := []string{"run", "cmd/compile/compile.go", "-i", "articles", "-o", "cmd/serve/articles"}
+	args := []string{
+		"run",
+		P("cmd/compile/compile.go"),
+		"-i", "articles",
+		"-o", P("cmd/serve/articles"),
+	}
 
 	if recompile {
 		args = append(args, "-recompile", "-v")
@@ -115,7 +134,7 @@ func Pygmentize() error {
 		return err
 	}
 
-	f, err := os.Create("./internal/web/css/syntax.css")
+	f, err := os.Create(P("internal/web/css/syntax.css"))
 
 	if err != nil {
 		return err
@@ -124,7 +143,7 @@ func Pygmentize() error {
 	f.WriteString(data)
 	f.Close()
 
-	return minifyCmd("-f", "./internal/web/css/syntax.css", "--output", "./cmd/serve/assets/css")
+	return minifyCmd("-f", P("internal/web/css/syntax.css"), "--output", P("cmd/serve/assets/css"))
 }
 
 func Vet() error {
@@ -133,54 +152,4 @@ func Vet() error {
 
 func Test() error {
 	return sh.Run("go", "test", "-race", "./...")
-}
-
-type GoCommand struct {
-	url     string
-	version string
-}
-
-// runGoCmd/runGoCmdWith  tries to run a go command
-//
-// It first tries to determine if the exutable is available in the path. If it
-// is, it tries to run it. If it's not, it tries to install it and then run it.
-func runGoCmdWith(env map[string]string, name string, args ...string) error {
-	_, err := exec.LookPath(name)
-
-	// if it is installed, try to run it
-	if err == nil {
-		err = sh.RunWithV(env, name, args...)
-
-		if err != nil {
-			return err
-		}
-
-		return nil
-	}
-
-	// if it's not installed, try to install it and then run it
-	info, ok := goCommands[name]
-
-	if !ok {
-		return fmt.Errorf("command not defined: %s", name)
-	}
-
-	fmt.Printf("command \"%s\" not found, attempting to install...\n", name)
-	err = sh.RunV("go", "install", fmt.Sprintf("%s@%s", info.url, info.version))
-
-	if err != nil {
-		return err
-	}
-
-	err = sh.RunWithV(env, name, args...)
-
-	if err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func runGoCmd(name string, args ...string) error {
-	return runGoCmdWith(nil, name, args...)
 }

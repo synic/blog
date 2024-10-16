@@ -3,11 +3,11 @@ package main
 import (
 	"embed"
 	"encoding/json"
-	"fmt"
 	"io/fs"
 	"log"
 	"net/http"
 	"os"
+	"path"
 	"path/filepath"
 	"time"
 
@@ -39,7 +39,7 @@ func main() {
 	for _, entry := range entries {
 		var article model.Article
 
-		name := fmt.Sprintf("articles/%s", entry.Name())
+		name := path.Join("articles", entry.Name())
 
 		if filepath.Ext(name) != ".json" {
 			continue

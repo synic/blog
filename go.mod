@@ -7,7 +7,6 @@ require (
 	github.com/air-verse/air v1.61.1
 	github.com/alecthomas/chroma/v2 v2.14.0
 	github.com/magefile/mage v1.15.0
-	github.com/synic/magex v0.0.6
 	github.com/yuin/goldmark v1.7.4
 	github.com/yuin/goldmark-highlighting/v2 v2.0.0-20230729083705-37449abec8cc
 )

@@ -11,23 +11,26 @@ import (
 
 	"github.com/magefile/mage/mg"
 	"github.com/magefile/mage/sh"
-	"github.com/synic/magex"
 )
 
 var (
-	// dev dependencies
-	airVersion = "v1.49.0"
+	Default  = Dev
+	cssTheme = "catppuccin-mocha"
 
-	Default           = Dev
-	binPath           = "bin"
-	debugExecutable   = path.Join(binPath, "blog-debug")
-	releaseExecutable = path.Join(binPath, "blog-release")
-	cssTheme          = "catppuccin-mocha"
-
+	// paths
+	binPath     = "bin"
+	debugPath   = path.Join(binPath, "blog-debug")
+	releasePath = path.Join(binPath, "blog-release")
 	runCmd      = sh.RunCmd("go", "run")
 	buildCmd    = sh.RunCmd("go", "build")
 	tailwindCmd = sh.RunCmd(filepath.FromSlash("node_modules/.bin/tailwindcss"))
 	minifyCmd   = sh.RunCmd(filepath.FromSlash("node_modules/.bin/css-minify"))
+
+	// required command line tools (versions are specified in go.mod)
+	tools = map[string]string{
+		"air":   "github.com/air-verse/air",
+		"templ": "github.com/a-h/templ/cmd/templ",
+	}
 
 	// aliases
 	P = filepath.FromSlash
@@ -36,34 +39,34 @@ var (
 func Dev() error {
 	mg.Deps(Deps.Dev)
 
-	return sh.RunWithV(map[string]string{"DEBUG": "true"}, path.Join(binPath, "air"))
+	return sh.RunV(path.Join(binPath, "air"))
 }
 
 type Deps mg.Namespace
 
 func (Deps) Dev() error {
-	_, err := magex.MaybeInstallToolToDestination(
-		"air",
-		"github.com/cosmtrek/air",
-		airVersion,
-		binPath,
-	)
-
-	version, err := magex.ModuleVersion("github.com/a-h/templ")
+	gobin, err := filepath.Abs(binPath)
 
 	if err != nil {
 		return err
 	}
 
-	_, err = magex.MaybeInstallToolToDestination(
-		"templ",
-		"github.com/a-h/templ/cmd/templ",
-		version,
-		binPath,
-	)
+	for name, location := range tools {
+		_, err = os.Stat(path.Join(binPath, name))
 
-	if err != nil {
-		return err
+		if err == nil {
+			continue
+		} else if !errors.Is(err, os.ErrNotExist) {
+			return err
+		}
+
+		fmt.Printf("installing tool %s ...\n", location)
+		err = sh.RunWithV(map[string]string{"GOBIN": gobin}, "go", "install", location)
+
+		if err != nil {
+			return err
+		}
+
 	}
 
 	if _, err := os.Stat(P("node_modules/.bin/tailwindcss")); err != nil {
@@ -85,11 +88,11 @@ func (Build) Dev() error {
 	mg.Deps(Codegen, Vet)
 	mg.Deps(Articles.Compile)
 
-	return buildCmd("-race", "-tags", "debug", "-o", debugExecutable, P("cmd/serve/serve.go"))
+	return buildCmd("-race", "-tags", "debug", "-o", debugPath, P("cmd/serve/serve.go"))
 }
 
 func (Build) Release() error {
-	return buildCmd("-tags", "release", "-o", releaseExecutable, P("cmd/serve/serve.go"))
+	return buildCmd("-tags", "release", "-o", releasePath, P("cmd/serve/serve.go"))
 }
 
 func Codegen() error {
@@ -162,11 +165,14 @@ func Test() error {
 }
 
 func Clean() error {
-	files := []string{debugExecutable, releaseExecutable}
+	files, err := os.ReadDir(binPath)
+
+	if err != nil {
+		return err
+	}
 
 	for _, file := range files {
-		fmt.Printf("removing %s ...\n", file)
-		err := sh.Rm(file)
+		err := sh.Rm(path.Join(binPath, file.Name()))
 
 		if err != nil {
 			return err

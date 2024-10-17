@@ -6,6 +6,7 @@ import (
 	"errors"
 	"fmt"
 	"os"
+	"path"
 	"path/filepath"
 
 	"github.com/magefile/mage/mg"
@@ -17,11 +18,11 @@ var (
 	// dev dependencies
 	airVersion = "v1.49.0"
 
-	Default    = Dev
-	bin        = filepath.FromSlash("bin/blog")
-	binDebug   = fmt.Sprintf("%s-debug", bin)
-	binRelease = fmt.Sprintf("%s-release", bin)
-	cssTheme   = "catppuccin-mocha"
+	Default           = Dev
+	binPath           = "bin"
+	debugExecutable   = path.Join(binPath, "blog-debug")
+	releaseExecutable = path.Join(binPath, "blog-release")
+	cssTheme          = "catppuccin-mocha"
 
 	runCmd      = sh.RunCmd("go", "run")
 	buildCmd    = sh.RunCmd("go", "build")
@@ -35,18 +36,36 @@ var (
 func Dev() error {
 	mg.Deps(Deps.Dev)
 
-	p, err := magex.MaybeInstallToolV("air", "github.com/cosmtrek/air", airVersion)
-
-	if err != nil {
-		return err
-	}
-
-	return sh.RunWithV(map[string]string{"DEBUG": "true"}, p)
+	return sh.RunWithV(map[string]string{"DEBUG": "true"}, path.Join(binPath, "air"))
 }
 
 type Deps mg.Namespace
 
 func (Deps) Dev() error {
+	_, err := magex.MaybeInstallToolToDestination(
+		"air",
+		"github.com/cosmtrek/air",
+		airVersion,
+		binPath,
+	)
+
+	version, err := magex.ModuleVersion("github.com/a-h/templ")
+
+	if err != nil {
+		return err
+	}
+
+	_, err = magex.MaybeInstallToolToDestination(
+		"templ",
+		"github.com/a-h/templ/cmd/templ",
+		version,
+		binPath,
+	)
+
+	if err != nil {
+		return err
+	}
+
 	if _, err := os.Stat(P("node_modules/.bin/tailwindcss")); err != nil {
 		if !errors.Is(err, os.ErrNotExist) {
 			return err
@@ -66,29 +85,17 @@ func (Build) Dev() error {
 	mg.Deps(Codegen, Vet)
 	mg.Deps(Articles.Compile)
 
-	return buildCmd("-race", "-tags", "debug", "-o", binDebug, P("cmd/serve/serve.go"))
+	return buildCmd("-race", "-tags", "debug", "-o", debugExecutable, P("cmd/serve/serve.go"))
 }
 
 func (Build) Release() error {
-	return buildCmd("-tags", "release", "-o", binRelease, P("cmd/serve/serve.go"))
+	return buildCmd("-tags", "release", "-o", releaseExecutable, P("cmd/serve/serve.go"))
 }
 
 func Codegen() error {
 	mg.Deps(Deps.Dev)
 
-	version, err := magex.ModuleVersion("github.com/a-h/templ")
-
-	if err != nil {
-		return err
-	}
-
-	p, err := magex.MaybeInstallToolV("templ", "github.com/a-h/templ/cmd/templ", version)
-
-	if err != nil {
-		return err
-	}
-
-	err = sh.Run(p, "generate")
+	err := sh.Run(path.Join(binPath, "templ"), "generate")
 
 	if err != nil {
 		return err
@@ -152,4 +159,19 @@ func Vet() error {
 
 func Test() error {
 	return sh.Run("go", "test", "-race", "./...")
+}
+
+func Clean() error {
+	files := []string{debugExecutable, releaseExecutable}
+
+	for _, file := range files {
+		fmt.Printf("removing %s ...\n", file)
+		err := sh.Rm(file)
+
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }

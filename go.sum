@@ -23,8 +23,8 @@ github.com/magefile/mage v1.15.0/go.mod h1:z5UZb/iS3GoOSn0JgWuiw7dxlurVYTu+/jHXq
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
 github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
 github.com/stretchr/testify v1.7.0/go.mod h1:6Fq8oRcR53rry900zMqJjRRixrwX3KX962/h/Wwjteg=
-github.com/synic/magex v0.0.2 h1:FWQOPzAQSfiKCY0MTZ48V0QccgN8kXhdZoQbEaDxvLQ=
-github.com/synic/magex v0.0.2/go.mod h1:O5NvHrnZx+Jr2P1zrAi5WZR8IU3+SjCC87Hkzf2NsG4=
+github.com/synic/magex v0.0.6 h1:ZvHfPOZcuxtvxmlStjHFxfA7paPepAR046Om0/F/RJM=
+github.com/synic/magex v0.0.6/go.mod h1:O5NvHrnZx+Jr2P1zrAi5WZR8IU3+SjCC87Hkzf2NsG4=
 github.com/yuin/goldmark v1.4.15/go.mod h1:6yULJ656Px+3vBD8DxQVa3kxgyrAnzto9xy5taEt/CY=
 github.com/yuin/goldmark v1.7.0 h1:EfOIvIMZIzHdB/R/zVrikYLPPwJlfMcNczJFMs1m6sA=
 github.com/yuin/goldmark v1.7.0/go.mod h1:uzxRWxtg69N339t3louHJ7+O03ezfj6PlliRlaOzY1E=

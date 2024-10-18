@@ -92,7 +92,15 @@ func (Build) Dev() error {
 }
 
 func (Build) Release() error {
-	return buildCmd("-tags", "release", "-o", releasePath, P("cmd/serve/serve.go"))
+	return buildCmd(
+		"-tags",
+		"release",
+		"-ldflags",
+		"\"-s -w\"",
+		"-o",
+		releasePath,
+		P("cmd/serve/serve.go"),
+	)
 }
 
 func Codegen() error {
@@ -172,6 +180,10 @@ func Clean() error {
 	}
 
 	for _, file := range files {
+		if file.Name() == ".gitkeep" {
+			continue
+		}
+
 		err := sh.Rm(path.Join(binPath, file.Name()))
 
 		if err != nil {

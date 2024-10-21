@@ -87,6 +87,7 @@ func main() {
 	log.Printf("Serving on %s...", bind)
 
 	wrapped := middleware.Wrap(server,
+		middleware.AddContextData(map[string]any{"staticFS": assetFiles}),
 		middleware.LoggingMiddleware(log.Default()),
 		middleware.IsHtmxPartialMiddleware(),
 		middleware.GzipMiddleware(),

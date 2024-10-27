@@ -137,7 +137,7 @@ func ArchiveView(articleCount int, tags map[string]int) templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"flex flex-col w-full\"><h1 class=\"mt-0 text-rose-500\">Archive</h1><div class=\"pb-4 grow\">Total articles: ")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"flex flex-col w-full\" hx-swap=\"innerHTML show:window:top\" hx-target=\"#content\" hx-push-url=\"true\"><h1 class=\"mt-0 text-rose-500\">Archive</h1><div class=\"pb-4 grow\">Total articles: ")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -150,43 +150,30 @@ func ArchiveView(articleCount int, tags map[string]int) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><div class=\"block pb-4 md:hidden grow\" hx-on::after-request=\"document.getElementById(&#39;search&#39;).value = &#39;&#39;;\"><input class=\"flex-auto px-2 font-normal bg-gray-700 rounded border border-gray-600 border-solid outline-gray-600 max-w-56\" placeholder=\"Search...\" type=\"text\" name=\"search\" hx-post=\"/\" hx-swap=\"innerHTML show:window:top\" hx-target=\"#content\" hx-push-url=\"true\" hx-include=\"#search\" id=\"search\"> <button class=\"px-2 text-center text-gray-700 border-gray-700 bg-sky-700 text-slate-300\" hx-post=\"/\" hx-swap=\"innerHTML show:window:top\" hx-target=\"#content\" hx-push-url=\"true\" hx-include=\"#search\">Go</button></div><div class=\"pb-4 grow\"><h2 class=\"mt-0 text-rose-500 md:hidden\">Tags</h2><p class=\"mt-0\"><ul class=\"flex flex-row flex-wrap p-0 m-0 list-none list-inside\">")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><div class=\"block pb-4 md:hidden grow\" hx-on::after-request=\"document.getElementById(&#39;search&#39;).value = &#39;&#39;;\" hx-include=\"#search\"><form method=\"post\" action=\"/\" hx-boost=\"true\"><input class=\"flex-auto px-2 font-normal bg-gray-700 rounded border border-gray-600 border-solid outline-gray-600 max-w-56\" placeholder=\"Search...\" type=\"text\" name=\"search\" hx-post=\"/\" id=\"search\"> <button class=\"px-2 text-center text-gray-700 border-gray-700 bg-sky-700 text-slate-300\" type=\"submit\" hx-post=\"/\" hx-trigger=\"click consume\">Go</button></form></div><div class=\"pb-4 grow\"><h2 class=\"mt-0 text-rose-500 md:hidden\">Tags</h2><p class=\"mt-0\"><ul class=\"flex flex-row flex-wrap p-0 m-0 list-none list-inside\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			for _, t := range sortedTags(tags) {
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<li class=\"py-0.5 px-1 mr-1 mb-1 text-center bg-gray-700 rounded border-gray-600 border-solid cursor-pointer\" hx-get=\"")
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<li class=\"py-0.5 px-1 mr-1 mb-1 text-center bg-gray-700 rounded border-gray-600 border-solid cursor-pointer\" id=\"")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 				var templ_7745c5c3_Var9 string
-				templ_7745c5c3_Var9, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf("/?tag=%s", t.tag))
+				templ_7745c5c3_Var9, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf("tag-link-%s", t.tag))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/web/view/archive.templ`, Line: 74, Col: 47}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/web/view/archive.templ`, Line: 71, Col: 46}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var9))
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" hx-target=\"#content\" hx-swap=\"innerHTML show:window:top\" hx-push-url=\"true\" hx-trigger=\"click\" id=\"")
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" hx-on::after-request=\"document.getElementById(&#39;search-nav&#39;).value = &#39;&#39;;\"><a hx-boost=\"true\" class=\"px-1 no-underline hover:underline\" href=\"")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				var templ_7745c5c3_Var10 string
-				templ_7745c5c3_Var10, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf("tag-link-%s", t.tag))
-				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/web/view/archive.templ`, Line: 79, Col: 46}
-				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var10))
-				if templ_7745c5c3_Err != nil {
-					return templ_7745c5c3_Err
-				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" hx-on::after-request=\"document.getElementById(&#39;search-nav&#39;).value = &#39;&#39;;\"><a onclick=\"return false;\" class=\"px-1 no-underline\" href=\"")
-				if templ_7745c5c3_Err != nil {
-					return templ_7745c5c3_Err
-				}
-				var templ_7745c5c3_Var11 templ.SafeURL = templ.URL(fmt.Sprintf("/?tag=%s", t.tag))
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(string(templ_7745c5c3_Var11)))
+				var templ_7745c5c3_Var10 templ.SafeURL = templ.URL(fmt.Sprintf("/?tag=%s", t.tag))
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(string(templ_7745c5c3_Var10)))
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
@@ -194,12 +181,12 @@ func ArchiveView(articleCount int, tags map[string]int) templ.Component {
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				var templ_7745c5c3_Var12 string
-				templ_7745c5c3_Var12, templ_7745c5c3_Err = templ.JoinStringErrs(t.tag)
+				var templ_7745c5c3_Var11 string
+				templ_7745c5c3_Var11, templ_7745c5c3_Err = templ.JoinStringErrs(t.tag)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/web/view/archive.templ`, Line: 83, Col: 16}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/web/view/archive.templ`, Line: 75, Col: 16}
 				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var12))
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var11))
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
@@ -207,12 +194,12 @@ func ArchiveView(articleCount int, tags map[string]int) templ.Component {
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				var templ_7745c5c3_Var13 string
-				templ_7745c5c3_Var13, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf("%d", t.count))
+				var templ_7745c5c3_Var12 string
+				templ_7745c5c3_Var12, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf("%d", t.count))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/web/view/archive.templ`, Line: 83, Col: 47}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/web/view/archive.templ`, Line: 75, Col: 47}
 				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var13))
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var12))
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}

@@ -4,23 +4,25 @@ import "fmt"
 
 templ navLink(url, label string) {
 	<li
-		hx-get={ url }
-		hx-target="#content"
-		hx-push-url="true"
-		hx-trigger="click"
-		hx-swap="innerHTML show:window:top"
+		hx-get={ string(templ.URL(url)) }
 		id={ fmt.Sprintf("nav-link-%s", label) }
 		hx-on::after-request="document.getElementById('search-nav').value = '';"
 		class="py-3 text-center border-l border-gray-700 cursor-pointer hover:text-white hover:bg-gray-700 item-center w-22 last:md:rounded-tr-xl"
 	>
-		<a class="px-5 no-underline" onclick="return false;" href={ templ.URL(url) }>
+		<a class="px-5 no-underline" hx-boost="true" hx-trigger="click consume" href={ templ.URL(url) }>
 			{ label }
 		</a>
 	</li>
 }
 
 templ NavigationLinks() {
-	<ul class="flex flex-row content-end p-0 m-0 list-none list-inside grow-0 shrink">
+	<ul
+		class="flex flex-row content-end p-0 m-0 list-none list-inside grow-0 shrink"
+		hx-target="#content"
+		hx-push-url="true"
+		hx-trigger="click"
+		hx-swap="innerHTML show:window:top"
+	>
 		@navLink("/archive/", "Archive")
 	</ul>
 }

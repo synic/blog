@@ -5,17 +5,106 @@ import (
 	"github.com/synic/adamthings.me/internal/web/pagination"
 )
 
-func htxmLoadingAttrs(isLast bool, pd pagination.PageData) templ.Attributes {
-	attrs := templ.Attributes{}
+func pageButtonBaseAttrs(disabled bool) []string {
+	attrs := []string{
+		"flex",
+		"flex-none",
+		"justify-center",
+		"items-center",
+		"text-center",
+		"border",
+		"border-gray-700",
+		"cursor-pointer",
+		"size-8",
+	}
 
-	if isLast && pd.TotalPages > pd.Page-1 {
-		attrs["hx-get"] = fmt.Sprintf("/?page=%d&perPage=%d&search=%s&tag=%s", pd.Page+1, pd.PerPage, pd.Search, pd.Tag)
-		attrs["hx-trigger"] = "revealed"
-		attrs["hx-swap"] = "afterend"
-		attrs["hx-indicator"] = "#articles-loading-indicator"
+	if !disabled {
+		attrs = append(attrs, "hover:text-white", "hover:bg-gray-700")
+	} else {
+		attrs = append(attrs, "text-slate-500")
 	}
 
 	return attrs
+
+}
+
+func pageButtonAttrs(pd pagination.PageData, i int) []string {
+	attrs := append(pageButtonBaseAttrs(false),
+		"border",
+		"border-gray-700",
+	)
+
+	if i+1 == pd.Page {
+		attrs = append(attrs, "text-white", "bg-gray-700")
+	}
+
+	return attrs
+}
+
+func pageButtonPrevAttrs(pd pagination.PageData) []string {
+	attrs := append(pageButtonBaseAttrs(pd.Page <= 1),
+		"rounded-l-lg",
+	)
+
+	return attrs
+}
+
+func pageButtonNextAttrs(pd pagination.PageData) []string {
+	attrs := append(pageButtonBaseAttrs(pd.Page >= pd.TotalPages),
+		"rounded-r-lg",
+	)
+
+	return attrs
+}
+
+templ pageButtons(pd pagination.PageData) {
+	<div class="flex justify-center items-center mx-auto w-full">
+		<ul
+			class="flex flex-row flex-wrap p-0 list-none list-inside no-underline"
+			hx-target="#content"
+			hx-swap="innerHTML show:window:top"
+			hx-trigger="click consume"
+			hx-push-url="true"
+			hx-boost="true"
+		>
+			<li
+				if pd.Page > 1 {
+					hx-get={ string(templ.URL(fmt.Sprintf("/?page=%d&perPage=%d&search=%s&tag=%s", pd.Page-1, pd.PerPage, pd.Search, pd.Tag))) }
+				}
+				class={ pageButtonPrevAttrs(pd) }
+			>
+				<a
+					if pd.Page >1 {
+						href={ templ.URL(fmt.Sprintf("/?page=%d&perPage=%d&search=%s&tag=%s", pd.Page-1, pd.PerPage, pd.Search, pd.Tag)) }
+					}
+					class="no-underline"
+				>❮</a>
+			</li>
+			for i := range pd.TotalPages {
+				<li
+					hx-get={ string(templ.URL(fmt.Sprintf("/?page=%d&perPage=%d&search=%s&tag=%s", i+1, pd.PerPage, pd.Search, pd.Tag))) }
+					class={ pageButtonAttrs(pd, i) }
+				>
+					<a href={ templ.URL(fmt.Sprintf("/?page=%d&perPage=%d&search=%s&tag=%s", i+1, pd.PerPage, pd.Search, pd.Tag)) } class="no-underline">
+						{ fmt.Sprint(i+1) }
+					</a>
+				</li>
+			}
+			<li
+				if pd.Page < pd.TotalPages {
+					hx-get={ string(templ.URL(fmt.Sprintf("/?page=%d&perPage=%d&search=%s&tag=%s", pd.Page+1, pd.PerPage, pd.Search, pd.Tag))) }
+				}
+				class={ pageButtonNextAttrs(pd) }
+			>
+				<a
+					if pd.Page < pd.TotalPages {
+						href={ templ.URL(fmt.Sprintf("/?page=%d&perPage=%d&search=%s&tag=%s", pd.Page+1, pd.PerPage, pd.Search, pd.Tag)) }
+					}
+					class="no-underline"
+				>❯</a>
+			</li>
+		</ul>
+	</div>
 }
 
 templ ArticlesView(pd pagination.PageData) {
@@ -39,21 +128,19 @@ templ ArticlesView(pd pagination.PageData) {
 			}
 		}
 		for i, a := range pd.Items {
-			<div { htxmLoadingAttrs(i >= len(pd.Items) - 1, pd)... }>
-				<div
-					class="cursor-pointer"
-					id={ fmt.Sprintf("article-%s", a.Slug) }
-					hx-get={ string(articleURL(a)) }
-					hx-target="#content"
-					hx-swap="innerHTML show:window:top"
-					hx-push-url="true"
-					hx-trigger="click"
-				>
+			<div
+				hx-target="#content"
+				hx-swap="innerHTML scroll:top"
+				hx-push-url="true"
+				hx-trigger="click"
+			>
+				<div class="cursor-pointer" id={ fmt.Sprintf("article-%s", a.Slug) } hx-get={ string(articleURL(a)) }>
 					<div>
 						<a
-							class="font-bold no-underline"
+							class="font-bold text-rose-500 no-underline hover:underline"
 							href={ articleURL(a) }
-							onclick="return false;"
+							hx-boost="true"
+							hx-trigger="click consume"
 						>
 							<h1 class={ "text-rose-500", templ.KV("mt-0", i == 0) }>
 								{ a.Title }
@@ -72,30 +159,19 @@ templ ArticlesView(pd pagination.PageData) {
 					<div class="mt-3 mdgen">
 						@templ.Raw(a.Summary)
 					</div>
-					<a
-						hx-get={ string(articleURL(a)) }
-						hx-target="#content"
-						hx-swap="innerHTML show:top"
-						hx-push-url="true"
-						hx-trigger="click"
-						href={ articleURL(a) }
-						onclick="return false;"
-					>
+					<a hx-get={ string(articleURL(a)) } hx-boost="true" href={ articleURL(a) } hx-trigger="click consume">
 						<i class="text-sm">Read more...</i>
 					</a>
 				</div>
-				if i < len(pd.Items) - 1 || pd.Page <= pd.TotalPages {
+				if i < len(pd.Items) - 1 || pd.TotalPages > 1 {
 					<hr class="my-8 h-px bg-gray-200 border-0 dark:bg-gray-700"/>
 				}
 			</div>
 		}
-		if pd.Page == 1 {
-			if len(pd.Items) <= 0 {
-				No articles found.
-			}
-			<div id="articles-loading-indicator" class="w-full text-center htmx-indicator">
-				Loading more...
-			</div>
+		if len(pd.Items) <= 0 {
+			No articles found.
+		} else if pd.TotalPages > 1 {
+			@pageButtons(pd)
 		}
 	}
 }

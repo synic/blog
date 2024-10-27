@@ -1,4 +1,4 @@
-package route
+package web
 
 import (
 	"log"
@@ -8,7 +8,6 @@ import (
 	"github.com/synic/adamthings.me/internal/model"
 	"github.com/synic/adamthings.me/internal/store"
 	"github.com/synic/adamthings.me/internal/web/pagination"
-	"github.com/synic/adamthings.me/internal/web/render"
 	"github.com/synic/adamthings.me/internal/web/view"
 )
 
@@ -71,7 +70,7 @@ func (h articleRouter) index(w http.ResponseWriter, r *http.Request) {
 
 	if err != nil {
 		log.Printf("error finding articles: %s", err)
-		render.Error(w, r, 404, "Not Found", "Sorry, no articles could be found.")
+		Error(w, r, 404, "Not Found", "Sorry, no articles could be found.")
 		return
 	}
 
@@ -83,11 +82,11 @@ func (h articleRouter) article(w http.ResponseWriter, r *http.Request) {
 	article, err := h.repo.FindOneBySlug(r.Context(), slug)
 
 	if err != nil {
-		render.Error(w, r, 404, "Not Found", "Sorry, that article could not be found.")
+		Error(w, r, 404, "Not Found", "Sorry, that article could not be found.")
 		return
 	}
 
-	render.Templ(w, r, view.ArticleView(article))
+	Templ(w, r, view.ArticleView(article))
 }
 
 func (h articleRouter) renderAndPageArticles(
@@ -117,7 +116,7 @@ func (h articleRouter) renderAndPageArticles(
 	start := min(max(0, page*perPage), len(articles))
 	end := min(max(0, start+perPage), len(articles))
 
-	render.Templ(
+	Templ(
 		w, r,
 		view.ArticlesView(
 			pagination.PageData{
@@ -134,7 +133,7 @@ func (h articleRouter) renderAndPageArticles(
 
 func (h articleRouter) links(w http.ResponseWriter, r *http.Request) {
 	articles, _ := h.repo.FindAll(r.Context())
-	render.Templ(w, r, view.ArchiveView(len(articles), h.repo.TagInfo(r.Context())))
+	Templ(w, r, view.ArchiveView(len(articles), h.repo.TagInfo(r.Context())))
 }
 
 func (h articleRouter) Mount(server *http.ServeMux) {

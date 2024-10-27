@@ -46,7 +46,7 @@ func BaseLayout(title string) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<title>Adam's Blog</title><link rel=\"icon\" href=\"data:,\"></head><body id=\"body\" class=\"flex flex-col justify-center bg-gray-900 lg:px-9 lg:pt-7\"><div class=\"flex flex-col justify-center items-center lg:p-6\"><div class=\"mb-3 w-full max-w-4xl bg-gray-800 shadow-xl sm:max-w-full md:max-w-4xl md:rounded-xl lg:max-w-6xl text-slate-300\"><div class=\"flex flex-row flex-nowrap pl-6 rounded-md shadow-md\"><div class=\"justify-start py-3 cursor-pointer shrink\" hx-get=\"/\" hx-push-url=\"true\" hx-on::after-request=\"document.getElementById(&#39;search-nav&#39;).value = &#39;&#39;;\" hx-trigger=\"click\" hx-target=\"#content\"><span class=\"font-bold text-sky-700\">::/</span> Adam's Things</div><div class=\"grow\">&nbsp;</div><input class=\"hidden flex-auto px-2 my-2 mr-4 font-normal bg-gray-700 rounded border border-gray-600 border-solid md:block outline-gray-600 max-w-56\" placeholder=\"Search...\" type=\"text\" name=\"search\" id=\"search-nav\" hx-post=\"/\" hx-trigger=\"input changed delay:200ms, search\" hx-target=\"#content\" hx-swap=\"innerHTML show:window:top\" hx-push-url=\"true\">")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<title>Adam's Blog</title><link rel=\"icon\" href=\"data:,\"></head><body id=\"body\" class=\"flex flex-col justify-center bg-gray-900 lg:px-9 lg:pt-7\"><div class=\"flex flex-col justify-center items-center lg:p-6\"><div class=\"mb-3 w-full max-w-4xl bg-gray-800 shadow-xl sm:max-w-full md:max-w-4xl md:rounded-xl lg:max-w-6xl text-slate-300\"><form method=\"post\" action=\"/\" hx-boost=\"true\" hx-target=\"#content\" hx-push-url=\"true\" hx-swap=\"innerHTML show:window:top\" class=\"flex flex-row flex-nowrap pl-6 rounded-md shadow-md\"><div class=\"justify-start py-3 cursor-pointer shrink\" hx-get=\"/\" hx-on::after-request=\"document.getElementById(&#39;search-nav&#39;).value = &#39;&#39;;\" hx-trigger=\"click\"><a href=\"/\" hx-boost=\"true\" hx-trigger=\"click consume\" class=\"no-underline\"><span class=\"font-bold text-sky-700\">::/</span> Adam's Things</a></div><div class=\"grow\">&nbsp;</div><input class=\"hidden flex-auto px-2 my-2 mr-4 font-normal bg-gray-700 rounded border border-gray-600 border-solid md:inline outline-gray-600 max-w-56\" placeholder=\"Search...\" type=\"text\" name=\"search\" id=\"search-nav\" hx-post=\"/\" hx-trigger=\"input changed delay:200ms, search\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -54,7 +54,7 @@ func BaseLayout(title string) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><div id=\"content\" class=\"p-6\">")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</form><div id=\"content\" class=\"p-6\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

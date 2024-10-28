@@ -125,7 +125,7 @@ type Articles mg.Namespace
 func compileArticles(recompile bool) error {
 	args := []string{
 		"run",
-		P("cmd/compile/compile.go"),
+		P("./cmd/compile/"),
 		"-i", "articles",
 		"-o", P("cmd/serve/articles"),
 	}

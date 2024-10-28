@@ -1,4 +1,4 @@
-package parser
+package main
 
 import (
 	"errors"
@@ -9,11 +9,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/synic/adamthings.me/internal/markdown"
 	"github.com/synic/adamthings.me/internal/model"
 )
 
-var markdownRenderer = markdown.New()
+var markdown = newMarkdownRenderer()
 
 func parseArticleMetadataBlock(content string) (string, error) {
 	r := regexp.MustCompile(`(?s)<!-- :metadata:(.*?)-->`)
@@ -69,7 +68,7 @@ func parseArticlePublishedAtFromMetadata(block string) (time.Time, bool, error) 
 	return t, true, nil
 }
 
-func Parse(name string) (*model.Article, error) {
+func parseArticle(name string) (*model.Article, error) {
 	content, err := os.ReadFile(name)
 
 	if err != nil {
@@ -107,13 +106,13 @@ func Parse(name string) (*model.Article, error) {
 		return nil, fmt.Errorf("unable to parse publish date: %w", err)
 	}
 
-	summaryHtml, err := markdownRenderer.MarkdownToHtml(summary)
+	summaryHtml, err := markdown.MarkdownToHtml(summary)
 
 	if err != nil {
 		return nil, fmt.Errorf("error converting article summary to html: %w", err)
 	}
 
-	bodyHtml, err := markdownRenderer.MarkdownToHtml(data)
+	bodyHtml, err := markdown.MarkdownToHtml(data)
 
 	if err != nil {
 		return nil, fmt.Errorf("error converting article body to html: %w", err)

@@ -10,7 +10,7 @@ import templruntime "github.com/a-h/templ/runtime"
 
 import (
 	"fmt"
-	"github.com/synic/adamthings.me/internal/web/pagination"
+	"github.com/synic/adamthings.me/internal/web"
 )
 
 func pageButtonBaseAttrs(disabled bool) []string {
@@ -36,7 +36,7 @@ func pageButtonBaseAttrs(disabled bool) []string {
 
 }
 
-func pageButtonAttrs(pd pagination.PageData, i int) []string {
+func pageButtonAttrs(pd web.PageData, i int) []string {
 	attrs := append(pageButtonBaseAttrs(false),
 		"border",
 		"border-gray-700",
@@ -49,7 +49,7 @@ func pageButtonAttrs(pd pagination.PageData, i int) []string {
 	return attrs
 }
 
-func pageButtonPrevAttrs(pd pagination.PageData) []string {
+func pageButtonPrevAttrs(pd web.PageData) []string {
 	attrs := append(pageButtonBaseAttrs(pd.Page <= 1),
 		"rounded-l-lg",
 	)
@@ -57,7 +57,7 @@ func pageButtonPrevAttrs(pd pagination.PageData) []string {
 	return attrs
 }
 
-func pageButtonNextAttrs(pd pagination.PageData) []string {
+func pageButtonNextAttrs(pd web.PageData) []string {
 	attrs := append(pageButtonBaseAttrs(pd.Page >= pd.TotalPages),
 		"rounded-r-lg",
 	)
@@ -65,7 +65,7 @@ func pageButtonNextAttrs(pd pagination.PageData) []string {
 	return attrs
 }
 
-func pageButtons(pd pagination.PageData) templ.Component {
+func pageButtons(pd web.PageData) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
@@ -281,7 +281,7 @@ func pageButtons(pd pagination.PageData) templ.Component {
 	})
 }
 
-func ArticlesView(pd pagination.PageData) templ.Component {
+func ArticlesView(pd web.PageData) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
@@ -394,9 +394,9 @@ func ArticlesView(pd pagination.PageData) templ.Component {
 					return templ_7745c5c3_Err
 				}
 				var templ_7745c5c3_Var21 string
-				templ_7745c5c3_Var21, templ_7745c5c3_Err = templ.JoinStringErrs(string(articleURL(a)))
+				templ_7745c5c3_Var21, templ_7745c5c3_Err = templ.JoinStringErrs(string(a.SafeURL()))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/web/view/articles.templ`, Line: 137, Col: 103}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/web/view/articles.templ`, Line: 137, Col: 101}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var21))
 				if templ_7745c5c3_Err != nil {
@@ -406,7 +406,7 @@ func ArticlesView(pd pagination.PageData) templ.Component {
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				var templ_7745c5c3_Var22 templ.SafeURL = articleURL(a)
+				var templ_7745c5c3_Var22 templ.SafeURL = a.SafeURL()
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(string(templ_7745c5c3_Var22)))
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
@@ -483,9 +483,9 @@ func ArticlesView(pd pagination.PageData) templ.Component {
 					return templ_7745c5c3_Err
 				}
 				var templ_7745c5c3_Var27 string
-				templ_7745c5c3_Var27, templ_7745c5c3_Err = templ.JoinStringErrs(string(articleURL(a)))
+				templ_7745c5c3_Var27, templ_7745c5c3_Err = templ.JoinStringErrs(string(a.SafeURL()))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/web/view/articles.templ`, Line: 162, Col: 38}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/web/view/articles.templ`, Line: 162, Col: 36}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var27))
 				if templ_7745c5c3_Err != nil {
@@ -495,7 +495,7 @@ func ArticlesView(pd pagination.PageData) templ.Component {
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				var templ_7745c5c3_Var28 templ.SafeURL = articleURL(a)
+				var templ_7745c5c3_Var28 templ.SafeURL = a.SafeURL()
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(string(templ_7745c5c3_Var28)))
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err

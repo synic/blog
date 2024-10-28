@@ -8,6 +8,18 @@ package view
 import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
+import (
+	"context"
+	"github.com/synic/adamthings.me/internal/web/middleware"
+)
+
+func isPartial(ctx context.Context) bool {
+	if isPartial, ok := ctx.Value(middleware.IsHtmxPartialContextKey).(bool); ok {
+		return isPartial
+	}
+	return false
+}
+
 func BaseLayout(title string) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
@@ -34,15 +46,7 @@ func BaseLayout(title string) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = inlinestatic("js/htmx.min.js", "script").Render(ctx, templ_7745c5c3_Buffer)
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			templ_7745c5c3_Err = inlinestatic("css/syntax.min.css", "style").Render(ctx, templ_7745c5c3_Buffer)
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			templ_7745c5c3_Err = inlinestatic("css/main.css", "style").Render(ctx, templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = inlinestatic("js/htmx.min.js", "css/syntax.min.css", "css/main.css").Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

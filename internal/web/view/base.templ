@@ -1,5 +1,17 @@
 package view
 
+import (
+	"context"
+	"github.com/synic/adamthings.me/internal/web/middleware"
+)
+
+func isPartial(ctx context.Context) bool {
+	if isPartial, ok := ctx.Value(middleware.IsHtmxPartialContextKey).(bool); ok {
+		return isPartial
+	}
+	return false
+}
+
 templ BaseLayout(title string) {
 	if !isPartial(ctx) {
 		<!DOCTYPE html>
@@ -8,9 +20,7 @@ templ BaseLayout(title string) {
 				<meta charset="utf-8"/>
 				<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 				<meta name="description" content="Adam's Blog. Programming, Vim, Photography, and more!"/>
-				@inlinestatic("js/htmx.min.js", "script")
-				@inlinestatic("css/syntax.min.css", "style")
-				@inlinestatic("css/main.css", "style")
+				@inlinestatic("js/htmx.min.js", "css/syntax.min.css", "css/main.css")
 				<title>Adam's Blog</title>
 				<link rel="icon" href="data:,"/>
 			</head>

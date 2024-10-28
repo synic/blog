@@ -1,4 +1,4 @@
-package markdown
+package main
 
 import (
 	"bytes"
@@ -14,7 +14,7 @@ type markdownRenderer struct {
 	renderer goldmark.Markdown
 }
 
-func New() markdownRenderer {
+func newMarkdownRenderer() markdownRenderer {
 	markdown := goldmark.New(
 		goldmark.WithExtensions(
 			highlighting.NewHighlighting(

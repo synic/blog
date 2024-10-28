@@ -10,8 +10,6 @@ import (
 	"path/filepath"
 	"strings"
 	"time"
-
-	"github.com/synic/adamthings.me/internal/parser"
 )
 
 func shouldCompile(sourceFn, destFn string) (bool, error) {
@@ -85,7 +83,7 @@ func main() {
 			continue
 		}
 
-		article, err := parser.Parse(in)
+		article, err := parseArticle(in)
 
 		if err != nil {
 			panic(err)

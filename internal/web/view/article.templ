@@ -11,8 +11,8 @@ templ ArticleView(a *model.Article) {
 			<div>
 				<a
 					class="font-bold no-underline"
-					href={ articleURL(a) }
-					hx-get={ string(articleURL(a)) }
+					href={ a.SafeURL() }
+					hx-get={ string(a.SafeURL()) }
 					hx-target="#content"
 					hx-push-url="true"
 				>

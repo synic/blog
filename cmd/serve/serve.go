@@ -13,8 +13,8 @@ import (
 
 	"github.com/synic/adamthings.me/internal/model"
 	"github.com/synic/adamthings.me/internal/store"
-	"github.com/synic/adamthings.me/internal/web"
 	"github.com/synic/adamthings.me/internal/web/middleware"
+	"github.com/synic/adamthings.me/internal/web/route"
 )
 
 var (
@@ -82,7 +82,7 @@ func main() {
 	server := http.NewServeMux()
 	static := http.StripPrefix("/static/", http.FileServer(http.FS(sub)))
 	server.Handle("GET /static/", static)
-	web.NewArticleRouter(repo).Mount(server)
+	route.NewArticleRouter(repo).Mount(server)
 
 	log.Printf("Serving on %s...", bind)
 

@@ -1,4 +1,4 @@
-package pagination
+package web
 
 import (
 	"github.com/synic/adamthings.me/internal/model"

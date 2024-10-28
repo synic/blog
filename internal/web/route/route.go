@@ -1,4 +1,4 @@
-package web
+package route
 
 import (
 	"log"
@@ -7,7 +7,7 @@ import (
 
 	"github.com/synic/adamthings.me/internal/model"
 	"github.com/synic/adamthings.me/internal/store"
-	"github.com/synic/adamthings.me/internal/web/pagination"
+	"github.com/synic/adamthings.me/internal/web"
 	"github.com/synic/adamthings.me/internal/web/view"
 )
 
@@ -119,7 +119,7 @@ func (h articleRouter) renderAndPageArticles(
 	Templ(
 		w, r,
 		view.ArticlesView(
-			pagination.PageData{
+			web.PageData{
 				Page:       page + 1,
 				PerPage:    perPage,
 				Items:      articles[start:end],

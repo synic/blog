@@ -114,7 +114,7 @@ func Codegen() error {
 
 	return tailwindCmd(
 		"--postcss",
-		"-i", P("internal/web/css/main.css"),
+		"-i", P("internal/web/view/css/main.css"),
 		"-o", P("cmd/serve/assets/css/main.css"),
 		"--minify",
 	)

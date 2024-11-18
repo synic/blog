@@ -51,7 +51,7 @@ func BaseLayout(title string) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<title>Adam's Blog</title><link rel=\"icon\" href=\"data:,\"></head><body id=\"body\" class=\"flex justify-center items-center w-full text-xl bg-gray-900 md:p-6 md:text-xl lg:p-9 lg:text-2xl xl:px-12 xl:pt-8 text-slate-300\"><div class=\"bg-gray-800 shadow-xl md:rounded-xl xl:max-w-7xl\">")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<title>Adam's Blog</title><link rel=\"icon\" href=\"data:,\"></head><body id=\"body\" class=\"w-full text-xl bg-gray-900 md:p-6 md:text-xl lg:p-9 lg:text-2xl xl:px-12 xl:pt-8 text-slate-300\"><div class=\"mx-auto bg-gray-800 shadow-xl md:rounded-xl xl:max-w-7xl\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

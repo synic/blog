@@ -82,7 +82,6 @@ width='200'></a></center>
     </p>
 <div style='height: 20px'>&nbsp;</div>
 
-    </li>
 
 <li>The Android API itself seems to have a lot less in the way of user
 interface design standards and stock icons.  There's not really a common theme

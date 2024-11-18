@@ -2,8 +2,77 @@ package view
 
 import (
 	"fmt"
-	"github.com/synic/adamthings.me/internal/web"
+	"github.com/synic/adamthings.me/internal/model"
 )
+
+templ ArticlesView(pd model.PageData) {
+	@BaseLayout("") {
+		if pd.Page <= 1 {
+			if (pd.Tag != "" || pd.Search != "") {
+				<h1 class="pb-0 my-0 font-bold">
+					if pd.Tag != "" {
+						Tag: { pd.Tag }
+					} else if pd.Search != "" {
+						Search results: { pd.Search }
+					}
+				</h1>
+				<div class="mt-0 mb-6">
+					if len(pd.Items) == 1 {
+						1 article
+					} else {
+						{ fmt.Sprintf("%d articles", len(pd.Items)) }
+					}
+				</div>
+			}
+		}
+		for i, a := range pd.Items {
+			<article
+				hx-target="#content"
+				hx-swap="innerHTML scroll:top"
+				hx-push-url="true"
+				hx-trigger="click"
+			>
+				<div class="cursor-pointer" id={ fmt.Sprintf("article-%s", a.Slug) } hx-get={ string(a.SafeURL()) }>
+					<div>
+						<a
+							class="font-bold text-rose-500 no-underline hover:underline"
+							href={ a.SafeURL() }
+							hx-boost="true"
+							hx-trigger="click consume"
+						>
+							<h1 class={ "text-rose-500", templ.KV("mt-0", i == 0) }>
+								{ a.Title }
+							</h1>
+						</a>
+						<div class="mt-3 text-base italic">
+							if a.IsPublished {
+								Published: { a.PublishedAt.Format("Jan 2, 2006") }
+							} else {
+								<span class="text-sm text-red-200">
+									Unpublished
+								</span>
+							}
+						</div>
+					</div>
+					<div class="mt-3 mdgen">
+						@templ.Raw(a.Summary)
+					</div>
+					<a hx-get={ string(a.SafeURL()) } hx-boost="true" href={ a.SafeURL() } hx-trigger="click consume">
+						<i class="text-base">Read more...</i>
+					</a>
+				</div>
+				if i < len(pd.Items) - 1 || pd.TotalPages > 1 {
+					<hr class="my-8 h-px bg-gray-200 border-0 dark:bg-gray-700"/>
+				}
+			</article>
+		}
+		if len(pd.Items) <= 0 {
+			No articles found.
+		} else if pd.TotalPages > 1 {
+			@pageButtons(pd)
+		}
+	}
+}
 
 func pageButtonBaseAttrs(disabled bool) []string {
 	attrs := []string{
@@ -28,7 +97,7 @@ func pageButtonBaseAttrs(disabled bool) []string {
 
 }
 
-func pageButtonAttrs(pd web.PageData, i int) []string {
+func pageButtonAttrs(pd model.PageData, i int) []string {
 	attrs := append(pageButtonBaseAttrs(false),
 		"border",
 		"border-gray-700",
@@ -41,7 +110,7 @@ func pageButtonAttrs(pd web.PageData, i int) []string {
 	return attrs
 }
 
-func pageButtonPrevAttrs(pd web.PageData) []string {
+func pageButtonPrevAttrs(pd model.PageData) []string {
 	attrs := append(pageButtonBaseAttrs(pd.Page <= 1),
 		"rounded-l-lg",
 	)
@@ -49,7 +118,7 @@ func pageButtonPrevAttrs(pd web.PageData) []string {
 	return attrs
 }
 
-func pageButtonNextAttrs(pd web.PageData) []string {
+func pageButtonNextAttrs(pd model.PageData) []string {
 	attrs := append(pageButtonBaseAttrs(pd.Page >= pd.TotalPages),
 		"rounded-r-lg",
 	)
@@ -57,7 +126,7 @@ func pageButtonNextAttrs(pd web.PageData) []string {
 	return attrs
 }
 
-templ pageButtons(pd web.PageData) {
+templ pageButtons(pd model.PageData) {
 	<div class="flex justify-center items-center mx-auto w-full">
 		<ul
 			class="flex flex-row flex-wrap p-0 list-none list-inside no-underline"
@@ -105,73 +174,4 @@ templ pageButtons(pd web.PageData) {
 			</li>
 		</ul>
 	</div>
-}
-
-templ ArticlesView(pd web.PageData) {
-	@BaseLayout("") {
-		if pd.Page <= 1 {
-			if (pd.Tag != "" || pd.Search != "") {
-				<h1 class="pb-0 my-0 font-bold">
-					if pd.Tag != "" {
-						Tag: { pd.Tag }
-					} else if pd.Search != "" {
-						Search results: { pd.Search }
-					}
-				</h1>
-				<div class="mt-0 mb-6">
-					if len(pd.Items) == 1 {
-						1 article
-					} else {
-						{ fmt.Sprintf("%d articles", len(pd.Items)) }
-					}
-				</div>
-			}
-		}
-		for i, a := range pd.Items {
-			<div
-				hx-target="#content"
-				hx-swap="innerHTML scroll:top"
-				hx-push-url="true"
-				hx-trigger="click"
-			>
-				<div class="cursor-pointer" id={ fmt.Sprintf("article-%s", a.Slug) } hx-get={ string(a.SafeURL()) }>
-					<div>
-						<a
-							class="font-bold text-rose-500 no-underline hover:underline"
-							href={ a.SafeURL() }
-							hx-boost="true"
-							hx-trigger="click consume"
-						>
-							<h1 class={ "text-rose-500", templ.KV("mt-0", i == 0) }>
-								{ a.Title }
-							</h1>
-						</a>
-						<div class="mt-3 text-sm italic">
-							if a.IsPublished {
-								Published: { a.PublishedAt.Format("Jan 2, 2006") }
-							} else {
-								<span class="text-sm text-red-200">
-									Unpublished
-								</span>
-							}
-						</div>
-					</div>
-					<div class="mt-3 mdgen">
-						@templ.Raw(a.Summary)
-					</div>
-					<a hx-get={ string(a.SafeURL()) } hx-boost="true" href={ a.SafeURL() } hx-trigger="click consume">
-						<i class="text-sm">Read more...</i>
-					</a>
-				</div>
-				if i < len(pd.Items) - 1 || pd.TotalPages > 1 {
-					<hr class="my-8 h-px bg-gray-200 border-0 dark:bg-gray-700"/>
-				}
-			</div>
-		}
-		if len(pd.Items) <= 0 {
-			No articles found.
-		} else if pd.TotalPages > 1 {
-			@pageButtons(pd)
-		}
-	}
 }

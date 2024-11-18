@@ -2,10 +2,6 @@
 @tailwind components;
 
 @layer base {
-  * {
-    @apply text-base md:text-xl;
-  }
-
   a {
     @apply decoration-dashed underline;
   }
@@ -64,7 +60,7 @@
     }
 
     pre.chroma {
-      @apply border-none p-2 my-3 overflow-auto;
+      @apply border-none p-2 my-3 w-full overflow-auto;
     }
 
     .macro-photo {

@@ -1,0 +1,101 @@
+package view
+
+import (
+	"context"
+	"fmt"
+	"github.com/synic/adamthings.me/internal/middleware"
+)
+
+func isPartial(ctx context.Context) bool {
+	if isPartial, ok := ctx.Value(middleware.IsHtmxPartialContextKey).(bool); ok {
+		return isPartial
+	}
+	return false
+}
+
+templ BaseLayout(title string) {
+	if !isPartial(ctx) {
+		<!DOCTYPE html>
+		<html lang="en">
+			<head>
+				<meta charset="utf-8"/>
+				<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+				<meta name="description" content="Adam's Blog. Programming, Vim, Photography, and more!"/>
+				@inlinestatic("js/htmx.min.js", "css/syntax.min.css", "css/main.css")
+				<title>Adam's Blog</title>
+				<link rel="icon" href="data:,"/>
+			</head>
+			<body id="body" class="justify-center text-xl bg-gray-900 md:p-4 md:text-xl lg:p-9 lg:text-2xl xl:px-12 xl:pt-8 text-slate-300">
+				<div class="bg-gray-800 shadow-xl md:rounded-xl">
+					@header()
+					<main id="content" class="p-6">
+						{ children... }
+					</main>
+				</div>
+			</body>
+		</html>
+	} else {
+		{ children... }
+	}
+}
+
+templ header() {
+	<header class="mb-3 w-full shadow-md">
+		<form
+			method="post"
+			action="/"
+			hx-boost="true"
+			hx-target="#content"
+			hx-push-url="true"
+			hx-swap="innerHTML show:window:top swap:100ms"
+			class="flex flex-row flex-nowrap pl-6 rounded-md shadow-md"
+		>
+			<div
+				class="justify-start py-3 cursor-pointer shrink"
+				hx-get="/"
+				hx-on::after-request="document.getElementById('search-nav').value = '';"
+				hx-trigger="click"
+			>
+				<a href="/" hx-boost="true" hx-trigger="click consume" class="no-underline">
+					<span class="font-bold text-sky-700">::/</span> Adam's Things
+				</a>
+			</div>
+			<div class="grow">&nbsp;</div>
+			<input
+				class="hidden flex-auto px-2 my-2 mr-4 font-normal bg-gray-700 rounded border border-gray-600 border-solid md:inline outline-gray-600 max-w-56"
+				placeholder="Search..."
+				type="text"
+				name="search"
+				id="search-nav"
+				hx-post="/"
+				hx-trigger="input changed delay:200ms, search"
+			/>
+			@navLinks()
+		</form>
+	</header>
+}
+
+templ navLink(url, label string) {
+	<a
+		id={ fmt.Sprintf("nav-link-%s", label) }
+		hx-on::after-request="document.getElementById('search-nav').value = '';"
+		class="py-3 px-5 text-center no-underline border-l border-gray-700 cursor-pointer hover:text-white hover:bg-gray-700 item-center w-22 lg:last:rounded-tr-xl"
+		hx-boost="true"
+		hx-trigger="click consume"
+		href={ templ.URL(url) }
+	>
+		{ label }
+	</a>
+}
+
+templ navLinks() {
+	<nav
+		class="flex flex-row content-end p-0 m-0 grow-0 shrink"
+		hx-target="#content"
+		hx-push-url="true"
+		hx-trigger="click"
+		hx-swap="innerHTML show:window:top"
+	>
+		@navLink("/archive/", "Archive")
+	</nav>
+}

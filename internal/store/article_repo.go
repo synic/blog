@@ -55,7 +55,10 @@ func (r *ArticleRepository) FindAll(context.Context) ([]*model.Article, error) {
 	return r.articles, nil
 }
 
-func (r *ArticleRepository) Search(_ context.Context, terms string) ([]*model.Article, error) {
+func (r *ArticleRepository) Search(
+	_ context.Context,
+	terms string,
+) ([]*model.Article, error) {
 	articles := make([]*model.Article, 0, 10)
 	terms = strings.ToLower(terms)
 

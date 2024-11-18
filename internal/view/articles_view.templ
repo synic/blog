@@ -1,0 +1,146 @@
+package view
+
+import (
+	"fmt"
+	"github.com/synic/adamthings.me/internal/model"
+)
+
+templ ArticlesView(pd model.PageData) {
+	@BaseLayout("") {
+		if pd.Page <= 1 {
+			if (pd.Tag != "" || pd.Search != "") {
+				<h1 class="pb-0 my-0 font-bold">
+					if pd.Tag != "" {
+						Tag: { pd.Tag }
+					} else if pd.Search != "" {
+						Search results: { pd.Search }
+					}
+				</h1>
+				<div class="mt-0 mb-6">
+					if len(pd.Items) == 1 {
+						1 article
+					} else {
+						{ fmt.Sprintf("%d articles", len(pd.Items)) }
+					}
+				</div>
+			}
+		}
+		for i, a := range pd.Items {
+			@article(a, false)
+			if i < len(pd.Items) - 1 || pd.TotalPages > 1 {
+				<hr class="my-8 h-px bg-gray-200 border-0 dark:bg-gray-700"/>
+			}
+		}
+		if len(pd.Items) <= 0 {
+			No articles found.
+		} else if pd.TotalPages > 1 {
+			@pageButtons(pd)
+		}
+	}
+}
+
+func pageButtonBaseClasses(disabled bool) []string {
+	classes := []string{
+		"flex flex-none justify-center items-center text-center border border-gray-700 size-8",
+	}
+
+	if !disabled {
+		classes = append(classes, "hover:text-white hover:bg-gray-700 cursor-pointer")
+	} else {
+		classes = append(classes, "text-slate-500")
+	}
+
+	return classes
+
+}
+
+func pageButtonClasses(pd model.PageData, i int) []string {
+	classes := append(pageButtonBaseClasses(i+1 == pd.Page),
+		"border border-gray-700",
+	)
+
+	if i+1 == pd.Page {
+		classes = append(classes, "text-slate-500 bg-gray-700")
+	}
+
+	return classes
+}
+
+func pageButtonPrevClasses(pd model.PageData) []string {
+	classes := append(pageButtonBaseClasses(pd.Page <= 1),
+		"rounded-l-lg",
+	)
+
+	return classes
+}
+
+func pageButtonNextClasses(pd model.PageData) []string {
+	classes := append(pageButtonBaseClasses(pd.Page >= pd.TotalPages),
+		"rounded-r-lg",
+	)
+
+	return classes
+}
+
+templ pageButtons(pd model.PageData) {
+	<nav class="flex justify-center items-center mx-auto w-full">
+		<ul
+			class="flex flex-row flex-wrap p-0 list-none list-inside no-underline"
+			hx-target="#content"
+			hx-swap="innerHTML show:window:top"
+			hx-trigger="click consume"
+			hx-push-url="true"
+			hx-boost="true"
+		>
+			<li
+				if pd.Page > 1 {
+					hx-get={ string(templ.URL(fmt.Sprintf("/?page=%d&perPage=%d&search=%s&tag=%s", pd.Page-1, pd.PerPage, pd.Search, pd.Tag))) }
+				}
+				class={ pageButtonPrevClasses(pd) }
+			>
+				<a
+					class={ "no-underline", templ.KV("cursor-not-allowed", pd.Page <= 1) }
+					href={ templ.URL(fmt.Sprintf("/?page=%d&perPage=%d&search=%s&tag=%s", pd.Page-1, pd.PerPage, pd.Search, pd.Tag)) }
+					if pd.Page <= 1 {
+						onclick="return false;"
+						hx-boost="false"
+					}
+				>❮</a>
+			</li>
+			for i := range pd.TotalPages {
+				<li
+					class={ pageButtonClasses(pd, i) }
+					if i +1 != pd.Page {
+						hx-get={ string(templ.URL(fmt.Sprintf("/?page=%d&perPage=%d&search=%s&tag=%s", i+1, pd.PerPage, pd.Search, pd.Tag))) }
+					}
+				>
+					<a
+						href={ templ.URL(fmt.Sprintf("/?page=%d&perPage=%d&search=%s&tag=%s", i+1, pd.PerPage, pd.Search, pd.Tag)) }
+						class={ "no-underline", templ.KV("cursor-not-allowed", i + 1 == pd.Page) }
+						if i + 1 == pd.Page {
+							onclick="return false;"
+							hx-boost="false"
+						}
+					>
+						{ fmt.Sprint(i+1) }
+					</a>
+				</li>
+			}
+			<li
+				class={ pageButtonNextClasses(pd) }
+				if pd.Page < pd.TotalPages {
+					hx-get={ string(templ.URL(fmt.Sprintf("/?page=%d&perPage=%d&search=%s&tag=%s", pd.Page+1, pd.PerPage, pd.Search, pd.Tag))) }
+				}
+			>
+				<a
+					class={ "no-underline", templ.KV("cursor-not-allowed", pd.Page >= pd.TotalPages) }
+					href={ templ.URL(fmt.Sprintf("/?page=%d&perPage=%d&search=%s&tag=%s", pd.Page+1, pd.PerPage, pd.Search, pd.Tag)) }
+					if pd.Page >= pd.TotalPages {
+						onclick="return false;"
+						hx-boost="false"
+					}
+				>❯</a>
+			</li>
+		</ul>
+	</nav>
+}

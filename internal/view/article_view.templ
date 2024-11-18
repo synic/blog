@@ -1,0 +1,93 @@
+package view
+
+import (
+	"fmt"
+	"github.com/synic/adamthings.me/internal/model"
+)
+
+templ ArticleView(a *model.Article) {
+	@BaseLayout(a.Title) {
+		@article(a, true)
+	}
+}
+
+templ article(a *model.Article, single bool) {
+	<article
+		id={ fmt.Sprintf("article-%s", a.Slug) }
+		if !single {
+			class="cursor-pointer"
+			hx-get={ string(a.SafeURL()) }
+			hx-target="#content"
+			hx-swap="innerHTML scroll:top"
+			hx-push-url="true"
+			hx-trigger="click"
+		}
+	>
+		<div>
+			<a
+				class={ "font-bold no-underline text-rose-500", templ.KV("hover:underline", !single) }
+				href={ a.SafeURL() }
+				hx-get={ string(a.SafeURL()) }
+				hx-target="#content"
+				hx-push-url="true"
+			>
+				<h1 class="mt-0 text-rose-500">{ a.Title }</h1>
+			</a>
+			<div class="mt-3 text-sm italic">
+				if a.IsPublished {
+					Published: { a.PublishedAt.Format("Jan 2, 2006") }
+				} else {
+					<span class="text-sm text-red-200">
+						Unpublished
+					</span>
+				}
+			</div>
+		</div>
+		<div class="mt-3 mb-3 w-full mdgen">
+			if single {
+				@templ.Raw(a.Body)
+			} else {
+				@templ.Raw(a.Summary)
+			}
+		</div>
+		if single {
+			<hr class="h-px bg-gray-200 border-0 dark:bg-gray-700 my-flex-col 8"/>
+			<div>
+				Filed Under:&nbsp;
+				@tagLinks(a.Tags)
+			</div>
+		} else {
+			<a hx-get={ string(a.SafeURL()) } hx-boost="true" href={ a.SafeURL() } hx-trigger="click consume">
+				<i class="text-base">Read more...</i>
+			</a>
+		}
+	</article>
+}
+
+func maybeComma(comma bool) string {
+	if comma {
+		return ",&nbsp;"
+	}
+	return ""
+}
+
+templ tagLinks(tags []string) {
+	<ul
+		class="inline-block p-0 m-0 list-none list-inside"
+		hx-target="#content"
+		hx-swap="innerHTML show:window:top"
+		hx-push-url="true"
+	>
+		for i, t := range tags {
+			<li class="inline-block">
+				<a
+					href={ templ.URL(fmt.Sprintf("/?tag=%s", t)) }
+					hx-boost="true"
+					hx-on::after-request="document.getElementById('search-nav').value = '';"
+				>
+					{ t }
+				</a>@templ.Raw(maybeComma(i < len(tags)-1))
+			</li>
+		}
+	</ul>
+}

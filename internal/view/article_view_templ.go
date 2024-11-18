@@ -112,12 +112,12 @@ func article(a *model.Article, single bool) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" hx-target=\"#content\" hx-swap=\"innerHTML scroll:top\" hx-push-url=\"true\" hx-trigger=\"click\"")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("><div>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" hx-target=\"#content\" hx-swap=\"innerHTML show:window:top\" hx-push-url=\"true\"><div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -148,27 +148,27 @@ func article(a *model.Article, single bool) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" hx-get=\"")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" hx-boost=\"true\" hx-trigger=\"click consume\" hx-get=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var9 string
 		templ_7745c5c3_Var9, templ_7745c5c3_Err = templ.JoinStringErrs(string(a.SafeURL()))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/article_view.templ`, Line: 30, Col: 32}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/article_view.templ`, Line: 31, Col: 32}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var9))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" hx-target=\"#content\" hx-push-url=\"true\"><h1 class=\"mt-0 text-rose-500\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"><h1 class=\"mt-0 text-rose-500\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var10 string
 		templ_7745c5c3_Var10, templ_7745c5c3_Err = templ.JoinStringErrs(a.Title)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/article_view.templ`, Line: 34, Col: 44}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/article_view.templ`, Line: 33, Col: 44}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var10))
 		if templ_7745c5c3_Err != nil {
@@ -186,7 +186,7 @@ func article(a *model.Article, single bool) templ.Component {
 			var templ_7745c5c3_Var11 string
 			templ_7745c5c3_Var11, templ_7745c5c3_Err = templ.JoinStringErrs(a.PublishedAt.Format("Jan 2, 2006"))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/article_view.templ`, Line: 38, Col: 53}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/article_view.templ`, Line: 37, Col: 53}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var11))
 			if templ_7745c5c3_Err != nil {
@@ -198,7 +198,7 @@ func article(a *model.Article, single bool) templ.Component {
 				return templ_7745c5c3_Err
 			}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div></div><div class=\"mt-3 mb-3 w-full mdgen\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div></div><div class=\"mt-3 mb-3 w-full break-words mdgen\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -218,7 +218,7 @@ func article(a *model.Article, single bool) templ.Component {
 			return templ_7745c5c3_Err
 		}
 		if single {
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<hr class=\"h-px bg-gray-200 border-0 dark:bg-gray-700 my-flex-col 8\"><div>Filed Under:&nbsp;")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<hr class=\"my-4 h-px bg-gray-200 border-0 dark:bg-gray-700 my-flex-col\"><div>Filed Under:&nbsp;")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -238,7 +238,7 @@ func article(a *model.Article, single bool) templ.Component {
 			var templ_7745c5c3_Var12 string
 			templ_7745c5c3_Var12, templ_7745c5c3_Err = templ.JoinStringErrs(string(a.SafeURL()))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/article_view.templ`, Line: 60, Col: 34}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/article_view.templ`, Line: 59, Col: 34}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var12))
 			if templ_7745c5c3_Err != nil {
@@ -315,7 +315,7 @@ func tagLinks(tags []string) templ.Component {
 			var templ_7745c5c3_Var16 string
 			templ_7745c5c3_Var16, templ_7745c5c3_Err = templ.JoinStringErrs(t)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/article_view.templ`, Line: 88, Col: 8}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/article_view.templ`, Line: 87, Col: 8}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var16))
 			if templ_7745c5c3_Err != nil {

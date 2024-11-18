@@ -8,6 +8,7 @@ import (
 	"os"
 	"path"
 	"path/filepath"
+	"strings"
 
 	"github.com/magefile/mage/mg"
 	"github.com/magefile/mage/sh"
@@ -114,7 +115,7 @@ func Codegen() error {
 
 	return tailwindCmd(
 		"--postcss",
-		"-i", P("internal/web/view/css/main.css"),
+		"-i", P("internal/view/css/main.css"),
 		"-o", P("cmd/serve/assets/css/main.css"),
 		"--minify",
 	)
@@ -123,12 +124,26 @@ func Codegen() error {
 type Articles mg.Namespace
 
 func compileArticles(recompile bool) error {
-	args := []string{
-		"run",
-		P("./cmd/compile/"),
+	dir := P("./cmd/compile/")
+	allFiles, err := os.ReadDir(dir)
+	includeFiles := make([]string, 0, len(allFiles))
+
+	if err != nil {
+		return err
+	}
+
+	for _, f := range allFiles {
+		if !strings.HasSuffix(f.Name(), "_test.go") {
+			includeFiles = append(includeFiles, path.Join(dir, f.Name()))
+		}
+	}
+
+	args := []string{"run"}
+	args = append(args, includeFiles...)
+	args = append(args, []string{
 		"-i", "articles",
 		"-o", P("cmd/serve/articles"),
-	}
+	}...)
 
 	if recompile {
 		args = append(args, "-recompile", "-v")
@@ -152,7 +167,7 @@ func Pygmentize() error {
 		return err
 	}
 
-	f, err := os.Create(P("internal/web/css/syntax.css"))
+	f, err := os.Create(P("internal/view/css/syntax.css"))
 
 	if err != nil {
 		return err
@@ -161,7 +176,7 @@ func Pygmentize() error {
 	f.WriteString(data)
 	f.Close()
 
-	return minifyCmd("-f", P("internal/web/css/syntax.css"), "--output", P("cmd/serve/assets/css"))
+	return minifyCmd("-f", P("internal/view/css/syntax.css"), "--output", P("cmd/serve/assets/css"))
 }
 
 func Vet() error {

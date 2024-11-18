@@ -1,13 +1,9 @@
-package web
-
-import (
-	"github.com/synic/adamthings.me/internal/model"
-)
+package model
 
 type PageData struct {
 	Search     string
 	Tag        string
-	Items      []*model.Article
+	Items      []*Article
 	TotalPages int
 	Page       int
 	PerPage    int

@@ -5,7 +5,7 @@ import (
 
 	"github.com/a-h/templ"
 
-	"github.com/synic/adamthings.me/internal/web/view"
+	"github.com/synic/adamthings.me/internal/view"
 )
 
 type renderTemplConfig struct {

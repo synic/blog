@@ -5,31 +5,6 @@ import (
 	"sort"
 )
 
-type tagInfo struct {
-	tag   string
-	count int
-}
-
-func sortedTags(tagCounts map[string]int) []tagInfo {
-	tags := make([]tagInfo, 0, len(tagCounts))
-	for key, value := range tagCounts {
-		tags = append(tags, tagInfo{tag: key, count: value})
-	}
-
-	sort.Slice(tags, func(i, j int) bool {
-		return tags[i].tag < tags[j].tag
-	})
-
-	return tags
-}
-
-templ aboutLink(url, label string) {
-	<li>
-		<a href={ templ.URL(url) } class="no-underline">{ label }</a> -
-		<a href={ templ.URL(url) }>{ url }</a>
-	</li>
-}
-
 templ ArchiveView(articleCount int, tags map[string]int) {
 	@BaseLayout("Article Archive") {
 		<div class="flex flex-col w-full" hx-swap="innerHTML show:window:top" hx-target="#content" hx-push-url="true">
@@ -52,7 +27,7 @@ templ ArchiveView(articleCount int, tags map[string]int) {
 						id="search"
 					/>
 					<button
-						class="px-2 text-center text-gray-700 border-gray-700 bg-sky-700 text-slate-300"
+						class="px-2 text-center border-gray-700 bg-sky-700 text-slate-300"
 						type="submit"
 						hx-post="/"
 						hx-trigger="click consume"
@@ -91,4 +66,29 @@ templ ArchiveView(articleCount int, tags map[string]int) {
 			</div>
 		</div>
 	}
+}
+
+type tagInfo struct {
+	tag   string
+	count int
+}
+
+func sortedTags(tagCounts map[string]int) []tagInfo {
+	tags := make([]tagInfo, 0, len(tagCounts))
+	for key, value := range tagCounts {
+		tags = append(tags, tagInfo{tag: key, count: value})
+	}
+
+	sort.Slice(tags, func(i, j int) bool {
+		return tags[i].tag < tags[j].tag
+	})
+
+	return tags
+}
+
+templ aboutLink(url, label string) {
+	<li>
+		<a href={ templ.URL(url) } class="no-underline">{ label }</a> -
+		<a href={ templ.URL(url) }>{ url }</a>
+	</li>
 }

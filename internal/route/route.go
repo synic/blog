@@ -7,8 +7,7 @@ import (
 
 	"github.com/synic/adamthings.me/internal/model"
 	"github.com/synic/adamthings.me/internal/store"
-	"github.com/synic/adamthings.me/internal/web"
-	"github.com/synic/adamthings.me/internal/web/view"
+	"github.com/synic/adamthings.me/internal/view"
 )
 
 type articleRouterConfig struct {
@@ -23,7 +22,7 @@ type articleRouter struct {
 
 func getDefaultArticleRouterConfig() articleRouterConfig {
 	return articleRouterConfig{
-		articlesPerPage:    30,
+		articlesPerPage:    20,
 		maxArticlesPerPage: 50,
 	}
 }
@@ -119,7 +118,7 @@ func (h articleRouter) renderAndPageArticles(
 	Templ(
 		w, r,
 		view.ArticlesView(
-			web.PageData{
+			model.PageData{
 				Page:       page + 1,
 				PerPage:    perPage,
 				Items:      articles[start:end],

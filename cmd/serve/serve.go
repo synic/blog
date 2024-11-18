@@ -11,10 +11,10 @@ import (
 	"path/filepath"
 	"time"
 
+	"github.com/synic/adamthings.me/internal/middleware"
 	"github.com/synic/adamthings.me/internal/model"
+	"github.com/synic/adamthings.me/internal/route"
 	"github.com/synic/adamthings.me/internal/store"
-	"github.com/synic/adamthings.me/internal/web/middleware"
-	"github.com/synic/adamthings.me/internal/web/route"
 )
 
 var (

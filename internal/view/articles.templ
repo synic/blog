@@ -83,12 +83,11 @@ func pageButtonBaseAttrs(disabled bool) []string {
 		"text-center",
 		"border",
 		"border-gray-700",
-		"cursor-pointer",
 		"size-8",
 	}
 
 	if !disabled {
-		attrs = append(attrs, "hover:text-white", "hover:bg-gray-700")
+		attrs = append(attrs, "hover:text-white", "hover:bg-gray-700", "cursor-pointer")
 	} else {
 		attrs = append(attrs, "text-slate-500")
 	}
@@ -98,13 +97,13 @@ func pageButtonBaseAttrs(disabled bool) []string {
 }
 
 func pageButtonAttrs(pd model.PageData, i int) []string {
-	attrs := append(pageButtonBaseAttrs(false),
+	attrs := append(pageButtonBaseAttrs(i+1 == pd.Page),
 		"border",
 		"border-gray-700",
 	)
 
 	if i+1 == pd.Page {
-		attrs = append(attrs, "text-white", "bg-gray-700")
+		attrs = append(attrs, "text-slate-500", "bg-gray-700")
 	}
 
 	return attrs
@@ -127,7 +126,7 @@ func pageButtonNextAttrs(pd model.PageData) []string {
 }
 
 templ pageButtons(pd model.PageData) {
-	<div class="flex justify-center items-center mx-auto w-full">
+	<nav class="flex justify-center items-center mx-auto w-full">
 		<ul
 			class="flex flex-row flex-wrap p-0 list-none list-inside no-underline"
 			hx-target="#content"
@@ -143,7 +142,7 @@ templ pageButtons(pd model.PageData) {
 				class={ pageButtonPrevAttrs(pd) }
 			>
 				<a
-					if pd.Page >1 {
+					if pd.Page > 1 {
 						href={ templ.URL(fmt.Sprintf("/?page=%d&perPage=%d&search=%s&tag=%s", pd.Page-1, pd.PerPage, pd.Search, pd.Tag)) }
 					}
 					class="no-underline"
@@ -151,10 +150,17 @@ templ pageButtons(pd model.PageData) {
 			</li>
 			for i := range pd.TotalPages {
 				<li
-					hx-get={ string(templ.URL(fmt.Sprintf("/?page=%d&perPage=%d&search=%s&tag=%s", i+1, pd.PerPage, pd.Search, pd.Tag))) }
+					if i +1 != pd.Page {
+						hx-get={ string(templ.URL(fmt.Sprintf("/?page=%d&perPage=%d&search=%s&tag=%s", i+1, pd.PerPage, pd.Search, pd.Tag))) }
+					}
 					class={ pageButtonAttrs(pd, i) }
 				>
-					<a href={ templ.URL(fmt.Sprintf("/?page=%d&perPage=%d&search=%s&tag=%s", i+1, pd.PerPage, pd.Search, pd.Tag)) } class="no-underline">
+					<a
+						if i +1 != pd.Page {
+							href={ templ.URL(fmt.Sprintf("/?page=%d&perPage=%d&search=%s&tag=%s", i+1, pd.PerPage, pd.Search, pd.Tag)) }
+						}
+						class="no-underline"
+					>
 						{ fmt.Sprint(i+1) }
 					</a>
 				</li>
@@ -173,5 +179,5 @@ templ pageButtons(pd model.PageData) {
 				>❯</a>
 			</li>
 		</ul>
-	</div>
+	</nav>
 }

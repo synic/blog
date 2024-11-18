@@ -45,8 +45,6 @@
    *     blocks)
    **/
   .mdgen {
-    @apply mb-3;
-
     pre:not(.chroma) {
       @apply bg-gray-900 font-mono p-1 w-full block;
     }

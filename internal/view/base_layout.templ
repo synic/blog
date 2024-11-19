@@ -32,6 +32,7 @@ templ BaseLayout(title string) {
 						{ children... }
 					</main>
 				</div>
+				@scrollToTopButton()
 			</body>
 		</html>
 	} else {
@@ -98,4 +99,44 @@ templ navLinks() {
 	>
 		@navLink("/archive/", "Archive")
 	</nav>
+}
+
+templ scrollToTopButton() {
+	<a
+		id="scroll-to-top"
+		onclick="scrollToTop()"
+		class="hidden fixed right-5 bottom-6 p-2 text-center no-underline bg-gray-700 rounded-md border border-gray-600 border-solid cursor-pointer text-slate-300 lg:bottom-18"
+	>
+		<svg class="w-5 h-5 fill-slate-300" viewBox="0 0 115.4 122.88">
+			<path d="M24.94,67.88A14.66,14.66,0,0,1,4.38,47L47.83,4.21a14.66,14.66,0,0,1,20.56,0L111,46.15A14.66,14.66,0,0,1,90.46,67.06l-18-17.69-.29,59.17c-.1,19.28-29.42,19-29.33-.25L43.14,50,24.94,67.88Z"></path>
+		</svg>
+	</a>
+	<script type="text/javascript">
+		const btn = document.getElementById("scroll-to-top");
+
+		window.addEventListener("scroll", () => {
+			positionAndShowScrollToTopButton();
+		});
+
+		window.addEventListener("resize", () => {
+			positionAndShowScrollToTopButton();
+		});
+
+		function positionAndShowScrollToTopButton() {
+			const bodyPadding = window.getComputedStyle(document.body).padding;
+
+			if(window.pageYOffset > 100 && bodyPadding == "0px") {
+				btn.style.display = "block";
+			} else {
+				btn.style.display = "none";
+			}
+		}
+
+		function scrollToTop() {
+			window.scrollTo({
+				top: 0,
+				behavior: "smooth",
+			});
+		}
+	</script>
 }

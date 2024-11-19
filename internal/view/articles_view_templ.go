@@ -117,7 +117,7 @@ func ArticlesView(pd model.PageData) templ.Component {
 					return templ_7745c5c3_Err
 				}
 				if i < len(pd.Items)-1 || pd.TotalPages > 1 {
-					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<hr class=\"my-6 h-px bg-gray-200 border-0 dark:bg-gray-700\">")
+					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<hr class=\"mt-8 mb-6 h-px bg-gray-200 border-0 dark:bg-gray-700\">")
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}

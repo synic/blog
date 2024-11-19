@@ -86,8 +86,14 @@ func main() {
 
 	log.Printf("Serving on %s...", bind)
 
-	wrapped := middleware.Wrap(server,
-		middleware.AddContextData(map[string]any{"staticFS": assetFiles}),
+	wrapped := middleware.Wrap(
+		server,
+		middleware.CacheStaticFiles(
+			assetFiles,
+			"js/htmx.min.js",
+			"css/syntax.min.css",
+			"css/main.css",
+		),
 		middleware.LoggingMiddleware(log.Default()),
 		middleware.IsHtmxPartialMiddleware(),
 		middleware.GzipMiddleware(),

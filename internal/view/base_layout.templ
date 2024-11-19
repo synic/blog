@@ -28,9 +28,11 @@ templ BaseLayout(title string) {
 			<body id="body" class="w-full text-xl bg-gray-900 md:p-6 md:text-xl lg:p-9 lg:text-2xl xl:px-12 xl:pt-8 text-slate-300">
 				<div class="mx-auto bg-gray-800 shadow-xl md:rounded-xl xl:max-w-7xl">
 					@header()
-					<main id="content" class="p-6">
-						{ children... }
-					</main>
+					<div class="p-6">
+						<main id="content">
+							{ children... }
+						</main>
+					</div>
 				</div>
 				@scrollToTopButton()
 			</body>
@@ -48,7 +50,7 @@ templ header() {
 			hx-boost="true"
 			hx-target="#content"
 			hx-push-url="true"
-			hx-swap="innerHTML show:window:top swap:100ms"
+			hx-swap="innerHTML show:window:top"
 			class="flex flex-row flex-nowrap pl-6 rounded-md shadow-md"
 		>
 			<div
@@ -104,8 +106,8 @@ templ navLinks() {
 templ scrollToTopButton() {
 	<a
 		id="scroll-to-top"
-		onclick="scrollToTop()"
-		class="hidden fixed right-5 bottom-6 p-2 text-center no-underline bg-gray-700 rounded-md border border-gray-600 border-solid cursor-pointer text-slate-300 lg:bottom-18"
+		onclick="window.scrollTo({ top: 0, behavior: 'smooth' });"
+		class="hidden fixed bottom-6 p-2 text-center no-underline bg-gray-700 rounded-md border border-gray-600 border-solid cursor-pointer md:bottom-12 lg:bottom-14 xl:bottom-16 text-slate-300"
 	>
 		<svg class="w-5 h-5 fill-slate-300" viewBox="0 0 115.4 122.88">
 			<path d="M24.94,67.88A14.66,14.66,0,0,1,4.38,47L47.83,4.21a14.66,14.66,0,0,1,20.56,0L111,46.15A14.66,14.66,0,0,1,90.46,67.06l-18-17.69-.29,59.17c-.1,19.28-29.42,19-29.33-.25L43.14,50,24.94,67.88Z"></path>
@@ -113,30 +115,23 @@ templ scrollToTopButton() {
 	</a>
 	<script type="text/javascript">
 		const btn = document.getElementById("scroll-to-top");
+	  const content = document.getElementById("content");
 
-		window.addEventListener("scroll", () => {
-			positionAndShowScrollToTopButton();
-		});
+		window.addEventListener("scroll", showScrollToTopButton)
+		window.addEventListener("resize", showScrollToTopButton)
+		window.addEventListener("htmx:afterswap", showScrollToTopButton)
 
-		window.addEventListener("resize", () => {
-			positionAndShowScrollToTopButton();
-		});
-
-		function positionAndShowScrollToTopButton() {
-			const bodyPadding = window.getComputedStyle(document.body).padding;
-
-			if(window.pageYOffset > 100 && bodyPadding == "0px") {
+		function showScrollToTopButton() {
+			if(window.pageYOffset > 100) {
 				btn.style.display = "block";
+				const btnRect = btn.getBoundingClientRect();
+				const contentRect = content.getBoundingClientRect();
+				btn.style.left = (contentRect.right - btnRect.width).toString() + "px";
 			} else {
 				btn.style.display = "none";
 			}
 		}
 
-		function scrollToTop() {
-			window.scrollTo({
-				top: 0,
-				behavior: "smooth",
-			});
-		}
+		showScrollToTopButton();
 	</script>
 }

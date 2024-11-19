@@ -59,7 +59,7 @@ func BaseLayout(title string) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<main id=\"content\" class=\"p-6\">")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"p-6\"><main id=\"content\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -67,7 +67,7 @@ func BaseLayout(title string) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</main></div>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</main></div></div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -110,7 +110,7 @@ func header() templ.Component {
 			templ_7745c5c3_Var2 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<header class=\"mb-3 w-full shadow-md\"><form method=\"post\" action=\"/\" hx-boost=\"true\" hx-target=\"#content\" hx-push-url=\"true\" hx-swap=\"innerHTML show:window:top swap:100ms\" class=\"flex flex-row flex-nowrap pl-6 rounded-md shadow-md\"><div class=\"justify-start py-3 cursor-pointer shrink\" hx-get=\"/\" hx-on::after-request=\"document.getElementById(&#39;search-nav&#39;).value = &#39;&#39;;\" hx-trigger=\"click\"><a href=\"/\" hx-boost=\"true\" hx-trigger=\"click consume\" class=\"no-underline\"><span class=\"font-bold text-sky-700\">::/</span> Adam's Things</a></div><div class=\"grow\">&nbsp;</div><input class=\"hidden flex-auto px-2 my-2 mr-4 font-normal bg-gray-700 rounded border border-gray-600 border-solid md:inline outline-gray-600 max-w-56\" placeholder=\"Search...\" type=\"text\" name=\"search\" id=\"search-nav\" hx-post=\"/\" hx-trigger=\"input changed delay:200ms, search\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<header class=\"mb-3 w-full shadow-md\"><form method=\"post\" action=\"/\" hx-boost=\"true\" hx-target=\"#content\" hx-push-url=\"true\" hx-swap=\"innerHTML show:window:top\" class=\"flex flex-row flex-nowrap pl-6 rounded-md shadow-md\"><div class=\"justify-start py-3 cursor-pointer shrink\" hx-get=\"/\" hx-on::after-request=\"document.getElementById(&#39;search-nav&#39;).value = &#39;&#39;;\" hx-trigger=\"click\"><a href=\"/\" hx-boost=\"true\" hx-trigger=\"click consume\" class=\"no-underline\"><span class=\"font-bold text-sky-700\">::/</span> Adam's Things</a></div><div class=\"grow\">&nbsp;</div><input class=\"hidden flex-auto px-2 my-2 mr-4 font-normal bg-gray-700 rounded border border-gray-600 border-solid md:inline outline-gray-600 max-w-56\" placeholder=\"Search...\" type=\"text\" name=\"search\" id=\"search-nav\" hx-post=\"/\" hx-trigger=\"input changed delay:200ms, search\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -154,7 +154,7 @@ func navLink(url, label string) templ.Component {
 		var templ_7745c5c3_Var4 string
 		templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf("nav-link-%s", label))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/base_layout.templ`, Line: 81, Col: 40}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/base_layout.templ`, Line: 83, Col: 40}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
 		if templ_7745c5c3_Err != nil {
@@ -176,7 +176,7 @@ func navLink(url, label string) templ.Component {
 		var templ_7745c5c3_Var6 string
 		templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(label)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/base_layout.templ`, Line: 88, Col: 9}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/base_layout.templ`, Line: 90, Col: 9}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
 		if templ_7745c5c3_Err != nil {
@@ -248,7 +248,7 @@ func scrollToTopButton() templ.Component {
 			templ_7745c5c3_Var8 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<a id=\"scroll-to-top\" onclick=\"scrollToTop()\" class=\"hidden fixed right-5 bottom-6 p-2 text-center no-underline bg-gray-700 rounded-md border border-gray-600 border-solid cursor-pointer text-slate-300 lg:bottom-18\"><svg class=\"w-5 h-5 fill-slate-300\" viewBox=\"0 0 115.4 122.88\"><path d=\"M24.94,67.88A14.66,14.66,0,0,1,4.38,47L47.83,4.21a14.66,14.66,0,0,1,20.56,0L111,46.15A14.66,14.66,0,0,1,90.46,67.06l-18-17.69-.29,59.17c-.1,19.28-29.42,19-29.33-.25L43.14,50,24.94,67.88Z\"></path></svg></a><script type=\"text/javascript\">\n\t\tconst btn = document.getElementById(\"scroll-to-top\");\n\n\t\twindow.addEventListener(\"scroll\", () => {\n\t\t\tpositionAndShowScrollToTopButton();\n\t\t});\n\n\t\twindow.addEventListener(\"resize\", () => {\n\t\t\tpositionAndShowScrollToTopButton();\n\t\t});\n\n\t\tfunction positionAndShowScrollToTopButton() {\n\t\t\tconst bodyPadding = window.getComputedStyle(document.body).padding;\n\n\t\t\tif(window.pageYOffset > 100 && bodyPadding == \"0px\") {\n\t\t\t\tbtn.style.display = \"block\";\n\t\t\t} else {\n\t\t\t\tbtn.style.display = \"none\";\n\t\t\t}\n\t\t}\n\n\t\tfunction scrollToTop() {\n\t\t\twindow.scrollTo({\n\t\t\t\ttop: 0,\n\t\t\t\tbehavior: \"smooth\",\n\t\t\t});\n\t\t}\n\t</script>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<a id=\"scroll-to-top\" onclick=\"window.scrollTo({ top: 0, behavior: &#39;smooth&#39; });\" class=\"hidden fixed bottom-6 p-2 text-center no-underline bg-gray-700 rounded-md border border-gray-600 border-solid cursor-pointer md:bottom-12 lg:bottom-14 xl:bottom-16 text-slate-300\"><svg class=\"w-5 h-5 fill-slate-300\" viewBox=\"0 0 115.4 122.88\"><path d=\"M24.94,67.88A14.66,14.66,0,0,1,4.38,47L47.83,4.21a14.66,14.66,0,0,1,20.56,0L111,46.15A14.66,14.66,0,0,1,90.46,67.06l-18-17.69-.29,59.17c-.1,19.28-29.42,19-29.33-.25L43.14,50,24.94,67.88Z\"></path></svg></a><script type=\"text/javascript\">\n\t\tconst btn = document.getElementById(\"scroll-to-top\");\n\t  const content = document.getElementById(\"content\");\n\n\t\twindow.addEventListener(\"scroll\", showScrollToTopButton)\n\t\twindow.addEventListener(\"resize\", showScrollToTopButton)\n\t\twindow.addEventListener(\"htmx:afterswap\", showScrollToTopButton)\n\n\t\tfunction showScrollToTopButton() {\n\t\t\tif(window.pageYOffset > 100) {\n\t\t\t\tbtn.style.display = \"block\";\n\t\t\t\tconst btnRect = btn.getBoundingClientRect();\n\t\t\t\tconst contentRect = content.getBoundingClientRect();\n\t\t\t\tbtn.style.left = (contentRect.right - btnRect.width).toString() + \"px\";\n\t\t\t} else {\n\t\t\t\tbtn.style.display = \"none\";\n\t\t\t}\n\t\t}\n\n\t\tshowScrollToTopButton();\n\t</script>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

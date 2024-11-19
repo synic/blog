@@ -47,7 +47,7 @@ func BaseLayout(title string) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = inlinestatic("js/htmx.min.js", "css/syntax.min.css", "css/main.css").Render(ctx, templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = cachedstaticfiles().Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

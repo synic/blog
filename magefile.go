@@ -96,7 +96,7 @@ func (Build) Release() error {
 	return buildCmd(
 		"-tags", "release",
 		"-ldflags",
-		"\"-s -w\"",
+		"-s -w",
 		"-o", releasePath,
 		".",
 	)

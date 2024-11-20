@@ -18,17 +18,23 @@ import (
 )
 
 var (
+	// build time (set during build)
 	BuildTime = fmt.Sprintf("%d", time.Now().Unix())
-	// will maybe be set to `true` in `debug.go`
-	isDebugBuild = false
 	//go:embed articles/json/*
 	embeddedArticles embed.FS
 	//go:embed assets/*
 	embeddedAssets embed.FS
 )
 
-func main() {
-	var articles []*model.Article
+func readArticles() []*model.Article {
+	var (
+		articles    []*model.Article
+		isDebugging = os.Getenv("DEBUG") == "true"
+	)
+
+	if isDebugging {
+		log.Println("🐝 Debugging enabled, unpublished articles will be shown")
+	}
 
 	entries, err := embeddedArticles.ReadDir("articles/json")
 
@@ -36,7 +42,6 @@ func main() {
 		log.Fatal(err)
 	}
 
-	begin := time.Now()
 	for _, entry := range entries {
 		var article model.Article
 
@@ -58,9 +63,17 @@ func main() {
 			log.Fatalf("error unmarshaling article %s: %v", name, err)
 		}
 
-		articles = append(articles, &article)
+		if isDebugging || article.IsPublished {
+			articles = append(articles, &article)
+		}
 	}
 
+	return articles
+}
+
+func main() {
+	begin := time.Now()
+	articles := readArticles()
 	log.Printf("🔖 Read %d articles in %s", len(articles), time.Since(begin))
 
 	repo, err := store.NewArticleRepository(articles)
@@ -83,12 +96,7 @@ func main() {
 	wrapped := middleware.Wrap(
 		server,
 		middleware.AddContextData(map[string]any{"BuildTime": BuildTime}),
-		middleware.CacheStaticFiles(
-			embeddedAssets,
-			"js/htmx.min.js",
-			"css/syntax.min.css",
-			"css/main.css",
-		),
+		middleware.CacheStaticFiles(embeddedAssets, "css/main.css"),
 		middleware.LoggingMiddleware(log.Default()),
 		middleware.IsHtmxPartialMiddleware(),
 	)

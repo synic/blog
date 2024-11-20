@@ -16,7 +16,12 @@ templ BaseLayout(title string) {
 				<meta charset="utf-8"/>
 				<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 				<meta name="description" content="Adam's Blog. Programming, Vim, Photography, and more!"/>
+				<link rel="preload" href={ staticfile(ctx, "/static/css/syntax.min.css") } as="style" onload="this.onload=null;this.rel='stylesheet'"/>
+				<noscript>
+					<link rel="stylesheet" href={ staticfile(ctx, "/static/css/syntax.min.css") }/>
+				</noscript>
 				@cachedstaticfiles()
+				<script src={ staticfile(ctx, "/static/js/htmx.min.js") } defer></script>
 				<title>Adam's Blog</title>
 				<link rel="icon" href="data:,"/>
 			</head>
@@ -44,6 +49,7 @@ templ header() {
 			action="/"
 			hx-boost="true"
 			hx-target="#content"
+			autocomplete="off"
 			hx-push-url="true"
 			hx-swap="innerHTML show:window:top"
 			class="flex flex-row flex-nowrap pl-6 rounded-md shadow-md"

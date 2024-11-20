@@ -19,7 +19,7 @@ import (
 
 var (
 	// build time (set during build)
-	BuildTime = fmt.Sprintf("%d", time.Now().Unix())
+	BuildTime string
 	//go:embed articles/json/*
 	embeddedArticles embed.FS
 	//go:embed assets/*
@@ -74,6 +74,10 @@ func readArticles() []*model.Article {
 func main() {
 	begin := time.Now()
 	articles := readArticles()
+	if BuildTime == "" {
+		BuildTime = fmt.Sprint(time.Now().Unix())
+		log.Printf("⚠️ Build time was not set, using %s\n", BuildTime)
+	}
 	log.Printf("🔖 Read %d articles in %s", len(articles), time.Since(begin))
 
 	repo, err := store.NewArticleRepository(articles)

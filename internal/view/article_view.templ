@@ -30,7 +30,7 @@ templ article(a *model.Article, single bool) {
 				hx-trigger="click consume"
 				hx-get={ string(a.SafeURL()) }
 			>
-				<h1 class="mt-0 text-rose-500">{ a.Title }</h1>
+				<h1 class="mt-0 mb-0 text-rose-500">{ a.Title }</h1>
 			</a>
 			<div class="mt-3 text-sm italic">
 				if a.IsPublished {

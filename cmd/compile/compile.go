@@ -5,6 +5,7 @@ import (
 	"errors"
 	"flag"
 	"fmt"
+	"log"
 	"os"
 	"path"
 	"path/filepath"
@@ -55,7 +56,7 @@ func main() {
 	files, err := os.ReadDir(*inputDir)
 
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 
 	begin := time.Now()
@@ -86,19 +87,19 @@ func main() {
 		article, err := parseArticle(in)
 
 		if err != nil {
-			panic(err)
+			log.Fatal(err)
 		}
 
 		data, err := json.MarshalIndent(article, "", "  ")
 
 		if err != nil {
-			panic(err)
+			log.Fatal(err)
 		}
 
 		err = os.WriteFile(out, data, os.ModePerm)
 
 		if err != nil {
-			panic(err)
+			log.Fatal(err)
 		}
 
 		if *verbose {

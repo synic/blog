@@ -89,7 +89,7 @@ func (Build) Dev() error {
 	mg.Deps(Codegen, Vet)
 	mg.Deps(Articles.Compile)
 
-	return buildCmd("-tags", "debug", "-o", debugPath, P("cmd/serve/serve.go"))
+	return buildCmd("-tags", "debug", "-o", debugPath, P("./cmd/serve/"))
 }
 
 func (Build) Release() error {

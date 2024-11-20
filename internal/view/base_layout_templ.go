@@ -11,9 +11,9 @@ import templruntime "github.com/a-h/templ/runtime"
 import (
 	"context"
 	"fmt"
+	"github.com/synic/adamthings.me/internal"
 	"github.com/synic/adamthings.me/internal/middleware"
 	"io"
-	"log"
 )
 
 func BaseLayout(title string) templ.Component {
@@ -43,9 +43,9 @@ func BaseLayout(title string) templ.Component {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var2 string
-			templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(staticfile(ctx, "/static/css/syntax.min.css"))
+			templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(staticfile("/static/css/syntax.min.css"))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/base_layout.templ`, Line: 19, Col: 76}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/base_layout.templ`, Line: 19, Col: 71}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
 			if templ_7745c5c3_Err != nil {
@@ -56,9 +56,9 @@ func BaseLayout(title string) templ.Component {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var3 string
-			templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(staticfile(ctx, "/static/css/syntax.min.css"))
+			templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(staticfile("/static/css/syntax.min.css"))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/base_layout.templ`, Line: 21, Col: 80}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/base_layout.templ`, Line: 21, Col: 75}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 			if templ_7745c5c3_Err != nil {
@@ -77,9 +77,9 @@ func BaseLayout(title string) templ.Component {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var4 string
-			templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(staticfile(ctx, "/static/js/htmx.min.js"))
+			templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(staticfile("/static/js/htmx.min.js"))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/base_layout.templ`, Line: 24, Col: 59}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/base_layout.templ`, Line: 24, Col: 54}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
 			if templ_7745c5c3_Err != nil {
@@ -291,25 +291,20 @@ func scrollToTopButton() templ.Component {
 }
 
 func isPartial(ctx context.Context) bool {
-	if isPartial, ok := ctx.Value(middleware.IsHtmxPartialContextKey).(bool); ok {
+	if isPartial, ok := ctx.Value(middleware.HtmxPartialContextKey).(bool); ok {
 		return isPartial
 	}
 	return false
 }
 
-func staticfile(ctx context.Context, path string) string {
-	if buildTime, ok := ctx.Value("BuildTime").(string); ok {
-		return fmt.Sprintf("%s?b=%s", path, buildTime)
-	}
-
-	log.Printf("WARN: could not find build time to serve %s", path)
-	return path
+func staticfile(path string) string {
+	return fmt.Sprintf("%s?b=%s", path, internal.BuildTime)
 }
 
 func cachedstaticfiles() templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, w io.Writer) (err error) {
-		if data, ok := ctx.Value("cached-static-files").(*[]byte); ok {
-			_, err := w.Write(*data)
+		if data, ok := ctx.Value("cached-static-files").([]byte); ok {
+			_, err := w.Write(data)
 			return err
 		}
 

@@ -5,14 +5,14 @@ import (
 	"net/http"
 )
 
-var IsHtmxPartialContextKey = "ao:ishtmxpartial"
+var HtmxPartialContextKey = "ao:ishtmxpartial"
 
-func IsHtmxPartialMiddleware() func(http.Handler) http.Handler {
+func HtmxMiddleware() func(http.Handler) http.Handler {
 	return func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			ctx := context.WithValue(
 				r.Context(),
-				IsHtmxPartialContextKey,
+				HtmxPartialContextKey,
 				r.Header.Get("HX-Request") == "true",
 			)
 			next.ServeHTTP(w, r.WithContext(ctx))

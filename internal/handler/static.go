@@ -17,7 +17,7 @@ func getDefaultStaticHandlerConfig() staticHandlerConfig {
 	return staticHandlerConfig{
 		maxAge:  -1, // disabled (handled by webserver)
 		path:    "/static/",
-		subtree: "assets",
+		subtree: "",
 	}
 }
 

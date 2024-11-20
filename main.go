@@ -3,6 +3,7 @@ package main
 import (
 	"embed"
 	"encoding/json"
+	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -17,9 +18,10 @@ import (
 )
 
 var (
+	BuildTime = fmt.Sprintf("%d", time.Now().Unix())
 	// will maybe be set to `true` in `debug.go`
 	isDebugBuild = false
-	//go:embed articles/*
+	//go:embed articles/json/*
 	embeddedArticles embed.FS
 	//go:embed assets/*
 	embeddedAssets embed.FS
@@ -28,7 +30,7 @@ var (
 func main() {
 	var articles []*model.Article
 
-	entries, err := embeddedArticles.ReadDir("articles")
+	entries, err := embeddedArticles.ReadDir("articles/json")
 
 	if err != nil {
 		log.Fatal(err)
@@ -38,7 +40,7 @@ func main() {
 	for _, entry := range entries {
 		var article model.Article
 
-		name := path.Join("articles", entry.Name())
+		name := path.Join("articles", "json", entry.Name())
 
 		if filepath.Ext(name) != ".json" {
 			continue
@@ -59,7 +61,7 @@ func main() {
 		articles = append(articles, &article)
 	}
 
-	log.Printf("Read %d articles in %s", len(articles), time.Since(begin))
+	log.Printf("🔖 Read %d articles in %s", len(articles), time.Since(begin))
 
 	repo, err := store.NewArticleRepository(articles)
 
@@ -76,11 +78,12 @@ func main() {
 	server.Handle("GET /static/", handler.StaticHandler(embeddedAssets))
 	handler.NewArticleRouter(repo).Mount(server)
 
-	log.Printf("Serving on %s...", bind)
+	log.Printf("🚀 Serving on %s...", bind)
 
 	wrapped := middleware.Wrap(
 		server,
 		middleware.AddContextData(map[string]any{"BuildTime": BuildTime}),
+		middleware.CacheStaticFiles(embeddedAssets, "css/main.css"),
 		middleware.LoggingMiddleware(log.Default()),
 		middleware.IsHtmxPartialMiddleware(),
 		middleware.GzipMiddleware(),

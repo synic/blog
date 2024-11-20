@@ -4,12 +4,12 @@ WORKDIR /app
 COPY . .
 
 RUN set -x \
-    && go run cmd/compile/*.go -i articles -o cmd/serve/articles -v \
+    && go run cmd/compile/*.go -i articles -o ./articles/json -v \
     && go build \
       -tags release \
       -ldflags "-s -w -X main.BuildTime=$(date +%s)" \
       -o bin/blog \
-      ./cmd/serve
+      .
 
 FROM gcr.io/distroless/static-debian12:9efbcaacd8eac4960b315c502adffdbf3398ce62
 

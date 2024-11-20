@@ -9,6 +9,7 @@ import (
 	"os"
 	"path"
 	"path/filepath"
+	"slices"
 	"strings"
 	"time"
 )
@@ -41,6 +42,7 @@ func main() {
 	outputDir := flag.String("o", "articles.json", "Output directory")
 	recompile := flag.Bool("recompile", false, "Recompile all articles instead of just new ones")
 	verbose := flag.Bool("v", false, "Verbose output")
+	deleteRemoved := flag.Bool("d", false, "Delete json files for removed markdown files")
 
 	flag.Parse()
 
@@ -60,8 +62,10 @@ func main() {
 	}
 
 	begin := time.Now()
-	count := 0
-	skipCount := 0
+	validOutputFiles := make([]string, 0, len(files))
+	compiledCount := 0
+	skippedCount := 0
+	deletedCount := 0
 
 	for _, file := range files {
 		ext := filepath.Ext(file.Name())
@@ -72,11 +76,12 @@ func main() {
 
 		in := path.Join(*inputDir, file.Name())
 		out := path.Join(*outputDir, fmt.Sprintf("%s.json", strings.TrimSuffix(file.Name(), ext)))
+		validOutputFiles = append(validOutputFiles, out)
 
 		shouldCompile, err := shouldCompile(in, out)
 
 		if !shouldCompile && !*recompile {
-			skipCount += 1
+			skippedCount += 1
 
 			if *verbose {
 				fmt.Printf("skipped %s...\n", in)
@@ -105,19 +110,53 @@ func main() {
 		if *verbose {
 			fmt.Printf("compiled %s...\n", in)
 		}
-		count += 1
+		compiledCount += 1
+	}
+
+	if *deleteRemoved {
+		files, err := os.ReadDir(*outputDir)
+
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		for _, file := range files {
+			ext := filepath.Ext(file.Name())
+
+			if ext != ".json" {
+				continue
+			}
+
+			out := path.Join(*outputDir, file.Name())
+
+			if !slices.Contains(validOutputFiles, out) {
+				err := os.Remove(out)
+
+				if err != nil {
+					log.Fatal(err)
+				}
+
+				deletedCount += 1
+			}
+		}
 	}
 
 	end := time.Since(begin)
 
-	if count <= 0 {
-		fmt.Printf("Checked %d files in %s, but all were up-to-date.\n", skipCount, end)
-		return
+	var out strings.Builder
+
+	out.WriteString(
+		fmt.Sprintf("🎉 Article processing done in %s. compiled: %d", end, compiledCount),
+	)
+
+	if !*recompile {
+		out.WriteString(fmt.Sprintf(", up-to-date: %d", skippedCount))
 	}
 
-	if *recompile {
-		fmt.Printf("Done! Compiled %d articles in %s.\n", count, end)
-	} else {
-		fmt.Printf("Done! Compiled %d articles in %s, and skipped %d that were up-to-date.\n", count, end, skipCount)
+	if *deleteRemoved {
+		out.WriteString(fmt.Sprintf(", deleted: %d", deletedCount))
 	}
+
+	out.WriteString("\n")
+	fmt.Printf(out.String())
 }

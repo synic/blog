@@ -16,8 +16,9 @@ import (
 )
 
 var (
-	Default  = Dev
-	cssTheme = "catppuccin-mocha"
+	Default     = Dev
+	packageName = "github.com/synic/adamthings.me"
+	cssTheme    = "catppuccin-mocha"
 
 	// paths
 	binPath     = "bin"
@@ -27,6 +28,9 @@ var (
 	buildCmd    = sh.RunCmd("go", "build")
 	tailwindCmd = sh.RunCmd(filepath.FromSlash("node_modules/.bin/tailwindcss"))
 	minifyCmd   = sh.RunCmd(filepath.FromSlash("node_modules/.bin/css-minify"))
+
+	// misc
+	buildInfoPath = fmt.Sprintf("%s/internal", packageName)
 
 	// required command line tools (versions are specified in go.mod)
 	tools = map[string]string{
@@ -90,13 +94,17 @@ func (Build) Dev() error {
 	mg.Deps(Codegen, Vet)
 	mg.Deps(Articles.Compile)
 
-	return buildCmd("-tags", "debug", "-o", debugPath, ".")
+	return buildCmd("-tags", "debug",
+		fmt.Sprintf("-ldflags=-X %s.DebugFlag=true", buildInfoPath),
+		"-o", debugPath,
+		".",
+	)
 }
 
 func (Build) Release() error {
 	return buildCmd(
 		"-tags", "release",
-		fmt.Sprintf("-ldflags=-s -w -X main.BuildTime=%d", time.Now().Unix()),
+		fmt.Sprintf("-ldflags=-s -w -X %s.BuildTime=%d", buildInfoPath, time.Now().Unix()),
 		"-o", releasePath,
 		".",
 	)
@@ -105,7 +113,7 @@ func (Build) Release() error {
 func Codegen() error {
 	mg.Deps(Deps.Dev)
 
-	err := sh.Run(path.Join(binPath, "templ"), "generate")
+	err := sh.Run(path.Join(binPath, "templ"), "generate", "-lazy")
 
 	if err != nil {
 		return err

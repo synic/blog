@@ -12,4 +12,4 @@ FROM gcr.io/distroless/static-debian12:9efbcaacd8eac4960b315c502adffdbf3398ce62
 WORKDIR /
 COPY --from=build-base /app/bin/blog-release /blog
 
-CMD ["./blog", "serve"]
+CMD ["./blog"]

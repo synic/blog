@@ -89,18 +89,16 @@ func (Build) Dev() error {
 	mg.Deps(Codegen, Vet)
 	mg.Deps(Articles.Compile)
 
-	return buildCmd("-tags", "debug", "-o", debugPath, P("./cmd/serve/"))
+	return buildCmd("-tags", "debug", "-o", debugPath, ".")
 }
 
 func (Build) Release() error {
 	return buildCmd(
-		"-tags",
-		"release",
+		"-tags", "release",
 		"-ldflags",
 		"\"-s -w\"",
-		"-o",
-		releasePath,
-		P("cmd/serve/serve.go"),
+		"-o", releasePath,
+		".",
 	)
 }
 
@@ -116,7 +114,7 @@ func Codegen() error {
 	return tailwindCmd(
 		"--postcss",
 		"-i", P("internal/view/css/main.css"),
-		"-o", P("cmd/serve/assets/css/main.css"),
+		"-o", P("assets/css/main.css"),
 		"--minify",
 	)
 }
@@ -142,7 +140,8 @@ func compileArticles(recompile bool) error {
 	args = append(args, includeFiles...)
 	args = append(args, []string{
 		"-i", "articles",
-		"-o", P("cmd/serve/articles"),
+		"-o", P("articles/json"),
+		"-d",
 	}...)
 
 	if recompile {

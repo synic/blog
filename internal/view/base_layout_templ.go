@@ -12,6 +12,7 @@ import (
 	"context"
 	"fmt"
 	"github.com/synic/adamthings.me/internal/middleware"
+	"io"
 	"log"
 )
 
@@ -37,40 +38,48 @@ func BaseLayout(title string) templ.Component {
 		}
 		ctx = templ.ClearChildren(ctx)
 		if !isPartial(ctx) {
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<!doctype html> <html lang=\"en\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><meta name=\"description\" content=\"Adam&#39;s Blog. Programming, Vim, Photography, and more!\"><link rel=\"stylesheet\" href=\"")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<!doctype html> <html lang=\"en\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><meta name=\"description\" content=\"Adam&#39;s Blog. Programming, Vim, Photography, and more!\"><link rel=\"preload\" href=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var2 string
-			templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(staticfile(ctx, "/static/css/main.css"))
+			templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(staticfile(ctx, "/static/css/syntax.min.css"))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/base_layout.templ`, Line: 18, Col: 73}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/base_layout.templ`, Line: 19, Col: 76}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"><link rel=\"stylesheet\" href=\"")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" as=\"style\" onload=\"this.onload=null;this.rel=&#39;stylesheet&#39;\"><noscript><link rel=\"stylesheet\" href=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var3 string
 			templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(staticfile(ctx, "/static/css/syntax.min.css"))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/base_layout.templ`, Line: 19, Col: 79}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/base_layout.templ`, Line: 20, Col: 89}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" defer><script src=\"")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"></noscript>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			templ_7745c5c3_Err = cachedstaticfiles().Render(ctx, templ_7745c5c3_Buffer)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<script src=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var4 string
 			templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(staticfile(ctx, "/static/js/htmx.min.js"))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/base_layout.templ`, Line: 20, Col: 59}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/base_layout.templ`, Line: 22, Col: 59}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
 			if templ_7745c5c3_Err != nil {
@@ -179,7 +188,7 @@ func navLink(url, label string) templ.Component {
 		var templ_7745c5c3_Var7 string
 		templ_7745c5c3_Var7, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf("nav-link-%s", label))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/base_layout.templ`, Line: 79, Col: 40}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/base_layout.templ`, Line: 81, Col: 40}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var7))
 		if templ_7745c5c3_Err != nil {
@@ -201,7 +210,7 @@ func navLink(url, label string) templ.Component {
 		var templ_7745c5c3_Var9 string
 		templ_7745c5c3_Var9, templ_7745c5c3_Err = templ.JoinStringErrs(label)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/base_layout.templ`, Line: 86, Col: 9}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/base_layout.templ`, Line: 88, Col: 9}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var9))
 		if templ_7745c5c3_Err != nil {
@@ -273,7 +282,7 @@ func scrollToTopButton() templ.Component {
 			templ_7745c5c3_Var11 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<a id=\"scroll-to-top\" onclick=\"window.scrollTo({ top: 0, behavior: &#39;smooth&#39; });\" class=\"hidden fixed bottom-6 p-2 text-center no-underline bg-gray-700 rounded-md border border-gray-600 border-solid cursor-pointer md:bottom-12 lg:bottom-14 xl:bottom-16 text-slate-300\"><svg class=\"w-5 h-5 fill-slate-300\" viewBox=\"0 0 115.4 122.88\"><path d=\"M24.94,67.88A14.66,14.66,0,0,1,4.38,47L47.83,4.21a14.66,14.66,0,0,1,20.56,0L111,46.15A14.66,14.66,0,0,1,90.46,67.06l-18-17.69-.29,59.17c-.1,19.28-29.42,19-29.33-.25L43.14,50,24.94,67.88Z\"></path></svg></a><script type=\"text/javascript\">\n\t\tconst btn = document.getElementById(\"scroll-to-top\");\n\t  const content = document.getElementById(\"content\");\n\n\t\twindow.addEventListener(\"scroll\", showScrollToTopButton)\n\t\twindow.addEventListener(\"resize\", showScrollToTopButton)\n\t\twindow.addEventListener(\"htmx:afterswap\", showScrollToTopButton)\n\n\t\tfunction showScrollToTopButton() {\n\t\t\tif(window.pageYOffset > 100) {\n\t\t\t\tbtn.style.display = \"block\";\n\t\t\t\tconst btnRect = btn.getBoundingClientRect();\n\t\t\t\tconst contentRect = content.getBoundingClientRect();\n\t\t\t\tbtn.style.left = (contentRect.right - btnRect.width).toString() + \"px\";\n\t\t\t} else {\n\t\t\t\tbtn.style.display = \"none\";\n\t\t\t}\n\t\t}\n\n\t\tshowScrollToTopButton();\n\t</script>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<a id=\"scroll-to-top\" onclick=\"window.scrollTo({ top: 0, behavior: &#39;smooth&#39; });\" class=\"hidden fixed bottom-6 p-2 text-center no-underline bg-gray-700 rounded-md border border-gray-600 border-solid cursor-pointer md:bottom-12 lg:bottom-14 xl:bottom-16 text-slate-300\"><svg class=\"w-5 h-5 fill-slate-300\" viewBox=\"0 0 115.4 122.88\"><path d=\"M24.94,67.88A14.66,14.66,0,0,1,4.38,47L47.83,4.21a14.66,14.66,0,0,1,20.56,0L111,46.15A14.66,14.66,0,0,1,90.46,67.06l-18-17.69-.29,59.17c-.1,19.28-29.42,19-29.33-.25L43.14,50,24.94,67.88Z\"></path></svg></a><script type=\"text/javascript\">\n\t\tconst btn = document.getElementById(\"scroll-to-top\");\n\t\tconst content = document.getElementById(\"content\");\n\n\t\twindow.addEventListener(\"scroll\", showScrollToTopButton)\n\t\twindow.addEventListener(\"resize\", showScrollToTopButton)\n\t\twindow.addEventListener(\"htmx:afterswap\", showScrollToTopButton)\n\n\t\tfunction showScrollToTopButton() {\n\t\t\tif(window.pageYOffset > 100) {\n\t\t\t\tbtn.style.display = \"block\";\n\t\t\t\tconst btnRect = btn.getBoundingClientRect();\n\t\t\t\tconst contentRect = content.getBoundingClientRect();\n\t\t\t\tbtn.style.left = (contentRect.right - btnRect.width).toString() + \"px\";\n\t\t\t} else {\n\t\t\t\tbtn.style.display = \"none\";\n\t\t\t}\n\t\t}\n\n\t\tshowScrollToTopButton();\n\t</script>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -295,6 +304,17 @@ func staticfile(ctx context.Context, path string) string {
 
 	log.Printf("WARN: could not find build time to serve %s", path)
 	return path
+}
+
+func cachedstaticfiles() templ.Component {
+	return templ.ComponentFunc(func(ctx context.Context, w io.Writer) (err error) {
+		if data, ok := ctx.Value("cached-static-files").(*[]byte); ok {
+			_, err := w.Write(*data)
+			return err
+		}
+
+		return fmt.Errorf("unable to locate cached static files")
+	})
 }
 
 var _ = templruntime.GeneratedTemplate

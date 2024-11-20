@@ -1,7 +1,7 @@
 <!-- :metadata:
 
 title: Golang: Static linking with CGO and distroless
-tags: Programming, Go
+tags: Programming
 published: 2024-09-27T11:10:00-0700
 summary:
 

@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"github.com/synic/adamthings.me/internal/middleware"
+	"io"
 	"log"
 )
 
@@ -15,8 +16,9 @@ templ BaseLayout(title string) {
 				<meta charset="utf-8"/>
 				<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 				<meta name="description" content="Adam's Blog. Programming, Vim, Photography, and more!"/>
-				<link rel="stylesheet" href={ staticfile(ctx, "/static/css/main.css") }/>
-				<link rel="stylesheet" href={ staticfile(ctx, "/static/css/syntax.min.css") } defer/>
+				<link rel="preload" href={ staticfile(ctx, "/static/css/syntax.min.css") } as="style" onload="this.onload=null;this.rel='stylesheet'"/>
+				<noscript><link rel="stylesheet" href={ staticfile(ctx, "/static/css/syntax.min.css") }/></noscript>
+				@cachedstaticfiles()
 				<script src={ staticfile(ctx, "/static/js/htmx.min.js") } defer></script>
 				<title>Adam's Blog</title>
 				<link rel="icon" href="data:,"/>
@@ -111,7 +113,7 @@ templ scrollToTopButton() {
 	</a>
 	<script type="text/javascript">
 		const btn = document.getElementById("scroll-to-top");
-	  const content = document.getElementById("content");
+		const content = document.getElementById("content");
 
 		window.addEventListener("scroll", showScrollToTopButton)
 		window.addEventListener("resize", showScrollToTopButton)
@@ -146,4 +148,15 @@ func staticfile(ctx context.Context, path string) string {
 
 	log.Printf("WARN: could not find build time to serve %s", path)
 	return path
+}
+
+func cachedstaticfiles() templ.Component {
+	return templ.ComponentFunc(func(ctx context.Context, w io.Writer) (err error) {
+		if data, ok := ctx.Value("cached-static-files").(*[]byte); ok {
+			_, err := w.Write(*data)
+			return err
+		}
+
+		return fmt.Errorf("unable to locate cached static files")
+	})
 }

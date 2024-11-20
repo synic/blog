@@ -53,7 +53,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	staticFiles, err := internal.BundleStaticAssets(assets, "css/main.css")
+	staticFiles, err := internal.BundleStaticAssets(assets, "css/main.css", "css/syntax.min.css")
 
 	if err != nil {
 		log.Fatal(err)
@@ -78,7 +78,7 @@ func main() {
 			middleware.HtmxMiddleware(),
 		),
 		BaseContext: func(net.Listener) context.Context {
-			return context.WithValue(context.Background(), "cached-static-files", staticFiles)
+			return context.WithValue(context.Background(), "inline-static-files", staticFiles)
 		},
 	}
 

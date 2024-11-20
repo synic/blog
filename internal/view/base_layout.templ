@@ -16,11 +16,7 @@ templ BaseLayout(title string) {
 				<meta charset="utf-8"/>
 				<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 				<meta name="description" content="Adam's Blog. Programming, Vim, Photography, and more!"/>
-				<link rel="preload" href={ staticfile("/static/css/syntax.min.css") } as="style" onload="this.onload=null;this.rel='stylesheet'"/>
-				<noscript>
-					<link rel="stylesheet" href={ staticfile("/static/css/syntax.min.css") }/>
-				</noscript>
-				@cachedstaticfiles()
+				@inlinestatic()
 				<script src={ staticfile("/static/js/htmx.min.js") } defer></script>
 				<title>Adam's Blog</title>
 				<link rel="icon" href="data:,"/>
@@ -148,9 +144,9 @@ func staticfile(path string) string {
 	return fmt.Sprintf("%s?b=%s", path, internal.BuildTime)
 }
 
-func cachedstaticfiles() templ.Component {
+func inlinestatic() templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, w io.Writer) (err error) {
-		if data, ok := ctx.Value("cached-static-files").([]byte); ok {
+		if data, ok := ctx.Value("inline-static-files").([]byte); ok {
 			_, err := w.Write(data)
 			return err
 		}

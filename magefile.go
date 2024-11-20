@@ -9,6 +9,7 @@ import (
 	"path"
 	"path/filepath"
 	"strings"
+	"time"
 
 	"github.com/magefile/mage/mg"
 	"github.com/magefile/mage/sh"
@@ -95,8 +96,7 @@ func (Build) Dev() error {
 func (Build) Release() error {
 	return buildCmd(
 		"-tags", "release",
-		"-ldflags",
-		"-s -w",
+		fmt.Sprintf("-ldflags=-s -w -X main.BuildTime=%d", time.Now().Unix()),
 		"-o", releasePath,
 		".",
 	)

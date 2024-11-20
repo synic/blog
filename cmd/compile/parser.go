@@ -14,15 +14,15 @@ import (
 
 var markdown = newMarkdownRenderer()
 
-func parseArticleMetadataBlock(content string) (string, error) {
-	r := regexp.MustCompile(`(?s)<!-- :metadata:(.*?)-->`)
+func parseArticleMetadataBlock(content string) (string, string, error) {
+	r := regexp.MustCompile(`(?s)<!-- :metadata:(.*?)-->(.*)`)
 	matches := r.FindStringSubmatch(content)
 
 	if matches == nil {
-		return "", errors.New("unable to parse metadata block")
+		return "", "", errors.New("unable to parse metadata block")
 	}
 
-	return strings.TrimSpace(matches[1]), nil
+	return strings.TrimSpace(matches[1]), matches[2], nil
 }
 
 func parseArticleValueFromMetadata(block string, name string) (string, error) {
@@ -83,7 +83,7 @@ func parseArticle(name string) (*model.Article, error) {
 		return nil, fmt.Errorf("unable to parse article slug: %w", err)
 	}
 
-	md, err := parseArticleMetadataBlock(data)
+	md, body, err := parseArticleMetadataBlock(data)
 
 	if err != nil {
 		return nil, err
@@ -112,7 +112,7 @@ func parseArticle(name string) (*model.Article, error) {
 		return nil, fmt.Errorf("error converting article summary to html: %w", err)
 	}
 
-	bodyHtml, err := markdown.MarkdownToHtml(data)
+	bodyHtml, err := markdown.MarkdownToHtml(body)
 
 	if err != nil {
 		return nil, fmt.Errorf("error converting article body to html: %w", err)

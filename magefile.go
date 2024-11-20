@@ -5,6 +5,7 @@ package main
 import (
 	"errors"
 	"fmt"
+	"io/fs"
 	"os"
 	"path"
 	"path/filepath"
@@ -26,8 +27,10 @@ var (
 	releasePath = path.Join(binPath, "blog-release")
 	runCmd      = sh.RunCmd("go", "run")
 	buildCmd    = sh.RunCmd("go", "build")
-	tailwindCmd = sh.RunCmd(filepath.FromSlash("node_modules/.bin/tailwindcss"))
-	minifyCmd   = sh.RunCmd(filepath.FromSlash("node_modules/.bin/css-minify"))
+	tailwindCmd = sh.RunCmd("node_modules/.bin/tailwindcss")
+	minifyCmd   = sh.RunCmd("node_modules/.bin/css-minify")
+	inputCss    = "./internal/view/css/main.css"
+	outputCss   = "./assets/css/main.css"
 
 	// misc
 	buildInfoPath = fmt.Sprintf("%s/internal", packageName)
@@ -37,9 +40,6 @@ var (
 		"air":   "github.com/air-verse/air",
 		"templ": "github.com/a-h/templ/cmd/templ",
 	}
-
-	// aliases
-	P = filepath.FromSlash
 )
 
 func Dev() error {
@@ -75,7 +75,7 @@ func (Deps) Dev() error {
 
 	}
 
-	if _, err := os.Stat(P("node_modules/.bin/tailwindcss")); err != nil {
+	if _, err := os.Stat("./node_modules/.bin/tailwindcss"); err != nil {
 		if !errors.Is(err, os.ErrNotExist) {
 			return err
 		}
@@ -119,18 +119,13 @@ func Codegen() error {
 		return err
 	}
 
-	return tailwindCmd(
-		"--postcss",
-		"-i", P("internal/view/css/main.css"),
-		"-o", P("assets/css/main.css"),
-		"--minify",
-	)
+	return maybeRunTailwind()
 }
 
 type Articles mg.Namespace
 
 func compileArticles(recompile bool) error {
-	dir := P("./cmd/compile/")
+	dir := "./cmd/compile/"
 	allFiles, err := os.ReadDir(dir)
 	includeFiles := make([]string, 0, len(allFiles))
 
@@ -139,7 +134,7 @@ func compileArticles(recompile bool) error {
 	}
 
 	for _, f := range allFiles {
-		if !strings.HasSuffix(f.Name(), "_test.go") {
+		if !strings.HasSuffix(f.Name(), "_test.go") && strings.HasSuffix(f.Name(), ".go") {
 			includeFiles = append(includeFiles, path.Join(dir, f.Name()))
 		}
 	}
@@ -148,7 +143,7 @@ func compileArticles(recompile bool) error {
 	args = append(args, includeFiles...)
 	args = append(args, []string{
 		"-i", "articles",
-		"-o", P("articles/json"),
+		"-o", "articles/json",
 		"-d",
 	}...)
 
@@ -174,7 +169,7 @@ func Pygmentize() error {
 		return err
 	}
 
-	f, err := os.Create(P("internal/view/css/syntax.css"))
+	f, err := os.Create("internal/view/css/syntax.css")
 
 	if err != nil {
 		return err
@@ -183,7 +178,7 @@ func Pygmentize() error {
 	f.WriteString(data)
 	f.Close()
 
-	return minifyCmd("-f", P("internal/view/css/syntax.css"), "--output", P("cmd/serve/assets/css"))
+	return minifyCmd("-f", "internal/view/css/syntax.css", "--output", "cmd/serve/assets/css")
 }
 
 func Vet() error {
@@ -211,6 +206,61 @@ func Clean() error {
 		if err != nil {
 			return err
 		}
+	}
+
+	return nil
+}
+
+func maybeRunTailwind() error {
+	var (
+		lastInputModTime *time.Time = nil
+		outModTime       *time.Time = nil
+	)
+
+	outInfo, err := os.Stat(outputCss)
+
+	if err == nil {
+		modTime := outInfo.ModTime()
+		outModTime = &modTime
+	}
+
+	err = filepath.WalkDir("./internal/view", func(path string, d fs.DirEntry, err error) error {
+		if err != nil {
+			return err
+		}
+
+		if d.IsDir() {
+			return nil
+		}
+
+		fileInfo, err := os.Stat(path)
+
+		if err != nil {
+			return err
+		}
+
+		modTime := fileInfo.ModTime()
+
+		if lastInputModTime == nil || modTime.After(*lastInputModTime) {
+			lastInputModTime = &modTime
+		}
+
+		return nil
+	})
+
+	if err != nil {
+		return err
+	}
+
+	if lastInputModTime == nil || outModTime == nil || lastInputModTime.After(*outModTime) {
+		fmt.Println("View or CSS changes detected, running tailwind...")
+		err := tailwindCmd("--postcss", "-i", inputCss, "-o", outputCss, "--minify")
+
+		if err != nil {
+			return err
+		}
+
+		return sh.Run("touch", outputCss)
 	}
 
 	return nil

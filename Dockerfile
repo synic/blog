@@ -4,8 +4,7 @@ WORKDIR /app
 COPY . .
 
 RUN set -x \
-    && go run cmd/compile/*.go -i articles -o ./articles/json -v \
-    && go run github.com/magefile/mage@2385abb build:release
+    && go run github.com/magefile/mage@2385abb articles:compile build:release
 
 FROM gcr.io/distroless/static-debian12:9efbcaacd8eac4960b315c502adffdbf3398ce62
 

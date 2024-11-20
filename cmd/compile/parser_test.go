@@ -6,7 +6,7 @@ import (
 )
 
 func TestParseArticleMetadataBlock(t *testing.T) {
-	data, err := parseArticleMetadataBlock(`
+	data, _, err := parseArticleMetadataBlock(`
 <!-- :metadata:
 
 title: this is a test

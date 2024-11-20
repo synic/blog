@@ -34,7 +34,7 @@ func CacheStaticFiles(filesystem fs.ReadFileFS, files ...string) func(http.Handl
 	content, err := readStaticFiles(filesystem, files...)
 
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 
 	data := []byte(content)

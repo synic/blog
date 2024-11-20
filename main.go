@@ -83,10 +83,14 @@ func main() {
 	wrapped := middleware.Wrap(
 		server,
 		middleware.AddContextData(map[string]any{"BuildTime": BuildTime}),
-		middleware.CacheStaticFiles(embeddedAssets, "css/main.css"),
+		middleware.CacheStaticFiles(
+			embeddedAssets,
+			"js/htmx.min.js",
+			"css/syntax.min.css",
+			"css/main.css",
+		),
 		middleware.LoggingMiddleware(log.Default()),
 		middleware.IsHtmxPartialMiddleware(),
-		middleware.GzipMiddleware(),
 	)
 
 	if err = http.ListenAndServe(bind, wrapped); err != nil {

@@ -12,14 +12,8 @@ import (
 	"context"
 	"fmt"
 	"github.com/synic/adamthings.me/internal/middleware"
+	"log"
 )
-
-func isPartial(ctx context.Context) bool {
-	if isPartial, ok := ctx.Value(middleware.IsHtmxPartialContextKey).(bool); ok {
-		return isPartial
-	}
-	return false
-}
 
 func BaseLayout(title string) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
@@ -43,15 +37,46 @@ func BaseLayout(title string) templ.Component {
 		}
 		ctx = templ.ClearChildren(ctx)
 		if !isPartial(ctx) {
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<!doctype html> <html lang=\"en\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><meta name=\"description\" content=\"Adam&#39;s Blog. Programming, Vim, Photography, and more!\">")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<!doctype html> <html lang=\"en\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><meta name=\"description\" content=\"Adam&#39;s Blog. Programming, Vim, Photography, and more!\"><link rel=\"stylesheet\" href=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = cachedstaticfiles().Render(ctx, templ_7745c5c3_Buffer)
+			var templ_7745c5c3_Var2 string
+			templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(staticfile(ctx, "/static/css/main.css"))
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/base_layout.templ`, Line: 18, Col: 73}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<title>Adam's Blog</title><link rel=\"icon\" href=\"data:,\"></head><body id=\"body\" class=\"w-full text-xl bg-gray-900 md:p-6 md:text-xl lg:p-9 lg:text-2xl xl:px-12 xl:pt-8 text-slate-300\"><div class=\"mx-auto bg-gray-800 shadow-xl md:rounded-xl xl:max-w-7xl\">")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"><link rel=\"stylesheet\" href=\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var3 string
+			templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(staticfile(ctx, "/static/css/syntax.min.css"))
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/base_layout.templ`, Line: 19, Col: 79}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" defer><script src=\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var4 string
+			templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(staticfile(ctx, "/static/js/htmx.min.js"))
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/base_layout.templ`, Line: 20, Col: 59}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" defer></script><title>Adam's Blog</title><link rel=\"icon\" href=\"data:,\"></head><body id=\"body\" class=\"w-full text-xl bg-gray-900 md:p-6 md:text-xl lg:p-9 lg:text-2xl xl:px-12 xl:pt-8 text-slate-300\"><div class=\"mx-auto bg-gray-800 shadow-xl md:rounded-xl xl:max-w-7xl\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -105,9 +130,9 @@ func header() templ.Component {
 			}()
 		}
 		ctx = templ.InitializeContext(ctx)
-		templ_7745c5c3_Var2 := templ.GetChildren(ctx)
-		if templ_7745c5c3_Var2 == nil {
-			templ_7745c5c3_Var2 = templ.NopComponent
+		templ_7745c5c3_Var5 := templ.GetChildren(ctx)
+		if templ_7745c5c3_Var5 == nil {
+			templ_7745c5c3_Var5 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<header class=\"mb-3 w-full shadow-md\"><form method=\"post\" action=\"/\" hx-boost=\"true\" hx-target=\"#content\" hx-push-url=\"true\" hx-swap=\"innerHTML show:window:top\" class=\"flex flex-row flex-nowrap pl-6 rounded-md shadow-md\"><div class=\"justify-start py-3 cursor-pointer shrink\" hx-get=\"/\" hx-on::after-request=\"document.getElementById(&#39;search-nav&#39;).value = &#39;&#39;;\" hx-trigger=\"click\"><a href=\"/\" hx-boost=\"true\" hx-trigger=\"click consume\" class=\"no-underline\"><span class=\"font-bold text-sky-700\">::/</span> Adam's Things</a></div><div class=\"grow\">&nbsp;</div><input class=\"hidden flex-auto px-2 my-2 mr-4 font-normal bg-gray-700 rounded border border-gray-600 border-solid md:inline outline-gray-600 max-w-56\" placeholder=\"Search...\" type=\"text\" name=\"search\" id=\"search-nav\" hx-post=\"/\" hx-trigger=\"input changed delay:200ms, search\">")
@@ -142,21 +167,21 @@ func navLink(url, label string) templ.Component {
 			}()
 		}
 		ctx = templ.InitializeContext(ctx)
-		templ_7745c5c3_Var3 := templ.GetChildren(ctx)
-		if templ_7745c5c3_Var3 == nil {
-			templ_7745c5c3_Var3 = templ.NopComponent
+		templ_7745c5c3_Var6 := templ.GetChildren(ctx)
+		if templ_7745c5c3_Var6 == nil {
+			templ_7745c5c3_Var6 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<a id=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var4 string
-		templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf("nav-link-%s", label))
+		var templ_7745c5c3_Var7 string
+		templ_7745c5c3_Var7, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf("nav-link-%s", label))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/base_layout.templ`, Line: 83, Col: 40}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/base_layout.templ`, Line: 79, Col: 40}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var7))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -164,8 +189,8 @@ func navLink(url, label string) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var5 templ.SafeURL = templ.URL(url)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(string(templ_7745c5c3_Var5)))
+		var templ_7745c5c3_Var8 templ.SafeURL = templ.URL(url)
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(string(templ_7745c5c3_Var8)))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -173,12 +198,12 @@ func navLink(url, label string) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var6 string
-		templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(label)
+		var templ_7745c5c3_Var9 string
+		templ_7745c5c3_Var9, templ_7745c5c3_Err = templ.JoinStringErrs(label)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/base_layout.templ`, Line: 90, Col: 9}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/base_layout.templ`, Line: 86, Col: 9}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var9))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -206,9 +231,9 @@ func navLinks() templ.Component {
 			}()
 		}
 		ctx = templ.InitializeContext(ctx)
-		templ_7745c5c3_Var7 := templ.GetChildren(ctx)
-		if templ_7745c5c3_Var7 == nil {
-			templ_7745c5c3_Var7 = templ.NopComponent
+		templ_7745c5c3_Var10 := templ.GetChildren(ctx)
+		if templ_7745c5c3_Var10 == nil {
+			templ_7745c5c3_Var10 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<nav class=\"flex flex-row content-end p-0 m-0 grow-0 shrink\" hx-target=\"#content\" hx-push-url=\"true\" hx-trigger=\"click\" hx-swap=\"innerHTML show:window:top\">")
@@ -243,9 +268,9 @@ func scrollToTopButton() templ.Component {
 			}()
 		}
 		ctx = templ.InitializeContext(ctx)
-		templ_7745c5c3_Var8 := templ.GetChildren(ctx)
-		if templ_7745c5c3_Var8 == nil {
-			templ_7745c5c3_Var8 = templ.NopComponent
+		templ_7745c5c3_Var11 := templ.GetChildren(ctx)
+		if templ_7745c5c3_Var11 == nil {
+			templ_7745c5c3_Var11 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<a id=\"scroll-to-top\" onclick=\"window.scrollTo({ top: 0, behavior: &#39;smooth&#39; });\" class=\"hidden fixed bottom-6 p-2 text-center no-underline bg-gray-700 rounded-md border border-gray-600 border-solid cursor-pointer md:bottom-12 lg:bottom-14 xl:bottom-16 text-slate-300\"><svg class=\"w-5 h-5 fill-slate-300\" viewBox=\"0 0 115.4 122.88\"><path d=\"M24.94,67.88A14.66,14.66,0,0,1,4.38,47L47.83,4.21a14.66,14.66,0,0,1,20.56,0L111,46.15A14.66,14.66,0,0,1,90.46,67.06l-18-17.69-.29,59.17c-.1,19.28-29.42,19-29.33-.25L43.14,50,24.94,67.88Z\"></path></svg></a><script type=\"text/javascript\">\n\t\tconst btn = document.getElementById(\"scroll-to-top\");\n\t  const content = document.getElementById(\"content\");\n\n\t\twindow.addEventListener(\"scroll\", showScrollToTopButton)\n\t\twindow.addEventListener(\"resize\", showScrollToTopButton)\n\t\twindow.addEventListener(\"htmx:afterswap\", showScrollToTopButton)\n\n\t\tfunction showScrollToTopButton() {\n\t\t\tif(window.pageYOffset > 100) {\n\t\t\t\tbtn.style.display = \"block\";\n\t\t\t\tconst btnRect = btn.getBoundingClientRect();\n\t\t\t\tconst contentRect = content.getBoundingClientRect();\n\t\t\t\tbtn.style.left = (contentRect.right - btnRect.width).toString() + \"px\";\n\t\t\t} else {\n\t\t\t\tbtn.style.display = \"none\";\n\t\t\t}\n\t\t}\n\n\t\tshowScrollToTopButton();\n\t</script>")
@@ -254,6 +279,22 @@ func scrollToTopButton() templ.Component {
 		}
 		return templ_7745c5c3_Err
 	})
+}
+
+func isPartial(ctx context.Context) bool {
+	if isPartial, ok := ctx.Value(middleware.IsHtmxPartialContextKey).(bool); ok {
+		return isPartial
+	}
+	return false
+}
+
+func staticfile(ctx context.Context, path string) string {
+	if buildTime, ok := ctx.Value("BuildTime").(string); ok {
+		return fmt.Sprintf("%s?b=%s", path, buildTime)
+	}
+
+	log.Printf("WARN: could not find build time to serve %s", path)
+	return path
 }
 
 var _ = templruntime.GeneratedTemplate

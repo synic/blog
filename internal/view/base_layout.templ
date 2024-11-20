@@ -4,14 +4,8 @@ import (
 	"context"
 	"fmt"
 	"github.com/synic/adamthings.me/internal/middleware"
+	"log"
 )
-
-func isPartial(ctx context.Context) bool {
-	if isPartial, ok := ctx.Value(middleware.IsHtmxPartialContextKey).(bool); ok {
-		return isPartial
-	}
-	return false
-}
 
 templ BaseLayout(title string) {
 	if !isPartial(ctx) {
@@ -21,7 +15,9 @@ templ BaseLayout(title string) {
 				<meta charset="utf-8"/>
 				<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 				<meta name="description" content="Adam's Blog. Programming, Vim, Photography, and more!"/>
-				@cachedstaticfiles()
+				<link rel="stylesheet" href={ staticfile(ctx, "/static/css/main.css") }/>
+				<link rel="stylesheet" href={ staticfile(ctx, "/static/css/syntax.min.css") } defer/>
+				<script src={ staticfile(ctx, "/static/js/htmx.min.js") } defer></script>
 				<title>Adam's Blog</title>
 				<link rel="icon" href="data:,"/>
 			</head>
@@ -134,4 +130,20 @@ templ scrollToTopButton() {
 
 		showScrollToTopButton();
 	</script>
+}
+
+func isPartial(ctx context.Context) bool {
+	if isPartial, ok := ctx.Value(middleware.IsHtmxPartialContextKey).(bool); ok {
+		return isPartial
+	}
+	return false
+}
+
+func staticfile(ctx context.Context, path string) string {
+	if buildTime, ok := ctx.Value("BuildTime").(string); ok {
+		return fmt.Sprintf("%s?b=%s", path, buildTime)
+	}
+
+	log.Printf("WARN: could not find build time to serve %s", path)
+	return path
 }

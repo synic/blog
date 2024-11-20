@@ -3,9 +3,9 @@ package view
 import (
 	"context"
 	"fmt"
+	"github.com/synic/adamthings.me/internal"
 	"github.com/synic/adamthings.me/internal/middleware"
 	"io"
-	"log"
 )
 
 templ BaseLayout(title string) {
@@ -16,12 +16,12 @@ templ BaseLayout(title string) {
 				<meta charset="utf-8"/>
 				<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 				<meta name="description" content="Adam's Blog. Programming, Vim, Photography, and more!"/>
-				<link rel="preload" href={ staticfile(ctx, "/static/css/syntax.min.css") } as="style" onload="this.onload=null;this.rel='stylesheet'"/>
+				<link rel="preload" href={ staticfile("/static/css/syntax.min.css") } as="style" onload="this.onload=null;this.rel='stylesheet'"/>
 				<noscript>
-					<link rel="stylesheet" href={ staticfile(ctx, "/static/css/syntax.min.css") }/>
+					<link rel="stylesheet" href={ staticfile("/static/css/syntax.min.css") }/>
 				</noscript>
 				@cachedstaticfiles()
-				<script src={ staticfile(ctx, "/static/js/htmx.min.js") } defer></script>
+				<script src={ staticfile("/static/js/htmx.min.js") } defer></script>
 				<title>Adam's Blog</title>
 				<link rel="icon" href="data:,"/>
 			</head>
@@ -138,25 +138,20 @@ templ scrollToTopButton() {
 }
 
 func isPartial(ctx context.Context) bool {
-	if isPartial, ok := ctx.Value(middleware.IsHtmxPartialContextKey).(bool); ok {
+	if isPartial, ok := ctx.Value(middleware.HtmxPartialContextKey).(bool); ok {
 		return isPartial
 	}
 	return false
 }
 
-func staticfile(ctx context.Context, path string) string {
-	if buildTime, ok := ctx.Value("BuildTime").(string); ok {
-		return fmt.Sprintf("%s?b=%s", path, buildTime)
-	}
-
-	log.Printf("WARN: could not find build time to serve %s", path)
-	return path
+func staticfile(path string) string {
+	return fmt.Sprintf("%s?b=%s", path, internal.BuildTime)
 }
 
 func cachedstaticfiles() templ.Component {
 	return templ.ComponentFunc(func(ctx context.Context, w io.Writer) (err error) {
-		if data, ok := ctx.Value("cached-static-files").(*[]byte); ok {
-			_, err := w.Write(*data)
+		if data, ok := ctx.Value("cached-static-files").([]byte); ok {
+			_, err := w.Write(data)
 			return err
 		}
 

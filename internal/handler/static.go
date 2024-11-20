@@ -15,7 +15,7 @@ type staticHandlerConfig struct {
 
 func getDefaultStaticHandlerConfig() staticHandlerConfig {
 	return staticHandlerConfig{
-		maxAge:  31536000, // 1 year
+		maxAge:  -1, // disabled (handled by webserver)
 		path:    "/static/",
 		subtree: "assets",
 	}
@@ -62,7 +62,9 @@ func StaticHandler(
 	staticHandler := http.StripPrefix(conf.path, http.FileServer(http.FS(filesystem)))
 
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		w.Header().Set("Cache-Control", fmt.Sprintf("max-age=%d", conf.maxAge))
+		if conf.maxAge > -1 {
+			w.Header().Set("Cache-Control", fmt.Sprintf("max-age=%d", conf.maxAge))
+		}
 		staticHandler.ServeHTTP(w, r)
 	})
 }

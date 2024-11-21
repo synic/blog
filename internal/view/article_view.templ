@@ -24,7 +24,7 @@ templ article(a *model.Article, single bool) {
 	>
 		<div>
 			<a
-				class={ "font-bold no-underline text-rose-500", templ.KV("hover:underline", !single) }
+				class={ "font-bold no-underline text-rose-500 decoration-rose-500", templ.KV("hover:underline", !single) }
 				href={ a.SafeURL() }
 				hx-boost="true"
 				hx-trigger="click consume"
@@ -50,7 +50,7 @@ templ article(a *model.Article, single bool) {
 			}
 		</div>
 		if single {
-			<hr class="mt-6 mb-4 h-px bg-gray-200 border-0 dark:bg-gray-700 my-flex-col"/>
+			<hr class="mt-4 mb-4 h-px bg-gray-200 border-0 dark:bg-gray-700 my-flex-col"/>
 			<div>
 				Filed Under:&nbsp;
 				@tagLinks(a.Tags)

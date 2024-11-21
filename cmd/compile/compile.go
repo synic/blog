@@ -92,7 +92,7 @@ func main() {
 		article, err := parseArticle(in)
 
 		if err != nil {
-			log.Fatal(err)
+			log.Fatalf(`error parsing %s: %v`, file.Name(), err)
 		}
 
 		data, err := json.MarshalIndent(article, "", "  ")

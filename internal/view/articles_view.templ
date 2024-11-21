@@ -16,7 +16,7 @@ templ ArticlesView(pd model.PageData) {
 						Search results: { pd.Search }
 					}
 				</h1>
-				<div class="mt-0 mb-6">
+				<div class="mt-1 mb-6">
 					if len(pd.Items) == 1 {
 						1 article
 					} else {
@@ -28,7 +28,7 @@ templ ArticlesView(pd model.PageData) {
 		for i, a := range pd.Items {
 			@article(a, false)
 			if i < len(pd.Items) - 1 || pd.TotalPages > 1 {
-				<hr class="mt-8 mb-6 h-px bg-gray-200 border-0 dark:bg-gray-700"/>
+				<hr class="mt-6 mb-4 h-px bg-gray-200 border-0 dark:bg-gray-700"/>
 			}
 		}
 		if len(pd.Items) <= 0 {

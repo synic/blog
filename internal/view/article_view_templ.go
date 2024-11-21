@@ -121,7 +121,7 @@ func article(a *model.Article, single bool) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var6 = []any{"font-bold no-underline text-rose-500", templ.KV("hover:underline", !single)}
+		var templ_7745c5c3_Var6 = []any{"font-bold no-underline text-rose-500 decoration-rose-500", templ.KV("hover:underline", !single)}
 		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var6...)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
@@ -218,7 +218,7 @@ func article(a *model.Article, single bool) templ.Component {
 			return templ_7745c5c3_Err
 		}
 		if single {
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<hr class=\"mt-6 mb-4 h-px bg-gray-200 border-0 dark:bg-gray-700 my-flex-col\"><div>Filed Under:&nbsp;")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<hr class=\"mt-4 mb-4 h-px bg-gray-200 border-0 dark:bg-gray-700 my-flex-col\"><div>Filed Under:&nbsp;")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

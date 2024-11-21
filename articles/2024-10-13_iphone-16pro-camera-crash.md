@@ -26,7 +26,7 @@ It's a little annoying because you need to set up everything again, but it
 seems to fix the camera crash. For me, this was worth it. Maybe it'll be worth
 it for you too?
 
-### UPDATE: October 15, 2024
+## UPDATE: October 15, 2024
 
 This seems to fix all of the issues I was having with the iPhone 16 Pro,
 including intermitten performance, battery drain, and overheating (it stands to

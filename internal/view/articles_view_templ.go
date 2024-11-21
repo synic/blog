@@ -81,7 +81,7 @@ func ArticlesView(pd model.PageData) templ.Component {
 							return templ_7745c5c3_Err
 						}
 					}
-					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</h1><div class=\"mt-0 mb-6\">")
+					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</h1><div class=\"mt-1 mb-6\">")
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
@@ -117,7 +117,7 @@ func ArticlesView(pd model.PageData) templ.Component {
 					return templ_7745c5c3_Err
 				}
 				if i < len(pd.Items)-1 || pd.TotalPages > 1 {
-					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<hr class=\"mt-8 mb-6 h-px bg-gray-200 border-0 dark:bg-gray-700\">")
+					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<hr class=\"mt-6 mb-4 h-px bg-gray-200 border-0 dark:bg-gray-700\">")
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}

@@ -6,7 +6,8 @@ import (
 
 	formatters "github.com/alecthomas/chroma/v2/formatters/html"
 	"github.com/yuin/goldmark"
-	"github.com/yuin/goldmark-highlighting/v2"
+	highlighting "github.com/yuin/goldmark-highlighting/v2"
+	"github.com/yuin/goldmark/extension"
 	renderer "github.com/yuin/goldmark/renderer/html"
 )
 
@@ -19,6 +20,12 @@ func newMarkdownRenderer() markdownRenderer {
 		goldmark.WithExtensions(
 			highlighting.NewHighlighting(
 				highlighting.WithFormatOptions(formatters.WithClasses(true)),
+			),
+			extension.NewLinkify(
+				extension.WithLinkifyAllowedProtocols([]string{
+					"http:",
+					"https:",
+				}),
 			),
 		),
 		goldmark.WithRendererOptions(renderer.WithUnsafe()),

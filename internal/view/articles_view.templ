@@ -6,7 +6,7 @@ import (
 )
 
 templ ArticlesView(pd model.PageData) {
-	@BaseLayout("") {
+	@BaseLayout(titleFromPageData(pd)) {
 		if pd.Page <= 1 {
 			if (pd.Tag != "" || pd.Search != "") {
 				<h1 class="pb-0 my-0 font-bold">
@@ -37,6 +37,18 @@ templ ArticlesView(pd model.PageData) {
 			@pageButtons(pd)
 		}
 	}
+}
+
+func titleFromPageData(pd model.PageData) string {
+	if pd.Tag != "" {
+		return fmt.Sprintf("Tag: %s", pd.Tag)
+	}
+
+	if pd.Search != "" {
+		return "Search Results"
+	}
+
+	return ""
 }
 
 func pageButtonBaseClasses(disabled bool) []string {

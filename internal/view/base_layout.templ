@@ -8,7 +8,7 @@ import (
 	"io"
 )
 
-templ BaseLayout(title string) {
+templ BaseLayout(pageTitle string) {
 	if !isPartial(ctx) {
 		<!DOCTYPE html>
 		<html lang="en">
@@ -18,7 +18,7 @@ templ BaseLayout(title string) {
 				<meta name="description" content="Adam's Blog. Programming, Vim, Photography, and more!"/>
 				@inlinestatic()
 				<script src={ staticfile("/static/js/htmx.min.js") } defer></script>
-				<title>Adam's Blog</title>
+				@title(pageTitle)
 				<link rel="icon" href="data:,"/>
 			</head>
 			<body id="body" class="w-full text-xl bg-gray-900 md:p-6 md:text-xl lg:p-9 lg:text-2xl xl:px-12 xl:pt-8 text-slate-300">
@@ -34,8 +34,18 @@ templ BaseLayout(title string) {
 			</body>
 		</html>
 	} else {
+		@title(pageTitle)
 		{ children... }
 	}
+}
+
+templ title(title string) {
+	<title>
+		Adam's Blog
+		if title != "" {
+			- { title }
+		}
+	</title>
 }
 
 templ header() {

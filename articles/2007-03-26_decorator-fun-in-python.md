@@ -2,7 +2,7 @@
 
 title: Decorator fun in Python
 tags: Programming, Python
-published: 2007-03-26T18:25:00-0700
+publishedAt: 2007-03-26T18:25:00-0700
 summary:
 
 I came across the following code a while ago.  I can't take credit for it, and

@@ -2,7 +2,7 @@
 
 title: Thoughts on Django
 tags: Programming, Django
-published: 2007-10-31T17:45:25-0700
+publishedAt: 2007-10-31T17:45:25-0700
 summary:
 
 <a href='http://www.djangoproject.com'>Django</a> is a "high-level Python Web

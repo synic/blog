@@ -2,7 +2,7 @@
 
 title: Exaile on OS X
 tags: Exaile
-published: 2009-04-23T23:57:43-0700
+publishedAt: 2009-04-23T23:57:43-0700
 summary:
 
 In just the last month or so, there have been a few people in the #exaile

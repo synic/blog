@@ -2,7 +2,7 @@
 
 title: Exaile 0.3 Roundup for October 29, 2008
 tags: Exaile
-published: 2008-10-29T18:28:29-0700
+publishedAt: 2008-10-29T18:28:29-0700
 summary:
 
 This week I've been focusing on album art support.  It was actually Aren's idea

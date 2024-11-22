@@ -2,7 +2,7 @@
 
 title: Utah OpenSource Conference 2009
 tags: Linux
-published: 2009-10-09T14:39:46-0700
+publishedAt: 2009-10-09T14:39:46-0700
 summary:
 
 The <a href='http://2009.utos.org'>Utah OpenSource Conference</a> went underway

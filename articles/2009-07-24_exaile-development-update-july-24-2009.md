@@ -2,7 +2,7 @@
 
 title: Exaile Development Update, July 24, 2009
 tags: Exaile, Programming, Linux
-published: 2009-07-24T16:47:56-0700
+publishedAt: 2009-07-24T16:47:56-0700
 summary:
 
 Exaile development has been *very* active in the past few weeks.  We are

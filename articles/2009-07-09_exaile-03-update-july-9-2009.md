@@ -2,7 +2,7 @@
 
 title: Exaile 0.3 Update for July 9, 2009
 tags: Exaile, Programming, Linux
-published: 2009-07-09T16:51:34-0700
+publishedAt: 2009-07-09T16:51:34-0700
 summary:
 
 Don't worry, we're still here, and still hard at work.  I thought I would give

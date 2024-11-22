@@ -2,7 +2,7 @@
 
 title: Things you should know before posting your comment on the Android market
 tags: Android
-published: 2012-02-13T18:29:30-0700
+publishedAt: 2012-02-13T18:29:30-0700
 summary:
 
 Yeah, ok, this post is more of a rant that anything.   I realize that people

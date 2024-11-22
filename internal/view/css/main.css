@@ -2,6 +2,10 @@
 @tailwind components;
 
 @layer base {
+  * {
+    @apply text-lg md:text-xl;
+  }
+
   a {
     @apply decoration-dashed underline decoration-slate-500;
   }
@@ -31,8 +35,9 @@
   }
 
   h3 {
-    @apply font-bold text-lg md:text-xl my-5;
+    @apply font-bold text-xl md:text-2xl my-5;
   }
+
 }
 
 @layer components {
@@ -50,15 +55,19 @@
     }
 
     h1 {
-      @apply text-xl md:text-2xl text-sky-500;
+      @apply text-sky-500 text-xl md:text-2xl;
     }
 
     h2 {
-      @apply text-xl md:text-2xl text-gray-300;
+      @apply text-orange-400 text-lg md:text-xl;
     }
 
     h3 {
-      @apply text-lg md:text-xl text-gray-300;
+      @apply text-lg md:text-xl;
+    }
+
+    .header-anchor {
+      @apply no-underline hover:underline text-gray-600;
     }
 
     pre:not(.chroma) {
@@ -110,6 +119,22 @@
     }
   }
 
+}
+
+@layer utilities {
+  .fade-in.htmx-settling{
+    opacity: 0;
+  }
+
+  .fade-in {
+    opacity: 1;
+    transition: opacity 100ms ease-out;
+  }
+
+  .fade-out.htmx-swapping {
+    opacity: 0;
+    transition: opacity 150ms ease-out;
+  }
 }
 
 @tailwind utilities;

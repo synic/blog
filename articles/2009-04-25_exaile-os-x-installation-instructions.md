@@ -2,7 +2,7 @@
 
 title: Exaile: OS X Installation Instructions
 tags: Exaile
-published: 2009-04-25T00:32:54-0700
+publishedAt: 2009-04-25T00:32:54-0700
 summary:
 
 Following up on an earlier article, I'm providing a link to the Mac OS X

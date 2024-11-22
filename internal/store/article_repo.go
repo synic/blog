@@ -66,6 +66,12 @@ func (r *ArticleRepository) Search(
 		if strings.Contains(strings.ToLower(article.Title), terms) ||
 			strings.Contains(strings.ToLower(article.Summary), terms) {
 			articles = append(articles, article)
+		} else {
+			for _, t := range article.Tags {
+				if strings.Contains(strings.ToLower(t), terms) {
+					articles = append(articles, article)
+				}
+			}
 		}
 	}
 

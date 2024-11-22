@@ -2,7 +2,7 @@
 
 title: MySQL Replication Issues
 tags: Programming, Linux
-published: 2007-11-28T16:25:16-0700
+publishedAt: 2007-11-28T16:25:16-0700
 summary:
 
 At <a href='http://www.sendoutcards.com'>SendOutCards</a>, we use <a

@@ -2,7 +2,7 @@
 
 title: Exaile might be the new Xubuntu default player
 tags: Exaile
-published: 2009-07-27T17:37:37-0700
+publishedAt: 2009-07-27T17:37:37-0700
 summary:
 
 <a href='http://www.xubuntu.org'>Xubuntu</a> has been rethinking their default

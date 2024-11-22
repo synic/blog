@@ -2,7 +2,7 @@
 
 title: Bazitis:  Gitosis for Bzr (Baazar)
 tags: Programming, Python, Administration
-published: 2008-11-26T00:24:01-0700
+publishedAt: 2008-11-26T00:24:01-0700
 summary:
 
 At work, I use git.  For Exaile I use bzr.  I like them both quite a bit.  At

@@ -2,7 +2,7 @@
 
 title: iPhone 3G, no interference
 tags: Miscellaneous, Gadgets
-published: 2008-07-14T16:52:40-0700
+publishedAt: 2008-07-14T16:52:40-0700
 summary:
 
 

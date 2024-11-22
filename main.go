@@ -17,13 +17,11 @@ import (
 )
 
 var (
-	//go:embed articles/json/*
-	embeddedArticles embed.FS
 	//go:embed assets/*
 	embeddedAssets embed.FS
 )
 
-func mustSub(fsys embed.FS, path string) fs.FS {
+func mustSub(fsys fs.FS, path string) fs.FS {
 	st, err := fs.Sub(fsys, path)
 
 	if err != nil {
@@ -39,7 +37,7 @@ func main() {
 		assets = mustSub(embeddedAssets, "assets")
 	)
 
-	articles, err := internal.ParseArticles(mustSub(embeddedArticles, "articles/json"))
+	articles, err := internal.ParseArticles(mustSub(assets, "articles"))
 
 	if err != nil {
 		log.Fatal(err)

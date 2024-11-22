@@ -26,7 +26,7 @@ templ ArticlesView(pd model.PageData) {
 			}
 		}
 		for i, a := range pd.Items {
-			@article(a, false)
+			@article(a, true)
 			if i < len(pd.Items) - 1 || pd.TotalPages > 1 {
 				<hr class="mt-6 mb-4 h-px bg-gray-200 border-0 dark:bg-gray-700"/>
 			}
@@ -96,14 +96,7 @@ func pageButtonNextClasses(pd model.PageData) []string {
 
 templ pageButtons(pd model.PageData) {
 	<nav class="flex justify-center items-center mx-auto w-full">
-		<ul
-			class="flex flex-row flex-wrap p-0 list-none list-inside no-underline"
-			hx-target="#content"
-			hx-swap="innerHTML show:window:top"
-			hx-trigger="click consume"
-			hx-push-url="true"
-			hx-boost="true"
-		>
+		<ul class="flex flex-row flex-wrap p-0 list-none list-inside no-underline" hx-trigger="click consume">
 			<li
 				if pd.Page > 1 {
 					hx-get={ string(templ.URL(fmt.Sprintf("/?page=%d&perPage=%d&search=%s&tag=%s", pd.Page-1, pd.PerPage, pd.Search, pd.Tag))) }

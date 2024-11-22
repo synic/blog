@@ -2,7 +2,7 @@
 
 title: Lute Society of America Seminar 2012
 tags: Music
-published: 2012-07-18T19:17:02-0700
+publishedAt: 2012-07-18T19:17:02-0700
 summary:
 
 This year, I went to the Lute Society of America Seminar at Case Western

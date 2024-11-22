@@ -2,7 +2,7 @@
 
 title: Exaile Updates
 tags: Exaile
-published: 2007-05-17T23:17:40-0700
+publishedAt: 2007-05-17T23:17:40-0700
 summary:
 
 Exaile 0.2.10 is well on it&#8217;s way...

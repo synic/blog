@@ -2,7 +2,7 @@
 
 title: Ubuntu 14.10 and the Lenovo ThinkPad x250
 tags: Linux
-published: 2015-02-20T22:12:40-0700
+publishedAt: 2015-02-20T22:12:40-0700
 summary:
 
 I recently purchased and received a [Lenovo ThinkPad

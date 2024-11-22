@@ -2,7 +2,7 @@
 
 title: My First Computer
 tags: Miscellaneous, Gadgets
-published: 2008-12-10T20:29:10-0700
+publishedAt: 2008-12-10T20:29:10-0700
 summary:
 
 Today there was an article on Digg (<a

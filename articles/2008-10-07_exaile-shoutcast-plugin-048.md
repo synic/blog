@@ -2,7 +2,7 @@
 
 title: Exaile: Shoutcast Plugin 0.4.8
 tags: Exaile
-published: 2008-10-07T17:02:07-0700
+publishedAt: 2008-10-07T17:02:07-0700
 summary:
 
 Some of you might have noticed that the Shoutcast plugin hasn't worked for a

@@ -2,7 +2,7 @@
 
 title: Apologies to OpenClue
 tags: Miscellaneous
-published: 2008-09-23T06:41:57-0700
+publishedAt: 2008-09-23T06:41:57-0700
 summary:
 
 Yeah.  I guess messing around with the syndication part of my blog system ended
@@ -15,8 +15,6 @@ Yeah.  I guess messing around with the syndication part of my blog system ended
 up causing openclue.org to repull all of my old blog posts all at once.  I'm
 sure you were all really excited about reading them in the first place, let
 alone a second time.  My apologies... really :)<br><br>
-
-- Adam
 
 <div class="restored-from-archive">
   <h3>Restored from VimTips archive</h3>

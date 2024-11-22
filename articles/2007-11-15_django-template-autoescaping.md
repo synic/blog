@@ -2,7 +2,7 @@
 
 title: Django template autoescaping
 tags: Programming, Python, Django
-published: 2007-11-15T23:38:50-0700
+publishedAt: 2007-11-15T23:38:50-0700
 summary:
 
 

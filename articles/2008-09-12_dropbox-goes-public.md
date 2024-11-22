@@ -2,7 +2,7 @@
 
 title: DropBox goes public
 tags: Miscellaneous
-published: 2008-09-12T17:11:35-0700
+publishedAt: 2008-09-12T17:11:35-0700
 summary:
 
 DropBox goes public

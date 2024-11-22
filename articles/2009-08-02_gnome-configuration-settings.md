@@ -2,7 +2,7 @@
 
 title: My Gnome Configuration Settings
 tags: Linux
-published: 2009-08-02T23:26:52-0700
+publishedAt: 2009-08-02T23:26:52-0700
 summary:
 
 I've installed Ubuntu on my netbook twice today (don't ask).  Probably like the

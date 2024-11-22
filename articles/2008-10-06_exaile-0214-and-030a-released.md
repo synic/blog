@@ -2,7 +2,7 @@
 
 title: Exaile 0.2.14 and 0.3.0a released!
 tags: Exaile
-published: 2008-10-06T18:12:31-0700
+publishedAt: 2008-10-06T18:12:31-0700
 summary:
 
 Exaile 0.2.14 and 0.3 alpha have been released!

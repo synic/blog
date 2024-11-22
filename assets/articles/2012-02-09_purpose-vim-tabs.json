@@ -1,0 +1,12 @@
+{
+  "publishedAt": "2012-02-09T18:59:34-07:00",
+  "body": "\u003cp\u003eYesterday, after many years of using Vim, I've finally realized what the\npurpose of Vim Tabs is.   My friend asked me to post this article, because she\nwas also stumped by their functionality.\u003c/p\u003e\n\u003cp\u003eWhen they first came out, I tried them.  I didn't understand why they'd even\nput tabs in, when there are far superior ways to navigate Vim buffers, but I\nsoon found out that tabs in Vim don't show buffers.  -They show, in essence,\nseparate instances of Vim.  Buffers open in one tab will not show up in another\ntab-.  \u003cem\u003eEDIT\u003c/em\u003e: As VimGuy points out, they do contain the same buffers.  Tabs\nare more like separate layouts of your currently open buffers.\u003c/p\u003e\n\u003cp\u003eSo what's the point?  With all the options to organize your buffers and manage\nyour files (BufExplorer, NERDTree, split windows, etc, etc), what are the tabs\nuseful for?\u003c/p\u003e\n\u003cp\u003eAt my new job, there are 3 separate, large, codebases.  Yesterday I was working\nin one system, coding away.  Probably 20 buffers open, all related to the same\nproject, when one of my coworkers asked me to help him in another one of our\nsystems.  I didn't want to lose my place, or vim \u0026quot;state\u0026quot;, as it were, and\nintuitively I created a tab, opened up a new instance of NERDTree in this tab,\nand started opening new buffers related to the second system in this tab.  In\nthe first tab, all my open buffers and split windows were still there, waiting\nfor me to get back to them.\u003c/p\u003e\n\u003cp\u003eA minute later, it suddenly occurred to me, \u0026quot;So \u003cem\u003eTHATS\u003c/em\u003e what Vim tabs are for.\u0026quot;\u003c/p\u003e\n\u003cdiv class=\"restored-from-archive\"\u003e\n  \u003ch3\u003eRestored from VimTips archive\u003c/h3\u003e\n  \u003cp\u003e\n  This article was restored from the VimTips archive. There's probably\n  missing images and broken links (and even some flash references), but it\n  was still important to me to bring them back.\n  \u003c/p\u003e\n\u003c/div\u003e",
+  "summary": "\u003cp\u003eYesterday, after many years of using Vim, I've finally realized what the\npurpose of Vim Tabs is.   My friend asked me to post this article, because she\nwas also stumped by their functionality.\u003c/p\u003e\n",
+  "title": "The Purpose of Vim Tabs",
+  "slug": "purpose-vim-tabs",
+  "tags": [
+    "Programming",
+    "VIM"
+  ],
+  "isPublished": true
+}

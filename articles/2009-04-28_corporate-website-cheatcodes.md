@@ -2,7 +2,7 @@
 
 title: Corporate Website Cheatcodes?
 tags: Miscellaneous, Funny
-published: 2009-04-28T02:19:14-0700
+publishedAt: 2009-04-28T02:19:14-0700
 summary:
 
 One of my friends on IRC just pointed this out to me.  Go to <a

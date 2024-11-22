@@ -2,7 +2,7 @@
 
 title: Exaile.org gets hacked!
 tags: Exaile, Security
-published: 2007-08-21T03:12:19-0700
+publishedAt: 2007-08-21T03:12:19-0700
 summary:
 
 I'll admit. I didn't think this really happened to sites as

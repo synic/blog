@@ -2,7 +2,7 @@
 
 title: HP Mini 1030NR Gigabit Ethernet Adapter and Linux
 tags: Linux, Gadgets
-published: 2009-08-04T21:42:18-0700
+publishedAt: 2009-08-04T21:42:18-0700
 summary:
 
 I purchased an HP 1030NR, because, IMHO, they are the sexiest netbooks

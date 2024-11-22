@@ -2,7 +2,7 @@
 
 title: Exaile 0.3.0 Weekly Tarball
 tags: Exaile
-published: 2008-10-17T15:51:58-0700
+publishedAt: 2008-10-17T15:51:58-0700
 summary:
 
 Exaile 0.3.0a now has a working install target in the Makefile, so I've decided

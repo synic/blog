@@ -2,7 +2,7 @@
 
 title: Converting from TextPattern to Django
 tags: Miscellaneous, Django
-published: 2007-10-29T23:33:32-0700
+publishedAt: 2007-10-29T23:33:32-0700
 summary:
 
 I like TextPattern a lot, but it doesn't seem to work well for programmers.  I

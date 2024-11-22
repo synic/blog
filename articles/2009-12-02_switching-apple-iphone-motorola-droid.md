@@ -2,7 +2,7 @@
 
 title: Switching from the iPhone to the Droid
 tags: Gadgets
-published: 2009-12-02T16:41:51-0700
+publishedAt: 2009-12-02T16:41:51-0700
 summary:
 
 I bought myself the first generation iPhone about 8 days after it came out, and

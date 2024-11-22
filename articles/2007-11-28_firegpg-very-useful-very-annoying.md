@@ -2,7 +2,7 @@
 
 title: FireGPG - Very Useful, Very Annoying
 tags: Miscellaneous
-published: 2007-11-28T17:06:07-0700
+publishedAt: 2007-11-28T17:06:07-0700
 summary:
 
 <a href='http://firegpg.tuxfamily.org/'>FireGPG</a> is a <a

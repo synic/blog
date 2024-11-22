@@ -1,8 +1,8 @@
 <!-- :metadata:
 
 title: Exaile LastFM Proxy Plugin
-tags: Exaile, Programming, Multimedia
-published: 2008-04-17T18:12:32-0700
+tags: Exaile, Programming, Music
+publishedAt: 2008-04-17T18:12:32-0700
 summary:
 
 A few versions ago, Exaile had Last.FM streaming support using <a

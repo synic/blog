@@ -2,7 +2,7 @@
 
 title: Feed Problems
 tags: Miscellaneous, Django
-published: 2007-11-06T16:30:01-0700
+publishedAt: 2007-11-06T16:30:01-0700
 summary:
 
 Sorry about the weird RSS problems my blog has been having.

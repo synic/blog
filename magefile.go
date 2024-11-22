@@ -3,37 +3,45 @@
 package main
 
 import (
+	"encoding/json"
 	"errors"
 	"fmt"
 	"io/fs"
 	"os"
 	"path"
 	"path/filepath"
+	"slices"
 	"strings"
 	"time"
 
 	"github.com/magefile/mage/mg"
 	"github.com/magefile/mage/sh"
+
+	"github.com/synic/adamthings.me/internal/parser"
 )
 
 var (
-	Default     = Dev
-	packageName = "github.com/synic/adamthings.me"
-	cssTheme    = "catppuccin-mocha"
+	Default        = Dev
+	packageName    = "github.com/synic/adamthings.me"
+	syntaxCssTheme = "nord-darker"
 
 	// paths
-	binPath     = "bin"
-	debugPath   = path.Join(binPath, "blog-debug")
-	releasePath = path.Join(binPath, "blog-release")
+	binPath            = "bin"
+	debugPath          = path.Join(binPath, "blog-debug")
+	releasePath        = path.Join(binPath, "blog-release")
+	outputCssPath      = "./assets/css"
+	inputCssFile       = "./internal/view/css/main.css"
+	outputCssFile      = fmt.Sprintf("%s/main.css", outputCssPath)
+	syntaxCssFile      = "./internal/view/css/syntax.css"
+	inputArticlesPath  = "./articles/"
+	outputArticlesPath = "./assets/articles"
+	buildInfoPath      = fmt.Sprintf("%s/internal", packageName)
+
+	// commands
 	runCmd      = sh.RunCmd("go", "run")
 	buildCmd    = sh.RunCmd("go", "build")
 	tailwindCmd = sh.RunCmd("node_modules/.bin/tailwindcss")
 	minifyCmd   = sh.RunCmd("node_modules/.bin/css-minify")
-	inputCss    = "./internal/view/css/main.css"
-	outputCss   = "./assets/css/main.css"
-
-	// misc
-	buildInfoPath = fmt.Sprintf("%s/internal", packageName)
 
 	// required command line tools (versions are specified in go.mod)
 	tools = map[string]string{
@@ -92,7 +100,7 @@ type Build mg.Namespace
 
 func (Build) Dev() error {
 	mg.Deps(Codegen, Vet)
-	mg.Deps(Articles.Compile)
+	mg.Deps(Articles.Convert)
 
 	return buildCmd("-tags", "debug",
 		fmt.Sprintf("-ldflags=-X %s.DebugFlag=true", buildInfoPath),
@@ -102,7 +110,11 @@ func (Build) Dev() error {
 }
 
 func (Build) Release() error {
-	return buildCmd(
+	mg.Deps(Test)
+	mg.Deps(Articles.Convert)
+	return sh.RunWithV(
+		map[string]string{"CGO_ENABLED": "0"},
+		"go", "build",
 		"-tags", "release",
 		fmt.Sprintf("-ldflags=-s -w -X %s.BuildTime=%d", buildInfoPath, time.Now().Unix()),
 		"-o", releasePath,
@@ -124,52 +136,23 @@ func Codegen() error {
 
 type Articles mg.Namespace
 
-func compileArticles(recompile bool) error {
-	dir := "./cmd/compile/"
-	allFiles, err := os.ReadDir(dir)
-	includeFiles := make([]string, 0, len(allFiles))
-
-	if err != nil {
-		return err
-	}
-
-	for _, f := range allFiles {
-		if !strings.HasSuffix(f.Name(), "_test.go") && strings.HasSuffix(f.Name(), ".go") {
-			includeFiles = append(includeFiles, path.Join(dir, f.Name()))
-		}
-	}
-
-	args := []string{"run"}
-	args = append(args, includeFiles...)
-	args = append(args, []string{
-		"-i", "articles",
-		"-o", "articles/json",
-		"-d",
-	}...)
-
-	if recompile {
-		args = append(args, "-recompile", "-v")
-	}
-
-	return sh.RunV("go", args...)
+func (Articles) Convert() error {
+	return convertArticles(false)
 }
 
-func (Articles) Compile() error {
-	return compileArticles(false)
-}
-
-func (Articles) Recompile() error {
-	return compileArticles(true)
+func (Articles) Reconvert() error {
+	return convertArticles(true)
 }
 
 func Pygmentize() error {
-	data, err := sh.Output("pygmentize", "-S", cssTheme, "-f", "html", "-a", ".chroma")
+	data, err := sh.Output("pygmentize", "-S", syntaxCssTheme, "-f", "html", "-a", ".chroma")
 
 	if err != nil {
 		return err
 	}
 
-	f, err := os.Create("internal/view/css/syntax.css")
+	os.Remove(syntaxCssFile)
+	f, err := os.Create(syntaxCssFile)
 
 	if err != nil {
 		return err
@@ -178,15 +161,16 @@ func Pygmentize() error {
 	f.WriteString(data)
 	f.Close()
 
-	return minifyCmd("-f", "internal/view/css/syntax.css", "--output", "cmd/serve/assets/css")
+	return minifyCmd("-f", syntaxCssFile, "--output", outputCssPath)
 }
 
 func Vet() error {
-	return sh.Run("go", "vet", "./...")
+	return sh.RunV("go", "vet", "./...")
 }
 
 func Test() error {
-	return sh.Run("go", "test", "-race", "./...")
+	mg.Deps(Vet)
+	return sh.RunV("go", "test", "-race", "./...")
 }
 
 func Clean() error {
@@ -211,13 +195,17 @@ func Clean() error {
 	return nil
 }
 
+func Container() error {
+	return sh.RunV("docker", "build", "-t", "blog", ".")
+}
+
 func maybeRunTailwind() error {
 	var (
 		lastInputModTime *time.Time = nil
 		outModTime       *time.Time = nil
 	)
 
-	outInfo, err := os.Stat(outputCss)
+	outInfo, err := os.Stat(outputCssFile)
 
 	if err == nil {
 		modTime := outInfo.ModTime()
@@ -254,14 +242,133 @@ func maybeRunTailwind() error {
 
 	if lastInputModTime == nil || outModTime == nil || lastInputModTime.After(*outModTime) {
 		fmt.Println("View or CSS changes detected, running tailwind...")
-		err := tailwindCmd("--postcss", "-i", inputCss, "-o", outputCss, "--minify")
+		err := tailwindCmd("--postcss", "-i", inputCssFile, "-o", outputCssFile, "--minify")
 
 		if err != nil {
 			return err
 		}
 
-		return sh.Run("touch", outputCss)
+		return sh.Run("touch", outputCssFile)
 	}
+
+	return nil
+}
+
+func shouldConvert(sourceFn, destFn string) (bool, error) {
+	inInfo, err := os.Stat(sourceFn)
+
+	if err != nil {
+		return false, err
+	}
+
+	outInfo, err := os.Stat(destFn)
+
+	if err != nil {
+		if errors.Is(err, os.ErrNotExist) {
+			return true, nil
+		}
+		return false, err
+	}
+
+	if inInfo.ModTime().After(outInfo.ModTime()) {
+		return true, nil
+	}
+
+	return false, nil
+}
+
+func convertArticles(reconvert bool) error {
+	files, err := os.ReadDir(inputArticlesPath)
+
+	if err != nil {
+		return err
+	}
+
+	begin := time.Now()
+	validOutputFiles := make([]string, 0, len(files))
+	convertedCount := 0
+	upToDateCount := 0
+	deletedCount := 0
+
+	for _, file := range files {
+		ext := filepath.Ext(file.Name())
+
+		if ext != ".md" {
+			continue
+		}
+
+		in := path.Join(inputArticlesPath, file.Name())
+		out := path.Join(
+			outputArticlesPath,
+			fmt.Sprintf("%s.json", strings.TrimSuffix(file.Name(), ext)),
+		)
+		validOutputFiles = append(validOutputFiles, out)
+
+		shouldConvert, err := shouldConvert(in, out)
+
+		if !shouldConvert && !reconvert {
+			upToDateCount += 1
+			continue
+		}
+
+		article, err := parser.Parse(in)
+
+		if err != nil {
+			return fmt.Errorf(`error parsing %s: %v`, file.Name(), err)
+		}
+
+		data, err := json.MarshalIndent(article, "", "  ")
+
+		if err != nil {
+			return err
+		}
+
+		err = os.WriteFile(out, data, os.ModePerm)
+
+		if err != nil {
+			return err
+		}
+
+		fmt.Printf("🎯 converted %s...\n", in)
+		convertedCount += 1
+	}
+
+	files, err = os.ReadDir(outputArticlesPath)
+
+	if err != nil {
+		return err
+	}
+
+	for _, file := range files {
+		ext := filepath.Ext(file.Name())
+
+		if ext != ".json" {
+			continue
+		}
+
+		out := path.Join(outputArticlesPath, file.Name())
+
+		if !slices.Contains(validOutputFiles, out) {
+			fmt.Printf("⚠️ deleted %s...\n", out)
+			err := os.Remove(out)
+
+			if err != nil {
+				return err
+			}
+
+			deletedCount += 1
+		}
+	}
+
+	end := time.Since(begin)
+
+	fmt.Printf("🎉 Article processing done in %s. converted: %d", end, convertedCount)
+
+	if !reconvert {
+		fmt.Printf(", up-to-date: %d", upToDateCount)
+	}
+
+	fmt.Printf(", deleted: %d\n", deletedCount)
 
 	return nil
 }

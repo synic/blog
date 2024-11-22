@@ -2,7 +2,7 @@
 
 title: Shiretoko and Facebook
 tags: Linux
-published: 2009-09-15T15:17:29-0700
+publishedAt: 2009-09-15T15:17:29-0700
 summary:
 
 For whatever reason (I can only assume it has to do with the product being

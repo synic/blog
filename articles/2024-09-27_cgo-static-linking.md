@@ -1,8 +1,9 @@
 <!-- :metadata:
 
-title: Golang: Static linking with CGO and distroless
-tags: Programming
-published: 2024-09-27T11:10:00-0700
+title: Go: Static linking with CGO and distroless
+tags: Programming, Go
+publishedAt: 2024-09-27T11:10:00-0700
+ogTitle: Golang: Static linking with CGO and distroless
 summary:
 
 Do you use distroless? Have you tried to build a distroless docker image for

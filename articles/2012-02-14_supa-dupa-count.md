@@ -2,7 +2,7 @@
 
 title: Supa Dupa Count
 tags: Programming, Android, Scala
-published: 2012-02-14T19:29:40-0700
+publishedAt: 2012-02-14T19:29:40-0700
 summary:
 
 [A few years

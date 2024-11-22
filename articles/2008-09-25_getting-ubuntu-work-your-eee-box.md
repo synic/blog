@@ -2,7 +2,7 @@
 
 title: Getting Ubuntu to work on your Eee Box
 tags: Linux, Gadgets
-published: 2008-09-25T01:00:44-0700
+publishedAt: 2008-09-25T01:00:44-0700
 summary:
 
 My Eee Box (model B202) arrived today.  I actually plan on using this

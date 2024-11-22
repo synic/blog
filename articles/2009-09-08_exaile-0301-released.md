@@ -2,7 +2,7 @@
 
 title: Exaile 0.3.0.1 Released!
 tags: Exaile, Programming, Linux, Python
-published: 2009-09-08T16:23:58-0700
+publishedAt: 2009-09-08T16:23:58-0700
 summary:
 
 This month is my company's national convention.  This combined with a secret

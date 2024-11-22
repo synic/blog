@@ -2,7 +2,7 @@
 
 title: Nagios is my hero
 tags: Linux, Administration
-published: 2007-11-30T23:34:07-0700
+publishedAt: 2007-11-30T23:34:07-0700
 summary:
 
 Our company is growing fast.  When I started in March, 2003, we were hosting

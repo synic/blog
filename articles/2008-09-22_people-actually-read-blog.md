@@ -2,7 +2,7 @@
 
 title: People actually read this blog?
 tags: Miscellaneous
-published: 2008-09-22T20:33:34-0700
+publishedAt: 2008-09-22T20:33:34-0700
 summary:
 
 So, according to the comments I've been getting on the Exaile 0.3 roundup

@@ -2,7 +2,7 @@
 
 title: My Introduction
 tags: Miscellaneous
-published: 2007-04-04T18:48:00-0700
+publishedAt: 2007-04-04T18:48:00-0700
 summary:
 
 

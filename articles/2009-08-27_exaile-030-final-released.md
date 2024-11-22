@@ -2,7 +2,7 @@
 
 title: Exaile 0.3.0 final released!
 tags: Exaile, Programming, Linux, Python
-published: 2009-08-27T16:24:48-0700
+publishedAt: 2009-08-27T16:24:48-0700
 summary:
 
 Yup, you probably heard it here last.  I've been super busy irl,  and just

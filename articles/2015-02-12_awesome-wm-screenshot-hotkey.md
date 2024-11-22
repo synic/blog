@@ -2,7 +2,7 @@
 
 title: Awesome-wm screenshot hotkey
 tags: Programming, Linux
-published: 2015-02-12T17:18:03-0700
+publishedAt: 2015-02-12T17:18:03-0700
 summary:
 
 At [Ender Labs](http://enderlabs.com), pretty much everyone but me uses a Mac.

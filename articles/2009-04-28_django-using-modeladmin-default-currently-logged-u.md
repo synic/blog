@@ -2,7 +2,7 @@
 
 title: Django: Using ModelAdmin to default to currently logged in user
 tags: Programming, Python, Django
-published: 2009-04-28T17:51:36-0700
+publishedAt: 2009-04-28T17:51:36-0700
 summary:
 
 Yeah, you may have noticed that I've been working on the blog lately.

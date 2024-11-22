@@ -2,7 +2,7 @@
 
 title: Exaile 0.3.0.2 Released!
 tags: Exaile
-published: 2009-11-10T07:25:35-0700
+publishedAt: 2009-11-10T07:25:35-0700
 summary:
 
 Repost from <a href='http://www.exaile.org'>exaile.org</a>:

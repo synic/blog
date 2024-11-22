@@ -2,7 +2,7 @@
 
 title: My experiences with upgrading to Feisty
 tags: Linux
-published: 2007-03-26T18:48:00-0700
+publishedAt: 2007-03-26T18:48:00-0700
 summary:
 
 I've been running Ubuntu for a while now (since Warty).  I usually end up

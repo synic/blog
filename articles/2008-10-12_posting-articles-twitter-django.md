@@ -2,7 +2,7 @@
 
 title: Posting articles to Twitter via Django
 tags: Programming, Python, Django
-published: 2008-10-12T20:23:51-0700
+publishedAt: 2008-10-12T20:23:51-0700
 summary:
 
 I noticed that every time Clint Savage makes a blog update, he posts the URL to

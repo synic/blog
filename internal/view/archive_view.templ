@@ -53,12 +53,17 @@ templ ArchiveView(articleCount int, tags map[string]int) {
 			<div class="grow">
 				<h2 class="mt-0 text-rose-500">About Me</h2>
 				<p class="mt-0">
+					<img src="/static/img/me.jpg" width="200" height="250" alt="Photo of me"/>
+				</p>
+				<p class="mt-0">
 					Software Developer, Amateur Photographer, and NeoVim enthusiast :)
 				</p>
-				<ol class="list-disc">
-					@aboutLink("https://github.com/synic", "GitHub")
-					@aboutLink("https://instagram.com/adamthings.me", "Instagram")
-				</ol>
+				<p class="mt-0">
+					Links:
+					<a href="https://github.com/synic">GitHub</a> |
+					<a href="https://instagram.com/adamthings.me">Instagram</a> |
+					<a href="https://bsky.app/profile/invalidhandle.lol">BlueSky</a>
+				</p>
 			</div>
 		</div>
 	}
@@ -80,11 +85,4 @@ func sortedTags(tagCounts map[string]int) []tagInfo {
 	})
 
 	return tags
-}
-
-templ aboutLink(url, label string) {
-	<li>
-		<a href={ templ.URL(url) } class="no-underline">{ label }</a> -
-		<a href={ templ.URL(url) }>{ url }</a>
-	</li>
 }

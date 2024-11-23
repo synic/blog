@@ -3,21 +3,18 @@
 package main
 
 import (
-	"encoding/json"
 	"errors"
 	"fmt"
 	"io/fs"
 	"os"
 	"path"
 	"path/filepath"
-	"slices"
-	"strings"
 	"time"
 
 	"github.com/magefile/mage/mg"
 	"github.com/magefile/mage/sh"
 
-	"github.com/synic/adamthings.me/internal/parser"
+	"github.com/synic/adamthings.me/internal/converter"
 )
 
 var (
@@ -254,121 +251,6 @@ func maybeRunTailwind() error {
 	return nil
 }
 
-func shouldConvert(sourceFn, destFn string) (bool, error) {
-	inInfo, err := os.Stat(sourceFn)
-
-	if err != nil {
-		return false, err
-	}
-
-	outInfo, err := os.Stat(destFn)
-
-	if err != nil {
-		if errors.Is(err, os.ErrNotExist) {
-			return true, nil
-		}
-		return false, err
-	}
-
-	if inInfo.ModTime().After(outInfo.ModTime()) {
-		return true, nil
-	}
-
-	return false, nil
-}
-
 func convertArticles(reconvert bool) error {
-	files, err := os.ReadDir(inputArticlesPath)
-
-	if err != nil {
-		return err
-	}
-
-	begin := time.Now()
-	validOutputFiles := make([]string, 0, len(files))
-	convertedCount := 0
-	upToDateCount := 0
-	deletedCount := 0
-
-	for _, file := range files {
-		ext := filepath.Ext(file.Name())
-
-		if ext != ".md" {
-			continue
-		}
-
-		in := path.Join(inputArticlesPath, file.Name())
-		out := path.Join(
-			outputArticlesPath,
-			fmt.Sprintf("%s.json", strings.TrimSuffix(file.Name(), ext)),
-		)
-		validOutputFiles = append(validOutputFiles, out)
-
-		shouldConvert, err := shouldConvert(in, out)
-
-		if !shouldConvert && !reconvert {
-			upToDateCount += 1
-			continue
-		}
-
-		article, err := parser.Parse(in)
-
-		if err != nil {
-			return fmt.Errorf(`error parsing %s: %v`, file.Name(), err)
-		}
-
-		data, err := json.MarshalIndent(article, "", "  ")
-
-		if err != nil {
-			return err
-		}
-
-		err = os.WriteFile(out, data, os.ModePerm)
-
-		if err != nil {
-			return err
-		}
-
-		fmt.Printf("🎯 converted %s...\n", in)
-		convertedCount += 1
-	}
-
-	files, err = os.ReadDir(outputArticlesPath)
-
-	if err != nil {
-		return err
-	}
-
-	for _, file := range files {
-		ext := filepath.Ext(file.Name())
-
-		if ext != ".json" {
-			continue
-		}
-
-		out := path.Join(outputArticlesPath, file.Name())
-
-		if !slices.Contains(validOutputFiles, out) {
-			fmt.Printf("⚠️ deleted %s...\n", out)
-			err := os.Remove(out)
-
-			if err != nil {
-				return err
-			}
-
-			deletedCount += 1
-		}
-	}
-
-	end := time.Since(begin)
-
-	fmt.Printf("🎉 Article processing done in %s. converted: %d", end, convertedCount)
-
-	if !reconvert {
-		fmt.Printf(", up-to-date: %d", upToDateCount)
-	}
-
-	fmt.Printf(", deleted: %d\n", deletedCount)
-
-	return nil
+	return converter.Convert(inputArticlesPath, outputArticlesPath, reconvert)
 }

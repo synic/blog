@@ -24,7 +24,7 @@ released in the US last week, and I'm sure the next version of Ubuntu will have
 much better support for them. In the mean time, however, I did get some things
 to work, and I'm providing some instructions for those here.
 
-### Multiple Monitors using the UltraDock
+# Multiple Monitors using the UltraDock
 I've always loved ThinkPads, and most of my laptops have been one, but it's
 only been recently that they've been enough to replace my desktop needs. That
 happened for me because of the UltraDock, which allows you to use multiple
@@ -38,7 +38,7 @@ fixed the problem for me, with one change. I used the 3.18.7 kernel instead of
 3.17.1 as he describes in the article, because 3.18 just happens to help fix
 the trackpoint button problems as well.
 
-### Trackpoint Buttons
+# Trackpoint Buttons
 Doing what I describe here will make the trackpoint buttons work (including
 middle click scrolling), but it will completely disable the touchpad. I'm ok
 with that, touchpads aren't my favorite. First, follow [this
@@ -71,7 +71,7 @@ EndSection
 
 Restart your X server, and your trackpoint buttons should work as expected.
 
-### Volume Control and Backlight Brightness Keys
+# Volume Control and Backlight Brightness Keys
 
 To get the volume keys to work, I had to pass `acpi_osi=Linux` to the kernel
 boot options. Also, to get backlight control to work, add
@@ -89,22 +89,22 @@ installed a program called `xbacklight` and mapped the brightness controls to
 could be done here (like automatically setting it to full brightness on AC
 power, etc), but this is good for now.
 
-### In Progress...
+# In Progress...
 
 1. The audio out jack on the Ultradock doesn't work at all, though the speakers
    on the laptop and the headphone port do work.
 
-### Update, Feb 21, 2015
+## Update, Feb 21, 2015
 
 I found the Padoka PPA here:
-<https://launchpad.net/~paulo-miguel-dias/+archive/ubuntu/mesa/>. Adding this
+https://launchpad.net/~paulo-miguel-dias/+archive/ubuntu/mesa/. Adding this
 PPA, running `apt-get update && apt-get dist-upgrade` <strong>eliminates the
 need to compile xf86-video-intel as directed in the "Multiple Monitors using
 the UltraDock" instructions, and makes 3d video work .</strong>
 
 Still not working: the sound port on the UltraDock.
 
-### Update, Mar 01, 2015
+## Update, Mar 01, 2015
 
 **I got the audio port on the ultradock working!**
 
@@ -131,12 +131,12 @@ Reboot, and the audio port on your dock should work. I imagine the process is
 the same for any of 2015 thinkpads. With each thinkpad, the only number that
 changes is the second one under the `[codec]` heading (in this case,
 `0x17aa2226`). That information can be found by downloading this script:
-<http://www.alsa-project.org/alsa-info.sh>, and running it via `bash
+http://www.alsa-project.org/alsa-info.sh, and running it via `bash
 alsa-info.sh` as root. Search fo **0x17aa** in the output, and you'll find the
 other half of the number you need.
 
 
-### Update Mar 2, 2015 - Fingerprint scanner works
+## Update Mar 2, 2015 - Fingerprint scanner works
 
 Following the [instructions found in this
 gist](https://gist.github.com/foosel/3abd45bc1b6ae121965b), I was able to get

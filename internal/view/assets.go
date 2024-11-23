@@ -1,4 +1,4 @@
-package internal
+package view
 
 import (
 	"fmt"
@@ -20,7 +20,7 @@ func BundleStaticAssets(filesystem fs.FS, files ...string) ([]byte, error) {
 			return []byte{}, err
 		}
 
-		content += fmt.Sprintf(`<%s hx-preserve="true">/* %s */\n%s</%s>`, wrap, file, data, wrap)
+		content += fmt.Sprintf("<%s hx-preserve=\"true\">/* %s */\n%s</%s>", wrap, file, data, wrap)
 	}
 
 	return []byte(content), nil

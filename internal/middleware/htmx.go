@@ -5,7 +5,7 @@ import (
 	"net/http"
 )
 
-var HtmxPartialContextKey = "ao:ishtmxpartial"
+var HtmxPartialContextKey = "isHtmxPartial"
 
 func HtmxMiddleware() func(http.Handler) http.Handler {
 	return func(next http.Handler) http.Handler {

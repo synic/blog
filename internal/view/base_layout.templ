@@ -3,11 +3,40 @@ package view
 import (
 	"context"
 	"fmt"
-	"github.com/synic/adamthings.me/internal"
 	"github.com/synic/adamthings.me/internal/middleware"
 	"github.com/synic/adamthings.me/internal/model"
 	"io"
 )
+
+var defaultCtxData = model.ContextData{BuildTime: "unknown"}
+
+type baseLayoutConfig struct {
+	title string
+	og    model.OpenGraphData
+}
+
+func getDefaultBaseLayoutConfig() baseLayoutConfig {
+	return baseLayoutConfig{}
+}
+
+func WithOpenGraphData(og model.OpenGraphData) func(*baseLayoutConfig) {
+	return func(conf *baseLayoutConfig) {
+		conf.og = og
+	}
+}
+
+// `BaseLayout` is a wrapper that allows function opts, and just passes through
+// to the `baseLayout` templ component
+func BaseLayout(title string, options ...func(*baseLayoutConfig)) templ.Component {
+	conf := getDefaultBaseLayoutConfig()
+	conf.title = title
+
+	for _, option := range options {
+		option(&conf)
+	}
+
+	return baseLayout(conf)
+}
 
 // use `BaseLayout` instead, which will set up `baseLayoutConfig`
 templ baseLayout(conf baseLayoutConfig) {
@@ -41,18 +70,45 @@ templ baseLayout(conf baseLayoutConfig) {
 	}
 }
 
+func isPartial(ctx context.Context) bool {
+	if isPartial, ok := ctx.Value(middleware.HtmxPartialContextKey).(bool); ok {
+		return isPartial
+	}
+	return false
+}
+
+func ctxdata(ctx context.Context) model.ContextData {
+	if data, ok := ctx.Value("data").(model.ContextData); ok {
+		return data
+	}
+	return defaultCtxData
+}
+
+func static(ctx context.Context, path string) string {
+	return fmt.Sprintf("/static/%s?b=%s", path, ctxdata(ctx).BuildTime)
+}
+
+func inlinestatic() templ.Component {
+	return templ.ComponentFunc(func(ctx context.Context, w io.Writer) error {
+		_, err := w.Write(ctxdata(ctx).BundledStaticAssets)
+		return err
+	})
+}
+
 templ head(conf baseLayoutConfig, partial bool) {
-	<head>
+	<head hx-head="merge">
 		if !partial {
 			<meta charset="utf-8" hx-preserve="true"/>
 			<meta name="viewport" content="width=device-width, initial-scale=1.0" hx-preserve="true"/>
 			<meta name="description" content="Adam's Blog. Programming, Vim, Photography, and more!" hx-preserve="true"/>
-			<script src={ staticfile("/static/js/htmx.min.js") } hx-preserve="true" defer></script>
-			<script src={ staticfile("/static/js/htmx-head-support.min.js") } hx-preserve="true" defer></script>
+			<script src={ static(ctx, "js/htmx.min.js") } hx-preserve="true" defer></script>
+			<script src={ static(ctx, "js/htmx-head-support.min.js") } hx-preserve="true" defer></script>
+			<script src={ static(ctx, "js/app.js") } hx-preserve="true" defer></script>
 			@inlinestatic()
+			<meta name="htmx-config" content='{"ignoreTitle":true}' hx-preserve="true"/>
 			<link rel="icon" href="data:," hx-preserve="true"/>
+			@openGraphTags(conf.og)
 		}
-		@openGraphTags(conf.og)
 		<title>
 			Adam's Blog
 			if conf.title != "" {
@@ -94,7 +150,7 @@ templ header() {
 				hx-trigger="click"
 			>
 				<a href="/" hx-trigger="click consume" class="no-underline hover:underline">
-					<span class="font-bold text-sky-700">::/</span> Adam's Things
+					<span class="font-bold spin-around text-sky-700">::/</span> Adam's Things
 				</a>
 			</div>
 			<div class="grow">&nbsp;</div>
@@ -110,10 +166,21 @@ templ header() {
 			/>
 			<nav class="flex flex-row content-end p-0 m-0 grow-0 shrink">
 				@navlink("/", "Home", true)
-				@navlink("/archive/", "Archive", false)
+				@navlink("/archive", "Archive", false)
 			</nav>
 		</form>
 	</header>
+	@errorbox()
+}
+
+templ errorbox() {
+	<div
+		class="hidden fixed inset-x-0 flex-col items-center py-3 my-2 mx-auto w-2/3 text-lg text-black rounded-xl shadow-2xl md:w-1/2 opacity-85 top-100 bg-sky-500"
+		onclick="hideErrorBox()"
+		id="errorbox"
+	>
+		Unable to connect...
+	</div>
 }
 
 templ navlink(url, label string, hideMobile bool) {
@@ -140,47 +207,4 @@ templ scrollToTopButton() {
 			<path d="M24.94,67.88A14.66,14.66,0,0,1,4.38,47L47.83,4.21a14.66,14.66,0,0,1,20.56,0L111,46.15A14.66,14.66,0,0,1,90.46,67.06l-18-17.69-.29,59.17c-.1,19.28-29.42,19-29.33-.25L43.14,50,24.94,67.88Z"></path>
 		</svg>
 	</a>
-	<script type="text/javascript">
-		const btn = document.getElementById("scroll-to-top");
-		const content = document.getElementById("content");
-
-		window.addEventListener("scroll", showScrollToTopButton)
-		window.addEventListener("resize", showScrollToTopButton)
-		window.addEventListener("htmx:afterswap", showScrollToTopButton)
-
-		function showScrollToTopButton() {
-			if(window.pageYOffset > 100) {
-				btn.style.display = "block";
-				const btnRect = btn.getBoundingClientRect();
-				const contentRect = content.getBoundingClientRect();
-				btn.style.left = (contentRect.right - btnRect.width).toString() + "px";
-			} else {
-				btn.style.display = "none";
-			}
-		}
-
-		showScrollToTopButton();
-	</script>
-}
-
-func isPartial(ctx context.Context) bool {
-	if isPartial, ok := ctx.Value(middleware.HtmxPartialContextKey).(bool); ok {
-		return isPartial
-	}
-	return false
-}
-
-func staticfile(path string) string {
-	return fmt.Sprintf("%s?b=%s", path, internal.BuildTime)
-}
-
-func inlinestatic() templ.Component {
-	return templ.ComponentFunc(func(ctx context.Context, w io.Writer) (err error) {
-		if data, ok := ctx.Value("inline-static-files").([]byte); ok {
-			_, err := w.Write(data)
-			return err
-		}
-
-		return fmt.Errorf("unable to locate cached static files")
-	})
 }

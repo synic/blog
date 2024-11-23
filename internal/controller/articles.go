@@ -1,4 +1,4 @@
-package handler
+package controller
 
 import (
 	"log"
@@ -10,44 +10,44 @@ import (
 	"github.com/synic/adamthings.me/internal/view"
 )
 
-type articleRouterConfig struct {
+type articleControllerConfig struct {
 	articlesPerPage    int
 	maxArticlesPerPage int
 }
 
-type articleRouter struct {
+type ArticleController struct {
 	repo *store.ArticleRepository
-	articleRouterConfig
+	articleControllerConfig
 }
 
-func getDefaultArticleRouterConfig() articleRouterConfig {
-	return articleRouterConfig{
+func getDefaultArticleControllerConfig() articleControllerConfig {
+	return articleControllerConfig{
 		articlesPerPage:    20,
 		maxArticlesPerPage: 50,
 	}
 }
 
-func WithPagination(perPage, maxPerPage int) func(*articleRouterConfig) {
-	return func(conf *articleRouterConfig) {
+func WithPagination(perPage, maxPerPage int) func(*articleControllerConfig) {
+	return func(conf *articleControllerConfig) {
 		conf.articlesPerPage = perPage
 		conf.maxArticlesPerPage = maxPerPage
 	}
 }
 
-func NewArticleRouter(
+func NewArticleController(
 	repo *store.ArticleRepository,
-	options ...func(*articleRouterConfig),
-) articleRouter {
-	conf := getDefaultArticleRouterConfig()
+	options ...func(*articleControllerConfig),
+) ArticleController {
+	conf := getDefaultArticleControllerConfig()
 
 	for _, option := range options {
 		option(&conf)
 	}
 
-	return articleRouter{repo: repo, articleRouterConfig: conf}
+	return ArticleController{repo: repo, articleControllerConfig: conf}
 }
 
-func (h articleRouter) index(w http.ResponseWriter, r *http.Request) {
+func (h ArticleController) Index(w http.ResponseWriter, r *http.Request) {
 	var err error = nil
 	articles := []*model.Article{}
 
@@ -69,26 +69,26 @@ func (h articleRouter) index(w http.ResponseWriter, r *http.Request) {
 
 	if err != nil {
 		log.Printf("error finding articles: %s", err)
-		Error(w, r, 404, "Not Found", "Sorry, no articles could be found.")
+		view.Error(w, r, err, 404, "Not Found", "Sorry, no articles could be found.")
 		return
 	}
 
 	h.renderAndPageArticles(w, r, articles, search, tag)
 }
 
-func (h articleRouter) article(w http.ResponseWriter, r *http.Request) {
+func (h ArticleController) Article(w http.ResponseWriter, r *http.Request) {
 	slug := r.PathValue("slug")
 	article, err := h.repo.FindOneBySlug(r.Context(), slug)
 
 	if err != nil {
-		Error(w, r, 404, "Not Found", "Sorry, that article could not be found.")
+		view.Error(w, r, err, 404, "Not Found", "Sorry, that article could not be found.")
 		return
 	}
 
-	Templ(w, r, view.ArticleView(article))
+	view.Render(w, r, view.ArticleView(article))
 }
 
-func (h articleRouter) renderAndPageArticles(
+func (h ArticleController) renderAndPageArticles(
 	w http.ResponseWriter,
 	r *http.Request,
 	articles []*model.Article,
@@ -115,7 +115,7 @@ func (h articleRouter) renderAndPageArticles(
 	start := min(max(0, page*perPage), len(articles))
 	end := min(max(0, start+perPage), len(articles))
 
-	Templ(
+	view.Render(
 		w, r,
 		view.ArticlesView(
 			model.PageData{
@@ -130,13 +130,7 @@ func (h articleRouter) renderAndPageArticles(
 	)
 }
 
-func (h articleRouter) links(w http.ResponseWriter, r *http.Request) {
+func (h ArticleController) Archive(w http.ResponseWriter, r *http.Request) {
 	articles, _ := h.repo.FindAll(r.Context())
-	Templ(w, r, view.ArchiveView(len(articles), h.repo.TagInfo(r.Context())))
-}
-
-func (h articleRouter) Mount(server *http.ServeMux) {
-	server.HandleFunc("/{$}", h.index)
-	server.HandleFunc("GET /articles/{date}/{slug}", h.article)
-	server.HandleFunc("/archive/", h.links)
+	view.Render(w, r, view.ArchiveView(len(articles), h.repo.TagInfo(r.Context())))
 }

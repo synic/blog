@@ -1,12 +1,11 @@
 /
 /?tag=Linux
-/articles/2024-01-20/case-against-editor-tabs
-/articles/2024-01-20/case-against-editor-tabs
-/articles/2024-01-20/case-against-editor-tabs
+/articles/2024-11-20/advanced-lazynvim
 /articles/2009-10-29/ubuntu-910-here
 /articles/2008-09-25/getting-ubuntu-work-your-eee-box
-/articles/2008-09-25/getting-ubuntu-work-your-eee-box
 /?search=vim
+/articles/2008-10-12/posting-articles-twitter-django
+/articles/2024-04-24/best-macro-2023
 /?search=test
 /articles/2008-09-11/exaile-03-roundup
 /?page=2

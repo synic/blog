@@ -1,11 +1,9 @@
-package handler
+package view
 
 import (
 	"net/http"
 
 	"github.com/a-h/templ"
-
-	"github.com/synic/adamthings.me/internal/view"
 )
 
 type renderTemplConfig struct {
@@ -24,10 +22,10 @@ func WithStatus(status int) func(*renderTemplConfig) {
 	}
 }
 
-func Templ(
+func Render(
 	w http.ResponseWriter,
 	r *http.Request,
-	c templ.Component,
+	comp templ.Component,
 	options ...func(*renderTemplConfig),
 ) {
 	conf := defaultRenderTemplConfig()
@@ -37,9 +35,15 @@ func Templ(
 	}
 
 	w.WriteHeader(conf.status)
-	c.Render(r.Context(), w)
+	comp.Render(r.Context(), w)
 }
 
-func Error(w http.ResponseWriter, r *http.Request, status int, title, message string) {
-	Templ(w, r, view.ErrorView(title, message), WithStatus(status))
+func Error(
+	w http.ResponseWriter,
+	r *http.Request,
+	err error,
+	status int,
+	title, message string,
+) {
+	Render(w, r, ErrorView(title, message), WithStatus(status))
 }

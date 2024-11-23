@@ -49,7 +49,7 @@ templ article(a *model.Article, inList bool) {
 			<hr class="mt-4 mb-4 h-px bg-gray-200 border-0 dark:bg-gray-700 my-flex-col"/>
 			<div>
 				Filed Under:&nbsp;
-				@tagLinks(a.Tags)
+				@taglinks(a.Tags)
 			</div>
 		} else {
 			<a hx-get={ string(a.SafeURL()) } href={ a.SafeURL() } hx-trigger="click consume">
@@ -66,7 +66,7 @@ func maybeComma(comma bool) string {
 	return ""
 }
 
-templ tagLinks(tags []string) {
+templ taglinks(tags []string) {
 	<ul class="inline-block p-0 m-0 list-none list-inside">
 		for i, t := range tags {
 			<li class="inline-block">

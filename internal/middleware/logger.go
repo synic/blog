@@ -7,6 +7,20 @@ import (
 	"time"
 )
 
+type loggerMiddlwareConfig struct {
+	logger *log.Logger
+}
+
+func defaultLoggerMiddlewareConfig() loggerMiddlwareConfig {
+	return loggerMiddlwareConfig{logger: log.Default()}
+}
+
+func WithLogger(logger *log.Logger) func(*loggerMiddlwareConfig) {
+	return func(conf *loggerMiddlwareConfig) {
+		conf.logger = logger
+	}
+}
+
 type responseWriter struct {
 	http.ResponseWriter
 	status      int
@@ -33,9 +47,11 @@ func (rw *responseWriter) WriteHeader(code int) {
 	return
 }
 
-func LoggingMiddleware(logger *log.Logger) func(http.Handler) http.Handler {
-	if logger == nil {
-		logger = log.Default()
+func LoggerMiddleware(options ...func(*loggerMiddlwareConfig)) func(http.Handler) http.Handler {
+	conf := defaultLoggerMiddlewareConfig()
+
+	for _, option := range options {
+		option(&conf)
 	}
 
 	return func(next http.Handler) http.Handler {
@@ -43,7 +59,7 @@ func LoggingMiddleware(logger *log.Logger) func(http.Handler) http.Handler {
 			defer func() {
 				if err := recover(); err != nil {
 					w.WriteHeader(http.StatusInternalServerError)
-					logger.Printf("[ERROR] - %s %s", err, debug.Stack())
+					conf.logger.Printf("[ERROR] - %s %s", err, debug.Stack())
 				}
 			}()
 
@@ -51,7 +67,7 @@ func LoggingMiddleware(logger *log.Logger) func(http.Handler) http.Handler {
 			wrapped := wrapResponseWriter(w)
 			next.ServeHTTP(wrapped, r)
 
-			logger.Printf(
+			conf.logger.Printf(
 				"[REQ] \"%s %s\" - \"%s\" - %d %s",
 				r.Method,
 				r.URL.EscapedPath(),

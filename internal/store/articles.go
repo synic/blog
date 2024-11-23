@@ -2,11 +2,15 @@ package store
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"io/fs"
 	"maps"
+	"path/filepath"
 	"slices"
 	"sort"
 	"strings"
+	"time"
 
 	"github.com/synic/adamthings.me/internal/model"
 )
@@ -41,6 +45,23 @@ func NewArticleRepository(
 	r.articles = articles
 
 	return r, nil
+}
+
+func NewArticleRepositoryFromFS(
+	filesystem fs.FS,
+	includeUnpublished bool,
+) (*ArticleRepository, time.Duration, error) {
+	begin := time.Now()
+
+	articles, err := parseArticles(filesystem, includeUnpublished)
+
+	if err != nil {
+		return nil, time.Since(begin), err
+	}
+
+	repo, err := NewArticleRepository(articles)
+
+	return repo, time.Since(begin), err
 }
 
 func (r *ArticleRepository) TagInfo(context.Context) map[string]int {
@@ -105,6 +126,49 @@ func (r *ArticleRepository) FindByTag(
 				articles = append(articles, article)
 			}
 		}
+	}
+
+	return articles, nil
+}
+
+func (r *ArticleRepository) Count(ctx context.Context) int {
+	return len(r.articles)
+}
+
+func parseArticles(filesystem fs.FS, includeUnpublished bool) ([]*model.Article, error) {
+	var articles []*model.Article
+
+	err := fs.WalkDir(filesystem, ".", func(name string, _ fs.DirEntry, err error) error {
+		if err != nil {
+			return err
+		}
+
+		if filepath.Ext(name) != ".json" {
+			return nil
+		}
+
+		var article model.Article
+		data, err := fs.ReadFile(filesystem, name)
+
+		if err != nil {
+			return err
+		}
+
+		err = json.Unmarshal(data, &article)
+
+		if err != nil {
+			return err
+		}
+
+		if includeUnpublished || article.IsPublished {
+			articles = append(articles, &article)
+		}
+
+		return nil
+	})
+
+	if err != nil {
+		return nil, err
 	}
 
 	return articles, nil

@@ -154,7 +154,7 @@ func titleFromPageData(pd model.PageData) string {
 	}
 
 	if pd.Search != "" {
-		return "Search Results"
+		return fmt.Sprintf("Search Results: %s", pd.Search)
 	}
 
 	return ""

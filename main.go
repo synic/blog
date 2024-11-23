@@ -3,17 +3,16 @@ package main
 import (
 	"context"
 	"embed"
-	"io/fs"
 	"log"
 	"net"
 	"net/http"
-	"os"
-	"time"
 
 	"github.com/synic/adamthings.me/internal"
-	"github.com/synic/adamthings.me/internal/handler"
+	"github.com/synic/adamthings.me/internal/controller"
 	"github.com/synic/adamthings.me/internal/middleware"
+	"github.com/synic/adamthings.me/internal/model"
 	"github.com/synic/adamthings.me/internal/store"
+	"github.com/synic/adamthings.me/internal/view"
 )
 
 var (
@@ -21,66 +20,61 @@ var (
 	embeddedAssets embed.FS
 )
 
-func mustSub(fsys fs.FS, path string) fs.FS {
-	st, err := fs.Sub(fsys, path)
-
-	if err != nil {
-		panic(err)
-	}
-
-	return st
-}
-
 func main() {
-	var (
-		begin  = time.Now()
-		assets = mustSub(embeddedAssets, "assets")
+	ctx := context.Background()
+	assets := internal.MustSub(embeddedAssets, "assets")
+
+	repo, duration, err := store.NewArticleRepositoryFromFS(
+		internal.MustSub(assets, "articles"),
+		internal.Debug,
 	)
 
-	articles, err := internal.ParseArticles(mustSub(assets, "articles"))
-
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	log.Printf("🔖 Read %d articles in %s", len(articles), time.Since(begin))
+	if internal.Debug {
+		log.Println("🐝 Debugging enabled, unpublished articles will be shown")
+	}
 
-	repo, err := store.NewArticleRepository(articles)
+	log.Printf("🔖 Read %d articles in %s", repo.Count(ctx), duration)
+
+	bundledAssets, err := view.BundleStaticAssets(
+		assets,
+		"css/main.css",
+		"css/syntax.min.css",
+		"js/app.js",
+	)
 
 	if err != nil {
 		log.Fatal(err)
-	}
-
-	staticFiles, err := internal.BundleStaticAssets(assets, "css/main.css", "css/syntax.min.css")
-
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	bind := os.Getenv("BIND")
-	if bind == "" {
-		bind = "0.0.0.0:3000"
 	}
 
 	mux := http.NewServeMux()
-	mux.Handle("GET /static/", handler.StaticHandler(assets))
-	handler.NewArticleRouter(repo).Mount(mux)
-
-	log.Printf("🚀 Serving on %s...", bind)
 
 	server := &http.Server{
-		Addr: bind,
+		Addr: ":3000",
 		Handler: middleware.Wrap(
 			mux,
-			middleware.LoggingMiddleware(log.Default()),
+			middleware.LoggerMiddleware(),
 			middleware.HtmxMiddleware(),
 		),
 		BaseContext: func(net.Listener) context.Context {
-			return context.WithValue(context.Background(), "inline-static-files", staticFiles)
+			data := model.ContextData{
+				BuildTime:           internal.BuildTime,
+				BundledStaticAssets: bundledAssets,
+				Debug:               internal.Debug,
+			}
+
+			return context.WithValue(ctx, "data", data)
 		},
 	}
 
+	internal.RegisterRoutes(mux, assets, controller.NewArticleController(repo))
+
+	log.Printf("🚀 Serving on %s...", server.Addr)
 	if err = server.ListenAndServe(); err != nil {
 		log.Fatal(err)
 	}
+
 }

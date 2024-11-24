@@ -1,7 +1,7 @@
 package controller
 
 import (
-	"log"
+	"errors"
 	"net/http"
 	"strconv"
 
@@ -68,7 +68,6 @@ func (h ArticleController) Index(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if err != nil {
-		log.Printf("error finding articles: %s", err)
 		view.Error(w, r, err, 404, "Not Found", "Sorry, no articles could be found.")
 		return
 	}
@@ -81,6 +80,9 @@ func (h ArticleController) Article(w http.ResponseWriter, r *http.Request) {
 	article, err := h.repo.FindOneBySlug(r.Context(), slug)
 
 	if err != nil {
+		if errors.Is(err, store.ErrNotFound) {
+			err = nil
+		}
 		view.Error(w, r, err, 404, "Not Found", "Sorry, that article could not be found.")
 		return
 	}

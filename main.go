@@ -15,10 +15,8 @@ import (
 	"github.com/synic/adamthings.me/internal/view"
 )
 
-var (
-	//go:embed assets/*
-	embeddedAssets embed.FS
-)
+//go:embed assets/*
+var embeddedAssets embed.FS
 
 func main() {
 	ctx := context.Background()
@@ -65,7 +63,6 @@ func main() {
 				BundledStaticAssets: bundledAssets,
 				Debug:               internal.Debug,
 			}
-
 			return context.WithValue(ctx, "data", data)
 		},
 	}
@@ -76,5 +73,4 @@ func main() {
 	if err = server.ListenAndServe(); err != nil {
 		log.Fatal(err)
 	}
-
 }

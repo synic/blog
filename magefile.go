@@ -14,12 +14,12 @@ import (
 	"github.com/magefile/mage/mg"
 	"github.com/magefile/mage/sh"
 
-	"github.com/synic/adamthings.me/internal/converter"
+	"github.com/synic/blog/internal/converter"
 )
 
 var (
 	Default        = Dev
-	packageName    = "github.com/synic/adamthings.me"
+	packageName    = "github.com/synic/blog"
 	syntaxCssTheme = "nord-darker"
 
 	// paths

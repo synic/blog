@@ -7,12 +7,12 @@ import (
 	"net"
 	"net/http"
 
-	"github.com/synic/adamthings.me/internal"
-	"github.com/synic/adamthings.me/internal/controller"
-	"github.com/synic/adamthings.me/internal/middleware"
-	"github.com/synic/adamthings.me/internal/model"
-	"github.com/synic/adamthings.me/internal/store"
-	"github.com/synic/adamthings.me/internal/view"
+	"github.com/synic/blog/internal"
+	"github.com/synic/blog/internal/controller"
+	"github.com/synic/blog/internal/middleware"
+	"github.com/synic/blog/internal/model"
+	"github.com/synic/blog/internal/store"
+	"github.com/synic/blog/internal/view"
 )
 
 //go:embed assets/*

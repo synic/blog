@@ -5,9 +5,9 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/synic/adamthings.me/internal/model"
-	"github.com/synic/adamthings.me/internal/store"
-	"github.com/synic/adamthings.me/internal/view"
+	"github.com/synic/blog/internal/model"
+	"github.com/synic/blog/internal/store"
+	"github.com/synic/blog/internal/view"
 )
 
 type articleControllerConfig struct {

@@ -4,8 +4,8 @@ import (
 	"io/fs"
 	"net/http"
 
-	"github.com/synic/adamthings.me/internal/controller"
-	"github.com/synic/adamthings.me/internal/view"
+	"github.com/synic/blog/internal/controller"
+	"github.com/synic/blog/internal/view"
 )
 
 func RegisterRoutes(

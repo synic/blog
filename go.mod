@@ -1,4 +1,4 @@
-module github.com/synic/adamthings.me
+module github.com/synic/blog
 
 go 1.23.2
 

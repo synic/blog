@@ -10,7 +10,7 @@ import templruntime "github.com/a-h/templ/runtime"
 
 import (
 	"fmt"
-	"github.com/synic/adamthings.me/internal/model"
+	"github.com/synic/blog/internal/model"
 )
 
 func ArticleView(a *model.Article) templ.Component {

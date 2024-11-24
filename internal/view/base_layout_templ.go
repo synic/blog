@@ -11,8 +11,8 @@ import templruntime "github.com/a-h/templ/runtime"
 import (
 	"context"
 	"fmt"
-	"github.com/synic/adamthings.me/internal/middleware"
-	"github.com/synic/adamthings.me/internal/model"
+	"github.com/synic/blog/internal/middleware"
+	"github.com/synic/blog/internal/model"
 	"io"
 )
 

@@ -1,6 +1,6 @@
 # Adam's Blog
 
-View at [https://adamthings.me](https://adamthings.me)
+View at [https://blog](https://blog)
 
 To run, type the following:
 

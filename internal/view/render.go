@@ -1,6 +1,7 @@
 package view
 
 import (
+	"log"
 	"net/http"
 
 	"github.com/a-h/templ"
@@ -45,5 +46,8 @@ func Error(
 	status int,
 	title, message string,
 ) {
+	if err != nil {
+		log.Printf("Error during request at: %s: %v", r.URL.Path, err)
+	}
 	Render(w, r, ErrorView(title, message), WithStatus(status))
 }

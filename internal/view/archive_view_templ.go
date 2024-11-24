@@ -117,7 +117,7 @@ func ArchiveView(articleCount int, tags map[string]int) templ.Component {
 					return templ_7745c5c3_Err
 				}
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</ul></p></div><div class=\"grow\"><h2 class=\"mt-0 text-rose-500\">About Me</h2><p class=\"mt-0\"><img src=\"/static/img/me.jpg\" width=\"200\" height=\"250\" alt=\"Photo of me\"></p><p class=\"mt-0\">Software Developer, Amateur Photographer, and NeoVim enthusiast :)</p><p class=\"mt-0\">Links: <a href=\"https://github.com/synic\">GitHub</a> | <a href=\"https://instagram.com/adamthings.me\">Instagram</a> | <a href=\"https://bsky.app/profile/invalidhandle.lol\">BlueSky</a></p></div></div>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</ul></p></div><div class=\"grow\"><h2 class=\"mt-0 text-rose-500\">About Me</h2><p class=\"mt-0\"><img src=\"/static/img/me.jpg\" width=\"200\" height=\"250\" alt=\"Photo of me\"></p><p class=\"mt-0\">Software Developer, Amateur Photographer, and NeoVim enthusiast.</p><p class=\"mt-0\">This site was made using <a href=\"https://go.dev/\">Go</a>, <a href=\"https://templ.guide/\">Templ</a>, <a href=\"https://htmx.org/\">HTMX</a>, and <a href=\"https://tailwindcss.com/\">Tailwind</a>. Written using <a href=\"https://neovim.io/\">NeoVim</a>, of course.</p><p class=\"mt-0\">Links: <a href=\"https://github.com/synic\">GitHub</a> | <a href=\"https://instagram.com/adamthings.me\">Instagram</a> | <a href=\"https://bsky.app/profile/invalidhandle.lol\">BlueSky</a></p></div></div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

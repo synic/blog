@@ -3,7 +3,7 @@ package store
 import (
 	"context"
 	"encoding/json"
-	"fmt"
+	"errors"
 	"io/fs"
 	"maps"
 	"path/filepath"
@@ -13,6 +13,10 @@ import (
 	"time"
 
 	"github.com/synic/adamthings.me/internal/model"
+)
+
+var (
+	ErrNotFound = errors.New("article not found")
 )
 
 type ArticleRepository struct {
@@ -107,7 +111,7 @@ func (r *ArticleRepository) FindOneBySlug(
 		return r.articles[i], nil
 	}
 
-	return nil, fmt.Errorf("article for slug `%s` not found", slug)
+	return nil, ErrNotFound
 }
 
 func (r *ArticleRepository) FindAllTags(ctx context.Context) ([]string, error) {

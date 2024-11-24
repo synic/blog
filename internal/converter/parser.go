@@ -10,7 +10,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/synic/adamthings.me/internal/model"
+	"github.com/synic/blog/internal/model"
 )
 
 var (

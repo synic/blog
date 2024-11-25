@@ -1,7 +1,7 @@
 <!-- :metadata:
 
 title: My First Computer
-tags: Miscellaneous, Gadgets
+tags: Random, Gadgets
 publishedAt: 2008-12-10T20:29:10-0700
 summary:
 

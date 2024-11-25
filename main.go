@@ -22,7 +22,7 @@ func main() {
 	ctx := context.Background()
 	assets := internal.MustSub(embeddedAssets, "assets")
 
-	repo, duration, err := store.NewArticleRepositoryFromFS(
+	repo, res, err := store.NewArticleRepositoryFromFS(
 		internal.MustSub(assets, "articles"),
 		internal.Debug,
 	)
@@ -31,11 +31,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	if internal.Debug {
-		log.Println("🐝 Debugging enabled, unpublished articles will be shown")
-	}
-
-	log.Printf("🔖 Read %d articles in %s", repo.Count(ctx), duration)
+	log.Println(res.String())
 
 	bundledAssets, err := view.BundleStaticAssets(
 		assets,

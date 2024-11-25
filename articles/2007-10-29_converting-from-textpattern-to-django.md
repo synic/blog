@@ -1,7 +1,7 @@
 <!-- :metadata:
 
 title: Converting from TextPattern to Django
-tags: Miscellaneous, Django
+tags: Random, Django
 publishedAt: 2007-10-29T23:33:32-0700
 summary:
 

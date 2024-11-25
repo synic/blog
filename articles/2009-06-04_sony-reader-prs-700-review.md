@@ -1,7 +1,7 @@
 <!-- :metadata:
 
 title: Sony Reader (PRS-700) Review
-tags: Miscellaneous, Gadgets
+tags: Random, Gadgets
 publishedAt: 2009-06-04T23:31:04-0700
 summary:
 

@@ -254,11 +254,43 @@ func Container() error {
 	return sh.RunV("docker", "build", "-t", "blog", ".")
 }
 
+func lastModTime(paths ...string) (*time.Time, error) {
+	var lastModTime *time.Time = nil
+
+	for _, path := range paths {
+		err := filepath.WalkDir(path, func(path string, d fs.DirEntry, err error) error {
+			if err != nil {
+				return err
+			}
+
+			if d.IsDir() {
+				return nil
+			}
+
+			fileInfo, err := os.Stat(path)
+
+			if err != nil {
+				return err
+			}
+
+			modTime := fileInfo.ModTime()
+
+			if lastModTime == nil || modTime.After(*lastModTime) {
+				lastModTime = &modTime
+			}
+
+			return nil
+		})
+		if err != nil {
+			return lastModTime, err
+		}
+	}
+
+	return lastModTime, nil
+}
+
 func maybeRunTailwind() error {
-	var (
-		lastInputModTime *time.Time = nil
-		outModTime       *time.Time = nil
-	)
+	var outModTime *time.Time = nil
 
 	outInfo, err := os.Stat(tailwindOutFile)
 
@@ -267,29 +299,11 @@ func maybeRunTailwind() error {
 		outModTime = &modTime
 	}
 
-	err = filepath.WalkDir("./internal/view", func(path string, d fs.DirEntry, err error) error {
-		if err != nil {
-			return err
-		}
+	if err != nil {
+		return err
+	}
 
-		if d.IsDir() {
-			return nil
-		}
-
-		fileInfo, err := os.Stat(path)
-
-		if err != nil {
-			return err
-		}
-
-		modTime := fileInfo.ModTime()
-
-		if lastInputModTime == nil || modTime.After(*lastInputModTime) {
-			lastInputModTime = &modTime
-		}
-
-		return nil
-	})
+	lastInputModTime, err := lastModTime("./internal/view", articlesInPath)
 
 	if err != nil {
 		return err
@@ -310,5 +324,12 @@ func maybeRunTailwind() error {
 }
 
 func convertArticles(reconvert bool) error {
-	return converter.Convert(articlesInPath, articlesOutPath, reconvert)
+	res, err := converter.Convert(articlesInPath, articlesOutPath, reconvert)
+
+	if err != nil {
+		return err
+	}
+
+	fmt.Print(res.String())
+	return nil
 }

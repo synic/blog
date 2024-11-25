@@ -13,7 +13,7 @@ type staticHandlerConfig struct {
 	maxAge  int
 }
 
-func getDefaultStaticHandlerConfig() staticHandlerConfig {
+func defaultStaticHandlerConfig() staticHandlerConfig {
 	return staticHandlerConfig{
 		maxAge:  -1, // disabled (handled by webserver)
 		path:    "/static/",
@@ -45,7 +45,7 @@ func StaticHandler(
 ) http.Handler {
 	var err error = nil
 
-	conf := getDefaultStaticHandlerConfig()
+	conf := defaultStaticHandlerConfig()
 
 	for _, option := range options {
 		option(&conf)

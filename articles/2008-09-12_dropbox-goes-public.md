@@ -1,7 +1,7 @@
 <!-- :metadata:
 
 title: DropBox goes public
-tags: Miscellaneous
+tags: Random
 publishedAt: 2008-09-12T17:11:35-0700
 summary:
 

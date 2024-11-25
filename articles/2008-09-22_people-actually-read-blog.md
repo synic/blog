@@ -1,7 +1,7 @@
 <!-- :metadata:
 
 title: People actually read this blog?
-tags: Miscellaneous
+tags: Random
 publishedAt: 2008-09-22T20:33:34-0700
 summary:
 

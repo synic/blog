@@ -68,7 +68,7 @@ templ taglinks(tags []string) {
 		for i, t := range tags {
 			<li class="inline-block">
 				<a
-					href={ templ.URL("/tag?=" + t) }
+					href={ templ.URL("/?tag=" + t) }
 					id={ "tag-link-" + t }
 					hx-on::before-cleanup-element="document.getElementById('search-nav').value = '';"
 				>

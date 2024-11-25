@@ -1,7 +1,7 @@
 <!-- :metadata:
 
 title: Where have all the artists gone?
-tags: Miscellaneous
+tags: Random
 publishedAt: 2008-11-18T20:27:31-0700
 
 summary:

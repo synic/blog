@@ -1,7 +1,7 @@
 <!-- :metadata:
 
 title: FireGPG - Very Useful, Very Annoying
-tags: Miscellaneous
+tags: Random
 publishedAt: 2007-11-28T17:06:07-0700
 summary:
 

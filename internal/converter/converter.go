@@ -12,18 +12,42 @@ import (
 	"time"
 )
 
-func Convert(inputPath, outputPath string, reconvert bool) error {
+type ConvertResult struct {
+	ConvertedPaths []string
+	Duration       time.Duration
+	ConvertedCount int
+	UpToDateCount  int
+	DeletedCount   int
+	reconvert      bool
+}
+
+func (r ConvertResult) String() string {
+	var b strings.Builder
+
+	b.WriteString(
+		fmt.Sprintf("🎉 Article processing done in %s. converted: %d", r.Duration, r.ConvertedCount),
+	)
+
+	if !r.reconvert {
+		b.WriteString(fmt.Sprintf(", up-to-date: %d", r.UpToDateCount))
+	}
+
+	b.WriteString(fmt.Sprintf(", deleted: %d\n", r.DeletedCount))
+
+	return b.String()
+}
+
+func Convert(inputPath, outputPath string, reconvert bool) (ConvertResult, error) {
+	res := ConvertResult{reconvert: reconvert}
 	files, err := os.ReadDir(inputPath)
 
 	if err != nil {
-		return err
+		return ConvertResult{}, err
 	}
 
+	res.ConvertedPaths = make([]string, 0, len(files))
 	begin := time.Now()
 	validOutputFiles := make([]string, 0, len(files))
-	convertedCount := 0
-	upToDateCount := 0
-	deletedCount := 0
 
 	for _, file := range files {
 		ext := filepath.Ext(file.Name())
@@ -39,36 +63,36 @@ func Convert(inputPath, outputPath string, reconvert bool) error {
 		shouldConvert, err := shouldConvert(in, out)
 
 		if !shouldConvert && !reconvert {
-			upToDateCount += 1
+			res.UpToDateCount += 1
 			continue
 		}
 
 		article, err := Parse(in)
 
 		if err != nil {
-			return fmt.Errorf(`error parsing %s: %v`, file.Name(), err)
+			return res, fmt.Errorf(`error parsing %s: %v`, file.Name(), err)
 		}
 
 		data, err := json.MarshalIndent(article, "", "  ")
 
 		if err != nil {
-			return err
+			return res, err
 		}
 
 		err = os.WriteFile(out, data, os.ModePerm)
 
 		if err != nil {
-			return err
+			return res, err
 		}
 
-		fmt.Printf("🎯 converted %s...\n", in)
-		convertedCount += 1
+		res.ConvertedPaths = append(res.ConvertedPaths, in)
+		res.ConvertedCount += 1
 	}
 
 	files, err = os.ReadDir(inputPath)
 
 	if err != nil {
-		return err
+		return res, err
 	}
 
 	for _, file := range files {
@@ -85,24 +109,16 @@ func Convert(inputPath, outputPath string, reconvert bool) error {
 			err := os.Remove(out)
 
 			if err != nil {
-				return err
+				return res, err
 			}
 
-			deletedCount += 1
+			res.DeletedCount += 1
 		}
 	}
 
-	end := time.Since(begin)
+	res.Duration = time.Since(begin)
 
-	fmt.Printf("🎉 Article processing done in %s. converted: %d", end, convertedCount)
-
-	if !reconvert {
-		fmt.Printf(", up-to-date: %d", upToDateCount)
-	}
-
-	fmt.Printf(", deleted: %d\n", deletedCount)
-
-	return nil
+	return res, nil
 }
 
 func shouldConvert(sourceFn, destFn string) (bool, error) {

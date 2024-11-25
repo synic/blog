@@ -1,7 +1,7 @@
 <!-- :metadata:
 
 title: Preventing spam on trac
-tags: Miscellaneous, Linux
+tags: Random, Linux
 publishedAt: 2007-04-04T22:25:00-0700
 summary:
 

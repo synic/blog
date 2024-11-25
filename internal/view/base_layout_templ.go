@@ -23,7 +23,7 @@ type baseLayoutConfig struct {
 	og    model.OpenGraphData
 }
 
-func getDefaultBaseLayoutConfig() baseLayoutConfig {
+func defaultBaseLayoutConfig() baseLayoutConfig {
 	return baseLayoutConfig{}
 }
 
@@ -36,7 +36,7 @@ func WithOpenGraphData(og model.OpenGraphData) func(*baseLayoutConfig) {
 // `BaseLayout` is a wrapper that allows function opts, and just passes through
 // to the `baseLayout` templ component
 func BaseLayout(title string, options ...func(*baseLayoutConfig)) templ.Component {
-	conf := getDefaultBaseLayoutConfig()
+	conf := defaultBaseLayoutConfig()
 	conf.title = title
 
 	for _, option := range options {

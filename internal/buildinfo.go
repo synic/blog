@@ -9,12 +9,15 @@ import (
 var (
 	// build time (set during build)
 	BuildTime string
+	// set by the build process (so has to be exported), but use `Debug` instead since
+	// it's a boolean
 	DebugFlag string
 	Debug     bool = false
 )
 
 func init() {
 	if DebugFlag == "true" {
+		log.Println("🐝 Debugging enabled!")
 		Debug = true
 	}
 

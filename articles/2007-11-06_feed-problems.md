@@ -1,7 +1,7 @@
 <!-- :metadata:
 
 title: Feed Problems
-tags: Miscellaneous, Django
+tags: Random, Django
 publishedAt: 2007-11-06T16:30:01-0700
 summary:
 

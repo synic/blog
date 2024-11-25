@@ -1,7 +1,7 @@
 <!-- :metadata:
 
 title: Corporate Website Cheatcodes?
-tags: Miscellaneous, Funny
+tags: Random, Funny
 publishedAt: 2009-04-28T02:19:14-0700
 summary:
 

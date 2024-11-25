@@ -20,7 +20,7 @@ type ArticleController struct {
 	articleControllerConfig
 }
 
-func getDefaultArticleControllerConfig() articleControllerConfig {
+func defaultArticleControllerConfig() articleControllerConfig {
 	return articleControllerConfig{
 		articlesPerPage:    20,
 		maxArticlesPerPage: 50,
@@ -38,7 +38,7 @@ func NewArticleController(
 	repo *store.ArticleRepository,
 	options ...func(*articleControllerConfig),
 ) ArticleController {
-	conf := getDefaultArticleControllerConfig()
+	conf := defaultArticleControllerConfig()
 
 	for _, option := range options {
 		option(&conf)

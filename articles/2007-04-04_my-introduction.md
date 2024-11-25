@@ -1,7 +1,7 @@
 <!-- :metadata:
 
 title: My Introduction
-tags: Miscellaneous
+tags: Random
 publishedAt: 2007-04-04T18:48:00-0700
 summary:
 

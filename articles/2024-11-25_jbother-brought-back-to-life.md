@@ -1,7 +1,7 @@
 <!-- :metadata:
 
 title: JBother brought back to life? Nefarious?
-tags: Programming
+tags: Random
 publishedAt: 2024-11-25T12:08:11-0700
 ogImage: /static/img/screenshots/jbother.png
 summary:

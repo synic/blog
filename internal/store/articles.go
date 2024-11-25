@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io/fs"
 	"maps"
 	"path/filepath"
@@ -54,18 +55,17 @@ func NewArticleRepository(
 func NewArticleRepositoryFromFS(
 	filesystem fs.FS,
 	includeUnpublished bool,
-) (*ArticleRepository, time.Duration, error) {
-	begin := time.Now()
+) (*ArticleRepository, ParseResult, error) {
 
-	articles, err := parseArticles(filesystem, includeUnpublished)
+	res, err := parseArticles(filesystem, includeUnpublished)
 
 	if err != nil {
-		return nil, time.Since(begin), err
+		return nil, res, err
 	}
 
-	repo, err := NewArticleRepository(articles)
+	repo, err := NewArticleRepository(res.Articles)
 
-	return repo, time.Since(begin), err
+	return repo, res, err
 }
 
 func (r *ArticleRepository) TagInfo(context.Context) map[string]int {
@@ -139,8 +139,29 @@ func (r *ArticleRepository) Count(ctx context.Context) int {
 	return len(r.articles)
 }
 
-func parseArticles(filesystem fs.FS, includeUnpublished bool) ([]*model.Article, error) {
-	var articles []*model.Article
+type ParseResult struct {
+	Articles           []*model.Article
+	Duration           time.Duration
+	Unpublished        int
+	Count              int
+	IncludeUnpublished bool
+}
+
+func (r ParseResult) String() string {
+	var b strings.Builder
+
+	b.WriteString(fmt.Sprintf("🔖 Read %d articles in %s", r.Count, r.Duration))
+
+	if r.IncludeUnpublished {
+		b.WriteString(fmt.Sprintf(", including %d unpublished", r.Unpublished))
+	}
+
+	return b.String()
+}
+
+func parseArticles(filesystem fs.FS, includeUnpublished bool) (ParseResult, error) {
+	res := ParseResult{IncludeUnpublished: includeUnpublished}
+	begin := time.Now()
 
 	err := fs.WalkDir(filesystem, ".", func(name string, _ fs.DirEntry, err error) error {
 		if err != nil {
@@ -165,15 +186,21 @@ func parseArticles(filesystem fs.FS, includeUnpublished bool) ([]*model.Article,
 		}
 
 		if includeUnpublished || article.IsPublished {
-			articles = append(articles, &article)
+			res.Articles = append(res.Articles, &article)
+			res.Count += 1
+			if !article.IsPublished {
+				res.Unpublished += 1
+			}
 		}
 
 		return nil
 	})
 
 	if err != nil {
-		return nil, err
+		return res, err
 	}
 
-	return articles, nil
+	res.Duration = time.Since(begin)
+
+	return res, nil
 }

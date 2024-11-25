@@ -1,7 +1,7 @@
 <!-- :metadata:
 
 title: Migrating from Trac to Launchpad
-tags: Miscellaneous
+tags: Random
 publishedAt: 2007-09-01T18:57:19-0700
 summary:
 

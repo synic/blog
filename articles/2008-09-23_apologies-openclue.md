@@ -1,7 +1,7 @@
 <!-- :metadata:
 
 title: Apologies to OpenClue
-tags: Miscellaneous
+tags: Random
 publishedAt: 2008-09-23T06:41:57-0700
 summary:
 

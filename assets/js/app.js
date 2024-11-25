@@ -19,7 +19,14 @@ function hideErrorBox() {
   window.errorBoxTimeout = undefined;
 }
 
-function showErrorBox() {
+function handleHtmxError(event) {
+  if (event?.detail?.xhr?.status == 404) {
+    window.location =
+      event.detail.pathInfo.finalRequestPath ||
+      event.detail.pathInfo.requestPath;
+    return;
+  }
+
   const errorBox = document.getElementById("errorbox");
   errorBox.style.display = "flex";
   clearTimeout(window.errorBoxTimeout);
@@ -34,6 +41,7 @@ window.addEventListener("load", () => {
   window.addEventListener("htmx:afterSwap", showScrollToTopButton);
 
   // error
-  document.body.addEventListener("htmx:onLoadError", showErrorBox);
-  document.body.addEventListener("htmx:sendError", showErrorBox);
+  document.body.addEventListener("htmx:onLoadError", handleHtmxError);
+  document.body.addEventListener("htmx:responseError", handleHtmxError);
+  document.body.addEventListener("htmx:sendError", handleHtmxError);
 });

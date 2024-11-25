@@ -13,13 +13,24 @@ func RegisterRoutes(
 	assets fs.FS,
 	articleController controller.ArticleController,
 ) {
-	// articles
-	handler.HandleFunc("/{$}", articleController.Index)
-	handler.HandleFunc("/articles/{date}/{slug}", articleController.Article)
-	handler.HandleFunc("/archive", articleController.Archive)
-
 	// static files
 	handler.Handle("GET /static/", StaticHandler(assets))
+
+	// articles
+	handler.HandleFunc("/{$}", articleController.Index)
+	handler.HandleFunc("/article/{date}/{slug}", articleController.Article)
+	handler.HandleFunc("/archive", articleController.Archive)
+	handler.HandleFunc(
+		"/articles/{date}/{slug}",
+		func(w http.ResponseWriter, r *http.Request) {
+			http.Redirect(
+				w,
+				r,
+				"/article/"+r.PathValue("date")+"/"+r.PathValue("slug"),
+				http.StatusMovedPermanently,
+			)
+		},
+	)
 
 	// errors
 	handler.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {

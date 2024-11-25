@@ -33,10 +33,7 @@ func Convert(inputPath, outputPath string, reconvert bool) error {
 		}
 
 		in := path.Join(inputPath, file.Name())
-		out := path.Join(
-			outputPath,
-			fmt.Sprintf("%s.json", strings.TrimSuffix(file.Name(), ext)),
-		)
+		out := path.Join(outputPath, strings.TrimSuffix(file.Name(), ext)+".json")
 		validOutputFiles = append(validOutputFiles, out)
 
 		shouldConvert, err := shouldConvert(in, out)

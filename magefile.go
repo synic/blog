@@ -3,12 +3,15 @@
 package main
 
 import (
+	"bufio"
 	"errors"
 	"fmt"
 	"io/fs"
 	"os"
 	"path"
 	"path/filepath"
+	"regexp"
+	"strings"
 	"time"
 
 	"github.com/magefile/mage/mg"
@@ -23,16 +26,16 @@ var (
 	syntaxCssTheme = "nord-darker"
 
 	// paths
-	binPath            = "bin"
-	debugPath          = path.Join(binPath, "blog-debug")
-	releasePath        = path.Join(binPath, "blog-release")
-	outputCssPath      = "./assets/css"
-	inputCssFile       = "./internal/view/css/main.css"
-	outputCssFile      = fmt.Sprintf("%s/main.css", outputCssPath)
-	syntaxCssFile      = "./internal/view/css/syntax.css"
-	inputArticlesPath  = "./articles/"
-	outputArticlesPath = "./assets/articles"
-	buildInfoPath      = fmt.Sprintf("%s/internal", packageName)
+	binPath         = "bin"
+	debugPath       = path.Join(binPath, "blog-debug")
+	releasePath     = path.Join(binPath, "blog-release")
+	cssOutPath      = "./assets/css"
+	tailwinInFile   = "./internal/view/css/main.css"
+	tailwindOutFile = cssOutPath + "/main.css"
+	syntaxCssFile   = "./internal/view/css/syntax.css"
+	articlesInPath  = "./articles/"
+	articlesOutPath = "./assets/articles"
+	buildInfoPath   = packageName + "/internal"
 
 	// commands
 	runCmd      = sh.RunCmd("go", "run")
@@ -141,6 +144,61 @@ func (Articles) Reconvert() error {
 	return convertArticles(true)
 }
 
+func (Articles) Create() error {
+	var title, tags string
+
+	scanner := bufio.NewScanner(os.Stdin)
+	fmt.Print("Title: ")
+	if scanner.Scan() {
+		title = scanner.Text()
+	}
+
+	fmt.Print("Tags: ")
+	if scanner.Scan() {
+		tags = scanner.Text()
+	}
+
+	if title == "" || tags == "" {
+		fmt.Println("Title and tags are required.")
+		os.Exit(1)
+	}
+
+	re := regexp.MustCompile(`[^\w ]+`)
+	slug := re.ReplaceAllString(strings.ToLower(title), "")
+	slug = strings.ReplaceAll(slug, " ", "-")
+
+	fmt.Println(slug)
+	now := time.Now()
+
+	fn := fmt.Sprintf(
+		"%s%d-%02d-%02d_%s.md",
+		articlesInPath,
+		now.Year(),
+		now.Month(),
+		now.Day(),
+		slug,
+	)
+
+	f, err := os.Create(fn)
+
+	if err != nil {
+		return err
+	}
+
+	_, err = f.WriteString(
+		fmt.Sprintf(
+			"<!-- :metadata:\n\ntitle: %s\ntags: %s\n-- publishedAt: %s\nsummary:\n\n-->\n",
+			title, tags, now.Format(time.RFC3339),
+		),
+	)
+
+	if err != nil {
+		return err
+	}
+
+	return sh.RunV("nvim", fn)
+}
+
 func Pygmentize() error {
 	data, err := sh.Output("pygmentize", "-S", syntaxCssTheme, "-f", "html", "-a", ".chroma")
 
@@ -158,7 +216,7 @@ func Pygmentize() error {
 	f.WriteString(data)
 	f.Close()
 
-	return minifyCmd("-f", syntaxCssFile, "--output", outputCssPath)
+	return minifyCmd("-f", syntaxCssFile, "--output", cssOutPath)
 }
 
 func Vet() error {
@@ -202,7 +260,7 @@ func maybeRunTailwind() error {
 		outModTime       *time.Time = nil
 	)
 
-	outInfo, err := os.Stat(outputCssFile)
+	outInfo, err := os.Stat(tailwindOutFile)
 
 	if err == nil {
 		modTime := outInfo.ModTime()
@@ -239,18 +297,18 @@ func maybeRunTailwind() error {
 
 	if lastInputModTime == nil || outModTime == nil || lastInputModTime.After(*outModTime) {
 		fmt.Println("View or CSS changes detected, running tailwind...")
-		err := tailwindCmd("--postcss", "-i", inputCssFile, "-o", outputCssFile, "--minify")
+		err := tailwindCmd("--postcss", "-i", tailwinInFile, "-o", tailwindOutFile, "--minify")
 
 		if err != nil {
 			return err
 		}
 
-		return sh.Run("touch", outputCssFile)
+		return sh.Run("touch", tailwindOutFile)
 	}
 
 	return nil
 }
 
 func convertArticles(reconvert bool) error {
-	return converter.Convert(inputArticlesPath, outputArticlesPath, reconvert)
+	return converter.Convert(articlesInPath, articlesOutPath, reconvert)
 }

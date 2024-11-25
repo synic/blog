@@ -1,3 +1,3 @@
 module.exports = {
-  content: ["./**/*.html", "./**/*.templ", "./**/*.go"],
+  content: ["./internal/view/*.templ", "./**/*.go", "./articles/*.md"],
 };

@@ -185,7 +185,7 @@ templ errorbox() {
 
 templ navlink(url, label string, hideMobile bool) {
 	<a
-		id={ fmt.Sprintf("nav-link-%s", label) }
+		id={ "nav-link-" + label }
 		hx-on::after-request="document.getElementById('search-nav').value = '';"
 		class={
 			"py-3 px-5 text-center no-underline border-l border-gray-700 cursor-pointer hover:text-white hover:bg-gray-700 item-center w-22 lg:last:rounded-tr-xl",

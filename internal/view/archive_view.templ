@@ -1,8 +1,8 @@
 package view
 
 import (
-	"fmt"
 	"sort"
+	"strconv"
 )
 
 templ ArchiveView(articleCount int, tags map[string]int) {
@@ -10,7 +10,7 @@ templ ArchiveView(articleCount int, tags map[string]int) {
 		<div class="flex flex-col w-full">
 			<h1 class="my-0 text-rose-500">Archive</h1>
 			<div class="pb-4 mt-1 grow">
-				Total articles: { fmt.Sprintf("%d", articleCount ) }
+				Total articles: { strconv.Itoa(articleCount) }
 			</div>
 			<div class="block pb-4 md:hidden grow" hx-include="#search">
 				<form method="post" action="/">
@@ -39,11 +39,11 @@ templ ArchiveView(articleCount int, tags map[string]int) {
 						for _, t := range sortedTags(tags) {
 							<li
 								class="py-0.5 px-1 mr-1 mb-1 text-center bg-gray-700 rounded border-gray-600 border-solid cursor-pointer"
-								id={ fmt.Sprintf("tag-link-%s", t.tag) }
+								id={ "tag-link-" + t.tag }
 								hx-on::before-cleanup-element="document.getElementById('search-nav').value = '';"
 							>
-								<a class="px-1 no-underline hover:underline" href={ templ.URL(fmt.Sprintf("/?tag=%s", t.tag)) }>
-									{ t.tag } ({ fmt.Sprintf("%d",t.count) })
+								<a class="px-1 no-underline hover:underline" href={ templ.URL("/?tag=" + t.tag) }>
+									{ t.tag } ({ strconv.Itoa(t.count) })
 								</a>
 							</li>
 						}

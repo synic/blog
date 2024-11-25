@@ -1,9 +1,6 @@
 package view
 
-import (
-	"fmt"
-	"github.com/synic/blog/internal/model"
-)
+import "github.com/synic/blog/internal/model"
 
 templ ArticleView(a *model.Article) {
 	@BaseLayout(a.Title, WithOpenGraphData(a.OpenGraphData())) {
@@ -13,7 +10,7 @@ templ ArticleView(a *model.Article) {
 
 templ article(a *model.Article, inList bool) {
 	<article
-		id={ fmt.Sprintf("article-%s", a.Slug) }
+		id={ "article-" + a.Slug }
 		if inList {
 			class="cursor-pointer"
 			hx-get={ string(a.SafeURL()) }
@@ -38,7 +35,7 @@ templ article(a *model.Article, inList bool) {
 				}
 			</div>
 		</div>
-		<div class="mt-3 w-full break-words mdgen">
+		<div class="mt-3 w-full break-words mdgen" hx-disable="true">
 			if !inList {
 				@templ.Raw(a.Body)
 			} else {
@@ -71,8 +68,8 @@ templ taglinks(tags []string) {
 		for i, t := range tags {
 			<li class="inline-block">
 				<a
-					href={ templ.URL(fmt.Sprintf("/?tag=%s", t)) }
-					id={ fmt.Sprintf("tag-link-%s", t) }
+					href={ templ.URL("/tag?=" + t) }
+					id={ "tag-link-" + t }
 					hx-on::before-cleanup-element="document.getElementById('search-nav').value = '';"
 				>
 					{ t }

@@ -1,7 +1,7 @@
 <!-- :metadata:
 
 title: I'm Ron Burgundy?
-tags: Miscellaneous, Administration
+tags: Random, Administration
 publishedAt: 2008-12-05T17:48:28-0700
 summary:
 

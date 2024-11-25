@@ -150,11 +150,11 @@ func ArticlesView(pd model.PageData) templ.Component {
 
 func titleFromPageData(pd model.PageData) string {
 	if pd.Tag != "" {
-		return fmt.Sprintf("Tag: %s", pd.Tag)
+		return "Tag: " + pd.Tag
 	}
 
 	if pd.Search != "" {
-		return fmt.Sprintf("Search Results: %s", pd.Search)
+		return "Search Results: " + pd.Search
 	}
 
 	return ""

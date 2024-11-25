@@ -10,7 +10,7 @@ tmp_dir = ".tmp"
   exclude_file = ["Dockerfile", "docker-compose.yaml", "mage_output_file.go"]
   exclude_regex = ["_test\\.go", "\\.null-ls", "_templ\\.go"]
   follow_symlink = false
-  include_ext = ["go", "templ", "md", "js", "css"]
+  include_ext = ["go", "templ", "md", "js", "css", "png", "jpg"]
   stop_on_error = true
   log = "logs/build-errors.log"
 

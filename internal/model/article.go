@@ -20,7 +20,7 @@ type Article struct {
 
 func (a *Article) URL() string {
 	return fmt.Sprintf(
-		"/articles/%d-%02d-%02d/%s",
+		"/article/%d-%02d-%02d/%s",
 		a.PublishedAt.Year(),
 		a.PublishedAt.Month(),
 		a.PublishedAt.Day(),

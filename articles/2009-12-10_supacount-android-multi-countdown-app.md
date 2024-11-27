@@ -2,7 +2,7 @@
 
 title: SupaCount: Android Multi-Countdown App
 tags: Programming, Android
-publishedAt: 2009-12-10T23:14:19-0700
+publishedAt: 2009-12-10T23:14:19-07:00
 summary:
 
 So, I got a Droid, which for me, meant that I had to start learning the <a

@@ -3,7 +3,7 @@
 
 title: Exaile 0.2.9 released
 tags: Exaile
-publishedAt: 2007-03-27T21:30:00-0700
+publishedAt: 2007-03-27T21:30:00-07:00
 summary:
 
 I released <a href='http://www.exaile.org/'>Exaile 0.2.9</a> today knowing that

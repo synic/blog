@@ -3,7 +3,7 @@
 
 title: Handling multimedia keys in GNOME 2.18
 tags: Exaile, Programming
-publishedAt: 2007-05-16T12:31:00-0700
+publishedAt: 2007-05-16T12:31:00-07:00
 summary:
 
 <p><span class="caps">GNOME</span> 2.18 introduced a new way for applications

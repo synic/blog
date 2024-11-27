@@ -2,7 +2,7 @@
 
 title: Exaile 0.3 Roundup
 tags: Exaile, Programming
-publishedAt: 2008-09-11T20:21:53-0700
+publishedAt: 2008-09-11T20:21:53-07:00
 summary:
 
 A nice fellow emailed and asked me if I could post a monthly (possibly weekly)

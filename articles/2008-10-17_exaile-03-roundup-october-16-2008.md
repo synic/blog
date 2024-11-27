@@ -2,7 +2,7 @@
 
 title: Exaile 0.3 Roundup for October 16, 2008
 tags: Exaile
-publishedAt: 2008-10-17T00:44:45-0700
+publishedAt: 2008-10-17T00:44:45-07:00
 summary:
 
 It's been longer than a week since the last roundup, so I figured it was time.

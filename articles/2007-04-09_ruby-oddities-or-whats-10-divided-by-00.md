@@ -2,7 +2,7 @@
 
 title: Ruby oddities (or "what's 1.0 divided by 0.0?")
 tags: Programming
-publishedAt: 2007-04-09T09:37:36-0700
+publishedAt: 2007-04-09T09:37:36-07:00
 
 -->
 

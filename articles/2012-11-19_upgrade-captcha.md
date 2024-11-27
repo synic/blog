@@ -2,7 +2,7 @@
 
 title: Upgrade to Captcha
 tags: Programming
-publishedAt: 2012-11-19T18:10:37-0700
+publishedAt: 2012-11-19T18:10:37-07:00
 summary:
 
 Welp, my simple human test, where you had to type "vim" to enter comments on

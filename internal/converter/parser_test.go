@@ -16,7 +16,7 @@ func TestParseMetadata(t *testing.T) {
 <!-- :metadata:
 
 title: this is a test
-publishedAt: 2024-01-10T15:04:04-0800
+publishedAt: 2024-01-10T15:04:04-07:00
 tags: Test,Foo
 randomField: woot
 summary:
@@ -32,7 +32,7 @@ title: just trying to confuse the parser with this title
 
 	assert.Nil(t, err)
 	assert.Equal(t, "this is a test", data.Title)
-	assert.Equal(t, "2024-01-10T15:04:04-0800", data.PublishedAt)
+	assert.Equal(t, "2024-01-10T15:04:04-07:00", data.PublishedAt)
 	assert.Equal(t, "Test,Foo", data.Tags)
 	assert.Equal(t, "This is a good summary!", data.Summary)
 	assert.Equal(
@@ -41,7 +41,7 @@ title: just trying to confuse the parser with this title
 		data.Body,
 	)
 	assert.Equal(t, `title: this is a test
-publishedAt: 2024-01-10T15:04:04-0800
+publishedAt: 2024-01-10T15:04:04-07:00
 tags: Test,Foo
 randomField: woot
 summary:
@@ -56,7 +56,7 @@ func TestParseMetadataMissingField(t *testing.T) {
 	md := `
 <!-- :metadata:
 
-publishedAt: 2024-01-10T15:04:04-0800
+publishedAt: 2024-01-10T15:04:04-07:00
 tags: Test, Foo
 randomField: woot
 summary: This is a good summary!
@@ -74,7 +74,7 @@ func TestParseMetadataShortSummary(t *testing.T) {
 <!-- :metadata:
 
 title: woot
-publishedAt: 2024-01-10T15:04:04-0800
+publishedAt: 2024-01-10T15:04:04-07:00
 tags: Test, Foo
 random_field: woot
 summary: This is a good summary!
@@ -89,8 +89,8 @@ This is the article.
 }
 
 func TestParsePublishedAt(t *testing.T) {
-	c, _ := time.Parse("2006-01-02T15:04:05-0700", "2006-01-02T15:04:05-0800")
-	publishedAt, isPublished, err := parsePublishedAt("2024-01-10T15:04:04-0800")
+	c, _ := time.Parse("2006-01-02T15:04:05-07:00", "2006-01-02T15:04:05-00:00")
+	publishedAt, isPublished, err := parsePublishedAt("2024-01-10T15:04:04-00:00")
 
 	assert.Nil(t, err)
 	assert.True(t, isPublished)
@@ -132,13 +132,13 @@ func TestParseTagsExtraSpacing(t *testing.T) {
 }
 
 func TestParseArticleFromData(t *testing.T) {
-	c, _ := time.Parse("2006-01-02T15:04:05-0700", "2006-01-02T15:04:05-0800")
+	c, _ := time.Parse("2006-01-02T15:04:05-07:00", "2006-01-02T15:04:05-00:00")
 	filepath := "2006-01-01_this-is-the-best-article.md"
 	md := `
 <!-- :metadata:
 
 title: this is a test
-publishedAt: 2024-01-10T15:04:04-0800
+publishedAt: 2024-01-10T15:04:04-00:00
 tags: Test,Foo
 randomField: woot
 summary:

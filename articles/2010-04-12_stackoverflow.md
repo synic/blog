@@ -2,7 +2,7 @@
 
 title: stackoverflow
 tags: Programming
-publishedAt: 2010-04-12T16:53:29-0700
+publishedAt: 2010-04-12T16:53:29-07:00
 
 -->
 

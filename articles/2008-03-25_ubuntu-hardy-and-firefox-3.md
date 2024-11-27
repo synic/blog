@@ -2,7 +2,7 @@
 
 title: Ubuntu Hardy and Firefox 3
 tags: Linux
-publishedAt: 2008-03-25T17:57:26-0700
+publishedAt: 2008-03-25T17:57:26-07:00
 summary:
 
 Yesterday I decided to upgrade from Gutsy Gibbon to Hardy Heron (beta 1).  I

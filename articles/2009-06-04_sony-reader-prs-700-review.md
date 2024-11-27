@@ -2,7 +2,7 @@
 
 title: Sony Reader (PRS-700) Review
 tags: Random, Gadgets
-publishedAt: 2009-06-04T23:31:04-0700
+publishedAt: 2009-06-04T23:31:04-07:00
 summary:
 
 So, work got me a <a

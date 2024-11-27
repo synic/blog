@@ -2,7 +2,7 @@
 
 title: Engimo 2 and Wine
 tags: Linux
-publishedAt: 2009-06-24T18:19:34-0700
+publishedAt: 2009-06-24T18:19:34-07:00
 summary:
 
 After beating Enigmo in the iPhone, I was eager for more.  I'm a sucker for

@@ -2,7 +2,7 @@
 
 title: Exaile needs a team leader
 tags: Exaile, Programming, Linux, Music
-publishedAt: 2012-05-10T19:23:20-0700
+publishedAt: 2012-05-10T19:23:20-07:00
 summary:
 
 Due to the recent news Regarding Stallman's heart attack, I ended up on the

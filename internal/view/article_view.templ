@@ -35,7 +35,7 @@ templ article(a *model.Article, inList bool) {
 				}
 			</div>
 		</div>
-		<div class="mt-3 w-full break-words mdgen" hx-disable="true">
+		<div class="mt-3 w-full break-words mdgen" hx-push-url="false" hx-boost="false" hx-disable="true">
 			if !inList {
 				@templ.Raw(a.Body)
 			} else {

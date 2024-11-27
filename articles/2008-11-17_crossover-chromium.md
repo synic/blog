@@ -2,7 +2,7 @@
 
 title: Crossover Chromium
 tags: Random
-publishedAt: 2008-11-17T18:54:10-0700
+publishedAt: 2008-11-17T18:54:10-07:00
 summary:
 
 If you're following me on Twitter, you'll know that recently installed Windows

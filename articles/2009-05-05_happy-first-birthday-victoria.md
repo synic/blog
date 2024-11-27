@@ -2,7 +2,7 @@
 
 title: Happy First Birthday, Victoria!
 tags: Personal
-publishedAt: 2009-05-05T19:40:40-0700
+publishedAt: 2009-05-05T19:40:40-07:00
 summary:
 
 That's right, it's been one year as of today.

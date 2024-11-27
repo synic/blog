@@ -137,7 +137,7 @@ func parsePublishedAt(rawPublishedAt string) (time.Time, bool, error) {
 		return time.Now(), false, nil
 	}
 
-	t, err := time.Parse("2006-01-02T15:04:05-0700", rawPublishedAt)
+	t, err := time.Parse("2006-01-02T15:04:05-07:00", rawPublishedAt)
 
 	if err != nil {
 		return time.Time{}, false, err

@@ -429,7 +429,7 @@ func errorbox() templ.Component {
 			templ_7745c5c3_Var13 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"hidden fixed inset-x-0 flex-col items-center py-3 my-2 mx-auto w-2/3 text-lg text-black rounded-xl shadow-2xl md:w-1/2 opacity-85 top-100 bg-sky-500\" onclick=\"hideErrorBox()\" id=\"errorbox\">Unable to connect...</div>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"hidden fixed inset-x-0 flex-col items-center py-3 my-2 mx-auto w-2/3 text-lg text-black rounded-xl shadow-2xl md:w-3/4 lg:w-3/4 xl:w-2/3 2xl:w-1/3 opacity-85 top-100 bg-sky-500\" onclick=\"hideErrorBox()\" id=\"errorbox\">Unable to connect...</div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

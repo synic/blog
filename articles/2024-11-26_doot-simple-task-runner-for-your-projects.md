@@ -36,7 +36,6 @@ In your project root directory, create a file (I usually call it `do`, but it
 can be anything you want):
 
 ```python
-
 #!/usr/bin/env python
 
 import os

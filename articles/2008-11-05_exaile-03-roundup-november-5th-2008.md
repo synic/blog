@@ -2,7 +2,7 @@
 
 title: Exaile 0.3 Roundup for November 5th, 2008
 tags: Exaile
-publishedAt: 2008-11-05T23:18:35-0700
+publishedAt: 2008-11-05T23:18:35-07:00
 summary:
 
 This week we've worked on the following:

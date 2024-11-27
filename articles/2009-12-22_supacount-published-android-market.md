@@ -2,7 +2,7 @@
 
 title: SupaCount published to the Android Market
 tags: Programming, Android
-publishedAt: 2009-12-22T15:16:36-0700
+publishedAt: 2009-12-22T15:16:36-07:00
 summary:
 
 SupaCount 0.1.0 published to the Android Market.  I don't suspect that it'll be

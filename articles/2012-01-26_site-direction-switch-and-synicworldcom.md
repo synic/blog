@@ -2,7 +2,7 @@
 
 title: Site direction switch, and synicworld.com
 tags: Random
-publishedAt: 2012-01-26T22:59:11-0700
+publishedAt: 2012-01-26T22:59:11-07:00
 summary:
 
 I haven't posted in forever.  I have a bunch of things I want to post about,

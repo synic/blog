@@ -2,7 +2,7 @@
 
 title: Exaile's Very First Bugday Event
 tags: Exaile, Programming
-publishedAt: 2009-07-24T18:32:27-0700
+publishedAt: 2009-07-24T18:32:27-07:00
 summary:
 
 Next Tuesday (July 28th) starting at 14:00 GMT (7:00 am MST) the Exaile team

@@ -2,7 +2,7 @@
 
 title: Ubuntu 9.04  - Jaunty Jackalope
 tags: Linux
-publishedAt: 2009-04-24T00:59:41-0700
+publishedAt: 2009-04-24T00:59:41-07:00
 summary:
 
 Following the tradition of retarded naming schemes, Jaunty Jackalope was released today...

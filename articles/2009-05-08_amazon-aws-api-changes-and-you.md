@@ -2,7 +2,7 @@
 
 title: Amazon AWS API Changes and You
 tags: Exaile, Programming
-publishedAt: 2009-05-08T17:21:47-0700
+publishedAt: 2009-05-08T17:21:47-07:00
 summary:
 
 I got an email from Amazon today saying that they were changing some things in

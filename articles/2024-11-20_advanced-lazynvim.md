@@ -2,7 +2,7 @@
 
 title: Advanced lazy.nvim
 tags: NeoVim, Programming
-publishedAt: 2024-11-20T18:59:00-0700
+publishedAt: 2024-11-20T18:59:00-07:00
 ogImage: /static/img/screenshots/lazynvim.png
 ogDescription: Does lazy.nvim configuration confuse you? This article is for you!
 summary:

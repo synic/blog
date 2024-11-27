@@ -2,7 +2,7 @@
 
 title: Where have all the artists gone?
 tags: Random
-publishedAt: 2008-11-18T20:27:31-0700
+publishedAt: 2008-11-18T20:27:31-07:00
 
 summary:
 

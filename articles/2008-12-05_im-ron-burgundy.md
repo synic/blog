@@ -2,7 +2,7 @@
 
 title: I'm Ron Burgundy?
 tags: Random, Administration
-publishedAt: 2008-12-05T17:48:28-0700
+publishedAt: 2008-12-05T17:48:28-07:00
 summary:
 
 So yesterday, I started working on putting together a 16 drive storage machine

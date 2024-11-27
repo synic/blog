@@ -2,7 +2,7 @@
 
 title: Preventing spam on trac
 tags: Random, Linux
-publishedAt: 2007-04-04T22:25:00-0700
+publishedAt: 2007-04-04T22:25:00-07:00
 summary:
 
 Preventing spam on Trac...

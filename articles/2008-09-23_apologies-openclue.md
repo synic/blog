@@ -2,7 +2,7 @@
 
 title: Apologies to OpenClue
 tags: Random
-publishedAt: 2008-09-23T06:41:57-0700
+publishedAt: 2008-09-23T06:41:57-07:00
 summary:
 
 Yeah.  I guess messing around with the syndication part of my blog system ended

@@ -2,7 +2,7 @@
 
 title: DAAP Music Sharing and Exaile
 tags: Exaile, Music
-publishedAt: 2007-06-08T19:36:00-0700
+publishedAt: 2007-06-08T19:36:00-07:00
 summary:
 
 <p>I&#8217;m pleased to announce that Exaile gained a new developer last week

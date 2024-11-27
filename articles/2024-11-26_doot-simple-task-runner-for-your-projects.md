@@ -118,6 +118,6 @@ Repository](https://github.com/synic/doot)
 
 ## Acknowledgements
 
-This project was named after the late great Doots. She will be missed.
+This project was named after our beloved Doots. She will be missed.
 
 ![Doots](https://github.com/synic/doot/raw/aec35bbc68fc846c606ce04a14b9a1cce8c7ccdd/docs/images/thebestdoots.jpg)

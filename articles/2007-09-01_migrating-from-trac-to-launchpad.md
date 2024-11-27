@@ -2,7 +2,7 @@
 
 title: Migrating from Trac to Launchpad
 tags: Random
-publishedAt: 2007-09-01T18:57:19-0700
+publishedAt: 2007-09-01T18:57:19-07:00
 summary:
 
 <p>I love trac.  <span class="caps">LOVE</span> it.  With the recent exaile.org

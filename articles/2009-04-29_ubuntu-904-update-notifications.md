@@ -2,7 +2,7 @@
 
 title: Ubuntu 9.04 Update Notifications
 tags: Linux
-publishedAt: 2009-04-29T14:56:41-0700
+publishedAt: 2009-04-29T14:56:41-07:00
 summary:
 
 Since I upgraded to Jaunty, I had been seriously irritated with their decision

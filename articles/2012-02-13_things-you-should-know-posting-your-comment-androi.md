@@ -2,7 +2,7 @@
 
 title: Things you should know before posting your comment on the Android market
 tags: Android
-publishedAt: 2012-02-13T18:29:30-0700
+publishedAt: 2012-02-13T18:29:30-07:00
 summary:
 
 Yeah, ok, this post is more of a rant that anything.   I realize that people
@@ -15,7 +15,7 @@ Yeah, ok, this post is more of a rant that anything.   I realize that people
 actually reading this article probably aren't the ones that post my most
 unfavorite comments on the market, but I don't care.  I'm posting it anyway.
 
-*First and foremost:*
+# First and Foremost
 
 The android market comments section is *not* a good place to post bug reports.
 There is no way for the author of the app to get in touch with you if they need
@@ -31,8 +31,7 @@ requests).
 
 Do your research.  I often see comments like the following:
 
-_*"The latest update of this app starts up upon booting your phone,
-uninstalling"*_
+## "The latest update of this app starts up upon booting your phone, uninstalling"
 
 Does this mean you just noticed that it requested boot permissions while
 installing it?  Or you actually noticed it was running immediately after boot?
@@ -57,8 +56,7 @@ minutes or so to check to see if you had any new messages.  In order for the
 app to schedule these events with the AlarmManager, it needs to be started at
 boot, otherwise, those events will never get registered.
 
-_*"One star.  App is constantly running in the background hogging all my
-memory"*_
+## "One star.  App is constantly running in the background hogging all my memory"
 
 Likely the app is just waking up to check something periodically, like I
 mentioned above.  Even if it is actually running in the background all the
@@ -89,7 +87,7 @@ likely to cause problems than anything else.  If you're worried about your
 battery, check your battery usage section, and if there's an app behaving
 badly, uninstall it.
 
-_*"I will give this app 5 stars if you enable installing to the SD card"*_
+## "I will give this app 5 stars if you enable installing to the SD card"
 
 Uhg.  It's not as easy as that.  There is a very specific set of criteria that
 determine if an app is installable to the SD card.  You can see that list here:

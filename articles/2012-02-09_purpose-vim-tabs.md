@@ -2,7 +2,7 @@
 
 title: The Purpose of Vim Tabs
 tags: Programming, VIM
-publishedAt: 2012-02-09T18:59:34-0700
+publishedAt: 2012-02-09T18:59:34-07:00
 summary:
 
 Yesterday, after many years of using Vim, I've finally realized what the

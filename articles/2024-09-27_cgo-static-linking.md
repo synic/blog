@@ -2,7 +2,7 @@
 
 title: Go: Static linking with CGO and distroless
 tags: Programming, Go
-publishedAt: 2024-09-27T11:10:00-0700
+publishedAt: 2024-09-27T11:10:00-07:00
 ogTitle: Golang: Static linking with CGO and distroless
 summary:
 

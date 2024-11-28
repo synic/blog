@@ -16,24 +16,12 @@ Doot is a simple, zero dependency (except Python 3, which comes installed on
 most *nix operating systems) task runner. Similar to `make`, but meant to be
 used for non-C style projects. Comes out of the box with simple docker support.
 
-# Installation
-
-I prefer using the [Zero
-Install](https://github.com/synic/doot/tree/aec35bbc68fc846c606ce04a14b9a1cce8c7ccdd?tab=readme-ov-file#zero-install-option)
-option, as doing it this way means that your coworkers don't have to install
-anything extra to get their runner working (assuming they already have Python
-installed, which is usually true).
-
-Alternatively, you can install it as a library:
-
-```bash
-$ pip install git+https://github.com/synic/doot
-```
-
 # Getting Started
 
-In your project root directory, create a file (I usually call it `do`, but it
-can be anything you want):
+First,
+[install](https://github.com/synic/doot/blob/3d8ab28c3c29493e493cc8d003f5add05ea53d10/README.md#installation)
+doot. Then, in your project root directory, create a file (I usually call it
+`do`, but it can be anything you want):
 
 ```python
 #!/usr/bin/env python

@@ -2,6 +2,7 @@ package controller
 
 import (
 	"errors"
+	"math"
 	"net/http"
 	"strconv"
 
@@ -126,7 +127,7 @@ func (h ArticleController) renderAndPageArticles(
 				Items:      articles[start:end],
 				Search:     search,
 				Tag:        tag,
-				TotalPages: len(articles) / perPage,
+				TotalPages: int(math.Ceil(float64(len(articles)) / float64(perPage))),
 			},
 		),
 	)

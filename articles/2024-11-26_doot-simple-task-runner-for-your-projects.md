@@ -33,7 +33,7 @@ import doot as do
 @do.task(passthrough=True)
 def bash(opts):
     """Bash shell on the web container."""
-    do.crun("bash", opts.args)
+    do.run("docker exec -it api bash", opts.args)
 
 
 @do.task()
@@ -51,24 +51,24 @@ def stop():
 @do.task()
 def dbshell():
     """Execute a database shell."""
-    do.crun("psql -U myuser mydatabase", container="database")
+    do.run("docker exec -it database psql -U myuser mydatabase")
 
 
 @do.task()
 def shell():
     """Open a django shell on the web container."""
-    do.crun("django-admin shell")
+    do.run("docker exec -it api django-admin shell")
 
 
 @do.task(passthrough=True)
 def manage(opts):
     """Run a django management command."""
-    do.crun("django-admin", opts.args)
+    do.run("docker exec -it api django-admin", opts.args)
 
 
 @do.task(
-    do.opt("-n", "--name", help="Container name", required=True),
-    do.opt("-d", "--detach", help="Detach when running `up`", action="store_true"),
+    do.arg("-n", "--name", help="Container name", required=True),
+    do.arg("-d", "--detach", help="Detach when running `up`", action="store_true"),
 )
 def reset_container(opts):
     """Reset a container."""
@@ -80,7 +80,7 @@ def reset_container(opts):
 
 
 if __name__ == "__main__":
-    do.main(default_container="web")
+    do.exec()
 ```
 
 With this setup, you can run tasks like `./do manage`, `./do shell`, etc.

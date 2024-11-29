@@ -19,12 +19,12 @@ used for non-C style projects. Comes out of the box with simple docker support.
 # Getting Started
 
 First,
-[install](https://github.com/synic/doot/blob/master/README.md#installation)
+[install](https://github.com/synic/doot/blob/main/README.md#installation)
 doot. Then, in your project root directory, create a file (I usually call it
 `do`, but it can be anything you want):
 
 ```python
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import os
 

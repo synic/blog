@@ -1,6 +1,6 @@
 # Adam's Blog
 
-View at [https://blog](https://blog)
+View at [https://synic.dev](https://synic.dev)
 
 To run, type the following:
 

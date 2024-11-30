@@ -26,8 +26,6 @@ doot. Then, in your project root directory, create a file (I usually call it
 ```python
 #!/usr/bin/env python3
 
-import os
-
 import doot as do
 
 @do.task(passthrough=True)

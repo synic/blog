@@ -8,13 +8,13 @@ summary:
 
 Doot is a simple, zero dependency (except Python 3, which comes installed on
 most *nix operating systems) task runner. Similar to `make`, but meant to be
-used for non-C style projects. Comes out of the box with simple docker support.
+used for non-C style projects.
 
 -->
 
 Doot is a simple, zero dependency (except Python 3, which comes installed on
 most *nix operating systems) task runner. Similar to `make`, but meant to be
-used for non-C style projects. Comes out of the box with simple docker support.
+used for non-C style projects.
 
 # Getting Started
 
@@ -26,7 +26,7 @@ doot. Then, in your project root directory, create a file (I usually call it
 ```python
 #!/usr/bin/env python3
 
-import doot as do
+from doot import do
 
 @do.task(passthrough=True)
 def bash(opts):

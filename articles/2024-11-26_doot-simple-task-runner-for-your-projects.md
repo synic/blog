@@ -28,10 +28,10 @@ doot. Then, in your project root directory, create a file (I usually call it
 
 from doot import do
 
-@do.task(passthrough=True)
-def bash(opts):
+@do.task(allow_extra=True)
+def bash(_, extra):
     """Bash shell on the web container."""
-    do.run("docker exec -it api bash", opts.args)
+    do.run("docker exec -it api bash", extra)
 
 
 @do.task()
@@ -58,22 +58,22 @@ def shell():
     do.run("docker exec -it api django-admin shell")
 
 
-@do.task(passthrough=True)
-def manage(opts):
+@do.task(allow_extra=True)
+def manage(_, extra):
     """Run a django management command."""
-    do.run("docker exec -it api django-admin", opts.args)
+    do.run("docker exec -it api django-admin", extra)
 
 
 @do.task(
     do.arg("-n", "--name", help="Container name", required=True),
     do.arg("-d", "--detach", help="Detach when running `up`", action="store_true"),
 )
-def reset_container(opts):
+def reset_container(opt):
     """Reset a container."""
-    do.run(f"docker-compose stop {opts.name}")
-    do.run(f"docker-compose rm {opts.name}")
+    do.run(f"docker-compose stop {opt.name}")
+    do.run(f"docker-compose rm {opt.name}")
 
-    extra = "-d" if opts.detach else ""
+    extra = "-d" if opt.detach else ""
     do.run(f"docker-compose up {extra}")
 
 

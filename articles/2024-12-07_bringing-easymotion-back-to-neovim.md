@@ -27,6 +27,10 @@ it!
 
 -->
 
+I found a way to make [hop.nvim](https://github.com/smoka7/hop.nvim] emulate
+[EasyMotion](https://github.com/easymotion/vim-easymotion) for my most used
+EasyMotion features (`easymotion-overwin-f` and `easymotion-bd-f`).
+
 This is my [lazy.nvim](https://github.com/folke/lazy.nvim) hop configuration,
 with the custom command:
 
@@ -34,7 +38,7 @@ with the custom command:
 {
   "smoka7/hop.nvim",
   version = "*",
-  opts = { keys = "etovxpdygfblzhckisuran;,", quit_key = "q" },
+  opts = { keys = target_keys, quit_key = "q" },
   config = function(_, opts)
     local hop = require("hop")
     hop.setup(opts)
@@ -48,17 +52,17 @@ with the custom command:
       -- Create pattern based on input character type
       local pattern
       if char:match("%a") then
-        -- For letters: match words starting with that letter (case insensitive)
-        pattern = "\\c\\<" .. char
-      elseif char:match("[%(%)]") then
-        -- For parentheses: match them literally
-        pattern = char
-      elseif char == "." then
-        -- For period: match literal period
-        pattern = "\\."
+        -- For letters: match words starting with that letter
+        -- Uppercase letters match exactly
+        -- Lowercase letters match case insensitive only when the setting is enabled
+        local case_flag = (opts.case_insensitive and char:match("%l")) and "\\c" or ""
+        pattern = "\\v" .. case_flag .. "(<|_@<=)" .. char
+      elseif char:match("[%p%s]") then
+        -- For punctuation and whitespace: match them literally
+        pattern = [[\V]] .. vim.fn.escape(char, "\\")
       else
-        -- For other non-letters: escape special characters
-        pattern = char:gsub("([%^%$%(%)%%%.%[%]%*%+%-%?])", "%%%1")
+        -- For other characters: match them literally
+        pattern = char
       end
 
       ---@diagnostic disable-next-line: missing-fields
@@ -70,21 +74,21 @@ with the custom command:
     end, { desc = "Hop to words starting with input character" })
   end,
   keys = {
-    { "<leader><leader>", "<cmd>HopEasyMotion<cr>", desc = "Hop to word" },
-    { ";b", "<cmd>HopWordBC<cr>", desc = "Hop to word before cursor" },
-    { ";w", "<cmd>HopWord<cr>", desc = "Hop to word in current buffer" },
-    { ";a", "<cmd>HopWordAC<cr>", desc = "Hop to word after cursor" },
-    { ";d", "<cmd>HopLineMW<cr>", desc = "Hop to line" },
-    { ";f", "<cmd>HopNodes<cr>", desc = "Hop to node" },
-    { ";s", "<cmd>HopPatternMW<cr>", desc = "Hop to pattern" },
-    { ";j", "<cmd>HopVertical<cr>", desc = "Hop to location vertically" },
+    { "<leader><leader>", "<cmd>HopEasyMotion<cr>", desc = "Hop to word", mode = { "v", "n" } },
+    { ";b", "<cmd>HopWordBC<cr>", desc = "Hop to word before cursor", mode = { "v", "n" } },
+    { ";w", "<cmd>HopWord<cr>", desc = "Hop to word in current buffer", mode = { "v", "n" } },
+    { ";a", "<cmd>HopWordAC<cr>", desc = "Hop to word after cursor", mode = { "v", "n" } },
+    { ";c", "<cmd>HopCamelCaseMW<cr>", desc = "Hop to camelCase word", mode = { "v", "n" } },
+    { ";d", "<cmd>HopLine<cr>", desc = "Hop to line", mode = { "v", "n" } },
+    { ";f", "<cmd>HopNodes<cr>", desc = "Hop to node", mode = { "v", "n" } },
+    { ";s", "<cmd>HopPatternMW<cr>", desc = "Hop to pattern", mode = { "v", "n" } },
+    { ";j", "<cmd>HopVertical<cr>", desc = "Hop to location vertically", mode = { "v", "n" } },
   },
 }
 ```
 
-With this, the command `HopEasyMotion` does what EasyMotion does (at least, the
-part I used most, anyway). I have it bound to the `<leader><leader>`, (I have
-`<leader>` bound to the space key).
+With this, the command `HopEasyMotion` does what EasyMotion does . I have it
+bound to the `<leader><leader>`, (I have `<leader>` bound to the space key).
 
 So, I can type `<space><space>` followed by either a character that is the
 start of a word in any visible window, OR a single non-letter character (like

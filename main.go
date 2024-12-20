@@ -31,6 +31,8 @@ func main() {
 		log.Fatal(err)
 	}
 
+	log.Println(res.String())
+
 	bundledAssets, err := view.BundleStaticAssets(
 		assets,
 		"css/main.css",

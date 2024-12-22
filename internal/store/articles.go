@@ -20,16 +20,24 @@ var (
 	ErrNotFound = errors.New("article not found")
 )
 
-type ArticleRepository struct {
+type ArticleRepository interface {
+	FindAll(ctx context.Context) ([]*model.Article, error)
+	FindByTag(ctx context.Context, tag string) ([]*model.Article, error)
+	Search(ctx context.Context, query string) ([]*model.Article, error)
+	FindOneBySlug(ctx context.Context, slug string) (*model.Article, error)
+	TagInfo(ctx context.Context) map[string]int
+}
+
+type FSArticleRepository struct {
 	tags            map[string]int
 	slugLookupIndex map[string]int
 	articles        []*model.Article
 }
 
-func NewArticleRepository(
+func NewFSArticleRepository(
 	articles []*model.Article,
-) (*ArticleRepository, error) {
-	r := &ArticleRepository{
+) (*FSArticleRepository, error) {
+	r := &FSArticleRepository{
 		slugLookupIndex: make(map[string]int, len(articles)),
 		tags:            make(map[string]int, len(articles)*2),
 	}
@@ -55,7 +63,7 @@ func NewArticleRepository(
 func NewArticleRepositoryFromFS(
 	filesystem fs.FS,
 	includeUnpublished bool,
-) (*ArticleRepository, ParseResult, error) {
+) (*FSArticleRepository, ParseResult, error) {
 
 	res, err := parseArticles(filesystem, includeUnpublished)
 
@@ -63,24 +71,24 @@ func NewArticleRepositoryFromFS(
 		return nil, res, err
 	}
 
-	repo, err := NewArticleRepository(res.Articles)
+	repo, err := NewFSArticleRepository(res.Articles)
 
 	return repo, res, err
 }
 
-func (r *ArticleRepository) TagInfo(context.Context) map[string]int {
+func (r *FSArticleRepository) TagInfo(context.Context) map[string]int {
 	return r.tags
 }
 
-func (r *ArticleRepository) Tags(context.Context) []string {
+func (r *FSArticleRepository) Tags(context.Context) []string {
 	return slices.Collect(maps.Keys(r.tags))
 }
 
-func (r *ArticleRepository) FindAll(context.Context) ([]*model.Article, error) {
+func (r *FSArticleRepository) FindAll(context.Context) ([]*model.Article, error) {
 	return r.articles, nil
 }
 
-func (r *ArticleRepository) Search(
+func (r *FSArticleRepository) Search(
 	_ context.Context,
 	terms string,
 ) ([]*model.Article, error) {
@@ -103,7 +111,7 @@ func (r *ArticleRepository) Search(
 	return articles, nil
 }
 
-func (r *ArticleRepository) FindOneBySlug(
+func (r *FSArticleRepository) FindOneBySlug(
 	_ context.Context,
 	slug string,
 ) (*model.Article, error) {
@@ -114,11 +122,11 @@ func (r *ArticleRepository) FindOneBySlug(
 	return nil, ErrNotFound
 }
 
-func (r *ArticleRepository) FindAllTags(ctx context.Context) ([]string, error) {
+func (r *FSArticleRepository) FindAllTags(ctx context.Context) ([]string, error) {
 	return r.Tags(ctx), nil
 }
 
-func (r *ArticleRepository) FindByTag(
+func (r *FSArticleRepository) FindByTag(
 	_ context.Context,
 	tag string,
 ) ([]*model.Article, error) {
@@ -135,7 +143,7 @@ func (r *ArticleRepository) FindByTag(
 	return articles, nil
 }
 
-func (r *ArticleRepository) Count(ctx context.Context) int {
+func (r *FSArticleRepository) Count(ctx context.Context) int {
 	return len(r.articles)
 }
 

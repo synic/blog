@@ -1,10 +1,9 @@
 module github.com/synic/blog
 
-go 1.23.2
+go 1.24rc1
 
 require (
-	github.com/a-h/templ v0.2.778
-	github.com/air-verse/air v1.61.1
+	github.com/a-h/templ v0.2.793
 	github.com/alecthomas/chroma/v2 v2.14.0
 	github.com/magefile/mage v1.15.0
 	github.com/stretchr/testify v1.9.0
@@ -18,6 +17,7 @@ require (
 	github.com/PuerkitoBio/goquery v1.8.1 // indirect
 	github.com/a-h/parse v0.0.0-20240121214402-3caf7543159a // indirect
 	github.com/a-h/protocol v0.0.0-20240704131721-1e461c188041 // indirect
+	github.com/air-verse/air v1.61.5 // indirect
 	github.com/andybalholm/brotli v1.1.0 // indirect
 	github.com/andybalholm/cascadia v1.3.1 // indirect
 	github.com/bep/godartsass v1.2.0 // indirect
@@ -57,4 +57,9 @@ require (
 	golang.org/x/tools v0.25.0 // indirect
 	google.golang.org/protobuf v1.34.2 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
+)
+
+tool (
+	github.com/a-h/templ/cmd/templ
+	github.com/air-verse/air
 )

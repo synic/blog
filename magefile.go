@@ -42,47 +42,19 @@ var (
 	buildCmd    = sh.RunCmd("go", "build")
 	tailwindCmd = sh.RunCmd("node_modules/.bin/tailwindcss")
 	minifyCmd   = sh.RunCmd("node_modules/.bin/css-minify")
-
-	// required command line tools (versions are specified in go.mod)
-	tools = map[string]string{
-		"air":   "github.com/air-verse/air",
-		"templ": "github.com/a-h/templ/cmd/templ",
-	}
+	templCmd    = sh.RunCmd("go", "tool", "github.com/a-h/templ/cmd/templ")
+	airCmd      = sh.RunCmd("go", "tool", "github.com/air-verse/air")
 )
 
 func Dev() error {
 	mg.Deps(Deps.Dev)
 
-	return sh.RunV(path.Join(binPath, "air"))
+	return airCmd()
 }
 
 type Deps mg.Namespace
 
 func (Deps) Dev() error {
-	gobin, err := filepath.Abs(binPath)
-
-	if err != nil {
-		return err
-	}
-
-	for name, location := range tools {
-		_, err = os.Stat(path.Join(binPath, name))
-
-		if err == nil {
-			continue
-		} else if !errors.Is(err, os.ErrNotExist) {
-			return err
-		}
-
-		fmt.Printf("installing tool %s ...\n", location)
-		err = sh.RunWithV(map[string]string{"GOBIN": gobin}, "go", "install", location)
-
-		if err != nil {
-			return err
-		}
-
-	}
-
 	if _, err := os.Stat("./node_modules/.bin/tailwindcss"); err != nil {
 		if !errors.Is(err, os.ErrNotExist) {
 			return err
@@ -125,7 +97,7 @@ func (Build) Release() error {
 func Codegen() error {
 	mg.Deps(Deps.Dev)
 
-	err := sh.Run(path.Join(binPath, "templ"), "generate", "-lazy")
+	err := templCmd("generate")
 
 	if err != nil {
 		return err

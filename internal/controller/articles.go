@@ -17,7 +17,7 @@ type articleControllerConfig struct {
 }
 
 type ArticleController struct {
-	repo *store.ArticleRepository
+	repo store.ArticleRepository
 	articleControllerConfig
 }
 
@@ -36,7 +36,7 @@ func WithPagination(perPage, maxPerPage int) func(*articleControllerConfig) {
 }
 
 func NewArticleController(
-	repo *store.ArticleRepository,
+	repo store.ArticleRepository,
 	options ...func(*articleControllerConfig),
 ) ArticleController {
 	conf := defaultArticleControllerConfig()
@@ -69,7 +69,11 @@ func (h ArticleController) Index(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if err != nil {
-		view.Error(w, r, err, 404, "Not Found", "Sorry, no articles could be found.")
+		if errors.Is(err, store.ErrNotFound) {
+			view.Error(w, r, err, 404, "Not Found", "Sorry, no articles could be found.")
+		} else {
+			view.Error(w, r, err, 500, "Internal Server Error", "An error occurred while retrieving articles.")
+		}
 		return
 	}
 
@@ -77,14 +81,23 @@ func (h ArticleController) Index(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h ArticleController) Article(w http.ResponseWriter, r *http.Request) {
-	slug := r.PathValue("slug")
+	var slug string
+
+	slug = r.PathValue("slug")
+
+	if slug == "" {
+		view.Error(w, r, nil, 404, "Not Found", "Invalid article path")
+		return
+	}
+
 	article, err := h.repo.FindOneBySlug(r.Context(), slug)
 
 	if err != nil {
 		if errors.Is(err, store.ErrNotFound) {
-			err = nil
+			view.Error(w, r, err, 404, "Not Found", "Sorry, that article could not be found.")
+		} else {
+			view.Error(w, r, err, 500, "Internal Server Error", "An error occurred while retrieving the article.")
 		}
-		view.Error(w, r, err, 404, "Not Found", "Sorry, that article could not be found.")
 		return
 	}
 

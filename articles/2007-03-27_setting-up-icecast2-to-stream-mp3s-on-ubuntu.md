@@ -1,5 +1,6 @@
 ---
 title: Setting up icecast2 to stream mp3s on Ubuntu
+slug: setting-up-icecast2-to-stream-mp3s-on-ubuntu
 publishedAt: 2007-03-27T21:29:00-07:00
 tags: [Linux, Music]
 summary: |

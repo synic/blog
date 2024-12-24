@@ -1,5 +1,6 @@
 ---
 title: Ubuntu Hardy and Firefox 3
+slug: ubuntu-hardy-and-firefox-3
 publishedAt: 2008-03-25T17:57:26-07:00
 tags: [Linux]
 summary: |

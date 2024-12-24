@@ -1,5 +1,6 @@
 ---
 title: "Exaile: Shoutcast Plugin 0.4.8"
+slug: exaile-shoutcast-plugin-048
 publishedAt: 2008-10-07T17:02:07-07:00
 tags: [Exaile]
 summary: |

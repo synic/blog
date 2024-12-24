@@ -1,5 +1,6 @@
 ---
 title: Exaile 0.3b1 Released!
+slug: exaile-03b1-released
 publishedAt: 2009-08-15T16:21:16-07:00
 tags: [Exaile, Programming, Linux, Python]
 summary: |

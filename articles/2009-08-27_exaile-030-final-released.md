@@ -1,5 +1,6 @@
 ---
 title: Exaile 0.3.0 final released!
+slug: exaile-030-final-released
 publishedAt: 2009-08-27T16:24:48-07:00
 tags: [Exaile, Programming, Linux, Python]
 summary: |

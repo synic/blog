@@ -1,5 +1,6 @@
 ---
 title: JBother brought back to life? Nefarious?
+slug: jbother-brought-back-to-life
 publishedAt: 2024-11-25T12:08:11-07:00
 tags: [Random]
 openGraph:

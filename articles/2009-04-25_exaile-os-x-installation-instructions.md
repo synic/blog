@@ -1,5 +1,6 @@
 ---
 title: "Exaile: OS X Installation Instructions"
+slug: exaile-os-x-installation-instructions
 publishedAt: 2009-04-25T00:32:54-07:00
 tags: [Exaile]
 summary: |

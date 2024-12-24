@@ -1,5 +1,6 @@
 ---
 title: DropBox goes public
+slug: dropbox-goes-public
 publishedAt: 2008-09-12T17:11:35-07:00
 tags: [Random]
 summary: |

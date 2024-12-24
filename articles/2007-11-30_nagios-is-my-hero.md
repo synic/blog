@@ -1,5 +1,6 @@
 ---
 title: Nagios is my hero
+slug: nagios-is-my-hero
 publishedAt: 2007-11-30T23:34:07-07:00
 tags: [Linux, Administration]
 summary: |

@@ -1,5 +1,6 @@
 ---
 title: Exaile 0.3 Roundup
+slug: exaile-03-roundup
 publishedAt: 2008-09-11T20:21:53-07:00
 tags: [Exaile, Programming]
 summary: |

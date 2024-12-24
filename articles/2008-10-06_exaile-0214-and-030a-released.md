@@ -1,5 +1,6 @@
 ---
 title: Exaile 0.2.14 and 0.3.0a released!
+slug: exaile-0214-and-030a-released
 publishedAt: 2008-10-06T18:12:31-07:00
 tags: [Exaile]
 summary: |

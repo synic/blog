@@ -1,5 +1,6 @@
 ---
 title: My experiences with upgrading to Feisty
+slug: my-experiences-with-upgrading-to-feisty
 publishedAt: 2007-03-26T18:48:00-07:00
 tags: [Linux]
 summary: |

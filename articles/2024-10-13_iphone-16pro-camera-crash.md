@@ -1,5 +1,6 @@
 ---
 title: iPhone 16 Pro Camera Crash [FIXED!]
+slug: iphone-16pro-camera-crash
 publishedAt: 2024-10-13T13:22:00-07:00
 tags: [Gadgets]
 summary: |

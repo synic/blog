@@ -1,5 +1,6 @@
 ---
 title: My First Computer
+slug: my-first-computer
 publishedAt: 2008-12-10T20:29:10-07:00
 tags: [Random, Gadgets]
 summary: |

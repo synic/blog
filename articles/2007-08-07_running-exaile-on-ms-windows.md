@@ -1,5 +1,6 @@
 ---
 title: Running Exaile on MS Windows
+slug: running-exaile-on-ms-windows
 publishedAt: 2007-08-07T16:47:40-07:00
 tags: [Exaile]
 summary: |

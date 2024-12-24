@@ -1,5 +1,6 @@
 ---
 title: Corporate Website Cheatcodes?
+slug: corporate-website-cheatcodes
 publishedAt: 2009-04-28T02:19:14-07:00
 tags: [Random, Funny]
 summary: |

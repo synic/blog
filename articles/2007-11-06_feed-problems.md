@@ -1,5 +1,6 @@
 ---
 title: Feed Problems
+slug: feed-problems
 publishedAt: 2007-11-06T16:30:01-07:00
 tags: [Random, Django]
 summary: |

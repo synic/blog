@@ -1,5 +1,6 @@
 ---
 title: Exaile 0.3 Roundup for October 22, 2008
+slug: exaile-03-roundup-october-22-2008
 publishedAt: 2008-10-22T22:59:36-07:00
 tags: [Exaile]
 summary: |

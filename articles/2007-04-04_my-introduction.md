@@ -1,5 +1,6 @@
 ---
 title: My Introduction
+slug: my-introduction
 publishedAt: 2007-04-04T18:48:00-07:00
 tags: [Random]
 summary: |

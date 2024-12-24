@@ -1,5 +1,6 @@
 ---
 title: Exaile 0.3.0 Weekly Tarball
+slug: exaile-030-weekly-tarball
 publishedAt: 2008-10-17T15:51:58-07:00
 tags: [Exaile]
 summary: |

@@ -1,5 +1,6 @@
 ---
 title: Thoughts on Django
+slug: thoughts-on-django
 publishedAt: 2007-10-31T17:45:25-07:00
 tags: [Programming, Django]
 summary: |

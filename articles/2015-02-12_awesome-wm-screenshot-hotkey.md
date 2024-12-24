@@ -1,5 +1,6 @@
 ---
 title: Awesome-wm screenshot hotkey
+slug: awesome-wm-screenshot-hotkey
 publishedAt: 2015-02-12T17:18:03-07:00
 tags: [Programming, Linux]
 summary: |

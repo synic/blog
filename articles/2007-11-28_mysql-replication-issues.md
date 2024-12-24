@@ -1,5 +1,6 @@
 ---
 title: MySQL Replication Issues
+slug: mysql-replication-issues
 publishedAt: 2007-11-28T16:25:16-07:00
 tags: [Programming, Linux]
 summary: |

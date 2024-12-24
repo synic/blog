@@ -1,5 +1,6 @@
 ---
 title: Bringing EasyMotion back to NeoVim!
+slug: bringing-easymotion-back-to-neovim
 publishedAt: 2024-12-07T08:56:23-07:00
 tags: [VIM, NeoVim]
 summary: |

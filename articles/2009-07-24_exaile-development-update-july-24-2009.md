@@ -1,5 +1,6 @@
 ---
 title: Exaile Development Update, July 24, 2009
+slug: exaile-development-update-july-24-2009
 publishedAt: 2009-07-24T16:47:56-07:00
 tags: [Exaile, Programming, Linux]
 summary: |

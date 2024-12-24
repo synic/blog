@@ -1,5 +1,6 @@
 ---
 title: Ubuntu 9.04  - Jaunty Jackalope
+slug: ubuntu-904-jaunty-jackalope
 publishedAt: 2009-04-24T00:59:41-07:00
 tags: [Linux]
 summary: |

@@ -1,5 +1,6 @@
 ---
 title: People actually read this blog?
+slug: people-actually-read-blog
 publishedAt: 2008-09-22T20:33:34-07:00
 tags: [Random]
 summary: |

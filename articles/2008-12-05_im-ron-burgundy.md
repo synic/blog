@@ -1,5 +1,6 @@
 ---
 title: I'm Ron Burgundy?
+slug: im-ron-burgundy
 publishedAt: 2008-12-05T17:48:28-07:00
 tags: [Random, Administration]
 summary: |

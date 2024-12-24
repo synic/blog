@@ -1,5 +1,6 @@
 ---
 title: SupaCount published to the Android Market
+slug: supacount-published-android-market
 publishedAt: 2009-12-22T15:16:36-07:00
 tags: [Programming, Android]
 summary: |

@@ -1,5 +1,6 @@
 ---
 title: Posting articles to Twitter via Django
+slug: posting-articles-twitter-django
 publishedAt: 2008-10-12T20:23:51-07:00
 tags: [Programming, Python, Django]
 summary: |

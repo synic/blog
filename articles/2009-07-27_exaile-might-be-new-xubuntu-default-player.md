@@ -1,5 +1,6 @@
 ---
 title: Exaile might be the new Xubuntu default player
+slug: exaile-might-be-new-xubuntu-default-player
 publishedAt: 2009-07-27T17:37:37-07:00
 tags: [Exaile]
 summary: |

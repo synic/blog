@@ -1,5 +1,6 @@
 ---
 title: "SupaCount: Android Multi-Countdown App"
+slug: supacount-android-multi-countdown-app
 publishedAt: 2009-12-10T23:14:19-07:00
 tags: [Programming, Android]
 summary: |

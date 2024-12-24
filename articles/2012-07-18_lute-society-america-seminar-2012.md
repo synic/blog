@@ -1,5 +1,6 @@
 ---
 title: Lute Society of America Seminar 2012
+slug: lute-society-america-seminar-2012
 publishedAt: 2012-07-18T19:17:02-07:00
 tags: [Music]
 summary: |

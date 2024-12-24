@@ -1,5 +1,6 @@
 ---
 title: Exaile's Very First Bugday Event
+slug: exailes-very-first-bugday-event
 publishedAt: 2009-07-24T18:32:27-07:00
 tags: [Exaile, Programming]
 summary: |

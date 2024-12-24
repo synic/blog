@@ -1,5 +1,6 @@
 ---
 title: Converting from TextPattern to Django
+slug: converting-from-textpattern-to-django
 publishedAt: 2007-10-29T23:33:32-07:00
 tags: [Random, Django]
 summary: |

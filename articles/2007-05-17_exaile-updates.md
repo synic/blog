@@ -1,5 +1,6 @@
 ---
 title: Exaile Updates
+slug: exaile-updates
 publishedAt: 2007-05-17T23:17:40-07:00
 tags: [Exaile]
 summary: |

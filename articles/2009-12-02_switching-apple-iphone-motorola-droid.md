@@ -1,5 +1,6 @@
 ---
 title: Switching from the iPhone to the Droid
+slug: switching-apple-iphone-motorola-droid
 publishedAt: 2009-12-02T16:41:51-07:00
 tags: [Gadgets]
 summary: |

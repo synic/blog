@@ -1,5 +1,6 @@
 ---
 title: Utah OpenSource Conference 2009
+slug: utah-opensource-conference-2009
 publishedAt: 2009-10-09T14:39:46-07:00
 tags: [Linux]
 summary: |

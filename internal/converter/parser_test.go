@@ -11,6 +11,7 @@ import (
 func TestParseMetadataValid(t *testing.T) {
 	content := `---
 title: Test Article
+slug: test-article
 publishedAt: 2024-01-01T00:00:00Z
 tags: [test, article]
 summary: Test summary
@@ -22,6 +23,7 @@ Article content`
 		PublishedAt: time.Date(2024, 1, 1, 0, 0, 0, 0, time.UTC),
 		Tags:        []string{"test", "article"},
 		Summary:     "Test summary",
+		Slug:        "test-article",
 		OpenGraphData: model.OpenGraphData{
 			Title: "Test Article",
 			Type:  "article",
@@ -37,6 +39,7 @@ Article content`
 func TestParseMetadataWithCustomOpenGraph(t *testing.T) {
 	content := `---
 title: Test Article
+slug: test-article
 publishedAt: 2024-01-01T00:00:00Z
 tags: [test]
 openGraph:
@@ -48,6 +51,7 @@ Content`
 		Title:       "Test Article",
 		PublishedAt: time.Date(2024, 1, 1, 0, 0, 0, 0, time.UTC),
 		Tags:        []string{"test"},
+		Slug:        "test-article",
 		OpenGraphData: model.OpenGraphData{
 			Title: "Custom OG Title",
 			Type:  "article",
@@ -78,6 +82,7 @@ Content`
 func TestParseMetadataMissingTags(t *testing.T) {
 	content := `---
 title: Test
+slug: test
 ---
 Content`
 
@@ -94,31 +99,10 @@ title: [Invalid Syntax
 	assert.ErrorContains(t, err, "unable to parse frontmatter block")
 }
 
-func TestParseSlugWithDate(t *testing.T) {
-	slug, err := parseSlug("2024-01-01_test-article.md")
-	assert.NoError(t, err)
-	assert.Equal(t, "test-article", slug)
-}
-
-func TestParseSlugWithoutDate(t *testing.T) {
-	slug, err := parseSlug("test-article.md")
-	assert.NoError(t, err)
-	assert.Equal(t, "test-article", slug)
-}
-
-func TestParseSlugNotMarkdown(t *testing.T) {
-	_, err := parseSlug("test.txt")
-	assert.ErrorContains(t, err, "file was not a markdown file")
-}
-
-func TestParseSlugTooManyParts(t *testing.T) {
-	_, err := parseSlug("2024-01-01_part1_test.md")
-	assert.ErrorContains(t, err, "invalid number of parts")
-}
-
 func TestParseArticleFromDataValid(t *testing.T) {
 	content := `---
 title: Test Article
+slug: test-article
 publishedAt: 2024-01-01T00:00:00Z
 tags: [test]
 summary: Test summary
@@ -139,7 +123,7 @@ Article content`
 		},
 	}
 
-	article, err := parseArticleFromData("test-article.md", content)
+	article, err := parseArticleFromData(content)
 	assert.NoError(t, err)
 	assert.Equal(t, expected, article)
 }
@@ -147,12 +131,13 @@ Article content`
 func TestParseArticleFromDataUnpublished(t *testing.T) {
 	content := `---
 title: Draft
+slug: draft
 tags: [draft]
 summary: Draft summary
 ---
 Draft content`
 
-	article, err := parseArticleFromData("draft.md", content)
+	article, err := parseArticleFromData(content)
 	assert.NoError(t, err)
 
 	assert.Equal(t, "draft", article.Slug)
@@ -166,19 +151,8 @@ Draft content`
 }
 
 func TestParseArticleFromDataInvalidFrontmatter(t *testing.T) {
-	_, err := parseArticleFromData("test.md", "Invalid content")
+	_, err := parseArticleFromData("Invalid content")
 	assert.ErrorContains(t, err, "unable to parse frontmatter block")
-}
-
-func TestParseArticleFromDataInvalidFilepath(t *testing.T) {
-	content := `---
-title: Test
-tags: [test]
----
-Content`
-
-	_, err := parseArticleFromData("test.txt", content)
-	assert.ErrorContains(t, err, "unable to parse article slug")
 }
 
 func TestParseNonexistentFile(t *testing.T) {

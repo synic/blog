@@ -1,5 +1,6 @@
 ---
 title: Amazon AWS API Changes and You
+slug: amazon-aws-api-changes-and-you
 publishedAt: 2009-05-08T17:21:47-07:00
 tags: [Exaile, Programming]
 summary: |

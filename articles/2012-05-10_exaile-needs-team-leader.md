@@ -1,5 +1,6 @@
 ---
 title: Exaile needs a team leader
+slug: exaile-needs-team-leader
 publishedAt: 2012-05-10T19:23:20-07:00
 tags: [Exaile, Programming, Linux, Music]
 summary: |

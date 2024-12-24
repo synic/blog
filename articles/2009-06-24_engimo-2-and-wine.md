@@ -1,5 +1,6 @@
 ---
 title: Engimo 2 and Wine
+slug: engimo-2-and-wine
 publishedAt: 2009-06-24T18:19:34-07:00
 tags: [Linux]
 summary: |

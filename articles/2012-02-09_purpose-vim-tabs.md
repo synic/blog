@@ -1,5 +1,6 @@
 ---
 title: The Purpose of Vim Tabs
+slug: purpose-vim-tabs
 publishedAt: 2012-02-09T18:59:34-07:00
 tags: [Programming, VIM]
 summary: |

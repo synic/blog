@@ -1,5 +1,6 @@
 ---
 title: "Bazitis:  Gitosis for Bzr (Baazar)"
+slug: bazitis-gitosis-bzr-baazar
 publishedAt: 2008-11-26T00:24:01-07:00
 tags: [Programming, Python, Administration]
 summary: |

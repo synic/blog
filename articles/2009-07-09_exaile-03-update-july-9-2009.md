@@ -1,5 +1,6 @@
 ---
 title: Exaile 0.3 Update for July 9, 2009
+slug: exaile-03-update-july-9-2009
 publishedAt: 2009-07-09T16:51:34-07:00
 tags: [Exaile, Programming, Linux]
 summary: |

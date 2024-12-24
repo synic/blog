@@ -1,5 +1,6 @@
 ---
 title: Decorator fun in Python
+slug: decorator-fun-in-python
 publishedAt: 2007-03-26T18:25:00-07:00
 tags: [Programming, Python]
 summary: |

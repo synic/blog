@@ -1,5 +1,6 @@
 ---
 title: Exaile.org gets hacked!
+slug: exaileorg-gets-hacked
 publishedAt: 2007-08-21T03:12:19-07:00
 tags: [Exaile, Security]
 summary: |

@@ -1,5 +1,6 @@
 ---
 title: Migrating from Trac to Launchpad
+slug: migrating-from-trac-to-launchpad
 publishedAt: 2007-09-01T18:57:19-07:00
 tags: [Random]
 summary: |

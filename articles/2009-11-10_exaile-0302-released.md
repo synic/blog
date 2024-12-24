@@ -1,14 +1,10 @@
-<!-- :metadata:
-
+---
 title: Exaile 0.3.0.2 Released!
-tags: Exaile
 publishedAt: 2009-11-10T07:25:35-07:00
-summary:
-
-Repost from <a href='http://www.exaile.org'>exaile.org</a>:
-
--->
-
+tags: [Exaile]
+summary: |
+  Repost from <a href='http://www.exaile.org'>exaile.org</a>:
+---
 <p>Repost from <a href='http://www.exaile.org'>exaile.org</a>:</p>
 
 <p>Exaile 0.3.0.2 is the second bugfix release in the 0.3.0 series. It contains

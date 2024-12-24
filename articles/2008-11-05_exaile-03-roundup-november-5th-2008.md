@@ -1,14 +1,10 @@
-<!-- :metadata:
-
+---
 title: Exaile 0.3 Roundup for November 5th, 2008
-tags: Exaile
 publishedAt: 2008-11-05T23:18:35-07:00
-summary:
-
-This week we've worked on the following:
-
--->
-
+tags: [Exaile]
+summary: |
+  This week we've worked on the following:
+---
 <p>This week we've worked on the following:</p>
  <p><ul>
  <li>Aren converted

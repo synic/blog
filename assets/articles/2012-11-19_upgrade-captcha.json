@@ -7,5 +7,9 @@
   "tags": [
     "Programming"
   ],
-  "isPublished": true
+  "isPublished": true,
+  "openGraph": {
+    "title": "Upgrade to Captcha",
+    "type": "article"
+  }
 }

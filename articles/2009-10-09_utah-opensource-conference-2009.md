@@ -1,16 +1,12 @@
-<!-- :metadata:
-
+---
 title: Utah OpenSource Conference 2009
-tags: Linux
 publishedAt: 2009-10-09T14:39:46-07:00
-summary:
-
-The <a href='http://2009.utos.org'>Utah OpenSource Conference</a> went underway
-yesterday.  I thought I'd share my experiences and thoughts here as the con
-progresses.
-
--->
-
+tags: [Linux]
+summary: |
+  The <a href='http://2009.utos.org'>Utah OpenSource Conference</a> went underway
+  yesterday.  I thought I'd share my experiences and thoughts here as the con
+  progresses.
+---
 <p>The <a href='http://2009.utos.org'>Utah OpenSource Conference</a> went
 underway yesterday.  I thought I'd share my experiences and thoughts here as
 the con progresses.</p>

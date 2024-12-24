@@ -1,19 +1,15 @@
-<!-- :metadata:
-
+---
 title: Ubuntu Hardy and Firefox 3
-tags: Linux
 publishedAt: 2008-03-25T17:57:26-07:00
-summary:
-
-Yesterday I decided to upgrade from Gutsy Gibbon to Hardy Heron (beta 1).  I
-usually upgrade early, but my main motivation for this was to be able to
-implement the new multimedia keys interface working in Exaile.  Apparently, the
-Gnome crew decided to change this particular part of the DBus interface making
-it backwards incompatable.  A description of the Exaile bug can be found <a
-href='https://bugs.launchpad.net/exaile/+bug/191428'>here</a>...
-
--->
-
+tags: [Linux]
+summary: |
+  Yesterday I decided to upgrade from Gutsy Gibbon to Hardy Heron (beta 1).  I
+  usually upgrade early, but my main motivation for this was to be able to
+  implement the new multimedia keys interface working in Exaile.  Apparently, the
+  Gnome crew decided to change this particular part of the DBus interface making
+  it backwards incompatable.  A description of the Exaile bug can be found <a
+  href='https://bugs.launchpad.net/exaile/+bug/191428'>here</a>...
+---
 Yesterday I decided to upgrade from Gutsy Gibbon to Hardy Heron (beta 1).  I
 usually upgrade early, but my main motivation for this was to be able to
 implement the new multimedia keys interface working in Exaile.  Apparently, the

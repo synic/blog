@@ -1,14 +1,11 @@
-<!-- :metadata:
-
+---
 title: iPhone 16 Pro Camera Crash [FIXED!]
-tags: Gadgets
 publishedAt: 2024-10-13T13:22:00-07:00
-summary:
-
-Is your iPhone 16 Pro or Max camera crashing every time you try to use it? Mine
-was too, but I have found a fix.
--->
-
+tags: [Gadgets]
+summary: |
+  Is your iPhone 16 Pro or Max camera crashing every time you try to use it? Mine
+  was too, but I have found a fix.
+---
 I rely on my phone camera a lot more than I realized. I found this out because
 the new iphone has a real problem with the camera crashing atm (iOS 18.0.1).
 I've seen lots of posts about it with no real solutions, and I've called Apple

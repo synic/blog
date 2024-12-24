@@ -1,16 +1,12 @@
-<!-- :metadata:
-
+---
 title: Apologies to OpenClue
-tags: Random
 publishedAt: 2008-09-23T06:41:57-07:00
-summary:
-
-Yeah.  I guess messing around with the syndication part of my blog system ended
-up causing openclue.org to repull all of my old blog posts all at once.
-Sorry...
-
--->
-
+tags: [Random]
+summary: |
+  Yeah.  I guess messing around with the syndication part of my blog system ended
+  up causing openclue.org to repull all of my old blog posts all at once.
+  Sorry...
+---
 Yeah.  I guess messing around with the syndication part of my blog system ended
 up causing openclue.org to repull all of my old blog posts all at once.  I'm
 sure you were all really excited about reading them in the first place, let

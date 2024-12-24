@@ -1,17 +1,13 @@
-<!-- :metadata:
-
+---
 title: Ubuntu 14.10 and the Lenovo ThinkPad x250
-tags: Linux
 publishedAt: 2015-02-20T22:12:40-07:00
-summary:
-
-I recently purchased and received a [Lenovo ThinkPad
-x250](http://shop.lenovo.com/us/en/laptops/thinkpad/x-series/x250/) and
-immediately proceeded to install [Ubuntu](http://ubuntu.org) over whatever
-version of Windows it came with.
-
--->
-
+tags: [Linux]
+summary: |
+  I recently purchased and received a [Lenovo ThinkPad
+  x250](http://shop.lenovo.com/us/en/laptops/thinkpad/x-series/x250/) and
+  immediately proceeded to install [Ubuntu](http://ubuntu.org) over whatever
+  version of Windows it came with.
+---
 I recently purchased and received a [Lenovo ThinkPad
 x250](http://shop.lenovo.com/us/en/laptops/thinkpad/x-series/x250/) and
 immediately proceeded to install [Ubuntu](http://ubuntu.org) over whatever

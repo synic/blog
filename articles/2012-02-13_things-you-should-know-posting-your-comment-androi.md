@@ -1,16 +1,12 @@
-<!-- :metadata:
-
+---
 title: Things you should know before posting your comment on the Android market
-tags: Android
 publishedAt: 2012-02-13T18:29:30-07:00
-summary:
-
-Yeah, ok, this post is more of a rant that anything.   I realize that people
-actually reading this article probably aren't the ones that post my most
-unfavorite comments on the market, but I don't care.  I'm posting it anyway.
-
--->
-
+tags: [Android]
+summary: |
+  Yeah, ok, this post is more of a rant that anything.   I realize that people
+  actually reading this article probably aren't the ones that post my most
+  unfavorite comments on the market, but I don't care.  I'm posting it anyway.
+---
 Yeah, ok, this post is more of a rant that anything.   I realize that people
 actually reading this article probably aren't the ones that post my most
 unfavorite comments on the market, but I don't care.  I'm posting it anyway.

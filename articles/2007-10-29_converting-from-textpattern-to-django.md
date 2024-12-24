@@ -1,21 +1,17 @@
-<!-- :metadata:
-
+---
 title: Converting from TextPattern to Django
-tags: Random, Django
 publishedAt: 2007-10-29T23:33:32-07:00
-summary:
+tags: [Random, Django]
+summary: |
+  I like TextPattern a lot, but it doesn't seem to work well for programmers.  I
+  couldn't ever find a syntax highlighting plugin (that worked) for it, and even
+  when I did figure out a way to post code TextPattern would try to format it.
 
-I like TextPattern a lot, but it doesn't seem to work well for programmers.  I
-couldn't ever find a syntax highlighting plugin (that worked) for it, and even
-when I did figure out a way to post code TextPattern would try to format it.
-
-So, I finally had a reason to learn Django, and here is the
-product.  I even implemented my own syntax highlighting filter (<a
-href='http://stderr.ws'>Josh Simpson's</a> idea to do this is actually what
-finally made me want to switch away from TextPattern in the first place):
-
--->
-
+  So, I finally had a reason to learn Django, and here is the
+  product.  I even implemented my own syntax highlighting filter (<a
+  href='http://stderr.ws'>Josh Simpson's</a> idea to do this is actually what
+  finally made me want to switch away from TextPattern in the first place):
+---
 I like TextPattern a lot, but it doesn't seem to work well for programmers.  I
 couldn't ever find a syntax highlighting plugin (that worked) for it, and even
 when I did figure out a way to post code TextPattern would try to format it.

@@ -8,5 +8,9 @@
     "Linux",
     "Administration"
   ],
-  "isPublished": true
+  "isPublished": true,
+  "openGraph": {
+    "title": "Nagios is my hero",
+    "type": "article"
+  }
 }

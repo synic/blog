@@ -7,5 +7,9 @@
   "tags": [
     "Linux"
   ],
-  "isPublished": true
+  "isPublished": true,
+  "openGraph": {
+    "title": "Utah OpenSource Conference 2009",
+    "type": "article"
+  }
 }

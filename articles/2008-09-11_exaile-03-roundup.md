@@ -1,16 +1,12 @@
-<!-- :metadata:
-
+---
 title: Exaile 0.3 Roundup
-tags: Exaile, Programming
 publishedAt: 2008-09-11T20:21:53-07:00
-summary:
-
-A nice fellow emailed and asked me if I could post a monthly (possibly weekly)
-roundup on Exaile 0.3 so that people can follow what's going on.  It sounded
-like a good idea to me, so here's the first one.
-
--->
-
+tags: [Exaile, Programming]
+summary: |
+  A nice fellow emailed and asked me if I could post a monthly (possibly weekly)
+  roundup on Exaile 0.3 so that people can follow what's going on.  It sounded
+  like a good idea to me, so here's the first one.
+---
 A nice fellow emailed and asked me if I could post a monthly (possibly weekly)
 roundup on Exaile 0.3 so that people can follow what's going on.  It sounded
 like a good idea to me, so here's the first one.

@@ -1,24 +1,19 @@
-<!-- :metadata:
-
+---
 title: Where have all the artists gone?
-tags: Random
 publishedAt: 2008-11-18T20:27:31-07:00
-
-summary:
-
-What do I have to do to find a graphic artist in the OSS community?  Where do
-projects like Gnome, KDE, etc find these people?  In the few projects I've
-worked on, there's been no shortage of people that are willing to submit a few
-lines of code in a patch, or actually become a developer on the project by
-submitting more than a few lines, but graphic artists are few and far between.
-In Exaile's history, there have been 2 or 3 people that have submitted art, but
-only a few pieces.  The rest of the art is derived from these few pieces; put
-together by other users and contributed as a set.  I've looked for artists, and
-found some, and even offered to pay others, but it's hard to get anyone to
-follow through.
-
--->
-
+tags: [Random]
+summary: |
+  What do I have to do to find a graphic artist in the OSS community?  Where do
+  projects like Gnome, KDE, etc find these people?  In the few projects I've
+  worked on, there's been no shortage of people that are willing to submit a few
+  lines of code in a patch, or actually become a developer on the project by
+  submitting more than a few lines, but graphic artists are few and far between.
+  In Exaile's history, there have been 2 or 3 people that have submitted art, but
+  only a few pieces.  The rest of the art is derived from these few pieces; put
+  together by other users and contributed as a set.  I've looked for artists, and
+  found some, and even offered to pay others, but it's hard to get anyone to
+  follow through.
+---
 <p>What do I have to do to find a graphic artist in the OSS community?  Where
 do projects like Gnome, KDE, etc find these people?  In the few projects I've
 worked on, there's been no shortage of people that are willing to submit a

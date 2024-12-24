@@ -1,21 +1,17 @@
-<!-- :metadata:
-
+---
 title: I'm Ron Burgundy?
-tags: Random, Administration
 publishedAt: 2008-12-05T17:48:28-07:00
-summary:
-
-So yesterday, I started working on putting together a 16 drive storage machine
-that will serve as a temporary backup for the holidays.  The machine in
-question has a 3ware SATA RAID controller, which in turn has a configuration
-utility which I used to set up a few volumes.  Once the configuration was
-complete, I saved it, and exited.  At this point, the controller had to clear
-the drives of data, and because all 16 drives are 1.5TB drives, it was taking
-forever.  I started this process in the morning, and by the time I left, it was
-only at around 45% complete.
-
--->
-
+tags: [Random, Administration]
+summary: |
+  So yesterday, I started working on putting together a 16 drive storage machine
+  that will serve as a temporary backup for the holidays.  The machine in
+  question has a 3ware SATA RAID controller, which in turn has a configuration
+  utility which I used to set up a few volumes.  Once the configuration was
+  complete, I saved it, and exited.  At this point, the controller had to clear
+  the drives of data, and because all 16 drives are 1.5TB drives, it was taking
+  forever.  I started this process in the morning, and by the time I left, it was
+  only at around 45% complete.
+---
 <p><img src="/media/images/0d.jpg" align="right"> So
 yesterday, I started working on putting together a 16 drive storage machine
 that will serve as a temporary backup for the holidays.  The machine in

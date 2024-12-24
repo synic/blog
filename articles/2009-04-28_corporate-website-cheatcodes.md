@@ -1,16 +1,12 @@
-<!-- :metadata:
-
+---
 title: Corporate Website Cheatcodes?
-tags: Random, Funny
 publishedAt: 2009-04-28T02:19:14-07:00
-summary:
-
-One of my friends on IRC just pointed this out to me.  Go to <a
-href='http://www.espn.com'>ESPN.com</a>, and press the following key
-combination:
-
--->
-
+tags: [Random, Funny]
+summary: |
+  One of my friends on IRC just pointed this out to me.  Go to <a
+  href='http://www.espn.com'>ESPN.com</a>, and press the following key
+  combination:
+---
 One of my friends on IRC just pointed this out to me.  Go to <a
 href='http://www.espn.com'>ESPN.com</a>, and press the following key
 combination:

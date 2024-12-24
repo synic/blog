@@ -8,14 +8,15 @@ import (
 )
 
 type Article struct {
-	PublishedAt time.Time         `json:"publishedAt"`
-	Extra       map[string]string `json:"extra,omitempty"`
-	Body        string            `json:"body"`
-	Summary     string            `json:"summary"`
-	Title       string            `json:"title"`
-	Slug        string            `json:"slug"`
-	Tags        []string          `json:"tags"`
-	IsPublished bool              `json:"isPublished"`
+	PublishedAt   time.Time         `json:"publishedAt"     yaml:"publishedAt"`
+	Extra         map[string]string `json:"extra,omitempty" yaml:"extra,omitempty"`
+	Body          string            `json:"body"            yaml:"body"`
+	Summary       string            `json:"summary"         yaml:"summary"`
+	Title         string            `json:"title"           yaml:"title"`
+	Slug          string            `json:"slug"            yaml:"slug"`
+	Tags          []string          `json:"tags"            yaml:"tags"`
+	IsPublished   bool              `json:"isPublished"     yaml:"isPublished"`
+	OpenGraphData OpenGraphData     `json:"openGraph"       yaml:"openGraph"`
 }
 
 func (a *Article) URL() string {
@@ -30,24 +31,4 @@ func (a *Article) URL() string {
 
 func (a *Article) SafeURL() templ.SafeURL {
 	return templ.URL(a.URL())
-}
-
-func (a *Article) OpenGraphData() OpenGraphData {
-	og := OpenGraphData{Type: "article"}
-	image, _ := a.Extra["ogImage"]
-
-	og.Image = image
-
-	title, _ := a.Extra["ogTitle"]
-
-	if title == "" {
-		title = a.Title
-	}
-
-	og.Title = title
-
-	description, _ := a.Extra["ogDescription"]
-	og.Description = description
-
-	return og
 }

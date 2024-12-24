@@ -8,5 +8,9 @@
     "Programming",
     "Django"
   ],
-  "isPublished": true
+  "isPublished": true,
+  "openGraph": {
+    "title": "Thoughts on Django",
+    "type": "article"
+  }
 }

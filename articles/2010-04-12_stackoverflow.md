@@ -1,11 +1,8 @@
-<!-- :metadata:
-
+---
 title: stackoverflow
-tags: Programming
 publishedAt: 2010-04-12T16:53:29-07:00
-
--->
-
+tags: [Programming]
+---
 It's been a while since I posted anything; but not to worry.  I'm still alive.  I've been super busy in my free time, with a top-secret Android project.  It's getting closer to being done, so hopefully I'll be able to post more details about it soon.
 
 Meanwhile, I found a new way to waste my time on the internet (we all need those, right?).  During my latest project, I had a question, and someone recommended I ask it on <a href='http://stackoverflow.com'>http://stackoverflow.com</a>.

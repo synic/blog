@@ -1,16 +1,12 @@
-<!-- :metadata:
-
+---
 title: Exaile on OS X
-tags: Exaile
 publishedAt: 2009-04-23T23:57:43-07:00
-summary:
-
-In just the last month or so, there have been a few people in the #exaile
-channel on freenode asking if Exaile works in OS X.  I honestly didn't
-know.
-
--->
-
+tags: [Exaile]
+summary: |
+  In just the last month or so, there have been a few people in the #exaile
+  channel on freenode asking if Exaile works in OS X.  I honestly didn't
+  know.
+---
 <p>In just the last month or so, there have been a few people in the #exaile
 channel on freenode asking if Exaile works in OS X.  I honestly didn't
 know.</p>

@@ -8,5 +8,9 @@
     "VIM",
     "NeoVim"
   ],
-  "isPublished": true
+  "isPublished": true,
+  "openGraph": {
+    "title": "Bringing EasyMotion back to NeoVim!",
+    "type": "article"
+  }
 }

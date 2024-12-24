@@ -1,14 +1,10 @@
-<!-- :metadata:
-
+---
 title: Happy First Birthday, Victoria!
-tags: Personal
 publishedAt: 2009-05-05T19:40:40-07:00
-summary:
-
-That's right, it's been one year as of today.
-
--->
-
+tags: [Personal]
+summary: |
+  That's right, it's been one year as of today.
+---
 That's right, it's been one year as of today.
 
 This time last year I was at home twiddling my thumbs waiting for something to

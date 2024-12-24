@@ -1,22 +1,18 @@
-<!-- :metadata:
-
+---
 title: Nagios is my hero
-tags: Linux, Administration
 publishedAt: 2007-11-30T23:34:07-07:00
-summary:
-
-Our company is growing fast.  When I started in March, 2003, we were hosting
-our website with some company in Texas.  I assumed the position of "Systems
-Administrator" (I knew Linux fairly well at the time, but I had no formal
-training in administration) when we moved from the
-hosting company to our first dedicated server colocated at <a
-href='http://www.xmission.com'>Xmission</a>.  Since that time, we moved from a
-shared rack to our own cabinet, now housing 10 servers (one is currently
-powered off, because if we turn it on, we risk blowing our power circuit...
-yes, we are waiting on a power upgrade)...
-
--->
-
+tags: [Linux, Administration]
+summary: |
+  Our company is growing fast.  When I started in March, 2003, we were hosting
+  our website with some company in Texas.  I assumed the position of "Systems
+  Administrator" (I knew Linux fairly well at the time, but I had no formal
+  training in administration) when we moved from the
+  hosting company to our first dedicated server colocated at <a
+  href='http://www.xmission.com'>Xmission</a>.  Since that time, we moved from a
+  shared rack to our own cabinet, now housing 10 servers (one is currently
+  powered off, because if we turn it on, we risk blowing our power circuit...
+  yes, we are waiting on a power upgrade)...
+---
 Our company is growing fast.  When I started in March, 2003, we were hosting
 our website with some company in Texas.  I assumed the position of "Systems
 Administrator" (I knew Linux fairly well at the time, but I had no formal

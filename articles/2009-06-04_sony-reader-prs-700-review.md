@@ -1,17 +1,13 @@
-<!-- :metadata:
-
+---
 title: Sony Reader (PRS-700) Review
-tags: Random, Gadgets
 publishedAt: 2009-06-04T23:31:04-07:00
-summary:
-
-So, work got me a <a
-href='http://www.sonystyle.com/webapp/wcs/stores/servlet/ProductDisplay?catalogId=10551&storeId=10151&langId=-1&productId=8198552921665562069'>Sony
-PRS-700</a> for being awesome, which is awesome, so here are my thoughts so
-far.
-
--->
-
+tags: [Random, Gadgets]
+summary: |
+  So, work got me a <a
+  href='http://www.sonystyle.com/webapp/wcs/stores/servlet/ProductDisplay?catalogId=10551&storeId=10151&langId=-1&productId=8198552921665562069'>Sony
+  PRS-700</a> for being awesome, which is awesome, so here are my thoughts so
+  far.
+---
 So, work got me a <a
 href='http://www.sonystyle.com/webapp/wcs/stores/servlet/ProductDisplay?catalogId=10551&storeId=10151&langId=-1&productId=8198552921665562069'>Sony
 PRS-700</a> for being awesome, which is awesome, so here are my thoughts so

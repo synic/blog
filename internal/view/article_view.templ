@@ -3,7 +3,7 @@ package view
 import "github.com/synic/blog/internal/model"
 
 templ ArticleView(a *model.Article) {
-	@BaseLayout(a.Title, WithOpenGraphData(a.OpenGraphData())) {
+	@BaseLayout(a.Title, WithOpenGraphData(a.OpenGraphData)) {
 		@article(a, false)
 	}
 }

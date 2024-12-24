@@ -8,5 +8,9 @@
     "Exaile",
     "Programming"
   ],
-  "isPublished": true
+  "isPublished": true,
+  "openGraph": {
+    "title": "Handling multimedia keys in GNOME 2.18",
+    "type": "article"
+  }
 }

@@ -10,5 +10,9 @@
     "Linux",
     "Music"
   ],
-  "isPublished": true
+  "isPublished": true,
+  "openGraph": {
+    "title": "Exaile needs a team leader",
+    "type": "article"
+  }
 }

@@ -7,5 +7,9 @@
   "tags": [
     "Exaile"
   ],
-  "isPublished": true
+  "isPublished": true,
+  "openGraph": {
+    "title": "Exaile 0.2.9 released",
+    "type": "article"
+  }
 }

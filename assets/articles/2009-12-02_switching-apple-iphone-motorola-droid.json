@@ -7,5 +7,9 @@
   "tags": [
     "Gadgets"
   ],
-  "isPublished": true
+  "isPublished": true,
+  "openGraph": {
+    "title": "Switching from the iPhone to the Droid",
+    "type": "article"
+  }
 }

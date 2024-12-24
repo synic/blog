@@ -9,5 +9,9 @@
     "Programming",
     "Linux"
   ],
-  "isPublished": true
+  "isPublished": true,
+  "openGraph": {
+    "title": "Exaile Development Update, July 24, 2009",
+    "type": "article"
+  }
 }

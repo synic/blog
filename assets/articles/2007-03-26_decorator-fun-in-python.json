@@ -8,5 +8,9 @@
     "Programming",
     "Python"
   ],
-  "isPublished": true
+  "isPublished": true,
+  "openGraph": {
+    "title": "Decorator fun in Python",
+    "type": "article"
+  }
 }

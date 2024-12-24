@@ -8,5 +8,9 @@
     "Exaile",
     "Programming"
   ],
-  "isPublished": true
+  "isPublished": true,
+  "openGraph": {
+    "title": "Amazon AWS API Changes and You",
+    "type": "article"
+  }
 }

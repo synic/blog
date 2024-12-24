@@ -1,16 +1,12 @@
-<!-- :metadata:
-
+---
 title: Lute Society of America Seminar 2012
-tags: Music
 publishedAt: 2012-07-18T19:17:02-07:00
-summary:
-
-This year, I went to the Lute Society of America Seminar at Case Western
-Reserve University in Cleveland, Ohio. It was a lot of fun, and I'm going to
-share some of my experience here.
-
--->
-
+tags: [Music]
+summary: |
+  This year, I went to the Lute Society of America Seminar at Case Western
+  Reserve University in Cleveland, Ohio. It was a lot of fun, and I'm going to
+  share some of my experience here.
+---
 This year, I went to the Lute Society of America Seminar at Case Western
 Reserve University in Cleveland, Ohio. It was a lot of fun, and I'm going to
 share some of my experience here.

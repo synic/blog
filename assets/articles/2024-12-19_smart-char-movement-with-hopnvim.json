@@ -8,5 +8,9 @@
     "NeoVim",
     "Programming"
   ],
-  "isPublished": true
+  "isPublished": true,
+  "openGraph": {
+    "title": "Smart character movement (f,F,t,T) with hop.nvim",
+    "type": "article"
+  }
 }

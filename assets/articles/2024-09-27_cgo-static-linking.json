@@ -1,8 +1,5 @@
 {
   "publishedAt": "2024-09-27T11:10:00-07:00",
-  "extra": {
-    "ogTitle": "Golang: Static linking with CGO and distroless"
-  },
   "body": "\u003cp\u003eOne of the nice things about Go is that, by default, it compiles to a\nstatically linked binary with no external dependencies (including shared\nlibraries). This makes it super easy to deploy, and you can use a basically\nempty docker image (like\n\u003ca href=\"https://github.com/GoogleContainerTools/distroless\"\u003edistroless\u003c/a\u003e). However, if\nyou have \u003ccode\u003eCGO_ENABLED=1\u003c/code\u003e (which is required for some libraries, such as the C\nbased sqlite bindings), it will link everything statically except \u003ccode\u003elibc\u003c/code\u003e by\ndefault. When using distroless, you usually compile on an image that has \u003ccode\u003elibc\u003c/code\u003e,\nbut then copy the binary to an image that doesn't, so while compilation doesn't\nfail, the binary cannot find \u003ccode\u003elibc\u003c/code\u003e and will not run.\u003c/p\u003e\n\u003cp\u003eYou can remedy this by statically linking \u003ccode\u003elibc\u003c/code\u003e by passing \u003ccode\u003e-ldflags '-s -w -linkmode external -extldflags \u0026quot;-static\u0026quot;'\u003c/code\u003e to \u003ccode\u003ego build\u003c/code\u003e like so:\u003c/p\u003e\n\u003cpre class=\"chroma\"\u003e\u003ccode\u003e\u003cspan class=\"line\"\u003e\u003cspan class=\"cl\"\u003e$ go build -a \u003cspan class=\"se\"\u003e\\\n\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class=\"line\"\u003e\u003cspan class=\"cl\"\u003e\u003cspan class=\"se\"\u003e\u003c/span\u003e  -ldflags \u003cspan class=\"s1\"\u003e\u0026#39;-s -w -linkmode external -extldflags \u0026#34;-static\u0026#34;\u0026#39;\u003c/span\u003e \u003cspan class=\"se\"\u003e\\\n\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class=\"line\"\u003e\u003cspan class=\"cl\"\u003e\u003cspan class=\"se\"\u003e\u003c/span\u003e  ./...\n\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003cp\u003eA couple things to note about this method:\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003eIt will take quite a bit longer to compile\u003c/li\u003e\n\u003cli\u003eThe resulting file will be a lot larger\u003c/li\u003e\n\u003cli\u003eThis will NOT work if you use the Go plugin system (\u003ccode\u003edlopen\u003c/code\u003e doesn't work)\u003c/li\u003e\n\u003c/ul\u003e\n\u003cp\u003eGood luck!\u003c/p\u003e\n",
   "summary": "\u003cp\u003eDo you use distroless? Have you tried to build a distroless docker image for\nyour Go project, only to see an error like \u003ccode\u003e/bin/foo: no such file or directory\u003c/code\u003e? Maybe you spent a bunch of time trying to figure out why that file\nisn't there, only to find out that it \u003cem\u003eIS\u003c/em\u003e there, but you're still getting the\nerror?\u003c/p\u003e\n\u003cp\u003eThis post is for you!\u003c/p\u003e\n",
   "title": "Go: Static linking with CGO and distroless",
@@ -11,5 +8,9 @@
     "Programming",
     "Go"
   ],
-  "isPublished": true
+  "isPublished": true,
+  "openGraph": {
+    "title": "Golang: Static linking with CGO and distroless",
+    "type": "article"
+  }
 }

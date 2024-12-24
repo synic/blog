@@ -1,19 +1,15 @@
-<!-- :metadata:
-
+---
 title: MySQL Replication Issues
-tags: Programming, Linux
 publishedAt: 2007-11-28T16:25:16-07:00
-summary:
-
-At <a href='http://www.sendoutcards.com'>SendOutCards</a>, we use <a
-href='http://dev.mysql.com/doc/refman/5.0/en/replication.html'>MySQL
-replication</a> to ensure that if our main database server goes down because of
-hardware failure, we'll still have an server that is up to date with our data.
-In a nutshell, our main database server sends another server every update that
-is performed on itself...
-
--->
-
+tags: [Programming, Linux]
+summary: |
+  At <a href='http://www.sendoutcards.com'>SendOutCards</a>, we use <a
+  href='http://dev.mysql.com/doc/refman/5.0/en/replication.html'>MySQL
+  replication</a> to ensure that if our main database server goes down because of
+  hardware failure, we'll still have an server that is up to date with our data.
+  In a nutshell, our main database server sends another server every update that
+  is performed on itself...
+---
 At <a href='http://www.sendoutcards.com'>SendOutCards</a>, we use <a
 href='http://dev.mysql.com/doc/refman/5.0/en/replication.html'>MySQL
 replication</a> to ensure that if our main database server goes down because of

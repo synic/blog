@@ -9,5 +9,9 @@
     "Python",
     "Django"
   ],
-  "isPublished": true
+  "isPublished": true,
+  "openGraph": {
+    "title": "Django: Using ModelAdmin to default to currently logged in user",
+    "type": "article"
+  }
 }

@@ -1,15 +1,11 @@
-<!-- :metadata:
-
+---
 title: Ubuntu 9.04 Update Notifications
-tags: Linux
 publishedAt: 2009-04-29T14:56:41-07:00
-summary:
-
-Since I upgraded to Jaunty, I had been seriously irritated with their decision
-to change the way updates are handled.
-
--->
-
+tags: [Linux]
+summary: |
+  Since I upgraded to Jaunty, I had been seriously irritated with their decision
+  to change the way updates are handled.
+---
 <p>Since I upgraded to Jaunty, I had been seriously irritated with their
 decision to change the way updates are handled.</p>
 

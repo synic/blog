@@ -1,14 +1,10 @@
-<!-- :metadata:
-
+---
 title: Preventing spam on trac
-tags: Random, Linux
 publishedAt: 2007-04-04T22:25:00-07:00
-summary:
-
-Preventing spam on Trac...
-
--->
-
+tags: [Random, Linux]
+summary: |
+  Preventing spam on Trac...
+---
 <b>Note:</b>  There is a <a
 href='http://www.exaile.org/wiki/index.php?title=Misc:HackingTracAccountManager'>HOW-TO</a>
 written up to show users how to deploy the information in this article.<br />

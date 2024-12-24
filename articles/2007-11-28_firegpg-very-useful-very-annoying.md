@@ -1,19 +1,15 @@
-<!-- :metadata:
-
+---
 title: FireGPG - Very Useful, Very Annoying
-tags: Random
 publishedAt: 2007-11-28T17:06:07-07:00
-summary:
-
-<a href='http://firegpg.tuxfamily.org/'>FireGPG</a> is a <a
-href='http://www.mozilla.com'>Firefox</a> extension that allows you to
-encrypt/decrypt/sign any textbox on any page.  More than that, it integrates
-with Gmail so you can easily send and receive encrypted email!  I've been using
-it for this feature alone as soon as I found out about it's existence.  Now
-there really is no reason to use an IMAP client in my opinion...
-
--->
-
+tags: [Random]
+summary: |
+  <a href='http://firegpg.tuxfamily.org/'>FireGPG</a> is a <a
+  href='http://www.mozilla.com'>Firefox</a> extension that allows you to
+  encrypt/decrypt/sign any textbox on any page.  More than that, it integrates
+  with Gmail so you can easily send and receive encrypted email!  I've been using
+  it for this feature alone as soon as I found out about it's existence.  Now
+  there really is no reason to use an IMAP client in my opinion...
+---
 <a href='http://firegpg.tuxfamily.org/'>FireGPG</a> is a <a
 href='http://www.mozilla.com'>Firefox</a> extension that allows you to
 encrypt/decrypt/sign any textbox on any page.  More than that, it integrates

@@ -8,5 +8,9 @@
     "Linux",
     "Gadgets"
   ],
-  "isPublished": true
+  "isPublished": true,
+  "openGraph": {
+    "title": "Getting Ubuntu to work on your Eee Box",
+    "type": "article"
+  }
 }

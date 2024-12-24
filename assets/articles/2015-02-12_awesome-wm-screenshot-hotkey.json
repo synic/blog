@@ -8,5 +8,9 @@
     "Programming",
     "Linux"
   ],
-  "isPublished": true
+  "isPublished": true,
+  "openGraph": {
+    "title": "Awesome-wm screenshot hotkey",
+    "type": "article"
+  }
 }

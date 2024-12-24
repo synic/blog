@@ -1,19 +1,15 @@
-<!-- :metadata:
-
+---
 title: SupaCount published to the Android Market
-tags: Programming, Android
 publishedAt: 2009-12-22T15:16:36-07:00
-summary:
-
-SupaCount 0.1.0 published to the Android Market.  I don't suspect that it'll be
-a highly successful app, being that it's a utility that most people won't need.
-However, being my first app on any of the mobile markets, it'll be interesting
-to see what happens.  There are, at the very least, hundreds of thousands of
-people (200,000+ people bought a Motorola Droid the first week it was released)
-with access to the market.
-
--->
-
+tags: [Programming, Android]
+summary: |
+  SupaCount 0.1.0 published to the Android Market.  I don't suspect that it'll be
+  a highly successful app, being that it's a utility that most people won't need.
+  However, being my first app on any of the mobile markets, it'll be interesting
+  to see what happens.  There are, at the very least, hundreds of thousands of
+  people (200,000+ people bought a Motorola Droid the first week it was released)
+  with access to the market.
+---
 SupaCount 0.1.0 published to the Android Market.  I don't suspect that it'll be
 a highly successful app, being that it's a utility that most people won't need.
 However, being my first app on any of the mobile markets, it'll be interesting

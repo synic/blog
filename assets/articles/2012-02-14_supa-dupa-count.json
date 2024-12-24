@@ -9,5 +9,9 @@
     "Android",
     "Scala"
   ],
-  "isPublished": true
+  "isPublished": true,
+  "openGraph": {
+    "title": "Supa Dupa Count",
+    "type": "article"
+  }
 }

@@ -8,5 +8,9 @@
     "Exaile",
     "Music"
   ],
-  "isPublished": true
+  "isPublished": true,
+  "openGraph": {
+    "title": "DAAP Music Sharing and Exaile",
+    "type": "article"
+  }
 }

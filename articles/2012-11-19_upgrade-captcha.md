@@ -1,16 +1,12 @@
-<!-- :metadata:
-
+---
 title: Upgrade to Captcha
-tags: Programming
 publishedAt: 2012-11-19T18:10:37-07:00
-summary:
-
-Welp, my simple human test, where you had to type "vim" to enter comments on
-this blog, finally failed to keep out the spam.  Surprisingly, it did work for
-6 years before I had problems.
-
--->
-
+tags: [Programming]
+summary: |
+  Welp, my simple human test, where you had to type "vim" to enter comments on
+  this blog, finally failed to keep out the spam.  Surprisingly, it did work for
+  6 years before I had problems.
+---
 Welp, my simple human test, where you had to type "vim" to enter comments on
 this blog, finally failed to keep out the spam.  Surprisingly, it did work for
 6 years before I had problems.

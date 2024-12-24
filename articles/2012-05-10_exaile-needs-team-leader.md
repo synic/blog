@@ -1,16 +1,12 @@
-<!-- :metadata:
-
+---
 title: Exaile needs a team leader
-tags: Exaile, Programming, Linux, Music
 publishedAt: 2012-05-10T19:23:20-07:00
-summary:
-
-Due to the recent news Regarding Stallman's heart attack, I ended up on the
-wikipedia page for The Cathedral and the Bazaar, and I was reading the
-"Guidelines for creating good opensource software".  Number 3 says:
-
--->
-
+tags: [Exaile, Programming, Linux, Music]
+summary: |
+  Due to the recent news Regarding Stallman's heart attack, I ended up on the
+  wikipedia page for The Cathedral and the Bazaar, and I was reading the
+  "Guidelines for creating good opensource software".  Number 3 says:
+---
 Due to the recent news Regarding Stallman's heart attack, I ended up on the
 wikipedia page for The Cathedral and the Bazaar, and I was reading the
 "Guidelines for creating good opensource software".  Number 3 says:

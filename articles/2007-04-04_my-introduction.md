@@ -1,15 +1,10 @@
-<!-- :metadata:
-
+---
 title: My Introduction
-tags: Random
 publishedAt: 2007-04-04T18:48:00-07:00
-summary:
-
-
-Adam has kindly let me post here...
-
--->
-
+tags: [Random]
+summary: |
+  Adam has kindly let me post here...
+---
 <p>Adam has kindly let me post here, and it&#8217;s only fitting that I use my
 first post to introduce myself. I&#8217;m Johannes Sasongko, I live in
 Brisbane, Australia, and I&#8217;m currently studying for my IT degree.

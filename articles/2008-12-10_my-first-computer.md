@@ -1,24 +1,20 @@
-<!-- :metadata:
-
+---
 title: My First Computer
-tags: Random, Gadgets
 publishedAt: 2008-12-10T20:29:10-07:00
-summary:
-
-Today there was an article on Digg (<a
-href='http://digg.com/hardware/10_of_the_Ugliest_Personal_Computers_Ever_Made'>read
-it here</a>) that sent me down memory
- lane.  Despite it's title, "10 of the
-Ugliest Personal Computers Ever Made", it's actually just a collection of
-pictures from old computers, like the IBM ICS.  Reading through the
- comments
-of this post, someone mentioned the TRS-80.  I remembered that my first
-computer was a Tandy.  I started searching the tubes for a picture of it,
-because it definitely didn't look
- like the TRS-80.
-
--->
-
+tags: [Random, Gadgets]
+summary: |
+  Today there was an article on Digg (<a
+  href='http://digg.com/hardware/10_of_the_Ugliest_Personal_Computers_Ever_Made'>read
+  it here</a>) that sent me down memory
+   lane.  Despite it's title, "10 of the
+  Ugliest Personal Computers Ever Made", it's actually just a collection of
+  pictures from old computers, like the IBM ICS.  Reading through the
+   comments
+  of this post, someone mentioned the TRS-80.  I remembered that my first
+  computer was a Tandy.  I started searching the tubes for a picture of it,
+  because it definitely didn't look
+   like the TRS-80.
+---
 <p>Today there was an article on Digg (<a
 href='http://digg.com/hardware/10_of_the_Ugliest_Personal_Computers_Ever_Made'>read
 it here</a>) that sent me down memory

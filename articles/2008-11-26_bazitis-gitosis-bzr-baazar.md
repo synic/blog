@@ -1,21 +1,17 @@
-<!-- :metadata:
-
-title: Bazitis:  Gitosis for Bzr (Baazar)
-tags: Programming, Python, Administration
+---
+title: "Bazitis:  Gitosis for Bzr (Baazar)"
 publishedAt: 2008-11-26T00:24:01-07:00
-summary:
-
-At work, I use git.  For Exaile I use bzr.  I like them both quite a bit.  At
-work, we use <a
-href='http://eagain.net/gitweb/?p=gitosis.git;a=summary'>Gitosis</a> to manage
-our repositories and I have to say, it's pretty damn cool.  Nothing quite like
-this exists for bzr, so I ported Gitosis to bzr and called it Bazitis.  The
-launchpad project page can be found <a
-href='http://www.launchpad.net/bazitis'>here</a>.  Here are the instructions on
-how to use Bazitis:
-
--->
-
+tags: [Programming, Python, Administration]
+summary: |
+  At work, I use git.  For Exaile I use bzr.  I like them both quite a bit.  At
+  work, we use <a
+  href='http://eagain.net/gitweb/?p=gitosis.git;a=summary'>Gitosis</a> to manage
+  our repositories and I have to say, it's pretty damn cool.  Nothing quite like
+  this exists for bzr, so I ported Gitosis to bzr and called it Bazitis.  The
+  launchpad project page can be found <a
+  href='http://www.launchpad.net/bazitis'>here</a>.  Here are the instructions on
+  how to use Bazitis:
+---
 <p>At work, I use git.  For Exaile I use bzr.  I like them both quite a bit.
 At work, we use <a
 href='http://eagain.net/gitweb/?p=gitosis.git;a=summary'>Gitosis</a> to manage

@@ -8,5 +8,9 @@
     "Random",
     "Funny"
   ],
-  "isPublished": true
+  "isPublished": true,
+  "openGraph": {
+    "title": "Corporate Website Cheatcodes?",
+    "type": "article"
+  }
 }

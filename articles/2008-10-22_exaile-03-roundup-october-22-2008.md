@@ -1,16 +1,12 @@
-<!-- :metadata:
-
+---
 title: Exaile 0.3 Roundup for October 22, 2008
-tags: Exaile
 publishedAt: 2008-10-22T22:59:36-07:00
-summary:
-
-Ok, so I posted the weekly tarball a little early, because it's got lots of
-cool new stuff.  Here are the things that have been completed since the last
-roundup:
-
--->
-
+tags: [Exaile]
+summary: |
+  Ok, so I posted the weekly tarball a little early, because it's got lots of
+  cool new stuff.  Here are the things that have been completed since the last
+  roundup:
+---
 <p>Ok, so I posted the weekly tarball a little early, because it's got lots of
 cool new stuff.  Here are the things that have been completed since the last
 roundup:</p>

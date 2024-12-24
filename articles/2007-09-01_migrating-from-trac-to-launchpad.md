@@ -1,16 +1,12 @@
-<!-- :metadata:
-
+---
 title: Migrating from Trac to Launchpad
-tags: Random
 publishedAt: 2007-09-01T18:57:19-07:00
-summary:
-
-<p>I love trac.  <span class="caps">LOVE</span> it.  With the recent exaile.org
-hack, however, I wanted my bugs and code to be in a place that isn&#8217;t
-going anywhere soon.  I chose Launchpad.</p>
-
--->
-
+tags: [Random]
+summary: |
+  <p>I love trac.  <span class="caps">LOVE</span> it.  With the recent exaile.org
+  hack, however, I wanted my bugs and code to be in a place that isn&#8217;t
+  going anywhere soon.  I chose Launchpad.</p>
+---
 <p>I love trac.  <span class="caps">LOVE</span> it.  With the recent exaile.org
 hack, however, I wanted my bugs and code to be in a place that isn&#8217;t
 going anywhere soon.  I chose Launchpad.</p>

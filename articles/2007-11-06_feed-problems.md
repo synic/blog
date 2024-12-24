@@ -1,14 +1,10 @@
-<!-- :metadata:
-
+---
 title: Feed Problems
-tags: Random, Django
 publishedAt: 2007-11-06T16:30:01-07:00
-summary:
-
-Sorry about the weird RSS problems my blog has been having.
-
--->
-
+tags: [Random, Django]
+summary: |
+  Sorry about the weird RSS problems my blog has been having.
+---
 Sorry about the weird RSS problems my blog has been having.  Moving to a new
 system caused all the GIDs to be different, so all the old articles showed up
 as new in readers.  Also, I'm fairly new to Django, so I forgot things like

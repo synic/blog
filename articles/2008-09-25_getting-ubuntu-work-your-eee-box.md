@@ -1,16 +1,12 @@
-<!-- :metadata:
-
+---
 title: Getting Ubuntu to work on your Eee Box
-tags: Linux, Gadgets
 publishedAt: 2008-09-25T01:00:44-07:00
-summary:
-
-My Eee Box (model B202) arrived today.  I actually plan on using this
-machine to run Windows (I have a very short list of things that I *require* the
-blasted OS to run)...
-
--->
-
+tags: [Linux, Gadgets]
+summary: |
+  My Eee Box (model B202) arrived today.  I actually plan on using this
+  machine to run Windows (I have a very short list of things that I *require* the
+  blasted OS to run)...
+---
 <p>My Eee Box (model B202) arrived today.  I actually plan on using this
 machine to run Windows (I have a very short list of things that I *require* the
 blasted OS to run).</p>

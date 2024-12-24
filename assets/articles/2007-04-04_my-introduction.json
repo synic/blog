@@ -7,5 +7,9 @@
   "tags": [
     "Random"
   ],
-  "isPublished": true
+  "isPublished": true,
+  "openGraph": {
+    "title": "My Introduction",
+    "type": "article"
+  }
 }

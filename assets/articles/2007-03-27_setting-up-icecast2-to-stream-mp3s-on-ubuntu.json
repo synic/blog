@@ -8,5 +8,9 @@
     "Linux",
     "Music"
   ],
-  "isPublished": true
+  "isPublished": true,
+  "openGraph": {
+    "title": "Setting up icecast2 to stream mp3s on Ubuntu",
+    "type": "article"
+  }
 }

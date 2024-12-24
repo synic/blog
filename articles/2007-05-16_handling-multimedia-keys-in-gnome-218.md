@@ -1,25 +1,20 @@
-
-<!-- :metadata:
-
+---
 title: Handling multimedia keys in GNOME 2.18
-tags: Exaile, Programming
 publishedAt: 2007-05-16T12:31:00-07:00
-summary:
+tags: [Exaile, Programming]
+summary: |
+  <p><span class="caps">GNOME</span> 2.18 introduced a new way for applications
+  to handle multimedia keys.  Previously you have to muck around with X events,
+  while now <span class="caps">GNOME</span> does it for you and you can get
+  control of mmkeys by requesting through D-Bus (to <span
+  class="caps">GNOME</span> Control Center&#8217;s Settings Daemon).  All
+  good until you realise that for cross-desktop support you still need the
+  old method anyway&#8212;unless, like Rhythmbox and Banshee, your app is
+  GNOME-based.</p>
 
-<p><span class="caps">GNOME</span> 2.18 introduced a new way for applications
-to handle multimedia keys.  Previously you have to muck around with X events,
-while now <span class="caps">GNOME</span> does it for you and you can get
-control of mmkeys by requesting through D-Bus (to <span
-class="caps">GNOME</span> Control Center&#8217;s Settings Daemon).  All
-good until you realise that for cross-desktop support you still need the
-old method anyway&#8212;unless, like Rhythmbox and Banshee, your app is
-GNOME-based.</p>
-
-<p>This article shows how we support both methods in Exaile, and how you can do
-it, too.</p>
-
--->
-
+  <p>This article shows how we support both methods in Exaile, and how you can do
+  it, too.</p>
+---
 <p><span class="caps">GNOME</span> 2.18 introduced a new way for applications
 to handle multimedia keys.  Previously you have to muck around with X events,
 while now <span class="caps">GNOME</span> does it for you and you can get

@@ -7,5 +7,9 @@
   "tags": [
     "Random"
   ],
-  "isPublished": true
+  "isPublished": true,
+  "openGraph": {
+    "title": "FireGPG - Very Useful, Very Annoying",
+    "type": "article"
+  }
 }

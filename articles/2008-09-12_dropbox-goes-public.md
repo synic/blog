@@ -1,14 +1,10 @@
-<!-- :metadata:
-
+---
 title: DropBox goes public
-tags: Random
 publishedAt: 2008-09-12T17:11:35-07:00
-summary:
-
-DropBox goes public
-
--->
-
+tags: [Random]
+summary: |
+  DropBox goes public
+---
 <a href='http://www.getdropbox.com'>DropBox</a> is a system that allows you to
 share and sync files between multiple computers by providing an interface for
 Nautilus on Linux, Finder on OS X, or Explorer on Windows.  It's kind of like

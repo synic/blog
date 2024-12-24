@@ -1,18 +1,13 @@
-
-<!-- :metadata:
-
+---
 title: Exaile 0.2.9 released
-tags: Exaile
 publishedAt: 2007-03-27T21:30:00-07:00
-summary:
-
-I released <a href='http://www.exaile.org/'>Exaile 0.2.9</a> today knowing that
-it has a few issues with unicode.  We've been waiting on these issues for a
-while now, but no one has a good solution yet.  I'm hoping that with the added
-users from the release, we'll get some fresh eyes on the subject...
-
--->
-
+tags: [Exaile]
+summary: |
+  I released <a href='http://www.exaile.org/'>Exaile 0.2.9</a> today knowing that
+  it has a few issues with unicode.  We've been waiting on these issues for a
+  while now, but no one has a good solution yet.  I'm hoping that with the added
+  users from the release, we'll get some fresh eyes on the subject...
+---
 I released <a href='http://www.exaile.org/'>Exaile 0.2.9</a> today knowing that
 it has a few issues with unicode.  We've been waiting on these issues for a
 while now, but no one has a good solution yet.  I'm hoping that with the added

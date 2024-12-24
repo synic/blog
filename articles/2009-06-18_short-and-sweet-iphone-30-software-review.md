@@ -1,14 +1,10 @@
-<!-- :metadata:
-
+---
 title: Short and Sweet iPhone 3.0 Software Review
-tags: Gadgets
 publishedAt: 2009-06-18T19:11:29-07:00
-summary:
-
-Go to "Settings", "Messages" and set "Repeat Alert" to "Off".  Enough said.
-
--->
-
+tags: [Gadgets]
+summary: |
+  Go to "Settings", "Messages" and set "Repeat Alert" to "Off".  Enough said.
+---
 Go to "Settings", "Messages" and set "Repeat Alert" to "Off".  Enough said.
 
 Oh, copy & paste is pretty cool too.

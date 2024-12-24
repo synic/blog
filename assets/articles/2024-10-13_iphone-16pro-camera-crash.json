@@ -7,5 +7,9 @@
   "tags": [
     "Gadgets"
   ],
-  "isPublished": true
+  "isPublished": true,
+  "openGraph": {
+    "title": "iPhone 16 Pro Camera Crash [FIXED!]",
+    "type": "article"
+  }
 }

@@ -8,5 +8,9 @@
     "Random",
     "Gadgets"
   ],
-  "isPublished": true
+  "isPublished": true,
+  "openGraph": {
+    "title": "My First Computer",
+    "type": "article"
+  }
 }

@@ -7,5 +7,9 @@
   "tags": [
     "Gadgets"
   ],
-  "isPublished": true
+  "isPublished": true,
+  "openGraph": {
+    "title": "Short and Sweet iPhone 3.0 Software Review",
+    "type": "article"
+  }
 }

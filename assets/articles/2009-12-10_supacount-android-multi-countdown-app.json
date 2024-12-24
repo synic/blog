@@ -8,5 +8,9 @@
     "Programming",
     "Android"
   ],
-  "isPublished": true
+  "isPublished": true,
+  "openGraph": {
+    "title": "SupaCount: Android Multi-Countdown App",
+    "type": "article"
+  }
 }

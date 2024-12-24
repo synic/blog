@@ -9,5 +9,9 @@
     "Programming",
     "Music"
   ],
-  "isPublished": true
+  "isPublished": true,
+  "openGraph": {
+    "title": "Exaile LastFM Proxy Plugin",
+    "type": "article"
+  }
 }

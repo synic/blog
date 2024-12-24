@@ -1,16 +1,12 @@
-<!-- :metadata:
-
+---
 title: Exaile 0.2.10 expectations
-tags: Exaile
 publishedAt: 2007-04-03T18:24:00-07:00
-summary:
-
-Been a few days since I made a post.  I spent most of Friday in the hospital,
-so I have a good excuse.  I'm still not 100%, so this post won't be all that
-technical...
-
--->
-
+tags: [Exaile]
+summary: |
+  Been a few days since I made a post.  I spent most of Friday in the hospital,
+  so I have a good excuse.  I'm still not 100%, so this post won't be all that
+  technical...
+---
 Been a few days since I made a post.  I spent most of Friday in the hospital,
 so I have a good excuse.  I'm still not 100%, so this post won't be all that
 technical.<br /><br />

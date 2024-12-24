@@ -7,5 +7,9 @@
   "tags": [
     "Random"
   ],
-  "isPublished": true
+  "isPublished": true,
+  "openGraph": {
+    "title": "Where have all the artists gone?",
+    "type": "article"
+  }
 }

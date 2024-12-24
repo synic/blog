@@ -1,11 +1,8 @@
-<!-- :metadata:
-
+---
 title: Ruby oddities (or "what's 1.0 divided by 0.0?")
-tags: Programming
 publishedAt: 2007-04-09T09:37:36-07:00
-
--->
-
+tags: [Programming]
+---
 Working very closely with the source code of MRI (Matz's Ruby Implementation, a
 term used to distinguish the main Ruby implementation from the language itself)
 has exposed me to some of Ruby's most... interesting behaviour. This is one:

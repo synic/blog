@@ -1,15 +1,11 @@
-<!-- :metadata:
-
+---
 title: People actually read this blog?
-tags: Random
 publishedAt: 2008-09-22T20:33:34-07:00
-summary:
-
-So, according to the comments I've been getting on the Exaile 0.3 roundup
-article, people actually read this blog.
-
--->
-
+tags: [Random]
+summary: |
+  So, according to the comments I've been getting on the Exaile 0.3 roundup
+  article, people actually read this blog.
+---
 So, according to the comments I've been getting on the Exaile 0.3 roundup
 article, people actually read this blog.  A lot of the comments have been
 questions or answers to previous questions in the comments, so, I've set up an

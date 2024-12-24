@@ -8,5 +8,9 @@
     "Random",
     "Administration"
   ],
-  "isPublished": true
+  "isPublished": true,
+  "openGraph": {
+    "title": "I'm Ron Burgundy?",
+    "type": "article"
+  }
 }

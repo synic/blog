@@ -8,5 +8,9 @@
     "Programming",
     "VIM"
   ],
-  "isPublished": true
+  "isPublished": true,
+  "openGraph": {
+    "title": "The Purpose of Vim Tabs",
+    "type": "article"
+  }
 }

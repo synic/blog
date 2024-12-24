@@ -7,5 +7,9 @@
   "tags": [
     "Programming"
   ],
-  "isPublished": true
+  "isPublished": true,
+  "openGraph": {
+    "title": "Ruby oddities (or \"what's 1.0 divided by 0.0?\")",
+    "type": "article"
+  }
 }

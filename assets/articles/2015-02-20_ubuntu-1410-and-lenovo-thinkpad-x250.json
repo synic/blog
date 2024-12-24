@@ -7,5 +7,9 @@
   "tags": [
     "Linux"
   ],
-  "isPublished": true
+  "isPublished": true,
+  "openGraph": {
+    "title": "Ubuntu 14.10 and the Lenovo ThinkPad x250",
+    "type": "article"
+  }
 }

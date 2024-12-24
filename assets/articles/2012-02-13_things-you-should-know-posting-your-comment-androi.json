@@ -7,5 +7,9 @@
   "tags": [
     "Android"
   ],
-  "isPublished": true
+  "isPublished": true,
+  "openGraph": {
+    "title": "Things you should know before posting your comment on the Android market",
+    "type": "article"
+  }
 }

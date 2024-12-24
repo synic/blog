@@ -8,5 +8,9 @@
     "Programming",
     "Android"
   ],
-  "isPublished": true
+  "isPublished": true,
+  "openGraph": {
+    "title": "SupaCount published to the Android Market",
+    "type": "article"
+  }
 }

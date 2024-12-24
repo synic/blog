@@ -7,5 +7,9 @@
   "tags": [
     "Personal"
   ],
-  "isPublished": true
+  "isPublished": true,
+  "openGraph": {
+    "title": "Happy First Birthday, Victoria!",
+    "type": "article"
+  }
 }

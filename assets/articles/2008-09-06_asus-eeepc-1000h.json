@@ -7,5 +7,9 @@
   "tags": [
     "Gadgets"
   ],
-  "isPublished": true
+  "isPublished": true,
+  "openGraph": {
+    "title": "Asus EeePC 1000h",
+    "type": "article"
+  }
 }

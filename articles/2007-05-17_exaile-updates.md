@@ -1,14 +1,10 @@
-<!-- :metadata:
-
+---
 title: Exaile Updates
-tags: Exaile
 publishedAt: 2007-05-17T23:17:40-07:00
-summary:
-
-Exaile 0.2.10 is well on it&#8217;s way...
-
--->
-
+tags: [Exaile]
+summary: |
+  Exaile 0.2.10 is well on it&#8217;s way...
+---
 <p>Exaile 0.2.10 is well on it&#8217;s way.  </p>
 
 <p>All plugins have been moved out of the regular Exaile repository, and into

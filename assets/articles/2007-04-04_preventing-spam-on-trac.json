@@ -8,5 +8,9 @@
     "Random",
     "Linux"
   ],
-  "isPublished": true
+  "isPublished": true,
+  "openGraph": {
+    "title": "Preventing spam on trac",
+    "type": "article"
+  }
 }

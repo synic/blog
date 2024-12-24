@@ -8,5 +8,9 @@
     "Programming",
     "Python"
   ],
-  "isPublished": true
+  "isPublished": true,
+  "openGraph": {
+    "title": "Poignant.",
+    "type": "article"
+  }
 }

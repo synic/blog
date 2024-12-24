@@ -1,17 +1,13 @@
-<!-- :metadata:
-
+---
 title: Exaile 0.3.0 final released!
-tags: Exaile, Programming, Linux, Python
 publishedAt: 2009-08-27T16:24:48-07:00
-summary:
-
-Yup, you probably heard it here last.  I've been super busy irl,  and just
-haven't had the time to throw up a blog entry just yet, but 0.3.0 final is out
-and you can grab it from the Exaile <a
-href='http://www.exaile.org/downloads'>downloads</a> page.
-
--->
-
+tags: [Exaile, Programming, Linux, Python]
+summary: |
+  Yup, you probably heard it here last.  I've been super busy irl,  and just
+  haven't had the time to throw up a blog entry just yet, but 0.3.0 final is out
+  and you can grab it from the Exaile <a
+  href='http://www.exaile.org/downloads'>downloads</a> page.
+---
 Yup, you probably heard it here last.  I've been super busy irl,  and just
 haven't had the time to throw up a blog entry just yet, but 0.3.0 final is out
 and you can grab it from the Exaile <a

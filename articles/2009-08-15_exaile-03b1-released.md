@@ -1,16 +1,12 @@
-<!-- :metadata:
-
+---
 title: Exaile 0.3b1 Released!
-tags: Exaile, Programming, Linux, Python
 publishedAt: 2009-08-15T16:21:16-07:00
-summary:
+tags: [Exaile, Programming, Linux, Python]
+summary: |
+  Yeah, that's right.
 
-Yeah, that's right.
-
-Check out http://www.exaile.org for more information.
-
--->
-
+  Check out http://www.exaile.org for more information.
+---
 Yeah, that's right.
 
 Check out http://www.exaile.org for more information.

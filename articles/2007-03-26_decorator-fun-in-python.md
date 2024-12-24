@@ -1,15 +1,11 @@
-<!-- :metadata:
-
+---
 title: Decorator fun in Python
-tags: Programming, Python
 publishedAt: 2007-03-26T18:25:00-07:00
-summary:
-
-I came across the following code a while ago.  I can't take credit for it, and
-I can't remember where I got it.  Oh well.  It's pretty cool nonetheless.
-
--->
-
+tags: [Programming, Python]
+summary: |
+  I came across the following code a while ago.  I can't take credit for it, and
+  I can't remember where I got it.  Oh well.  It's pretty cool nonetheless.
+---
 I came across the following code a while ago.  I can't take credit for it, and
 I can't remember where I got it.  Oh well.  It's pretty cool nonetheless.
 

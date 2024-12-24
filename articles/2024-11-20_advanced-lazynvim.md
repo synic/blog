@@ -1,26 +1,24 @@
-<!-- :metadata:
-
+---
 title: Advanced lazy.nvim
-tags: NeoVim, Programming
 publishedAt: 2024-11-20T18:59:00-07:00
-ogImage: /static/img/screenshots/lazynvim.png
-ogDescription: Does lazy.nvim configuration confuse you? This article is for you!
-summary:
+tags: [NeoVim, Programming]
+openGraph:
+  description: Does lazy.nvim configuration confuse you? This article is for you!
+  image: /static/img/screenshots/lazynvim.png
+summary: |
+  <img src="/static/img/screenshots/lazynvim.png" width="592" height="299" alt="lazy.nvim screenshot" />
 
-<img src="/static/img/screenshots/lazynvim.png" width="592" height="299" alt="lazy.nvim screenshot" />
+  There have been many plugin managers in the Vim ecosystem over the years. I've
+  used quite a number of them, but
+  [lazy.nvim](https://github.com/folke/lazy.nvim) is the one I've enjoyed the
+  most, by far. It's easy, it's concise, there's a ton of "hidden" little tricks,
+  and it allows me to easily separate my plugin configuration into separate files
+  (which was sort of a pain in previous plugin managers).
 
-There have been many plugin managers in the Vim ecosystem over the years. I've
-used quite a number of them, but
-[lazy.nvim](https://github.com/folke/lazy.nvim) is the one I've enjoyed the
-most, by far. It's easy, it's concise, there's a ton of "hidden" little tricks,
-and it allows me to easily separate my plugin configuration into separate files
-(which was sort of a pain in previous plugin managers).
-
-Most of these this information can be found in the lazy.nvim README, but
-without just getting your hands dirty, it can be difficult to understand how it
-all comes together. That's where this article comes in.
--->
-
+  Most of these this information can be found in the lazy.nvim README, but
+  without just getting your hands dirty, it can be difficult to understand how it
+  all comes together. That's where this article comes in.
+---
 <img src="/static/img/screenshots/lazynvim.png" width="592" height="299" alt="lazy.nvim screenshot" />
 
 There have been many plugin managers in the Vim ecosystem over the years. I've

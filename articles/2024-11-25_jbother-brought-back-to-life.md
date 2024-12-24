@@ -1,23 +1,20 @@
-<!-- :metadata:
-
+---
 title: JBother brought back to life? Nefarious?
-tags: Random
 publishedAt: 2024-11-25T12:08:11-07:00
-ogImage: /static/img/screenshots/jbother.png
-summary:
+tags: [Random]
+openGraph:
+  image: /static/img/screenshots/jbother.png
+summary: |
+  <img src="/static/img/screenshots/jbother.png" alt="JBother screenshot" width="400" height="243"/>
 
-<img src="/static/img/screenshots/jbother.png" alt="JBother screenshot" width="400" height="243"/>
+  15 years or so ago, I abandoned my first opensource project,
+  [JBother](https://github.com/synic/JBother) and eventually let the domain
+  expire. However, someone, I have no idea who, has rehosted the site, with my
+  design, etc, with very little modifications. Whoever did it has not contacted
+  me at all.
 
-15 years or so ago, I abandoned my first opensource project,
-[JBother](https://github.com/synic/JBother) and eventually let the domain
-expire. However, someone, I have no idea who, has rehosted the site, with my
-design, etc, with very little modifications. Whoever did it has not contacted
-me at all.
-
-What is going on here?
-
--->
-
+  What is going on here?
+---
 In 2003, I released my very first opensource project,
 [JBother](https://github.com/synic/JBother). A Jabber client, written in Java.
 

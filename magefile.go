@@ -33,7 +33,7 @@ var (
 	tailwinInFile   = "./internal/view/css/main.css"
 	tailwindOutFile = cssOutPath + "/main.css"
 	syntaxCssFile   = "./internal/view/css/syntax.css"
-	articlesInPath  = "./articles/"
+	articlesInPath  = "./articles"
 	articlesOutPath = "./assets/articles"
 	buildInfoPath   = packageName + "/internal"
 
@@ -143,7 +143,7 @@ func (Articles) Create() error {
 	now := time.Now()
 
 	fn := fmt.Sprintf(
-		"%s%d-%02d-%02d_%s.md",
+		"%s/%d-%02d-%02d_%s.md",
 		articlesInPath,
 		now.Year(),
 		now.Month(),

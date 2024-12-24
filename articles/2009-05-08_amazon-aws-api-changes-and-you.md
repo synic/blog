@@ -1,18 +1,14 @@
-<!-- :metadata:
-
+---
 title: Amazon AWS API Changes and You
-tags: Exaile, Programming
 publishedAt: 2009-05-08T17:21:47-07:00
-summary:
-
-I got an email from Amazon today saying that they were changing some things in
-their API.  Aside from changing the name of the services from "Amazon Web
-Service" to "Product Advertising API", by August 15th, they are requiring that
-users of the API send the previously optional HMAC signature when
-authenticating.  What does this mean to you?
-
--->
-
+tags: [Exaile, Programming]
+summary: |
+  I got an email from Amazon today saying that they were changing some things in
+  their API.  Aside from changing the name of the services from "Amazon Web
+  Service" to "Product Advertising API", by August 15th, they are requiring that
+  users of the API send the previously optional HMAC signature when
+  authenticating.  What does this mean to you?
+---
 I got an email from Amazon today saying that they were changing some things in
 their API.  Aside from changing the name of the services from "Amazon Web
 Service" to "Product Advertising API", by August 15th, they are requiring that

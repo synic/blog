@@ -8,5 +8,9 @@
     "Linux",
     "Gadgets"
   ],
-  "isPublished": true
+  "isPublished": true,
+  "openGraph": {
+    "title": "HP Mini 1030NR Gigabit Ethernet Adapter and Linux",
+    "type": "article"
+  }
 }

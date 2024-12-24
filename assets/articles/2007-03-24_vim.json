@@ -8,5 +8,9 @@
     "Programming",
     "VIM"
   ],
-  "isPublished": true
+  "isPublished": true,
+  "openGraph": {
+    "title": "... Vim?",
+    "type": "article"
+  }
 }

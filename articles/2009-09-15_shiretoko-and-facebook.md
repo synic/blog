@@ -1,19 +1,15 @@
-<!-- :metadata:
-
+---
 title: Shiretoko and Facebook
-tags: Linux
 publishedAt: 2009-09-15T15:17:29-07:00
-summary:
-
-For whatever reason (I can only assume it has to do with the product being
-released /after/ Ubuntu 9.04 came out) the Ubuntu devs have decided to call
-Firefox 3.5 "Shiretoko".  You can install alongside your regular Firefox
-installation by typing @aptitude install firefox-3.5@ and you can run it by
-typing @firefox-3.5@.  That's all well and good, except that the User-Agent
-string is set to:
-
--->
-
+tags: [Linux]
+summary: |
+  For whatever reason (I can only assume it has to do with the product being
+  released /after/ Ubuntu 9.04 came out) the Ubuntu devs have decided to call
+  Firefox 3.5 "Shiretoko".  You can install alongside your regular Firefox
+  installation by typing @aptitude install firefox-3.5@ and you can run it by
+  typing @firefox-3.5@.  That's all well and good, except that the User-Agent
+  string is set to:
+---
 For whatever reason (I can only assume it has to do with the product being
 released /after/ Ubuntu 9.04 came out) the Ubuntu devs have decided to call
 Firefox 3.5 "Shiretoko".  You can install alongside your regular Firefox

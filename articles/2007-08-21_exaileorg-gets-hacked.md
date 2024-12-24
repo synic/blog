@@ -1,16 +1,12 @@
-<!-- :metadata:
-
+---
 title: Exaile.org gets hacked!
-tags: Exaile, Security
 publishedAt: 2007-08-21T03:12:19-07:00
-summary:
-
-I'll admit. I didn't think this really happened to sites as
-small as exaile.org, where they are running Linux and not too many services,
-but I guess that type of thinking is what leads to these types of things...
-
--->
-
+tags: [Exaile, Security]
+summary: |
+  I'll admit. I didn't think this really happened to sites as
+  small as exaile.org, where they are running Linux and not too many services,
+  but I guess that type of thinking is what leads to these types of things...
+---
 I'll admit. I didn't think this really happened to sites as
 small as exaile.org, where they are running Linux and not too many services,
 but I guess that type of thinking is what leads to these types of things...

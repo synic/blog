@@ -7,5 +7,9 @@
   "tags": [
     "Music"
   ],
-  "isPublished": true
+  "isPublished": true,
+  "openGraph": {
+    "title": "The Lute Saga",
+    "type": "article"
+  }
 }

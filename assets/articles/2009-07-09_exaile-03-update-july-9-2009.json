@@ -9,5 +9,9 @@
     "Programming",
     "Linux"
   ],
-  "isPublished": true
+  "isPublished": true,
+  "openGraph": {
+    "title": "Exaile 0.3 Update for July 9, 2009",
+    "type": "article"
+  }
 }

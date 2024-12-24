@@ -1,18 +1,14 @@
-<!-- :metadata:
-
+---
 title: Supa Dupa Count
-tags: Programming, Android, Scala
 publishedAt: 2012-02-14T19:29:40-07:00
-summary:
-
-[A few years
-ago](http://synicworld.com/2009/12/22/supacount-published-android-market/)
-I posted [SupaCount](http://bitbucket.org/synic/supacount) to the
-Android market. Shortly after that, I stopped posting updates for three
-years.
-
--->
-
+tags: [Programming, Android, Scala]
+summary: |
+  [A few years
+  ago](http://synicworld.com/2009/12/22/supacount-published-android-market/)
+  I posted [SupaCount](http://bitbucket.org/synic/supacount) to the
+  Android market. Shortly after that, I stopped posting updates for three
+  years.
+---
 [A few years
 ago](http://synicworld.com/2009/12/22/supacount-published-android-market/)
 I posted [SupaCount](http://bitbucket.org/synic/supacount) to the

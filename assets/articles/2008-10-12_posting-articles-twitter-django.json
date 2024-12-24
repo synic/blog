@@ -9,5 +9,9 @@
     "Python",
     "Django"
   ],
-  "isPublished": true
+  "isPublished": true,
+  "openGraph": {
+    "title": "Posting articles to Twitter via Django",
+    "type": "article"
+  }
 }

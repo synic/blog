@@ -8,5 +8,9 @@
     "Random",
     "Django"
   ],
-  "isPublished": true
+  "isPublished": true,
+  "openGraph": {
+    "title": "Feed Problems",
+    "type": "article"
+  }
 }

@@ -5,177 +5,183 @@ import (
 	"time"
 
 	"github.com/stretchr/testify/assert"
+	"github.com/synic/blog/internal/model"
 )
 
-func TestCapFirst(t *testing.T) {
-	assert.Equal(t, "PublishedAt", capFirst("publishedAt"))
+func TestParseMetadataValid(t *testing.T) {
+	content := `---
+title: Test Article
+publishedAt: 2024-01-01T00:00:00Z
+tags: [test, article]
+summary: Test summary
+---
+Article content`
+
+	expected := model.Article{
+		Title:       "Test Article",
+		PublishedAt: time.Date(2024, 1, 1, 0, 0, 0, 0, time.UTC),
+		Tags:        []string{"test", "article"},
+		Summary:     "Test summary",
+		OpenGraphData: model.OpenGraphData{
+			Title: "Test Article",
+			Type:  "article",
+		},
+	}
+
+	article, body, err := parseMetadata(content)
+	assert.NoError(t, err)
+	assert.Equal(t, expected, article)
+	assert.Equal(t, "Article content", body)
 }
 
-func TestParseMetadata(t *testing.T) {
-	md := `
-<!-- :metadata:
+func TestParseMetadataWithCustomOpenGraph(t *testing.T) {
+	content := `---
+title: Test Article
+publishedAt: 2024-01-01T00:00:00Z
+tags: [test]
+openGraph:
+  title: Custom OG Title
+---
+Content`
 
-title: this is a test
-publishedAt: 2024-01-10T15:04:04-07:00
-tags: Test,Foo
-randomField: woot
-summary:
+	expected := model.Article{
+		Title:       "Test Article",
+		PublishedAt: time.Date(2024, 1, 1, 0, 0, 0, 0, time.UTC),
+		Tags:        []string{"test"},
+		OpenGraphData: model.OpenGraphData{
+			Title: "Custom OG Title",
+			Type:  "article",
+		},
+	}
 
-This is a good summary!
-
--->
-
-This is the article.
-title: just trying to confuse the parser with this title
-`
-	data, err := parseMetadata(md)
-
-	assert.Nil(t, err)
-	assert.Equal(t, "this is a test", data.Title)
-	assert.Equal(t, "2024-01-10T15:04:04-07:00", data.PublishedAt)
-	assert.Equal(t, "Test,Foo", data.Tags)
-	assert.Equal(t, "This is a good summary!", data.Summary)
-	assert.Equal(
-		t,
-		"This is the article.\ntitle: just trying to confuse the parser with this title",
-		data.Body,
-	)
-	assert.Equal(t, `title: this is a test
-publishedAt: 2024-01-10T15:04:04-07:00
-tags: Test,Foo
-randomField: woot
-summary:
-
-This is a good summary!`, data.metadata)
-	assert.Len(t, data.extra, 1)
-	f, _ := data.extra["randomField"]
-	assert.Equal(t, "woot", f)
+	article, body, err := parseMetadata(content)
+	assert.NoError(t, err)
+	assert.Equal(t, expected, article)
+	assert.Equal(t, "Content", body)
 }
 
-func TestParseMetadataMissingField(t *testing.T) {
-	md := `
-<!-- :metadata:
-
-publishedAt: 2024-01-10T15:04:04-07:00
-tags: Test, Foo
-randomField: woot
-summary: This is a good summary!
--->
-
-This is the article.
-`
-	_, err := parseMetadata(md)
-
-	assert.ErrorContains(t, err, "required field not found in metadata: Title")
+func TestParseMetadataMissingFrontmatter(t *testing.T) {
+	_, _, err := parseMetadata("No frontmatter here")
+	assert.ErrorContains(t, err, "unable to parse frontmatter block")
 }
 
-func TestParseMetadataShortSummary(t *testing.T) {
-	md := `
-<!-- :metadata:
+func TestParseMetadataMissingTitle(t *testing.T) {
+	content := `---
+tags: [test]
+---
+Content`
 
-title: woot
-publishedAt: 2024-01-10T15:04:04-07:00
-tags: Test, Foo
-random_field: woot
-summary: This is a good summary!
--->
-
-This is the article.
-`
-	data, err := parseMetadata(md)
-
-	assert.Nil(t, err)
-	assert.Equal(t, "This is a good summary!", data.Summary)
+	_, _, err := parseMetadata(content)
+	assert.ErrorContains(t, err, "title is required")
 }
 
-func TestParsePublishedAt(t *testing.T) {
-	c, _ := time.Parse("2006-01-02T15:04:05-07:00", "2006-01-02T15:04:05-00:00")
-	publishedAt, isPublished, err := parsePublishedAt("2024-01-10T15:04:04-00:00")
+func TestParseMetadataMissingTags(t *testing.T) {
+	content := `---
+title: Test
+---
+Content`
 
-	assert.Nil(t, err)
-	assert.True(t, isPublished)
-	assert.Equal(
-		t,
-		time.Time(time.Date(2024, time.January, 10, 15, 4, 4, 0, c.Location())),
-		publishedAt,
-	)
+	_, _, err := parseMetadata(content)
+	assert.ErrorContains(t, err, "tags are required")
 }
 
-func TestParsePublishedAtNotPublished(t *testing.T) {
-	now := time.Now()
+func TestParseMetadataInvalidYAML(t *testing.T) {
+	content := `---
+title: [Invalid Syntax
+---`
 
-	publishedAt, isPublished, err := parsePublishedAt("")
-
-	assert.Nil(t, err)
-	assert.True(t, publishedAt.After(now))
-	assert.False(t, isPublished)
+	_, _, err := parseMetadata(content)
+	assert.ErrorContains(t, err, "unable to parse frontmatter block")
 }
 
-func TestParsePublishedAtInvalid(t *testing.T) {
-	_, _, err := parsePublishedAt("woot")
-
-	assert.Error(t, err)
+func TestParseSlugWithDate(t *testing.T) {
+	slug, err := parseSlug("2024-01-01_test-article.md")
+	assert.NoError(t, err)
+	assert.Equal(t, "test-article", slug)
 }
 
-func TestParseTags(t *testing.T) {
-	tags := parseTags("Foo,Bar")
-	assert.Len(t, tags, 2)
-	assert.Contains(t, tags, "Foo")
-	assert.Contains(t, tags, "Bar")
+func TestParseSlugWithoutDate(t *testing.T) {
+	slug, err := parseSlug("test-article.md")
+	assert.NoError(t, err)
+	assert.Equal(t, "test-article", slug)
 }
 
-func TestParseTagsExtraSpacing(t *testing.T) {
-	tags := parseTags("Foo, Bar  ")
-	assert.Len(t, tags, 2)
-	assert.Contains(t, tags, "Foo")
-	assert.Contains(t, tags, "Bar")
+func TestParseSlugNotMarkdown(t *testing.T) {
+	_, err := parseSlug("test.txt")
+	assert.ErrorContains(t, err, "file was not a markdown file")
 }
 
-func TestParseArticleFromData(t *testing.T) {
-	c, _ := time.Parse("2006-01-02T15:04:05-07:00", "2006-01-02T15:04:05-00:00")
-	filepath := "2006-01-01_this-is-the-best-article.md"
-	md := `
-<!-- :metadata:
+func TestParseSlugTooManyParts(t *testing.T) {
+	_, err := parseSlug("2024-01-01_part1_test.md")
+	assert.ErrorContains(t, err, "invalid number of parts")
+}
 
-title: this is a test
-publishedAt: 2024-01-10T15:04:04-00:00
-tags: Test,Foo
-randomField: woot
-summary:
+func TestParseArticleFromDataValid(t *testing.T) {
+	content := `---
+title: Test Article
+publishedAt: 2024-01-01T00:00:00Z
+tags: [test]
+summary: Test summary
+---
+Article content`
 
-This is a good summary!
-# Hello!
+	expected := model.Article{
+		Slug:        "test-article",
+		Title:       "Test Article",
+		PublishedAt: time.Date(2024, 1, 1, 0, 0, 0, 0, time.UTC),
+		Tags:        []string{"test"},
+		Summary:     "<p>Test summary</p>\n",
+		Body:        "<p>Article content</p>\n",
+		IsPublished: true,
+		OpenGraphData: model.OpenGraphData{
+			Title: "Test Article",
+			Type:  "article",
+		},
+	}
 
--->
+	article, err := parseArticleFromData("test-article.md", content)
+	assert.NoError(t, err)
+	assert.Equal(t, expected, article)
+}
 
-This is the article.
-title: just trying to confuse the parser with this title
-`
+func TestParseArticleFromDataUnpublished(t *testing.T) {
+	content := `---
+title: Draft
+tags: [draft]
+summary: Draft summary
+---
+Draft content`
 
-	article, err := parseArticleFromData(filepath, md)
+	article, err := parseArticleFromData("draft.md", content)
+	assert.NoError(t, err)
 
-	assert.Nil(t, err)
-	assert.True(t, article.IsPublished)
-	assert.Equal(t,
-		time.Time(time.Date(2024, time.January, 10, 15, 4, 4, 0, c.Location())),
-		article.PublishedAt,
-	)
-	assert.Equal(t, "this is a test", article.Title)
-	assert.Equal(
-		t,
-		"<p>This is the article.\ntitle: just trying to confuse the parser with this title</p>\n",
-		article.Body,
-	)
-	assert.Equal(
-		t,
-		"<p>This is a good summary!</p>\n<h1 id=\"hello\">Hello! <a class=\"header-anchor\" href=\"#hello\">  ¶</a></h1>\n",
-		article.Summary,
-	)
-	assert.Len(t, article.Tags, 2)
+	assert.Equal(t, "draft", article.Slug)
+	assert.Equal(t, "Draft", article.Title)
+	assert.Equal(t, []string{"draft"}, article.Tags)
+	assert.Equal(t, "<p>Draft summary</p>\n", article.Summary)
+	assert.Equal(t, "<p>Draft content</p>\n", article.Body)
+	assert.False(t, article.IsPublished)
+	assert.False(t, article.PublishedAt.IsZero())
+	assert.Equal(t, "Draft", article.OpenGraphData.Title)
+}
 
-	assert.Contains(t, article.Tags, "Foo")
-	assert.Contains(t, article.Tags, "Test")
-	assert.Equal(t, "this-is-the-best-article", article.Slug)
-	assert.Len(t, article.Extra, 1)
-	assert.Equal(t, map[string]string{"randomField": "woot"}, article.Extra)
+func TestParseArticleFromDataInvalidFrontmatter(t *testing.T) {
+	_, err := parseArticleFromData("test.md", "Invalid content")
+	assert.ErrorContains(t, err, "unable to parse frontmatter block")
+}
+
+func TestParseArticleFromDataInvalidFilepath(t *testing.T) {
+	content := `---
+title: Test
+tags: [test]
+---
+Content`
+
+	_, err := parseArticleFromData("test.txt", content)
+	assert.ErrorContains(t, err, "unable to parse article slug")
+}
+
+func TestParseNonexistentFile(t *testing.T) {
+	_, err := Parse("nonexistent.md")
+	assert.ErrorContains(t, err, "no such file or directory")
 }

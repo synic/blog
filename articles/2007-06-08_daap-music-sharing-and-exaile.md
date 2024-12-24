@@ -1,20 +1,16 @@
-<!-- :metadata:
-
+---
 title: DAAP Music Sharing and Exaile
-tags: Exaile, Music
 publishedAt: 2007-06-08T19:36:00-07:00
-summary:
-
-<p>I&#8217;m pleased to announce that Exaile gained a new developer last week
-&#8211; Aren Olson.  Aren has been contributing here and there for a while now,
-and as of last week with his new plugin, <a
-href='http://www.exaile.org/trac/browser/plugins/trunk/daap-share.py'>daap-share.py</a>.
-What is <a
-href='http://en.wikipedia.org/wiki/Digital_Audio_Access_Protocol'><span
-class="caps">DAAP</span> </a> you might ask?</p>
-
--->
-
+tags: [Exaile, Music]
+summary: |
+  <p>I&#8217;m pleased to announce that Exaile gained a new developer last week
+  &#8211; Aren Olson.  Aren has been contributing here and there for a while now,
+  and as of last week with his new plugin, <a
+  href='http://www.exaile.org/trac/browser/plugins/trunk/daap-share.py'>daap-share.py</a>.
+  What is <a
+  href='http://en.wikipedia.org/wiki/Digital_Audio_Access_Protocol'><span
+  class="caps">DAAP</span> </a> you might ask?</p>
+---
 <p>I&#8217;m pleased to announce that Exaile gained a new developer last week
 &#8211; Aren Olson.  Aren has been contributing here and there for a while now,
 and as of last week with his new plugin, <a

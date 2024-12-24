@@ -1,18 +1,14 @@
-<!-- :metadata:
-
+---
 title: Exaile Development Update, July 24, 2009
-tags: Exaile, Programming, Linux
 publishedAt: 2009-07-24T16:47:56-07:00
-summary:
-
-Exaile development has been *very* active in the past few weeks.  We are
-working very hard to make our August goal.  As well as picking up mathbr as a
-developer, we've had quite a few contributors adding/fixing a lot of things.
-If you're like me, this screenshot makes you drool (click on it to get a larger
-view):
-
--->
-
+tags: [Exaile, Programming, Linux]
+summary: |
+  Exaile development has been *very* active in the past few weeks.  We are
+  working very hard to make our August goal.  As well as picking up mathbr as a
+  developer, we've had quite a few contributors adding/fixing a lot of things.
+  If you're like me, this screenshot makes you drool (click on it to get a larger
+  view):
+---
 Exaile development has been *very* active in the past few weeks.  We are
 working very hard to make our August goal.  As well as picking up mathbr as a
 developer, we've had quite a few contributors adding/fixing a lot of things.

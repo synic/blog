@@ -5,145 +5,48 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
-	"reflect"
 	"regexp"
 	"strings"
 	"time"
 
 	"github.com/synic/blog/internal/model"
+	"gopkg.in/yaml.v3"
 )
 
 var (
-	markdown       = newRenderer()
-	mdRegex        = regexp.MustCompile(`(?s)<!-- :metadata:(.*?)-->(.*)`)
-	summaryRegex   = regexp.MustCompile(`(?s)(.*)\nsummary:\n\n(.*?)$`)
-	checkLineRegex = regexp.MustCompile(`^[a-zA-Z_]*?: (.*?)$`)
-	requiredFields = []string{"metadata", "Body", "Title", "Tags"}
+	markdown         = newRenderer()
+	frontmatterRegex = regexp.MustCompile(`(?s)\A---\n(.*?)\n---\n(.*)`)
 )
 
-type parsedData struct {
-	extra       map[string]string
-	metadata    string
-	Body        string
-	Title       string
-	PublishedAt string
-	Tags        string
-	Summary     string
-}
-
-func capFirst(input string) string {
-	var out = ""
-
-	for k, v := range input {
-		if k == 0 {
-			out += strings.ToUpper(string(v))
-		} else {
-			out += string(v)
-		}
-	}
-
-	return out
-}
-
-func checkRequired(data parsedData) error {
-	t := reflect.TypeOf(data)
-	v := reflect.ValueOf(data)
-	for _, field := range requiredFields {
-		f, ok := t.FieldByName(field)
-
-		if !ok {
-			return fmt.Errorf("required field not found in metadata: %s", field)
-		}
-
-		value := v.FieldByIndex(f.Index).String()
-
-		if value == "" {
-			return fmt.Errorf("required field not found in metadata: %s", field)
-		}
-	}
-
-	return nil
-}
-
-func parseMetadata(content string) (parsedData, error) {
-	data := parsedData{}
-	matches := mdRegex.FindStringSubmatch(content)
-
+func parseMetadata(content string) (model.Article, string, error) {
+	matches := frontmatterRegex.FindStringSubmatch(content)
 	if matches == nil {
-		return data, errors.New("unable to parse metadata block")
+		return model.Article{}, "", errors.New("unable to parse frontmatter block")
 	}
 
-	data.metadata = strings.TrimSpace(matches[1])
-	data.Body = strings.TrimSpace(matches[2])
-	extra := make(map[string]string)
-
-	md := data.metadata
-
-	matches = summaryRegex.FindStringSubmatch(md)
-
-	if matches != nil {
-		md = strings.TrimSpace(matches[1])
-		data.Summary = strings.TrimSpace(matches[2])
-	}
-
-	lines := strings.Split(md, "\n")
-	v := reflect.ValueOf(&data).Elem()
-
-	for _, line := range lines {
-		if !checkLineRegex.MatchString(line) {
-			continue
-		}
-
-		parts := strings.SplitN(line, ": ", 2)
-		if len(parts) != 2 {
-			continue
-		}
-
-		key := parts[0]
-		value := parts[1]
-
-		if field := v.FieldByName(capFirst(key)); field.IsValid() &&
-			field.CanSet() && field.String() == "" {
-			field.SetString(value)
-		} else {
-			extra[key] = value
-		}
-	}
-
-	data.extra = extra
-
-	err := checkRequired(data)
-
+	var article model.Article
+	err := yaml.Unmarshal([]byte(matches[1]), &article)
 	if err != nil {
-		return data, err
+		return model.Article{}, "", fmt.Errorf("error parsing frontmatter: %w", err)
 	}
 
-	return data, nil
-}
-
-func parseTags(tagString string) []string {
-	untrimmedTags := strings.Split(tagString, ",")
-	tags := make([]string, 0, len(untrimmedTags))
-
-	for _, tag := range untrimmedTags {
-		tags = append(tags, strings.TrimSpace(tag))
+	// default opengraph
+	if article.OpenGraphData.Title == "" {
+		article.OpenGraphData.Title = article.Title
 	}
 
-	return tags
-}
+	article.OpenGraphData.Type = "article"
 
-func parsePublishedAt(rawPublishedAt string) (time.Time, bool, error) {
-	if rawPublishedAt == "" {
-		return time.Now(), false, nil
+	// Validate required fields
+	if article.Title == "" {
+		return model.Article{}, "", errors.New("title is required")
 	}
 
-	t, err := time.Parse("2006-01-02T15:04:05-07:00", rawPublishedAt)
-
-	if err != nil {
-		return time.Time{}, false, err
+	if len(article.Tags) == 0 {
+		return model.Article{}, "", errors.New("tags are required")
 	}
 
-	return t, true, nil
+	return article, strings.TrimSpace(matches[2]), nil
 }
 
 func parseSlug(fn string) (string, error) {
@@ -164,8 +67,7 @@ func parseSlug(fn string) (string, error) {
 }
 
 func parseArticleFromData(filepath, content string) (model.Article, error) {
-	var article model.Article
-	data, err := parseMetadata(content)
+	article, body, err := parseMetadata(content)
 
 	if err != nil {
 		return article, err
@@ -177,36 +79,29 @@ func parseArticleFromData(filepath, content string) (model.Article, error) {
 		return article, fmt.Errorf("unable to parse article slug: %w", err)
 	}
 
-	tags := parseTags(data.Tags)
+	article.Slug = slug
+	article.IsPublished = true
 
-	publishedAt, isPublished, err := parsePublishedAt(data.PublishedAt)
-
-	if err != nil {
-		return article, fmt.Errorf("unable to parse publish date: %w", err)
+	if article.PublishedAt.IsZero() {
+		article.IsPublished = false
+		article.PublishedAt = time.Now()
 	}
 
-	summaryHtml, err := markdown.MarkdownToHtml(data.Summary)
+	summaryHtml, err := markdown.MarkdownToHtml(article.Summary)
 
 	if err != nil {
 		return article, fmt.Errorf("error converting article summary to html: %w", err)
 	}
 
-	bodyHtml, err := markdown.MarkdownToHtml(data.Body)
+	bodyHtml, err := markdown.MarkdownToHtml(body)
 
 	if err != nil {
 		return article, fmt.Errorf("error converting article body to html: %w", err)
 	}
 
-	return model.Article{
-		Slug:        slug,
-		Title:       data.Title,
-		Summary:     summaryHtml,
-		Extra:       data.extra,
-		PublishedAt: publishedAt,
-		Tags:        tags,
-		IsPublished: isPublished,
-		Body:        bodyHtml,
-	}, nil
+	article.Summary = summaryHtml
+	article.Body = bodyHtml
+	return article, nil
 }
 
 func Parse(filepath string) (model.Article, error) {

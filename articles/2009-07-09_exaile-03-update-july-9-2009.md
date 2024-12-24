@@ -1,15 +1,11 @@
-<!-- :metadata:
-
+---
 title: Exaile 0.3 Update for July 9, 2009
-tags: Exaile, Programming, Linux
 publishedAt: 2009-07-09T16:51:34-07:00
-summary:
-
-Don't worry, we're still here, and still hard at work.  I thought I would give
-an update since it's been quite a while since the last one.
-
--->
-
+tags: [Exaile, Programming, Linux]
+summary: |
+  Don't worry, we're still here, and still hard at work.  I thought I would give
+  an update since it's been quite a while since the last one.
+---
 Don't worry, we're still here, and still hard at work.  I thought I would give
 an update since it's been quite a while since the last one.
 

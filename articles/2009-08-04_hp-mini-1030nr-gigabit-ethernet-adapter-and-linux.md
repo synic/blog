@@ -1,16 +1,12 @@
-<!-- :metadata:
-
+---
 title: HP Mini 1030NR Gigabit Ethernet Adapter and Linux
-tags: Linux, Gadgets
 publishedAt: 2009-08-04T21:42:18-07:00
-summary:
-
-I purchased an HP 1030NR, because, IMHO, they are the sexiest netbooks
-currently on the market.  They are sleek, lightweight, and they don't have a
-wonkey keyboard layout like some netbooks (I'm looking at you, ASUS).
-
--->
-
+tags: [Linux, Gadgets]
+summary: |
+  I purchased an HP 1030NR, because, IMHO, they are the sexiest netbooks
+  currently on the market.  They are sleek, lightweight, and they don't have a
+  wonkey keyboard layout like some netbooks (I'm looking at you, ASUS).
+---
 I purchased an HP 1030NR, because, IMHO, they are the sexiest netbooks
 currently on the market.  They are sleek, lightweight, and they don't have a
 wonkey keyboard layout like some netbooks (I'm looking at you, ASUS).

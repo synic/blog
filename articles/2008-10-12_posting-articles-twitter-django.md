@@ -1,17 +1,13 @@
-<!-- :metadata:
-
+---
 title: Posting articles to Twitter via Django
-tags: Programming, Python, Django
 publishedAt: 2008-10-12T20:23:51-07:00
-summary:
-
-I noticed that every time Clint Savage makes a blog update, he posts the URL to
-Twitter twice (yeah, that's you herlo :P).  The URLs for each Twitter post are
-different, so I figured it must be some sort of automated Wordpress script with
-a bug in it...
-
--->
-
+tags: [Programming, Python, Django]
+summary: |
+  I noticed that every time Clint Savage makes a blog update, he posts the URL to
+  Twitter twice (yeah, that's you herlo :P).  The URLs for each Twitter post are
+  different, so I figured it must be some sort of automated Wordpress script with
+  a bug in it...
+---
 <p>I noticed that every time Clint Savage makes a blog update, he posts the URL
 to Twitter twice (yeah, that's you herlo :P).  The URLs for each Twitter post
 are different, so I figured it must be some sort of automated Wordpress script

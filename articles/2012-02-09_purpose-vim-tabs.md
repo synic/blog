@@ -1,16 +1,12 @@
-<!-- :metadata:
-
+---
 title: The Purpose of Vim Tabs
-tags: Programming, VIM
 publishedAt: 2012-02-09T18:59:34-07:00
-summary:
-
-Yesterday, after many years of using Vim, I've finally realized what the
-purpose of Vim Tabs is.   My friend asked me to post this article, because she
-was also stumped by their functionality.
-
--->
-
+tags: [Programming, VIM]
+summary: |
+  Yesterday, after many years of using Vim, I've finally realized what the
+  purpose of Vim Tabs is.   My friend asked me to post this article, because she
+  was also stumped by their functionality.
+---
 Yesterday, after many years of using Vim, I've finally realized what the
 purpose of Vim Tabs is.   My friend asked me to post this article, because she
 was also stumped by their functionality.

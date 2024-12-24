@@ -1,17 +1,14 @@
-<!-- :metadata:
-
+---
 title: Doot, simple task runner for your projects
-tags: Programming, Python
 publishedAt: 2024-11-26T16:36:04-07:00
-ogImage: https://github.com/synic/doot/raw/aec35bbc68fc846c606ce04a14b9a1cce8c7ccdd/docs/images/thebestdoots.jpg
-summary:
-
-Doot is a simple, zero dependency (except Python 3, which comes installed on
-most *nix operating systems) task runner. Similar to `make`, but meant to be
-used for non-C style projects.
-
--->
-
+tags: [Programming, Python]
+openGraph:
+  image: "https://github.com/synic/doot/raw/aec35bbc68fc846c606ce04a14b9a1cce8c7ccdd/docs/images/thebestdoots.jpg"
+summary: |
+  Doot is a simple, zero dependency (except Python 3, which comes installed on
+  most *nix operating systems) task runner. Similar to `make`, but meant to be
+  used for non-C style projects.
+---
 Doot is a simple, zero dependency (except Python 3, which comes installed on
 most *nix operating systems) task runner. Similar to `make`, but meant to be
 used for non-C style projects.

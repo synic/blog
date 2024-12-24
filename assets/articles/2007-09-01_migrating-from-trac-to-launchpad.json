@@ -7,5 +7,9 @@
   "tags": [
     "Random"
   ],
-  "isPublished": true
+  "isPublished": true,
+  "openGraph": {
+    "title": "Migrating from Trac to Launchpad",
+    "type": "article"
+  }
 }

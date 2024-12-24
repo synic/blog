@@ -7,5 +7,9 @@
   "tags": [
     "Music"
   ],
-  "isPublished": true
+  "isPublished": true,
+  "openGraph": {
+    "title": "Lute Society of America Seminar 2012",
+    "type": "article"
+  }
 }

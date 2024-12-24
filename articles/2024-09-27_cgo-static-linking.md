@@ -1,20 +1,18 @@
-<!-- :metadata:
-
-title: Go: Static linking with CGO and distroless
-tags: Programming, Go
+---
+title: "Go: Static linking with CGO and distroless"
 publishedAt: 2024-09-27T11:10:00-07:00
-ogTitle: Golang: Static linking with CGO and distroless
-summary:
+tags: [Programming, Go]
+openGraph:
+  title: "Golang: Static linking with CGO and distroless"
+summary: |
+  Do you use distroless? Have you tried to build a distroless docker image for
+  your Go project, only to see an error like `/bin/foo: no such file or
+  directory`? Maybe you spent a bunch of time trying to figure out why that file
+  isn't there, only to find out that it *IS* there, but you're still getting the
+  error?
 
-Do you use distroless? Have you tried to build a distroless docker image for
-your Go project, only to see an error like `/bin/foo: no such file or
-directory`? Maybe you spent a bunch of time trying to figure out why that file
-isn't there, only to find out that it *IS* there, but you're still getting the
-error?
-
-This post is for you!
--->
-
+  This post is for you!
+---
 One of the nice things about Go is that, by default, it compiles to a
 statically linked binary with no external dependencies (including shared
 libraries). This makes it super easy to deploy, and you can use a basically

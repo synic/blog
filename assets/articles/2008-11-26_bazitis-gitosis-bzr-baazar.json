@@ -9,5 +9,9 @@
     "Python",
     "Administration"
   ],
-  "isPublished": true
+  "isPublished": true,
+  "openGraph": {
+    "title": "Bazitis:  Gitosis for Bzr (Baazar)",
+    "type": "article"
+  }
 }

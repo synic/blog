@@ -8,5 +8,9 @@
     "Random",
     "Gadgets"
   ],
-  "isPublished": true
+  "isPublished": true,
+  "openGraph": {
+    "title": "Sony Reader (PRS-700) Review",
+    "type": "article"
+  }
 }

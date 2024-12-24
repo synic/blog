@@ -8,5 +8,9 @@
     "Exaile",
     "Security"
   ],
-  "isPublished": true
+  "isPublished": true,
+  "openGraph": {
+    "title": "Exaile.org gets hacked!",
+    "type": "article"
+  }
 }

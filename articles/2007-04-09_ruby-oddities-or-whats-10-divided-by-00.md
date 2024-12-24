@@ -1,5 +1,6 @@
 ---
 title: Ruby oddities (or "what's 1.0 divided by 0.0?")
+slug: ruby-oddities-or-whats-10-divided-by-00
 publishedAt: 2007-04-09T09:37:36-07:00
 tags: [Programming]
 ---

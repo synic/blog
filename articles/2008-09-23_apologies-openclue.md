@@ -1,5 +1,6 @@
 ---
 title: Apologies to OpenClue
+slug: apologies-openclue
 publishedAt: 2008-09-23T06:41:57-07:00
 tags: [Random]
 summary: |

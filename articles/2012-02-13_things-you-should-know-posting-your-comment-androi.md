@@ -1,5 +1,6 @@
 ---
 title: Things you should know before posting your comment on the Android market
+slug: things-you-should-know-posting-your-comment-androi
 publishedAt: 2012-02-13T18:29:30-07:00
 tags: [Android]
 summary: |

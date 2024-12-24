@@ -1,5 +1,6 @@
 ---
 title: Shiretoko and Facebook
+slug: shiretoko-and-facebook
 publishedAt: 2009-09-15T15:17:29-07:00
 tags: [Linux]
 summary: |

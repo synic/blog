@@ -1,5 +1,6 @@
 ---
 title: Sony Reader (PRS-700) Review
+slug: sony-reader-prs-700-review
 publishedAt: 2009-06-04T23:31:04-07:00
 tags: [Random, Gadgets]
 summary: |

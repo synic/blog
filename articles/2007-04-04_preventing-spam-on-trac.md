@@ -1,5 +1,6 @@
 ---
 title: Preventing spam on trac
+slug: preventing-spam-on-trac
 publishedAt: 2007-04-04T22:25:00-07:00
 tags: [Random, Linux]
 summary: |

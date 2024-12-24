@@ -1,5 +1,6 @@
 ---
 title: My Gnome Configuration Settings
+slug: gnome-configuration-settings
 publishedAt: 2009-08-02T23:26:52-07:00
 tags: [Linux]
 summary: |

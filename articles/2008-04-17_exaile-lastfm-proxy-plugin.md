@@ -1,5 +1,6 @@
 ---
 title: Exaile LastFM Proxy Plugin
+slug: exaile-lastfm-proxy-plugin
 publishedAt: 2008-04-17T18:12:32-07:00
 tags: [Exaile, Programming, Music]
 summary: |

@@ -1,5 +1,6 @@
 ---
 title: iPhone 3G, no interference
+slug: iphone-3g-no-interference
 publishedAt: 2008-07-14T16:52:40-07:00
 tags: [Random, Gadgets]
 summary: |

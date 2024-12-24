@@ -1,5 +1,6 @@
 ---
 title: Exaile 0.2.10 expectations
+slug: exaile-0210-expectations
 publishedAt: 2007-04-03T18:24:00-07:00
 tags: [Exaile]
 summary: |

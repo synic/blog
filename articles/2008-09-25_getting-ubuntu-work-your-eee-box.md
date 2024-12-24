@@ -1,5 +1,6 @@
 ---
 title: Getting Ubuntu to work on your Eee Box
+slug: getting-ubuntu-work-your-eee-box
 publishedAt: 2008-09-25T01:00:44-07:00
 tags: [Linux, Gadgets]
 summary: |

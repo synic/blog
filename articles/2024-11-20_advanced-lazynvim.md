@@ -1,5 +1,6 @@
 ---
 title: Advanced lazy.nvim
+slug: advanced-lazynvim
 publishedAt: 2024-11-20T18:59:00-07:00
 tags: [NeoVim, Programming]
 openGraph:

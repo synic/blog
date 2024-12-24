@@ -1,5 +1,6 @@
 ---
 title: Smart character movement (f,F,t,T) with hop.nvim
+slug: smart-char-movement-with-hopnvim
 publishedAt: 2024-12-19T18:09:22-07:00
 tags: [NeoVim, Programming]
 summary: |

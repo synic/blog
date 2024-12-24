@@ -1,5 +1,6 @@
 ---
 title: Site direction switch, and synicworld.com
+slug: site-direction-switch-and-synicworldcom
 publishedAt: 2012-01-26T22:59:11-07:00
 tags: [Random]
 summary: |

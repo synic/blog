@@ -1,5 +1,6 @@
 ---
 title: Short and Sweet iPhone 3.0 Software Review
+slug: short-and-sweet-iphone-30-software-review
 publishedAt: 2009-06-18T19:11:29-07:00
 tags: [Gadgets]
 summary: |

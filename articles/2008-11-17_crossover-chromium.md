@@ -1,5 +1,6 @@
 ---
 title: Crossover Chromium
+slug: crossover-chromium
 publishedAt: 2008-11-17T18:54:10-07:00
 tags: [Random]
 summary: |

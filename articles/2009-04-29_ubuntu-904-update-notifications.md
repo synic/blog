@@ -1,5 +1,6 @@
 ---
 title: Ubuntu 9.04 Update Notifications
+slug: ubuntu-904-update-notifications
 publishedAt: 2009-04-29T14:56:41-07:00
 tags: [Linux]
 summary: |

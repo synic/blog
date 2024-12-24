@@ -1,5 +1,6 @@
 ---
 title: Upgrade to Captcha
+slug: upgrade-captcha
 publishedAt: 2012-11-19T18:10:37-07:00
 tags: [Programming]
 summary: |

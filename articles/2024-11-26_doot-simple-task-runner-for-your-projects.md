@@ -1,5 +1,6 @@
 ---
 title: Doot, simple task runner for your projects
+slug: doot-simple-task-runner-for-your-projects
 publishedAt: 2024-11-26T16:36:04-07:00
 tags: [Programming, Python]
 openGraph:

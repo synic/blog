@@ -1,5 +1,6 @@
 ---
 title: HP Mini 1030NR Gigabit Ethernet Adapter and Linux
+slug: hp-mini-1030nr-gigabit-ethernet-adapter-and-linux
 publishedAt: 2009-08-04T21:42:18-07:00
 tags: [Linux, Gadgets]
 summary: |

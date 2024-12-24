@@ -1,5 +1,6 @@
 ---
 title: Exaile 0.2.9 released
+slug: exaile-029-released
 publishedAt: 2007-03-27T21:30:00-07:00
 tags: [Exaile]
 summary: |

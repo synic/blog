@@ -130,14 +130,25 @@ func (Articles) Create() error {
 		tags = scanner.Text()
 	}
 
-	if title == "" || tags == "" {
-		fmt.Println("Title and tags are required.")
+	if title == "" {
+		fmt.Println("Title is required.")
 		os.Exit(1)
 	}
 
-	re := regexp.MustCompile(`[^\w ]+`)
-	slug := re.ReplaceAllString(strings.ToLower(title), "")
+	// Create a proper slug from title:
+	// 1. Convert to lowercase
+	// 2. Replace all spaces and underscores with hyphens
+	// 3. Remove all non-alphanumeric characters except hyphens
+	// 4. Remove multiple consecutive hyphens
+	// 5. Trim hyphens from start/end
+	slug := strings.ToLower(title)
 	slug = strings.ReplaceAll(slug, " ", "-")
+	slug = strings.ReplaceAll(slug, "_", "-")
+	re := regexp.MustCompile(`[^a-z0-9-]`)
+	slug = re.ReplaceAllString(slug, "")
+	re = regexp.MustCompile(`-+`)
+	slug = re.ReplaceAllString(slug, "-")
+	slug = strings.Trim(slug, "-")
 
 	fmt.Println(slug)
 	now := time.Now()
@@ -157,18 +168,34 @@ func (Articles) Create() error {
 		return err
 	}
 
-	_, err = f.WriteString(
-		fmt.Sprintf(
-			"<!-- :metadata:\n\ntitle: %s\ntags: %s\n-- publishedAt: %s\nsummary:\n\n-->\n",
-			title, tags, now.Format(time.RFC3339),
-		),
-	)
+	// Quote title if it contains special characters
+	needsQuotes := strings.ContainsAny(title, `:"'[]{}#|>&*?!`)
+	titleField := title
+	if needsQuotes {
+		titleField = fmt.Sprintf("%q", title)
+	}
+
+	tagList := strings.Split(tags, ",")
+	for i, tag := range tagList {
+		tagList[i] = strings.TrimSpace(tag)
+	}
+	tagsField := fmt.Sprintf("[%s]", strings.Join(tagList, ", "))
+
+	_, err = f.WriteString(fmt.Sprintf(`---
+title: %s
+slug: %s
+tags: %s
+publishedAt: %s
+summary: |
+
+---
+`, titleField, slug, tagsField, now.Format(time.RFC3339)))
 
 	if err != nil {
 		return err
 	}
 
-	return sh.RunV("nvim", fn)
+	return sh.RunV("nvim", fn, "-c", "/summary: |", "-c", "normal! j0i  ", "-c", "startinsert")
 }
 
 func Pygmentize() error {

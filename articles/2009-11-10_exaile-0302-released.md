@@ -1,5 +1,6 @@
 ---
 title: Exaile 0.3.0.2 Released!
+slug: exaile-0302-released
 publishedAt: 2009-11-10T07:25:35-07:00
 tags: [Exaile]
 summary: |

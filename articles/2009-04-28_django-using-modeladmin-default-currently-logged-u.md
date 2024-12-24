@@ -1,5 +1,6 @@
 ---
 title: "Django: Using ModelAdmin to default to currently logged in user"
+slug: django-using-modeladmin-default-currently-logged-u
 publishedAt: 2009-04-28T17:51:36-07:00
 tags: [Programming, Python, Django]
 summary: |

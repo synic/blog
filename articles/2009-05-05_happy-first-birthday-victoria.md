@@ -1,5 +1,6 @@
 ---
 title: Happy First Birthday, Victoria!
+slug: happy-first-birthday-victoria
 publishedAt: 2009-05-05T19:40:40-07:00
 tags: [Personal]
 summary: |

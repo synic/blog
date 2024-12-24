@@ -1,5 +1,6 @@
 ---
 title: Exaile on OS X
+slug: exaile-os-x
 publishedAt: 2009-04-23T23:57:43-07:00
 tags: [Exaile]
 summary: |

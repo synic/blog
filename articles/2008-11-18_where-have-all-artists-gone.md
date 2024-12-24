@@ -1,5 +1,6 @@
 ---
 title: Where have all the artists gone?
+slug: where-have-all-artists-gone
 publishedAt: 2008-11-18T20:27:31-07:00
 tags: [Random]
 summary: |

@@ -1,5 +1,6 @@
 ---
 title: Supa Dupa Count
+slug: supa-dupa-count
 publishedAt: 2012-02-14T19:29:40-07:00
 tags: [Programming, Android, Scala]
 summary: |

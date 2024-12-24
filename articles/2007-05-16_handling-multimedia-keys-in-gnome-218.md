@@ -1,5 +1,6 @@
 ---
 title: Handling multimedia keys in GNOME 2.18
+slug: handling-multimedia-keys-in-gnome-218
 publishedAt: 2007-05-16T12:31:00-07:00
 tags: [Exaile, Programming]
 summary: |

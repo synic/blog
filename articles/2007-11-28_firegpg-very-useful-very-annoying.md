@@ -1,5 +1,6 @@
 ---
 title: FireGPG - Very Useful, Very Annoying
+slug: firegpg-very-useful-very-annoying
 publishedAt: 2007-11-28T17:06:07-07:00
 tags: [Random]
 summary: |

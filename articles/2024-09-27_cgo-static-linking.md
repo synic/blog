@@ -1,5 +1,6 @@
 ---
 title: "Go: Static linking with CGO and distroless"
+slug: cgo-static-linking
 publishedAt: 2024-09-27T11:10:00-07:00
 tags: [Programming, Go]
 openGraph:

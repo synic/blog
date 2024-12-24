@@ -1,5 +1,6 @@
 ---
 title: DAAP Music Sharing and Exaile
+slug: daap-music-sharing-and-exaile
 publishedAt: 2007-06-08T19:36:00-07:00
 tags: [Exaile, Music]
 summary: |

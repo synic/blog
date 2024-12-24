@@ -4,7 +4,6 @@ import (
 	"errors"
 	"fmt"
 	"os"
-	"path/filepath"
 	"regexp"
 	"strings"
 	"time"
@@ -42,6 +41,10 @@ func parseMetadata(content string) (model.Article, string, error) {
 		return model.Article{}, "", errors.New("title is required")
 	}
 
+	if article.Slug == "" {
+		return model.Article{}, "", errors.New("slug is required")
+	}
+
 	if len(article.Tags) == 0 {
 		return model.Article{}, "", errors.New("tags are required")
 	}
@@ -49,37 +52,13 @@ func parseMetadata(content string) (model.Article, string, error) {
 	return article, strings.TrimSpace(matches[2]), nil
 }
 
-func parseSlug(fn string) (string, error) {
-	if filepath.Ext(fn) != ".md" {
-		return "", errors.New("file was not a markdown file")
-	}
-
-	parts := strings.Split(fn, "_")
-
-	if len(parts) < 1 || len(parts) > 2 {
-		return "", fmt.Errorf("invalid number of parts in file name: %d", len(parts))
-	}
-
-	i := len(parts) - 1
-
-	rawSlug := parts[i]
-	return strings.ToLower(rawSlug[0 : len(rawSlug)-3]), nil
-}
-
-func parseArticleFromData(filepath, content string) (model.Article, error) {
+func parseArticleFromData(content string) (model.Article, error) {
 	article, body, err := parseMetadata(content)
 
 	if err != nil {
 		return article, err
 	}
 
-	slug, err := parseSlug(filepath)
-
-	if err != nil {
-		return article, fmt.Errorf("unable to parse article slug: %w", err)
-	}
-
-	article.Slug = slug
 	article.IsPublished = true
 
 	if article.PublishedAt.IsZero() {
@@ -111,5 +90,5 @@ func Parse(filepath string) (model.Article, error) {
 		return model.Article{}, err
 	}
 
-	return parseArticleFromData(filepath, string(content))
+	return parseArticleFromData(string(content))
 }

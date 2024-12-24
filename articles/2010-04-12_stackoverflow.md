@@ -1,5 +1,6 @@
 ---
 title: stackoverflow
+slug: stackoverflow
 publishedAt: 2010-04-12T16:53:29-07:00
 tags: [Programming]
 ---

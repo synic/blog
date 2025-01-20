@@ -31,7 +31,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	log.Println(res.String())
+	res.PrintOutput()
 
 	bundledAssets, err := view.BundleStaticAssets(
 		assets,

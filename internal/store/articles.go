@@ -6,6 +6,7 @@ import (
 	"errors"
 	"fmt"
 	"io/fs"
+	"log"
 	"maps"
 	"path/filepath"
 	"slices"
@@ -165,6 +166,10 @@ func (r ParseResult) String() string {
 	}
 
 	return b.String()
+}
+
+func (r ParseResult) PrintOutput() {
+	log.Println(r.String())
 }
 
 func parseArticles(filesystem fs.FS, includeUnpublished bool) (ParseResult, error) {

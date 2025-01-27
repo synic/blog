@@ -23,6 +23,6 @@ func init() {
 
 	if BuildTime == "" {
 		BuildTime = fmt.Sprint(time.Now().Unix())
-		log.Printf("⚠️ Build time was not set, using %s\n", BuildTime)
+		log.Printf("🚧 Build time was not set, using %s\n", BuildTime)
 	}
 }

@@ -1,10 +1,10 @@
 module github.com/synic/blog
 
-go 1.24rc1
+go 1.24rc2
 
 require (
 	github.com/a-h/templ v0.3.819
-	github.com/alecthomas/chroma/v2 v2.14.0
+	github.com/alecthomas/chroma/v2 v2.15.0
 	github.com/magefile/mage v1.15.0
 	github.com/stretchr/testify v1.9.0
 	github.com/yuin/goldmark v1.7.8

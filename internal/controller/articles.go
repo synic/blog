@@ -2,9 +2,11 @@ package controller
 
 import (
 	"errors"
+	"github.com/gorilla/feeds"
 	"math"
 	"net/http"
 	"strconv"
+	"time"
 
 	"github.com/synic/blog/internal/model"
 	"github.com/synic/blog/internal/store"
@@ -144,6 +146,37 @@ func (h ArticleController) renderAndPageArticles(
 			},
 		),
 	)
+}
+
+func (h ArticleController) Feed(w http.ResponseWriter, r *http.Request) {
+	ctx := r.Context()
+	articles, err := h.repo.FindAll(ctx)
+	if err != nil {
+		http.Error(w, "Failed to generate feed", http.StatusInternalServerError)
+		return
+	}
+
+	feed := &feeds.Feed{
+		Title:       "Adam's Blog",
+		Link:        &feeds.Link{Href: "https://synic.dev"},
+		Description: "Programming, Vim, Photography, and more!",
+		Created:     time.Now(),
+	}
+
+	var feedItems []*feeds.Item
+	for _, article := range articles {
+		item := &feeds.Item{
+			Title:       article.Title,
+			Link:        &feeds.Link{Href: "https://synic.dev" + article.URL()},
+			Description: article.Summary,
+			Created:     article.PublishedAt,
+		}
+		feedItems = append(feedItems, item)
+	}
+	feed.Items = feedItems
+
+	w.Header().Set("Content-Type", "application/rss+xml")
+	feed.WriteRss(w)
 }
 
 func (h ArticleController) Archive(w http.ResponseWriter, r *http.Request) {

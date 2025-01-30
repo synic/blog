@@ -12,6 +12,7 @@ func RegisterRoutes(
 	handler *http.ServeMux,
 	assets fs.FS,
 	articleController controller.ArticleController,
+	rssController controller.ArticleRSSController,
 ) {
 	// static files
 	handler.Handle("GET /static/", StaticHandler(assets))
@@ -31,6 +32,7 @@ func RegisterRoutes(
 			)
 		},
 	)
+	handler.HandleFunc("/feed.xml", rssController.Feed)
 
 	// errors
 	handler.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {

@@ -195,7 +195,7 @@ summary: |
 		return err
 	}
 
-	return sh.RunV("nvim", fn, "-c", "/summary: |", "-c", "normal! j0i  ", "-c", "startinsert")
+	return sh.RunV("nvim", fn, "-c", "/summary: |", "-c", "normal! j0i   ", "-c", "startinsert")
 }
 
 func Pygmentize() error {

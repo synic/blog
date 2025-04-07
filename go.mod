@@ -1,10 +1,10 @@
 module github.com/synic/blog
 
-go 1.24.1
+go 1.24.2
 
 require (
-	github.com/a-h/templ v0.3.833
-	github.com/alecthomas/chroma/v2 v2.15.0
+	github.com/a-h/templ v0.3.857
+	github.com/alecthomas/chroma/v2 v2.16.0
 	github.com/gorilla/feeds v1.2.0
 	github.com/magefile/mage v1.15.0
 	github.com/stretchr/testify v1.10.0
@@ -44,10 +44,10 @@ require (
 	github.com/spf13/cast v1.7.0 // indirect
 	github.com/tdewolff/parse/v2 v2.7.15 // indirect
 	golang.org/x/mod v0.21.0 // indirect
-	golang.org/x/net v0.33.0 // indirect
-	golang.org/x/sync v0.10.0 // indirect
-	golang.org/x/sys v0.28.0 // indirect
-	golang.org/x/text v0.21.0 // indirect
+	golang.org/x/net v0.37.0 // indirect
+	golang.org/x/sync v0.12.0 // indirect
+	golang.org/x/sys v0.31.0 // indirect
+	golang.org/x/text v0.23.0 // indirect
 	golang.org/x/tools v0.25.0 // indirect
 	google.golang.org/protobuf v1.34.2 // indirect
 )

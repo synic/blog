@@ -21,12 +21,12 @@ templ ArchiveView(articleCount int, tags map[string]int) {
 						name="search"
 						id="search"
 						data-bind:search
-						data-on:input.debounce.200ms="@get('/?search=' + encodeURIComponent($search))"
+						data-on:input__debounce.200ms="@get('/?search=' + encodeURIComponent($search))"
 					/>
 					<button
 						class="px-2 text-center border-gray-700 bg-sky-700 text-slate-300"
 						type="submit"
-						data:on-click.prevent="@get('/?search=' + encodeURIComponent($search))"
+						data:on-click__prevent="@get('/?search=' + encodeURIComponent($search))"
 					>
 						Go
 					</button>
@@ -44,7 +44,7 @@ templ ArchiveView(articleCount int, tags map[string]int) {
 								<a
 									class="px-1 no-underline hover:underline"
 									href={ templ.URL("/?tag=" + t.tag) }
-									data-on:click.prevent={ "$search = ''; @get('/?tag=" + t.tag + "')" }
+									data-on:click__prevent={ "$search = ''; @get('/?tag=" + t.tag + "')" }
 								>
 									{ t.tag } ({ strconv.Itoa(t.count) })
 								</a>

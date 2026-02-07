@@ -48,7 +48,7 @@ templ baseLayout(conf baseLayoutConfig) {
 				id="body"
 				class="w-full text-xl bg-gray-900 md:p-6 md:text-xl lg:p-9 lg:text-2xl xl:px-12 xl:pt-8 text-slate-300"
 				data-signals:search="''"
-				data-on:popstate.window="location.reload()"
+				data-on:popstate__window="location.reload()"
 			>
 				<div class="mx-auto bg-gray-800 shadow-xl md:rounded-xl xl:max-w-6xl">
 					@header()
@@ -101,30 +101,30 @@ templ head(conf baseLayoutConfig) {
 		<link rel="alternate" type="application/rss+xml" title="RSS Feed" href="/feed.xml"/>
 		@inlinestatic()
 		<link rel="icon" href="data:,"/>
-		@openGraphTags(conf.og)
-		<title>
+		<title id="page-title">
 			Adam's Blog
 			if conf.title != "" {
 				- { conf.title }
 			}
 		</title>
+		@openGraphTags(conf.og)
 	</head>
 }
 
 templ openGraphTags(og model.OpenGraphData) {
 	if og.Type != "" {
-		<meta property="og:type" content={ og.Type }/>
+		<meta id="page-og-type" property="og:type" content={ og.Type }/>
 	} else {
-		<meta property="og:type" content="website"/>
+		<meta id="page-og-type" property="og:type" content="website"/>
 	}
 	if og.Title != "" {
-		<meta property="og:title" content={ og.Title }/>
+		<meta id="page-og-title" property="og:title" content={ og.Title }/>
 	}
 	if og.Description != "" {
-		<meta property="og:description" content={ og.Description }/>
+		<meta id="page-og-description" property="og:description" content={ og.Description }/>
 	}
 	if og.Image != "" {
-		<meta property="og:image" content={ og.Image }/>
+		<meta id="page-og-image" property="og:image" content={ og.Image }/>
 	}
 }
 
@@ -140,7 +140,7 @@ templ header() {
 				class="justify-start py-3 whitespace-nowrap cursor-pointer shrink"
 				data-on:click="$search = ''; @get('/')"
 			>
-				<a href="/" data-on:click.prevent="@get('/')" class="no-underline hover:underline">
+				<a href="/" data-on:click__prevent="@get('/')" class="no-underline hover:underline">
 					<span class="font-bold spin-around text-sky-700">::/</span> Adam's Things
 				</a>
 			</div>
@@ -152,7 +152,7 @@ templ header() {
 				name="search"
 				id="search-nav"
 				data-bind:search
-				data-on:input__debounce.200ms="@get('/?search=' + encodeURIComponent($search))"
+				data-on:input__debounce.200ms="@get('/search')"
 			/>
 			<nav class="flex flex-row content-end p-0 m-0 grow-0 shrink">
 				@navlink("/", "Home", true)
@@ -176,7 +176,7 @@ templ errorbox() {
 templ navlink(url, label string, hideMobile bool) {
 	<a
 		id={ "nav-link-" + label }
-		data-on:click.prevent={ "$search = ''; @get('" + url + "')" }
+		data-on:click__prevent={ "$search = ''; @get('" + url + "')" }
 		class={
 			"py-3 px-5 text-center no-underline border-l border-gray-700 cursor-pointer hover:text-white hover:bg-gray-700 item-center w-22 lg:last:rounded-tr-xl",
 			templ.KV("hidden lg:block", hideMobile),

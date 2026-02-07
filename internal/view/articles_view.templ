@@ -113,7 +113,7 @@ templ pageButtons(pd model.PageData) {
 					if pd.Page <= 1 {
 						onclick="return false;"
 					} else {
-						data-on:click.prevent={ "@get('" + pageURL(pd.Page-1, pd.PerPage, pd.Search, pd.Tag)  + "')" }
+						data-on:click__prevent={ "@get('" + pageURL(pd.Page-1, pd.PerPage, pd.Search, pd.Tag)  + "')" }
 					}
 				>❮</a>
 			</li>
@@ -130,7 +130,7 @@ templ pageButtons(pd model.PageData) {
 						if i + 1 == pd.Page {
 							onclick="return false;"
 						} else {
-							data-on:click.prevent={ "@get('" + pageURL(i+1, pd.PerPage, pd.Search, pd.Tag)  + "')" }
+							data-on:click__prevent={ "@get('" + pageURL(i+1, pd.PerPage, pd.Search, pd.Tag)  + "')" }
 						}
 					>
 						{ fmt.Sprint(i+1) }
@@ -149,7 +149,7 @@ templ pageButtons(pd model.PageData) {
 					if pd.Page >= pd.TotalPages {
 						onclick="return false;"
 					} else {
-						data-on:click.prevent={ "@get('" + pageURL(pd.Page+1, pd.PerPage, pd.Search, pd.Tag)  + "')" }
+						data-on:click__prevent={ "@get('" + pageURL(pd.Page+1, pd.PerPage, pd.Search, pd.Tag)  + "')" }
 					}
 				>❯</a>
 			</li>

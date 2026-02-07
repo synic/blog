@@ -63,17 +63,7 @@ func Render(
 
 		sse := datastar.NewSSE(w, r)
 
-		sse.PatchElements(buf.String(),
-			datastar.WithSelectorID("content"),
-			datastar.WithModeInner(),
-		)
-
-		pageTitle := "Adam's Blog"
-		if conf.title != "" {
-			pageTitle = fmt.Sprintf("Adam's Blog - %s", conf.title)
-		}
-
-		sse.ExecuteScript(fmt.Sprintf("document.title = %q;", pageTitle))
+		sse.PatchElements(buf.String())
 
 		if r.Method == http.MethodGet {
 			sse.ExecuteScript(
@@ -81,13 +71,11 @@ func Render(
 			)
 		}
 
-		sse.ExecuteScript("window.scrollTo({top: 0});")
-
 		return
+	} else {
+		w.WriteHeader(conf.status)
+		comp.Render(r.Context(), w)
 	}
-
-	w.WriteHeader(conf.status)
-	comp.Render(r.Context(), w)
 }
 
 func Error(

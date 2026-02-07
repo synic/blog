@@ -13,15 +13,14 @@ templ article(a *model.Article, inList bool) {
 		id={ "article-" + a.Slug }
 		if inList {
 			class="cursor-pointer"
-			hx-get={ string(a.SafeURL()) }
+			data-on:click={ "@get('" + string(a.SafeURL()) + "')" }
 		}
 	>
 		<div>
 			<a
 				class={ "font-bold no-underline text-rose-500 decoration-rose-500", templ.KV("hover:underline", inList) }
 				href={ a.SafeURL() }
-				hx-trigger="click consume"
-				hx-get={ string(a.SafeURL()) }
+				data-on:click.prevent={ "@get('" + string(a.SafeURL()) + "')" }
 			>
 				<h1 class="mt-0 mb-0 text-rose-500">{ a.Title }</h1>
 			</a>
@@ -35,7 +34,7 @@ templ article(a *model.Article, inList bool) {
 				}
 			</div>
 		</div>
-		<div class="mt-3 w-full break-words mdgen" hx-push-url="false" hx-boost="false" hx-disable="true">
+		<div class="mt-3 w-full break-words mdgen" data-star:ignore>
 			if !inList {
 				@templ.Raw(a.Body)
 			} else {
@@ -49,7 +48,7 @@ templ article(a *model.Article, inList bool) {
 				@taglinks(a.Tags)
 			</div>
 		} else {
-			<a hx-get={ string(a.SafeURL()) } href={ a.SafeURL() } hx-trigger="click consume">
+			<a href={ a.SafeURL() } data-on:click.prevent={ "@get('" + string(a.SafeURL()) + "')" }>
 				<i class="text-base">Read more...</i>
 			</a>
 		}
@@ -70,7 +69,7 @@ templ taglinks(tags []string) {
 				<a
 					href={ templ.URL("/?tag=" + t) }
 					id={ "tag-link-" + t }
-					hx-on::before-cleanup-element="document.getElementById('search-nav').value = '';"
+					data-on:click.prevent={ "$search = ''; @get('/?tag=" + t + "')" }
 				>
 					{ t }
 				</a>@templ.Raw(maybeComma(i < len(tags)-1))

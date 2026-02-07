@@ -51,7 +51,7 @@ func main() {
 		Handler: middleware.Wrap(
 			mux,
 			middleware.LoggerMiddleware(),
-			middleware.HtmxMiddleware(),
+			middleware.DatastarMiddleware(),
 		),
 		BaseContext: func(net.Listener) context.Context {
 			data := model.ContextData{

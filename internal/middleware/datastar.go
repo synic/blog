@@ -5,15 +5,15 @@ import (
 	"net/http"
 )
 
-var HtmxPartialContextKey = "isHtmxPartial"
+var DatastarPartialContextKey = "isDatastarPartial"
 
-func HtmxMiddleware() func(http.Handler) http.Handler {
+func DatastarMiddleware() func(http.Handler) http.Handler {
 	return func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			ctx := context.WithValue(
 				r.Context(),
-				HtmxPartialContextKey,
-				r.Header.Get("HX-Request") == "true",
+				DatastarPartialContextKey,
+				r.Header.Get("Datastar-Request") == "true",
 			)
 			next.ServeHTTP(w, r.WithContext(ctx))
 		})

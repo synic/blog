@@ -47,6 +47,16 @@ func (rw *responseWriter) WriteHeader(code int) {
 	return
 }
 
+func (rw *responseWriter) Flush() {
+	if f, ok := rw.ResponseWriter.(http.Flusher); ok {
+		f.Flush()
+	}
+}
+
+func (rw *responseWriter) Unwrap() http.ResponseWriter {
+	return rw.ResponseWriter
+}
+
 func LoggerMiddleware(options ...func(*loggerMiddlwareConfig)) func(http.Handler) http.Handler {
 	conf := defaultLoggerMiddlewareConfig()
 

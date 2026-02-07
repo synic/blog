@@ -43,20 +43,17 @@ templ baseLayout(conf baseLayoutConfig) {
 	if !isPartial(ctx) {
 		<!DOCTYPE html>
 		<html lang="en">
-			@head(conf, false)
+			@head(conf)
 			<body
 				id="body"
 				class="w-full text-xl bg-gray-900 md:p-6 md:text-xl lg:p-9 lg:text-2xl xl:px-12 xl:pt-8 text-slate-300"
-				hx-ext="head-support"
-				hx-target="#content"
-				hx-swap="innerHTML show:window:top swap:150ms"
-				hx-push-url="true"
-				hx-boost="true"
+				data-signals:search="''"
+				data-on:popstate.window="location.reload()"
 			>
 				<div class="mx-auto bg-gray-800 shadow-xl md:rounded-xl xl:max-w-6xl">
 					@header()
 					<div class="p-6">
-						<main id="content" class="fade-in fade-out">
+						<main id="content">
 							{ children... }
 						</main>
 					</div>
@@ -65,13 +62,12 @@ templ baseLayout(conf baseLayoutConfig) {
 			</body>
 		</html>
 	} else {
-		@head(conf, true)
 		{ children... }
 	}
 }
 
 func isPartial(ctx context.Context) bool {
-	if isPartial, ok := ctx.Value(middleware.HtmxPartialContextKey).(bool); ok {
+	if isPartial, ok := ctx.Value(middleware.DatastarPartialContextKey).(bool); ok {
 		return isPartial
 	}
 	return false
@@ -95,21 +91,17 @@ func inlinestatic() templ.Component {
 	})
 }
 
-templ head(conf baseLayoutConfig, partial bool) {
-	<head hx-head="merge">
-		if !partial {
-			<meta charset="utf-8" hx-preserve="true"/>
-			<meta name="viewport" content="width=device-width, initial-scale=1.0" hx-preserve="true"/>
-			<meta name="description" content="Adam's Blog. Programming, Vim, Photography, and more!" hx-preserve="true"/>
-			<script src={ static(ctx, "js/htmx.min.js") } hx-preserve="true" defer></script>
-			<script src={ static(ctx, "js/htmx-head-support.min.js") } hx-preserve="true" defer></script>
-			<script src={ static(ctx, "js/app.js") } hx-preserve="true" defer></script>
-			<link rel="alternate" type="application/rss+xml" title="RSS Feed" href="/feed.xml" hx-preserve="true"/>
-			@inlinestatic()
-			<meta name="htmx-config" content='{"ignoreTitle":true}' hx-preserve="true"/>
-			<link rel="icon" href="data:," hx-preserve="true"/>
-			@openGraphTags(conf.og)
-		}
+templ head(conf baseLayoutConfig) {
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<meta name="description" content="Adam's Blog. Programming, Vim, Photography, and more!"/>
+		<script type="module" src={ static(ctx, "js/datastar.min.js") }></script>
+		<script src={ static(ctx, "js/app.js") } defer></script>
+		<link rel="alternate" type="application/rss+xml" title="RSS Feed" href="/feed.xml"/>
+		@inlinestatic()
+		<link rel="icon" href="data:,"/>
+		@openGraphTags(conf.og)
 		<title>
 			Adam's Blog
 			if conf.title != "" {
@@ -139,18 +131,16 @@ templ openGraphTags(og model.OpenGraphData) {
 templ header() {
 	<header class="w-full shadow-md">
 		<form
-			method="post"
+			method="get"
 			action="/"
 			autocomplete="off"
 			class="flex flex-row flex-nowrap pl-6 rounded-md shadow-md"
 		>
 			<div
 				class="justify-start py-3 whitespace-nowrap cursor-pointer shrink"
-				hx-get="/"
-				hx-on::after-request="document.getElementById('search-nav').value = '';"
-				hx-trigger="click"
+				data-on:click="$search = ''; @get('/')"
 			>
-				<a href="/" hx-trigger="click consume" class="no-underline hover:underline">
+				<a href="/" data-on:click.prevent="@get('/')" class="no-underline hover:underline">
 					<span class="font-bold spin-around text-sky-700">::/</span> Adam's Things
 				</a>
 			</div>
@@ -161,9 +151,8 @@ templ header() {
 				type="text"
 				name="search"
 				id="search-nav"
-				hx-post="/"
-				hx-swap="innerHTML show:window:top"
-				hx-trigger="input changed delay:200ms, search"
+				data-bind:search
+				data-on:input__debounce.200ms="@get('/?search=' + encodeURIComponent($search))"
 			/>
 			<nav class="flex flex-row content-end p-0 m-0 grow-0 shrink">
 				@navlink("/", "Home", true)
@@ -187,7 +176,7 @@ templ errorbox() {
 templ navlink(url, label string, hideMobile bool) {
 	<a
 		id={ "nav-link-" + label }
-		hx-on::after-request="document.getElementById('search-nav').value = '';"
+		data-on:click.prevent={ "$search = ''; @get('" + url + "')" }
 		class={
 			"py-3 px-5 text-center no-underline border-l border-gray-700 cursor-pointer hover:text-white hover:bg-gray-700 item-center w-22 lg:last:rounded-tr-xl",
 			templ.KV("hidden lg:block", hideMobile),

@@ -94,21 +94,26 @@ func pageButtonNextClasses(pd model.PageData) []string {
 	return classes
 }
 
+func pageURL(page, perPage int, search, tag string) string {
+	return fmt.Sprintf("/?page=%d&perPage=%d&search=%s&tag=%s", page, perPage, search, tag)
+}
+
 templ pageButtons(pd model.PageData) {
 	<nav class="flex justify-center items-center mx-auto w-full">
-		<ul class="flex flex-row flex-wrap p-0 list-none list-inside no-underline" hx-trigger="click consume">
+		<ul class="flex flex-row flex-wrap p-0 list-none list-inside no-underline">
 			<li
-				if pd.Page > 1 {
-					hx-get={ string(templ.URL(fmt.Sprintf("/?page=%d&perPage=%d&search=%s&tag=%s", pd.Page-1, pd.PerPage, pd.Search, pd.Tag))) }
-				}
 				class={ pageButtonPrevClasses(pd) }
+				if pd.Page > 1 {
+					data-on:click={ "@get('" + pageURL(pd.Page-1, pd.PerPage, pd.Search, pd.Tag) + "')" }
+				}
 			>
 				<a
 					class={ "no-underline", templ.KV("cursor-not-allowed", pd.Page <= 1) }
-					href={ templ.URL(fmt.Sprintf("/?page=%d&perPage=%d&search=%s&tag=%s", pd.Page-1, pd.PerPage, pd.Search, pd.Tag)) }
+					href={ templ.URL(pageURL(pd.Page-1, pd.PerPage, pd.Search, pd.Tag)) }
 					if pd.Page <= 1 {
 						onclick="return false;"
-						hx-boost="false"
+					} else {
+						data-on:click.prevent={ "@get('" + pageURL(pd.Page-1, pd.PerPage, pd.Search, pd.Tag)  + "')" }
 					}
 				>❮</a>
 			</li>
@@ -116,15 +121,16 @@ templ pageButtons(pd model.PageData) {
 				<li
 					class={ pageButtonClasses(pd, i) }
 					if i +1 != pd.Page {
-						hx-get={ string(templ.URL(fmt.Sprintf("/?page=%d&perPage=%d&search=%s&tag=%s", i+1, pd.PerPage, pd.Search, pd.Tag))) }
+						data-on:click={ "@get('" + pageURL(i+1, pd.PerPage, pd.Search, pd.Tag) + "')" }
 					}
 				>
 					<a
-						href={ templ.URL(fmt.Sprintf("/?page=%d&perPage=%d&search=%s&tag=%s", i+1, pd.PerPage, pd.Search, pd.Tag)) }
+						href={ templ.URL(pageURL(i+1, pd.PerPage, pd.Search, pd.Tag)) }
 						class={ "no-underline", templ.KV("cursor-not-allowed", i + 1 == pd.Page) }
 						if i + 1 == pd.Page {
 							onclick="return false;"
-							hx-boost="false"
+						} else {
+							data-on:click.prevent={ "@get('" + pageURL(i+1, pd.PerPage, pd.Search, pd.Tag)  + "')" }
 						}
 					>
 						{ fmt.Sprint(i+1) }
@@ -134,15 +140,16 @@ templ pageButtons(pd model.PageData) {
 			<li
 				class={ pageButtonNextClasses(pd) }
 				if pd.Page < pd.TotalPages {
-					hx-get={ string(templ.URL(fmt.Sprintf("/?page=%d&perPage=%d&search=%s&tag=%s", pd.Page+1, pd.PerPage, pd.Search, pd.Tag))) }
+					data-on:click={ "@get('" + pageURL(pd.Page+1, pd.PerPage, pd.Search, pd.Tag) + "')" }
 				}
 			>
 				<a
 					class={ "no-underline", templ.KV("cursor-not-allowed", pd.Page >= pd.TotalPages) }
-					href={ templ.URL(fmt.Sprintf("/?page=%d&perPage=%d&search=%s&tag=%s", pd.Page+1, pd.PerPage, pd.Search, pd.Tag)) }
+					href={ templ.URL(pageURL(pd.Page+1, pd.PerPage, pd.Search, pd.Tag)) }
 					if pd.Page >= pd.TotalPages {
 						onclick="return false;"
-						hx-boost="false"
+					} else {
+						data-on:click.prevent={ "@get('" + pageURL(pd.Page+1, pd.PerPage, pd.Search, pd.Tag)  + "')" }
 					}
 				>❯</a>
 			</li>

@@ -12,21 +12,21 @@ templ ArchiveView(articleCount int, tags map[string]int) {
 			<div class="pb-4 mt-1 grow">
 				Total articles: { strconv.Itoa(articleCount) }
 			</div>
-			<div class="block pb-4 md:hidden grow" hx-include="#search">
-				<form method="post" action="/">
+			<div class="block pb-4 md:hidden grow">
+				<form method="get" action="/">
 					<input
 						class="flex-auto px-2 font-normal bg-gray-700 rounded border border-gray-600 border-solid outline-gray-600 max-w-56"
 						placeholder="Search..."
 						type="text"
 						name="search"
-						hx-post="/"
 						id="search"
+						data-bind:search
+						data-on:input.debounce.200ms="@get('/?search=' + encodeURIComponent($search))"
 					/>
 					<button
 						class="px-2 text-center border-gray-700 bg-sky-700 text-slate-300"
 						type="submit"
-						hx-post="/"
-						hx-trigger="click consume"
+						data:on-click.prevent="@get('/?search=' + encodeURIComponent($search))"
 					>
 						Go
 					</button>
@@ -40,9 +40,12 @@ templ ArchiveView(articleCount int, tags map[string]int) {
 							<li
 								class="py-0.5 px-1 mr-1 mb-1 text-center bg-gray-700 rounded border-gray-600 border-solid cursor-pointer"
 								id={ "tag-link-" + t.tag }
-								hx-on::before-cleanup-element="document.getElementById('search-nav').value = '';"
 							>
-								<a class="px-1 no-underline hover:underline" href={ templ.URL("/?tag=" + t.tag) }>
+								<a
+									class="px-1 no-underline hover:underline"
+									href={ templ.URL("/?tag=" + t.tag) }
+									data-on:click.prevent={ "$search = ''; @get('/?tag=" + t.tag + "')" }
+								>
 									{ t.tag } ({ strconv.Itoa(t.count) })
 								</a>
 							</li>
@@ -57,11 +60,11 @@ templ ArchiveView(articleCount int, tags map[string]int) {
 				</p>
 				<p class="mt-0">
 					This site was made using <a href="https://go.dev/">Go</a>, <a href="https://templ.guide/">Templ</a>,
-					<a href="https://htmx.org/">HTMX</a>, and <a href="https://tailwindcss.com/">Tailwind</a>.
+					<a href="https://data-star.dev/">Datastar</a>, and <a href="https://tailwindcss.com/">Tailwind</a>.
 					Written using <a href="https://neovim.io/">NeoVim</a>, of course. 😉
 				</p>
 				<p class="flex flex-row gap-2 mt-0">
-					<a href="/feed.xml" hx-boost="false" title="RSS Feed"><img src="/static/img/socials/rss.png" width="35" height="35" alt="RSS Feed Icon"/></a>
+					<a href="/feed.xml" title="RSS Feed"><img src="/static/img/socials/rss.png" width="35" height="35" alt="RSS Feed Icon"/></a>
 					<a href="https://github.com/synic" title="GitHub Profile"><img src="/static/img/socials/github.png" width="35" height="35" alt="GitHub Icon"/></a>
 					<a href="https://instagram.com/synic.dev" title="Instagram Profile"><img src="/static/img/socials/instagram.png" width="35" height="35" alt="Instagram Icon"/></a>
 					<a href="https://bsky.app/profile/synic.dev" title="Bluesky Profile"><img src="/static/img/socials/bluesky.png" width="39" height="35" alt="BlueSky Logo"/></a>

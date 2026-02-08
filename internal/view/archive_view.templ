@@ -40,9 +40,9 @@ templ ArchiveView(articleCount int, tags map[string]int) {
 							<li
 								class="py-0.5 px-1 mr-1 mb-1 text-center bg-gray-700 rounded border-gray-600 border-solid cursor-pointer"
 								id={ "tag-link-" + t.tag }
-								hx-on::before-cleanup-element="document.getElementById('search-nav').value = '';"
+								hx-on::before-request="document.getElementById('search-nav').value = '';"
 							>
-								<a class="px-1 no-underline hover:underline" href={ templ.URL("/?tag=" + t.tag) }>
+								<a class="px-1 no-underline hover:underline" href={ templ.URL("/?search=&tag=" + t.tag) }>
 									{ t.tag } ({ strconv.Itoa(t.count) })
 								</a>
 							</li>

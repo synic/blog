@@ -28,12 +28,6 @@ func WithStatus(status int) func(*renderTemplConfig) {
 	}
 }
 
-func WithTitle(title string) func(*renderTemplConfig) {
-	return func(conf *renderTemplConfig) {
-		conf.title = title
-	}
-}
-
 func isDatastarRequest(r *http.Request) bool {
 	if v, ok := r.Context().Value(middleware.DatastarPartialContextKey).(bool); ok {
 		return v
@@ -62,16 +56,9 @@ func Render(
 		}
 
 		sse := datastar.NewSSE(w, r)
-
 		sse.PatchElements(buf.String())
 
-		if r.Method == http.MethodGet {
-			sse.ExecuteScript(
-				fmt.Sprintf("history.pushState({}, '', %q);", r.URL.RequestURI()),
-			)
-		}
-
-		return
+		log.Println(buf.String()))
 	} else {
 		w.WriteHeader(conf.status)
 		comp.Render(r.Context(), w)
@@ -88,5 +75,5 @@ func Error(
 	if err != nil {
 		log.Printf("Error during request at: %s: %v", r.URL.Path, err)
 	}
-	Render(w, r, ErrorView(title, message), WithStatus(status), WithTitle(title))
+	Render(w, r, ErrorView(title, message), WithStatus(status))
 }

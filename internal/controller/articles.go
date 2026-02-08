@@ -103,7 +103,7 @@ func (h ArticleController) Article(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	view.Render(w, r, view.ArticleView(article), view.WithTitle(article.Title))
+	view.Render(w, r, view.ArticleView(article))
 }
 
 func (h ArticleController) renderAndPageArticles(
@@ -133,13 +133,6 @@ func (h ArticleController) renderAndPageArticles(
 	start := min(max(0, page*perPage), len(articles))
 	end := min(max(0, start+perPage), len(articles))
 
-	title := ""
-	if tag != "" {
-		title = "Tag: " + tag
-	} else if search != "" {
-		title = "Search Results: " + search
-	}
-
 	view.Render(
 		w, r,
 		view.ArticlesView(
@@ -152,7 +145,6 @@ func (h ArticleController) renderAndPageArticles(
 				TotalPages: int(math.Ceil(float64(len(articles)) / float64(perPage))),
 			},
 		),
-		view.WithTitle(title),
 	)
 }
 
@@ -189,5 +181,5 @@ func (h ArticleController) Feed(w http.ResponseWriter, r *http.Request) {
 
 func (h ArticleController) Archive(w http.ResponseWriter, r *http.Request) {
 	articles, _ := h.repo.FindAll(r.Context())
-	view.Render(w, r, view.ArchiveView(len(articles), h.repo.TagInfo(r.Context())), view.WithTitle("Article Archive"))
+	view.Render(w, r, view.ArchiveView(len(articles), h.repo.TagInfo(r.Context())))
 }

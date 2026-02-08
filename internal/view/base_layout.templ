@@ -138,9 +138,9 @@ templ header() {
 		>
 			<div
 				class="justify-start py-3 whitespace-nowrap cursor-pointer shrink"
-				data-on:click="$search = ''; @get('/')"
+		data-on:click__prevent={ "$search = ''; @get('/', { filterSignals: '^$' })" }
 			>
-				<a href="/" data-on:click__prevent="@get('/')" class="no-underline hover:underline">
+				<a href="/" data-on:click__prevent="@get('/', {filterSignals: '^$' })" class="no-underline hover:underline">
 					<span class="font-bold spin-around text-sky-700">::/</span> Adam's Things
 				</a>
 			</div>
@@ -176,7 +176,7 @@ templ errorbox() {
 templ navlink(url, label string, hideMobile bool) {
 	<a
 		id={ "nav-link-" + label }
-		data-on:click__prevent={ "$search = ''; @get('" + url + "')" }
+		data-on:click__prevent={ "$search = ''; @get('" + url + "', { filterSignals: '^$' })" }
 		class={
 			"py-3 px-5 text-center no-underline border-l border-gray-700 cursor-pointer hover:text-white hover:bg-gray-700 item-center w-22 lg:last:rounded-tr-xl",
 			templ.KV("hidden lg:block", hideMobile),

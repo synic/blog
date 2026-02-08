@@ -70,7 +70,7 @@ templ taglinks(tags []string) {
 				<a
 					href={ templ.URL("/?tag=" + t) }
 					id={ "tag-link-" + t }
-					hx-on::before-cleanup-element="document.getElementById('search-nav').value = '';"
+					hx-on::before-request="document.getElementById('search-nav').value = '';"
 				>
 					{ t }
 				</a>@templ.Raw(maybeComma(i < len(tags)-1))

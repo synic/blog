@@ -50,7 +50,7 @@ func NewArticleController(
 	return ArticleController{repo: repo, articleControllerConfig: conf}
 }
 
-func (h ArticleController) Index(w http.ResponseWriter, r *http.Request) {
+func (h ArticleController) listAndPaginateArticles(r *http.Request) (model.ArticleListResponse, error) {
 	var err error = nil
 	articles := []*model.Article{}
 
@@ -71,6 +71,44 @@ func (h ArticleController) Index(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if err != nil {
+		return model.ArticleListResponse{}, err
+	}
+
+	page := 0
+	perPage := h.articlesPerPage
+
+	i, err := strconv.Atoi(r.URL.Query().Get("page"))
+
+	if err == nil {
+		page = i - 1
+	}
+
+	i, err = strconv.Atoi(r.URL.Query().Get("per_page"))
+
+	if err == nil {
+		perPage = i
+		if perPage > h.maxArticlesPerPage {
+			perPage = h.maxArticlesPerPage
+		}
+	}
+
+	start := min(max(0, page*perPage), len(articles))
+	end := min(max(0, start+perPage), len(articles))
+
+	return model.ArticleListResponse{
+		Page:       page + 1,
+		PerPage:    perPage,
+		Items:      articles[start:end],
+		Search:     search,
+		Tag:        tag,
+		TotalPages: int(math.Ceil(float64(len(articles)) / float64(perPage))),
+	}, nil
+}
+
+func (h ArticleController) Index(w http.ResponseWriter, r *http.Request) {
+	res, err := h.listAndPaginateArticles(r)
+
+	if err != nil {
 		if errors.Is(err, store.ErrNotFound) {
 			view.Error(w, r, err, 404, "Not Found", "Sorry, no articles could be found.")
 		} else {
@@ -79,7 +117,7 @@ func (h ArticleController) Index(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	h.renderAndPageArticles(w, r, articles, search, tag)
+	view.Render(w, r, view.ArticlesView(res))
 }
 
 func (h ArticleController) Article(w http.ResponseWriter, r *http.Request) {
@@ -104,48 +142,6 @@ func (h ArticleController) Article(w http.ResponseWriter, r *http.Request) {
 	}
 
 	view.Render(w, r, view.ArticleView(article))
-}
-
-func (h ArticleController) renderAndPageArticles(
-	w http.ResponseWriter,
-	r *http.Request,
-	articles []*model.Article,
-	search, tag string,
-) {
-	page := 0
-	perPage := h.articlesPerPage
-
-	i, err := strconv.Atoi(r.URL.Query().Get("page"))
-
-	if err == nil {
-		page = i - 1
-	}
-
-	i, err = strconv.Atoi(r.URL.Query().Get("per_page"))
-
-	if err == nil {
-		perPage = i
-		if perPage > h.maxArticlesPerPage {
-			perPage = h.maxArticlesPerPage
-		}
-	}
-
-	start := min(max(0, page*perPage), len(articles))
-	end := min(max(0, start+perPage), len(articles))
-
-	view.Render(
-		w, r,
-		view.ArticlesView(
-			model.PageData{
-				Page:       page + 1,
-				PerPage:    perPage,
-				Items:      articles[start:end],
-				Search:     search,
-				Tag:        tag,
-				TotalPages: int(math.Ceil(float64(len(articles)) / float64(perPage))),
-			},
-		),
-	)
 }
 
 func (h ArticleController) Feed(w http.ResponseWriter, r *http.Request) {

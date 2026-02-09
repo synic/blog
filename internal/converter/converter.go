@@ -5,9 +5,11 @@ import (
 	"errors"
 	"fmt"
 	"os"
+	"os/exec"
 	"path"
 	"path/filepath"
 	"slices"
+	"strconv"
 	"strings"
 	"time"
 )
@@ -121,25 +123,73 @@ func Convert(inputPath, outputPath string, reconvert bool) (ConvertResult, error
 	return res, nil
 }
 
-func shouldConvert(sourceFn, destFn string) (bool, error) {
-	inInfo, err := os.Stat(sourceFn)
+func isGitDirty(filePath string) (bool, error) {
+	cmd := exec.Command("git", "status", "--porcelain", "--", filePath)
+	output, err := cmd.Output()
 
 	if err != nil {
 		return false, err
 	}
 
-	outInfo, err := os.Stat(destFn)
+	return strings.TrimSpace(string(output)) != "", nil
+}
+
+func getGitModTime(filePath string) (time.Time, error) {
+	cmd := exec.Command("git", "log", "-1", "--format=%ct", "--", filePath)
+	output, err := cmd.Output()
 
 	if err != nil {
+		return time.Time{}, err
+	}
+
+	trimmed := strings.TrimSpace(string(output))
+
+	if trimmed == "" {
+		return time.Time{}, nil
+	}
+
+	timestamp, err := strconv.ParseInt(trimmed, 10, 64)
+
+	if err != nil {
+		return time.Time{}, err
+	}
+
+	return time.Unix(timestamp, 0), nil
+}
+
+func shouldConvert(sourceFn, destFn string) (bool, error) {
+	if _, err := os.Stat(destFn); err != nil {
 		if errors.Is(err, os.ErrNotExist) {
 			return true, nil
 		}
 		return false, err
 	}
 
-	if inInfo.ModTime().After(outInfo.ModTime()) {
+	dirty, err := isGitDirty(sourceFn)
+
+	if err != nil {
+		return false, err
+	}
+
+	if dirty {
 		return true, nil
 	}
 
-	return false, nil
+	inTime, err := getGitModTime(sourceFn)
+
+	if err != nil {
+		return false, err
+	}
+
+	outTime, err := getGitModTime(destFn)
+
+	if err != nil {
+		return false, err
+	}
+
+	if inTime.IsZero() || outTime.IsZero() {
+		return true, nil
+	}
+
+	return inTime.After(outTime), nil
 }

@@ -1,0 +1,15 @@
+{
+  "publishedAt": "2009-06-24T18:19:34-07:00",
+  "body": "\u003cp\u003eAfter beating Enigmo in the iPhone, I was eager for more.  I'm a sucker for\nthese type of games.  I downloaded the demo of the Windows version of \u003ca\nhref='http://www.pangeasoft.net/enigmo/downloads.html'\u003eEnigmo 2\u003c/a\u003e, and, to my\ndelight, it works great out of the box in \u003ca\nhref='http://www.winehq.com'\u003eWine\u003c/a\u003e!  It's got tons more doodads and etc than\nthe iPhone version, so I'd say it's a perfect upgrade path if you like that\ngame.\u003c/p\u003e\n\u003cp\u003eThe installer works fine, but I recommend launching the Enigmo 2 application\nafter you have installed it with a command similar to this:\u003c/p\u003e\n\u003cpre class=\"chroma\"\u003e\u003ccode\u003e\u003cspan class=\"line\"\u003e\u003cspan class=\"cl\"\u003e$ wine explorer /desktop\u003cspan class=\"o\"\u003e=\u003c/span\u003eEnigmo,1024x768 \u003cspan class=\"se\"\u003e\\\n\u003c/span\u003e\u003c/span\u003e\u003c/span\u003e\u003cspan class=\"line\"\u003e\u003cspan class=\"cl\"\u003e  \u003cspan class=\"s1\"\u003e\u0026#39;c:\\\\Program Files\\\\Ideas From the Deep\\\\Enigmo 2 Supernova\\\\Enigmo 2.exe\u0026#39;\u003c/span\u003e\n\u003c/span\u003e\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\u003cp\u003eEnigmo 2 appears to have a maximum resolution of 1024x768, and this command\nwill allow you to run it in a Window that size.\u003c/p\u003e\n\u003cp\u003eIt even works on my HP Mini 1030, which doesn't have the most fantastic video\ncard in the world :)\u003c/p\u003e\n\u003cdiv class=\"restored-from-archive\"\u003e\n  \u003ch3\u003eRestored from VimTips archive\u003c/h3\u003e\n  \u003cp\u003e\n  This article was restored from the VimTips archive. There's probably\n  missing images and broken links (and even some flash references), but it\n  was still important to me to bring them back.\n  \u003c/p\u003e\n\u003c/div\u003e",
+  "summary": "\u003cp\u003eAfter beating Enigmo in the iPhone, I was eager for more.  I'm a sucker for\nthese type of games.  I downloaded the demo of the Windows version of \u003ca\nhref='http://www.pangeasoft.net/enigmo/downloads.html'\u003eEnigmo 2\u003c/a\u003e, and, to my\ndelight, it works great out of the box in \u003ca\nhref='http://www.winehq.com'\u003eWine\u003c/a\u003e!  It's got tons more doodads and etc than\nthe iPhone version, so I'd say it's a perfect upgrade path if you like that\ngame.\u003c/p\u003e\n",
+  "title": "Engimo 2 and Wine",
+  "slug": "engimo-2-and-wine",
+  "tags": [
+    "Linux"
+  ],
+  "isPublished": true,
+  "openGraph": {
+    "title": "Engimo 2 and Wine",
+    "type": "article"
+  }
+}

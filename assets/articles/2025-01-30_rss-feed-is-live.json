@@ -1,0 +1,15 @@
+{
+  "publishedAt": "2025-01-30T08:23:51-07:00",
+  "body": "\u003cp\u003eIn response to my last article, someone on Bluesky suggested I add an RSS\nfeed, and so I did.\u003c/p\u003e\n\u003cp\u003eHere's the link: \u003ca href=\"https://synic.dev/feed.xml\"\u003eRSS Feed\u003c/a\u003e.\u003c/p\u003e\n\u003cp\u003eThanks for the suggestion!\u003c/p\u003e\n",
+  "summary": "\u003cp\u003eIn response to my last article, someone on Bluesky suggested I add an RSS\nfeed, and so I did. You can find it \u003ca href=\"https://synic.dev/feed.xml\"\u003ehere\u003c/a\u003e.\u003c/p\u003e\n\u003cp\u003eThanks for the suggestion!\u003c/p\u003e\n",
+  "title": "RSS Feed is Live!",
+  "slug": "rss-feed-is-live",
+  "tags": [
+    "Social"
+  ],
+  "isPublished": true,
+  "openGraph": {
+    "title": "RSS Feed is Live!",
+    "type": "article"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "publishedAt": "2008-09-06T19:29:40-07:00",
+  "body": "\u003cp\u003eDjango 1.0 is finally here!!!\u003cbr\u003e\u003cbr\u003e\u003c/p\u003e\n\u003cp\u003eI figured I'd just announce my excitement.  So far, I've migrated two websites\nto it (one being this blog, the other being a much larger app for work), and\nhaven't really had any problems.  Following the \u003ca\nhref='http://code.djangoproject.com/wiki/BackwardsIncompatibleChanges'\u003eBackwards\nIncompatable Changes\u003c/a\u003e on their Wiki made it fairly painless.\u003cbr\u003e\u003cbr\u003e\nCongratulations to the Django Project!\u003cbr\u003e\u003cbr\u003e\nP.S.  I know I'm going to get some guff for this, but it's a breath of fresh\nair to be working in Python/Django at work instead of our hacked together\nCGI/Perl system.\u003c/p\u003e\n\u003cdiv class=\"restored-from-archive\"\u003e\n  \u003ch3\u003eRestored from VimTips archive\u003c/h3\u003e\n  \u003cp\u003e\n  This article was restored from the VimTips archive. There's probably\n  missing images and broken links (and even some flash references), but it\n  was still important to me to bring them back.\n  \u003c/p\u003e\n\u003c/div\u003e",
+  "summary": "\u003cp\u003eDjango 1.0 is finally here!!!\u003c/p\u003e\n",
+  "title": "Django 1.0!!!",
+  "slug": "django-10",
+  "tags": [
+    "Programming",
+    "Python",
+    "Django"
+  ],
+  "isPublished": true,
+  "openGraph": {
+    "title": "Django 1.0!!!",
+    "type": "article"
+  }
+}

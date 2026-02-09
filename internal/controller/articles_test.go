@@ -258,72 +258,84 @@ func TestArticleController_ArchiveEmpty(t *testing.T) {
 	assert.Equal(t, http.StatusOK, w.Code)
 }
 
-func TestArticleController_RenderAndPageArticlesDefault(t *testing.T) {
+func TestArticleController_ListAndPaginateArticlesDefault(t *testing.T) {
 	articles := make([]*model.Article, 25)
 	for i := 0; i < 25; i++ {
 		articles[i] = &model.Article{Title: "Test" + string(rune(i))}
 	}
 
-	controller := NewArticleController(&mockArticleRepository{})
+	controller := NewArticleController(&mockArticleRepository{articles: articles})
 	req := httptest.NewRequest(http.MethodGet, "/", nil)
-	w := httptest.NewRecorder()
 
-	controller.renderAndPageArticles(w, req, articles, "", "")
-	assert.Equal(t, http.StatusOK, w.Code)
+	res, err := controller.listAndPaginateArticles(req)
+	assert.NoError(t, err)
+	assert.Equal(t, 1, res.Page)
+	assert.Equal(t, 20, res.PerPage)
+	assert.Len(t, res.Items, 20)
+	assert.Equal(t, 2, res.TotalPages)
 }
 
-func TestArticleController_RenderAndPageArticlesSecondPage(t *testing.T) {
+func TestArticleController_ListAndPaginateArticlesSecondPage(t *testing.T) {
 	articles := make([]*model.Article, 25)
 	for i := 0; i < 25; i++ {
 		articles[i] = &model.Article{Title: "Test" + string(rune(i))}
 	}
 
-	controller := NewArticleController(&mockArticleRepository{})
+	controller := NewArticleController(&mockArticleRepository{articles: articles})
 	req := httptest.NewRequest(http.MethodGet, "/?page=2", nil)
-	w := httptest.NewRecorder()
 
-	controller.renderAndPageArticles(w, req, articles, "", "")
-	assert.Equal(t, http.StatusOK, w.Code)
+	res, err := controller.listAndPaginateArticles(req)
+	assert.NoError(t, err)
+	assert.Equal(t, 2, res.Page)
+	assert.Len(t, res.Items, 5)
+	assert.Equal(t, 2, res.TotalPages)
 }
 
-func TestArticleController_RenderAndPageArticlesCustomPerPage(t *testing.T) {
+func TestArticleController_ListAndPaginateArticlesCustomPerPage(t *testing.T) {
 	articles := make([]*model.Article, 25)
 	for i := 0; i < 25; i++ {
 		articles[i] = &model.Article{Title: "Test" + string(rune(i))}
 	}
 
-	controller := NewArticleController(&mockArticleRepository{})
+	controller := NewArticleController(&mockArticleRepository{articles: articles})
 	req := httptest.NewRequest(http.MethodGet, "/?per_page=10", nil)
-	w := httptest.NewRecorder()
 
-	controller.renderAndPageArticles(w, req, articles, "", "")
-	assert.Equal(t, http.StatusOK, w.Code)
+	res, err := controller.listAndPaginateArticles(req)
+	assert.NoError(t, err)
+	assert.Equal(t, 1, res.Page)
+	assert.Equal(t, 10, res.PerPage)
+	assert.Len(t, res.Items, 10)
+	assert.Equal(t, 3, res.TotalPages)
 }
 
-func TestArticleController_RenderAndPageArticlesInvalidPage(t *testing.T) {
+func TestArticleController_ListAndPaginateArticlesInvalidPage(t *testing.T) {
 	articles := make([]*model.Article, 25)
 	for i := 0; i < 25; i++ {
 		articles[i] = &model.Article{Title: "Test" + string(rune(i))}
 	}
 
-	controller := NewArticleController(&mockArticleRepository{})
+	controller := NewArticleController(&mockArticleRepository{articles: articles})
 	req := httptest.NewRequest(http.MethodGet, "/?page=invalid", nil)
-	w := httptest.NewRecorder()
 
-	controller.renderAndPageArticles(w, req, articles, "", "")
-	assert.Equal(t, http.StatusOK, w.Code)
+	res, err := controller.listAndPaginateArticles(req)
+	assert.NoError(t, err)
+	assert.Equal(t, 1, res.Page)
+	assert.Len(t, res.Items, 20)
 }
 
-func TestArticleController_RenderAndPageArticlesExceedMaxPerPage(t *testing.T) {
+func TestArticleController_ListAndPaginateArticlesExceedMaxPerPage(t *testing.T) {
 	articles := make([]*model.Article, 25)
 	for i := 0; i < 25; i++ {
 		articles[i] = &model.Article{Title: "Test" + string(rune(i))}
 	}
 
-	controller := NewArticleController(&mockArticleRepository{})
+	controller := NewArticleController(&mockArticleRepository{articles: articles})
 	req := httptest.NewRequest(http.MethodGet, "/?per_page=100", nil)
-	w := httptest.NewRecorder()
 
-	controller.renderAndPageArticles(w, req, articles, "", "")
-	assert.Equal(t, http.StatusOK, w.Code)
+	res, err := controller.listAndPaginateArticles(req)
+	assert.NoError(t, err)
+	assert.Equal(t, 1, res.Page)
+	assert.Equal(t, 50, res.PerPage)
+	assert.Len(t, res.Items, 25)
+	assert.Equal(t, 1, res.TotalPages)
 }

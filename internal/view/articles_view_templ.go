@@ -13,7 +13,7 @@ import (
 	"github.com/synic/blog/internal/model"
 )
 
-func ArticlesView(pd model.PageData) templ.Component {
+func ArticlesView(res model.ArticleListResponse) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
@@ -46,35 +46,35 @@ func ArticlesView(pd model.PageData) templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			if pd.Page <= 1 {
-				if pd.Tag != "" || pd.Search != "" {
+			if res.Page <= 1 {
+				if res.Tag != "" || res.Search != "" {
 					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<h1 class=\"pb-0 my-0 font-bold\">")
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
-					if pd.Tag != "" {
+					if res.Tag != "" {
 						templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "Tag: ")
 						if templ_7745c5c3_Err != nil {
 							return templ_7745c5c3_Err
 						}
 						var templ_7745c5c3_Var3 string
-						templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(pd.Tag)
+						templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(res.Tag)
 						if templ_7745c5c3_Err != nil {
-							return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/articles_view.templ`, Line: 14, Col: 19}
+							return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/articles_view.templ`, Line: 14, Col: 20}
 						}
 						_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 						if templ_7745c5c3_Err != nil {
 							return templ_7745c5c3_Err
 						}
-					} else if pd.Search != "" {
+					} else if res.Search != "" {
 						templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, "Search results: ")
 						if templ_7745c5c3_Err != nil {
 							return templ_7745c5c3_Err
 						}
 						var templ_7745c5c3_Var4 string
-						templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(pd.Search)
+						templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(res.Search)
 						if templ_7745c5c3_Err != nil {
-							return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/articles_view.templ`, Line: 16, Col: 33}
+							return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/articles_view.templ`, Line: 16, Col: 34}
 						}
 						_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
 						if templ_7745c5c3_Err != nil {
@@ -85,16 +85,16 @@ func ArticlesView(pd model.PageData) templ.Component {
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}
-					if len(pd.Items) == 1 {
+					if len(res.Items) == 1 {
 						templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, "1 article")
 						if templ_7745c5c3_Err != nil {
 							return templ_7745c5c3_Err
 						}
 					} else {
 						var templ_7745c5c3_Var5 string
-						templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf("%d articles", len(pd.Items)))
+						templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf("%d articles", len(res.Items)))
 						if templ_7745c5c3_Err != nil {
-							return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/articles_view.templ`, Line: 23, Col: 49}
+							return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/articles_view.templ`, Line: 23, Col: 50}
 						}
 						_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
 						if templ_7745c5c3_Err != nil {
@@ -107,7 +107,7 @@ func ArticlesView(pd model.PageData) templ.Component {
 					}
 				}
 			}
-			for i, a := range pd.Items {
+			for i, a := range res.Items {
 				templ_7745c5c3_Err = article(a, true).Render(ctx, templ_7745c5c3_Buffer)
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
@@ -116,7 +116,7 @@ func ArticlesView(pd model.PageData) templ.Component {
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				if i < len(pd.Items)-1 || pd.TotalPages > 1 {
+				if i < len(res.Items)-1 || res.TotalPages > 1 {
 					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 8, "<hr class=\"mt-6 mb-4 h-px bg-gray-200 border-0 dark:bg-gray-700\">")
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
@@ -127,20 +127,20 @@ func ArticlesView(pd model.PageData) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			if len(pd.Items) <= 0 {
+			if len(res.Items) <= 0 {
 				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 10, "No articles found.")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-			} else if pd.TotalPages > 1 {
-				templ_7745c5c3_Err = pageButtons(pd).Render(ctx, templ_7745c5c3_Buffer)
+			} else if res.TotalPages > 1 {
+				templ_7745c5c3_Err = articlePageButtons(res).Render(ctx, templ_7745c5c3_Buffer)
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 			}
 			return nil
 		})
-		templ_7745c5c3_Err = BaseLayout(titleFromPageData(pd)).Render(templ.WithChildren(ctx, templ_7745c5c3_Var2), templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = BaseLayout(titleFromPageData(res)).Render(templ.WithChildren(ctx, templ_7745c5c3_Var2), templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -148,19 +148,19 @@ func ArticlesView(pd model.PageData) templ.Component {
 	})
 }
 
-func titleFromPageData(pd model.PageData) string {
-	if pd.Tag != "" {
-		return "Tag: " + pd.Tag
+func titleFromPageData(res model.ArticleListResponse) string {
+	if res.Tag != "" {
+		return "Tag: " + res.Tag
 	}
 
-	if pd.Search != "" {
-		return "Search Results: " + pd.Search
+	if res.Search != "" {
+		return "Search Results: " + res.Search
 	}
 
 	return ""
 }
 
-func pageButtonBaseClasses(disabled bool) []string {
+func articlePageButtonBaseClasses(disabled bool) []string {
 	classes := []string{
 		"flex flex-none justify-center items-center text-center border border-gray-700 size-8",
 	}
@@ -175,35 +175,35 @@ func pageButtonBaseClasses(disabled bool) []string {
 
 }
 
-func pageButtonClasses(pd model.PageData, i int) []string {
-	classes := append(pageButtonBaseClasses(i+1 == pd.Page),
+func articlePageButtonClasses(res model.ArticleListResponse, i int) []string {
+	classes := append(articlePageButtonBaseClasses(i+1 == res.Page),
 		"border border-gray-700",
 	)
 
-	if i+1 == pd.Page {
+	if i+1 == res.Page {
 		classes = append(classes, "text-slate-500 bg-gray-700")
 	}
 
 	return classes
 }
 
-func pageButtonPrevClasses(pd model.PageData) []string {
-	classes := append(pageButtonBaseClasses(pd.Page <= 1),
+func articlePageButtonPrevClasses(res model.ArticleListResponse) []string {
+	classes := append(articlePageButtonBaseClasses(res.Page <= 1),
 		"rounded-l-lg",
 	)
 
 	return classes
 }
 
-func pageButtonNextClasses(pd model.PageData) []string {
-	classes := append(pageButtonBaseClasses(pd.Page >= pd.TotalPages),
+func articlePageButtonNextClasses(res model.ArticleListResponse) []string {
+	classes := append(articlePageButtonBaseClasses(res.Page >= res.TotalPages),
 		"rounded-r-lg",
 	)
 
 	return classes
 }
 
-func pageButtons(pd model.PageData) templ.Component {
+func articlePageButtons(res model.ArticleListResponse) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
@@ -228,7 +228,7 @@ func pageButtons(pd model.PageData) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var7 = []any{pageButtonPrevClasses(pd)}
+		var templ_7745c5c3_Var7 = []any{articlePageButtonPrevClasses(res)}
 		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var7...)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
@@ -237,15 +237,15 @@ func pageButtons(pd model.PageData) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		if pd.Page > 1 {
+		if res.Page > 1 {
 			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 13, " hx-get=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var8 string
-			templ_7745c5c3_Var8, templ_7745c5c3_Err = templ.JoinStringErrs(string(templ.URL(fmt.Sprintf("/?page=%d&perPage=%d&search=%s&tag=%s", pd.Page-1, pd.PerPage, pd.Search, pd.Tag))))
+			templ_7745c5c3_Var8, templ_7745c5c3_Err = templ.JoinStringErrs(string(templ.URL(fmt.Sprintf("/?page=%d&perPage=%d&search=%s&tag=%s", res.Page-1, res.PerPage, res.Search, res.Tag))))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/articles_view.templ`, Line: 102, Col: 127}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/articles_view.templ`, Line: 102, Col: 131}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var8))
 			if templ_7745c5c3_Err != nil {
@@ -273,7 +273,7 @@ func pageButtons(pd model.PageData) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var10 = []any{"no-underline", templ.KV("cursor-not-allowed", pd.Page <= 1)}
+		var templ_7745c5c3_Var10 = []any{"no-underline", templ.KV("cursor-not-allowed", res.Page <= 1)}
 		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var10...)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
@@ -296,9 +296,9 @@ func pageButtons(pd model.PageData) templ.Component {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var12 templ.SafeURL
-		templ_7745c5c3_Var12, templ_7745c5c3_Err = templ.JoinURLErrs(templ.URL(fmt.Sprintf("/?page=%d&perPage=%d&search=%s&tag=%s", pd.Page-1, pd.PerPage, pd.Search, pd.Tag)))
+		templ_7745c5c3_Var12, templ_7745c5c3_Err = templ.JoinURLErrs(templ.URL(fmt.Sprintf("/?page=%d&perPage=%d&search=%s&tag=%s", res.Page-1, res.PerPage, res.Search, res.Tag)))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/articles_view.templ`, Line: 108, Col: 117}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/articles_view.templ`, Line: 108, Col: 121}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var12))
 		if templ_7745c5c3_Err != nil {
@@ -308,7 +308,7 @@ func pageButtons(pd model.PageData) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		if pd.Page <= 1 {
+		if res.Page <= 1 {
 			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 20, " onclick=\"return false;\" hx-boost=\"false\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
@@ -318,8 +318,8 @@ func pageButtons(pd model.PageData) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		for i := range pd.TotalPages {
-			var templ_7745c5c3_Var13 = []any{pageButtonClasses(pd, i)}
+		for i := range res.TotalPages {
+			var templ_7745c5c3_Var13 = []any{articlePageButtonClasses(res, i)}
 			templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var13...)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
@@ -341,15 +341,15 @@ func pageButtons(pd model.PageData) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			if i+1 != pd.Page {
+			if i+1 != res.Page {
 				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 24, " hx-get=\"")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 				var templ_7745c5c3_Var15 string
-				templ_7745c5c3_Var15, templ_7745c5c3_Err = templ.JoinStringErrs(string(templ.URL(fmt.Sprintf("/?page=%d&perPage=%d&search=%s&tag=%s", i+1, pd.PerPage, pd.Search, pd.Tag))))
+				templ_7745c5c3_Var15, templ_7745c5c3_Err = templ.JoinStringErrs(string(templ.URL(fmt.Sprintf("/?page=%d&perPage=%d&search=%s&tag=%s", i+1, res.PerPage, res.Search, res.Tag))))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/articles_view.templ`, Line: 119, Col: 122}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/articles_view.templ`, Line: 119, Col: 125}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var15))
 				if templ_7745c5c3_Err != nil {
@@ -364,7 +364,7 @@ func pageButtons(pd model.PageData) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var16 = []any{"no-underline", templ.KV("cursor-not-allowed", i+1 == pd.Page)}
+			var templ_7745c5c3_Var16 = []any{"no-underline", templ.KV("cursor-not-allowed", i+1 == res.Page)}
 			templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var16...)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
@@ -374,9 +374,9 @@ func pageButtons(pd model.PageData) templ.Component {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var17 templ.SafeURL
-			templ_7745c5c3_Var17, templ_7745c5c3_Err = templ.JoinURLErrs(templ.URL(fmt.Sprintf("/?page=%d&perPage=%d&search=%s&tag=%s", i+1, pd.PerPage, pd.Search, pd.Tag)))
+			templ_7745c5c3_Var17, templ_7745c5c3_Err = templ.JoinURLErrs(templ.URL(fmt.Sprintf("/?page=%d&perPage=%d&search=%s&tag=%s", i+1, res.PerPage, res.Search, res.Tag)))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/articles_view.templ`, Line: 123, Col: 112}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/articles_view.templ`, Line: 123, Col: 115}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var17))
 			if templ_7745c5c3_Err != nil {
@@ -399,7 +399,7 @@ func pageButtons(pd model.PageData) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			if i+1 == pd.Page {
+			if i+1 == res.Page {
 				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 30, " onclick=\"return false;\" hx-boost=\"false\"")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
@@ -423,7 +423,7 @@ func pageButtons(pd model.PageData) templ.Component {
 				return templ_7745c5c3_Err
 			}
 		}
-		var templ_7745c5c3_Var20 = []any{pageButtonNextClasses(pd)}
+		var templ_7745c5c3_Var20 = []any{articlePageButtonNextClasses(res)}
 		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var20...)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
@@ -445,15 +445,15 @@ func pageButtons(pd model.PageData) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		if pd.Page < pd.TotalPages {
+		if res.Page < res.TotalPages {
 			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 35, " hx-get=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var22 string
-			templ_7745c5c3_Var22, templ_7745c5c3_Err = templ.JoinStringErrs(string(templ.URL(fmt.Sprintf("/?page=%d&perPage=%d&search=%s&tag=%s", pd.Page+1, pd.PerPage, pd.Search, pd.Tag))))
+			templ_7745c5c3_Var22, templ_7745c5c3_Err = templ.JoinStringErrs(string(templ.URL(fmt.Sprintf("/?page=%d&perPage=%d&search=%s&tag=%s", res.Page+1, res.PerPage, res.Search, res.Tag))))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/articles_view.templ`, Line: 137, Col: 127}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/articles_view.templ`, Line: 137, Col: 131}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var22))
 			if templ_7745c5c3_Err != nil {
@@ -468,7 +468,7 @@ func pageButtons(pd model.PageData) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		var templ_7745c5c3_Var23 = []any{"no-underline", templ.KV("cursor-not-allowed", pd.Page >= pd.TotalPages)}
+		var templ_7745c5c3_Var23 = []any{"no-underline", templ.KV("cursor-not-allowed", res.Page >= res.TotalPages)}
 		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var23...)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
@@ -491,9 +491,9 @@ func pageButtons(pd model.PageData) templ.Component {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var25 templ.SafeURL
-		templ_7745c5c3_Var25, templ_7745c5c3_Err = templ.JoinURLErrs(templ.URL(fmt.Sprintf("/?page=%d&perPage=%d&search=%s&tag=%s", pd.Page+1, pd.PerPage, pd.Search, pd.Tag)))
+		templ_7745c5c3_Var25, templ_7745c5c3_Err = templ.JoinURLErrs(templ.URL(fmt.Sprintf("/?page=%d&perPage=%d&search=%s&tag=%s", res.Page+1, res.PerPage, res.Search, res.Tag)))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/articles_view.templ`, Line: 142, Col: 117}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/articles_view.templ`, Line: 142, Col: 121}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var25))
 		if templ_7745c5c3_Err != nil {
@@ -503,7 +503,7 @@ func pageButtons(pd model.PageData) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		if pd.Page >= pd.TotalPages {
+		if res.Page >= res.TotalPages {
 			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 41, " onclick=\"return false;\" hx-boost=\"false\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err

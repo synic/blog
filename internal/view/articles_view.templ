@@ -5,53 +5,53 @@ import (
 	"github.com/synic/blog/internal/model"
 )
 
-templ ArticlesView(pd model.PageData) {
-	@BaseLayout(titleFromPageData(pd)) {
-		if pd.Page <= 1 {
-			if (pd.Tag != "" || pd.Search != "") {
+templ ArticlesView(res model.ArticleListResponse) {
+	@BaseLayout(titleFromPageData(res)) {
+		if res.Page <= 1 {
+			if (res.Tag != "" || res.Search != "") {
 				<h1 class="pb-0 my-0 font-bold">
-					if pd.Tag != "" {
-						Tag: { pd.Tag }
-					} else if pd.Search != "" {
-						Search results: { pd.Search }
+					if res.Tag != "" {
+						Tag: { res.Tag }
+					} else if res.Search != "" {
+						Search results: { res.Search }
 					}
 				</h1>
 				<div class="mt-1 mb-6">
-					if len(pd.Items) == 1 {
+					if len(res.Items) == 1 {
 						1 article
 					} else {
-						{ fmt.Sprintf("%d articles", len(pd.Items)) }
+						{ fmt.Sprintf("%d articles", len(res.Items)) }
 					}
 				</div>
 			}
 		}
-		for i, a := range pd.Items {
+		for i, a := range res.Items {
 			@article(a, true)
-			if i < len(pd.Items) - 1 || pd.TotalPages > 1 {
+			if i < len(res.Items) - 1 || res.TotalPages > 1 {
 				<hr class="mt-6 mb-4 h-px bg-gray-200 border-0 dark:bg-gray-700"/>
 			}
 		}
-		if len(pd.Items) <= 0 {
+		if len(res.Items) <= 0 {
 			No articles found.
-		} else if pd.TotalPages > 1 {
-			@pageButtons(pd)
+		} else if res.TotalPages > 1 {
+			@articlePageButtons(res)
 		}
 	}
 }
 
-func titleFromPageData(pd model.PageData) string {
-	if pd.Tag != "" {
-		return "Tag: " + pd.Tag
+func titleFromPageData(res model.ArticleListResponse) string {
+	if res.Tag != "" {
+		return "Tag: " + res.Tag
 	}
 
-	if pd.Search != "" {
-		return "Search Results: " + pd.Search
+	if res.Search != "" {
+		return "Search Results: " + res.Search
 	}
 
 	return ""
 }
 
-func pageButtonBaseClasses(disabled bool) []string {
+func articlePageButtonBaseClasses(disabled bool) []string {
 	classes := []string{
 		"flex flex-none justify-center items-center text-center border border-gray-700 size-8",
 	}
@@ -66,63 +66,63 @@ func pageButtonBaseClasses(disabled bool) []string {
 
 }
 
-func pageButtonClasses(pd model.PageData, i int) []string {
-	classes := append(pageButtonBaseClasses(i+1 == pd.Page),
+func articlePageButtonClasses(res model.ArticleListResponse, i int) []string {
+	classes := append(articlePageButtonBaseClasses(i+1 == res.Page),
 		"border border-gray-700",
 	)
 
-	if i+1 == pd.Page {
+	if i+1 == res.Page {
 		classes = append(classes, "text-slate-500 bg-gray-700")
 	}
 
 	return classes
 }
 
-func pageButtonPrevClasses(pd model.PageData) []string {
-	classes := append(pageButtonBaseClasses(pd.Page <= 1),
+func articlePageButtonPrevClasses(res model.ArticleListResponse) []string {
+	classes := append(articlePageButtonBaseClasses(res.Page <= 1),
 		"rounded-l-lg",
 	)
 
 	return classes
 }
 
-func pageButtonNextClasses(pd model.PageData) []string {
-	classes := append(pageButtonBaseClasses(pd.Page >= pd.TotalPages),
+func articlePageButtonNextClasses(res model.ArticleListResponse) []string {
+	classes := append(articlePageButtonBaseClasses(res.Page >= res.TotalPages),
 		"rounded-r-lg",
 	)
 
 	return classes
 }
 
-templ pageButtons(pd model.PageData) {
+templ articlePageButtons(res model.ArticleListResponse) {
 	<nav class="flex justify-center items-center mx-auto w-full">
 		<ul class="flex flex-row flex-wrap p-0 list-none list-inside no-underline" hx-trigger="click consume">
 			<li
-				if pd.Page > 1 {
-					hx-get={ string(templ.URL(fmt.Sprintf("/?page=%d&perPage=%d&search=%s&tag=%s", pd.Page-1, pd.PerPage, pd.Search, pd.Tag))) }
+				if res.Page > 1 {
+					hx-get={ string(templ.URL(fmt.Sprintf("/?page=%d&perPage=%d&search=%s&tag=%s", res.Page-1, res.PerPage, res.Search, res.Tag))) }
 				}
-				class={ pageButtonPrevClasses(pd) }
+				class={ articlePageButtonPrevClasses(res) }
 			>
 				<a
-					class={ "no-underline", templ.KV("cursor-not-allowed", pd.Page <= 1) }
-					href={ templ.URL(fmt.Sprintf("/?page=%d&perPage=%d&search=%s&tag=%s", pd.Page-1, pd.PerPage, pd.Search, pd.Tag)) }
-					if pd.Page <= 1 {
+					class={ "no-underline", templ.KV("cursor-not-allowed", res.Page <= 1) }
+					href={ templ.URL(fmt.Sprintf("/?page=%d&perPage=%d&search=%s&tag=%s", res.Page-1, res.PerPage, res.Search, res.Tag)) }
+					if res.Page <= 1 {
 						onclick="return false;"
 						hx-boost="false"
 					}
 				>❮</a>
 			</li>
-			for i := range pd.TotalPages {
+			for i := range res.TotalPages {
 				<li
-					class={ pageButtonClasses(pd, i) }
-					if i +1 != pd.Page {
-						hx-get={ string(templ.URL(fmt.Sprintf("/?page=%d&perPage=%d&search=%s&tag=%s", i+1, pd.PerPage, pd.Search, pd.Tag))) }
+					class={ articlePageButtonClasses(res, i) }
+					if i +1 != res.Page {
+						hx-get={ string(templ.URL(fmt.Sprintf("/?page=%d&perPage=%d&search=%s&tag=%s", i+1, res.PerPage, res.Search, res.Tag))) }
 					}
 				>
 					<a
-						href={ templ.URL(fmt.Sprintf("/?page=%d&perPage=%d&search=%s&tag=%s", i+1, pd.PerPage, pd.Search, pd.Tag)) }
-						class={ "no-underline", templ.KV("cursor-not-allowed", i + 1 == pd.Page) }
-						if i + 1 == pd.Page {
+						href={ templ.URL(fmt.Sprintf("/?page=%d&perPage=%d&search=%s&tag=%s", i+1, res.PerPage, res.Search, res.Tag)) }
+						class={ "no-underline", templ.KV("cursor-not-allowed", i + 1 == res.Page) }
+						if i + 1 == res.Page {
 							onclick="return false;"
 							hx-boost="false"
 						}
@@ -132,15 +132,15 @@ templ pageButtons(pd model.PageData) {
 				</li>
 			}
 			<li
-				class={ pageButtonNextClasses(pd) }
-				if pd.Page < pd.TotalPages {
-					hx-get={ string(templ.URL(fmt.Sprintf("/?page=%d&perPage=%d&search=%s&tag=%s", pd.Page+1, pd.PerPage, pd.Search, pd.Tag))) }
+				class={ articlePageButtonNextClasses(res) }
+				if res.Page < res.TotalPages {
+					hx-get={ string(templ.URL(fmt.Sprintf("/?page=%d&perPage=%d&search=%s&tag=%s", res.Page+1, res.PerPage, res.Search, res.Tag))) }
 				}
 			>
 				<a
-					class={ "no-underline", templ.KV("cursor-not-allowed", pd.Page >= pd.TotalPages) }
-					href={ templ.URL(fmt.Sprintf("/?page=%d&perPage=%d&search=%s&tag=%s", pd.Page+1, pd.PerPage, pd.Search, pd.Tag)) }
-					if pd.Page >= pd.TotalPages {
+					class={ "no-underline", templ.KV("cursor-not-allowed", res.Page >= res.TotalPages) }
+					href={ templ.URL(fmt.Sprintf("/?page=%d&perPage=%d&search=%s&tag=%s", res.Page+1, res.PerPage, res.Search, res.Tag)) }
+					if res.Page >= res.TotalPages {
 						onclick="return false;"
 						hx-boost="false"
 					}

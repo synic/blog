@@ -13,7 +13,7 @@ templ ArchiveView(articleCount int, tags map[string]int) {
 				Total articles: { strconv.Itoa(articleCount) }
 			</div>
 			<div class="block pb-4 md:hidden grow" hx-include="#search">
-				<form method="post" action="/">
+				<form method="post" action="/" flex flex-row flex-nowrap pl-6 rounded-md shadow-md>
 					<input
 						class="flex-auto px-2 font-normal bg-gray-700 rounded border border-gray-600 border-solid outline-gray-600 max-w-56"
 						placeholder="Search..."

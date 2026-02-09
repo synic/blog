@@ -32,3 +32,12 @@ func (a *Article) URL() string {
 func (a *Article) SafeURL() templ.SafeURL {
 	return templ.URL(a.URL())
 }
+
+type ArticleListResponse struct {
+	Search     string
+	Tag        string
+	Items      []*Article
+	TotalPages int
+	Page       int
+	PerPage    int
+}

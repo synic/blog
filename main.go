@@ -63,7 +63,10 @@ func main() {
 		},
 	}
 
-	internal.RegisterRoutes(mux, assets, controller.NewArticleController(repo))
+	internal.RegisterRoutes(mux, assets,
+		controller.NewArticleController(repo),
+		controller.NewArticleApiController(repo),
+	)
 
 	log.Printf("🚀 Serving on %s...", server.Addr)
 	if err = server.ListenAndServe(); err != nil {

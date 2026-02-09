@@ -59,7 +59,7 @@ func ArchiveView(articleCount int, tags map[string]int) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "</div><div class=\"block pb-4 md:hidden grow\" hx-include=\"#search\"><form method=\"post\" action=\"/\"><input class=\"flex-auto px-2 font-normal bg-gray-700 rounded border border-gray-600 border-solid outline-gray-600 max-w-56\" placeholder=\"Search...\" type=\"text\" name=\"search\" hx-post=\"/\" id=\"search\"> <button class=\"px-2 text-center border-gray-700 bg-sky-700 text-slate-300\" type=\"submit\" hx-post=\"/\" hx-trigger=\"click consume\">Go</button></form></div><div class=\"pb-4 grow\"><h2 class=\"mt-0 text-rose-500 md:hidden\">Tags</h2><p class=\"mt-0\"><ul class=\"flex flex-row flex-wrap p-0 m-0 list-none list-inside\">")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "</div><div class=\"block pb-4 md:hidden grow\"><form method=\"post\" action=\"/\"><input class=\"flex-auto px-2 font-normal bg-gray-700 rounded border border-gray-600 border-solid outline-gray-600 max-w-56\" placeholder=\"Search...\" type=\"text\" name=\"search\" id=\"search\"> <button class=\"px-2 text-center border-gray-700 bg-sky-700 text-slate-300\" type=\"submit\">Go</button></form></div><div class=\"pb-4 grow\"><h2 class=\"mt-0 text-rose-500 md:hidden\">Tags</h2><p class=\"mt-0\"><ul class=\"flex flex-row flex-wrap p-0 m-0 list-none list-inside\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -71,20 +71,20 @@ func ArchiveView(articleCount int, tags map[string]int) templ.Component {
 				var templ_7745c5c3_Var4 string
 				templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs("tag-link-" + t.tag)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/archive_view.templ`, Line: 42, Col: 32}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/archive_view.templ`, Line: 39, Col: 32}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "\" hx-on::before-request=\"document.getElementById('search-nav').value = '';\"><a class=\"px-1 no-underline hover:underline\" href=\"")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "\"><a class=\"px-1 no-underline hover:underline\" href=\"")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 				var templ_7745c5c3_Var5 templ.SafeURL
 				templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinURLErrs(templ.URL("/?search=&tag=" + t.tag))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/archive_view.templ`, Line: 45, Col: 95}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/archive_view.templ`, Line: 41, Col: 95}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
 				if templ_7745c5c3_Err != nil {
@@ -97,7 +97,7 @@ func ArchiveView(articleCount int, tags map[string]int) templ.Component {
 				var templ_7745c5c3_Var6 string
 				templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(t.tag)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/archive_view.templ`, Line: 46, Col: 16}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/archive_view.templ`, Line: 42, Col: 16}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
 				if templ_7745c5c3_Err != nil {
@@ -110,7 +110,7 @@ func ArchiveView(articleCount int, tags map[string]int) templ.Component {
 				var templ_7745c5c3_Var7 string
 				templ_7745c5c3_Var7, templ_7745c5c3_Err = templ.JoinStringErrs(strconv.Itoa(t.count))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/archive_view.templ`, Line: 46, Col: 43}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/archive_view.templ`, Line: 42, Col: 43}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var7))
 				if templ_7745c5c3_Err != nil {
@@ -121,7 +121,7 @@ func ArchiveView(articleCount int, tags map[string]int) templ.Component {
 					return templ_7745c5c3_Err
 				}
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 8, "</ul></p></div><div class=\"grow\"><h2 class=\"mt-0 text-rose-500\">About Me</h2><p class=\"mt-0\">Software Developer, Amateur Photographer, and NeoVim enthusiast.</p><p class=\"mt-0\">This site was made using <a href=\"https://go.dev/\">Go</a>, <a href=\"https://templ.guide/\">Templ</a>, <a href=\"https://htmx.org/\">HTMX</a>, and <a href=\"https://tailwindcss.com/\">Tailwind</a>. Written using <a href=\"https://neovim.io/\">NeoVim</a>, of course. 😉</p><p class=\"flex flex-row gap-2 mt-0\"><a href=\"/feed.xml\" hx-boost=\"false\" title=\"RSS Feed\"><img src=\"/static/img/socials/rss.png\" width=\"35\" height=\"35\" alt=\"RSS Feed Icon\"></a> <a href=\"https://github.com/synic\" title=\"GitHub Profile\"><img src=\"/static/img/socials/github.png\" width=\"35\" height=\"35\" alt=\"GitHub Icon\"></a> <a href=\"https://instagram.com/synic.dev\" title=\"Instagram Profile\"><img src=\"/static/img/socials/instagram.png\" width=\"35\" height=\"35\" alt=\"Instagram Icon\"></a> <a href=\"https://bsky.app/profile/synic.dev\" title=\"Bluesky Profile\"><img src=\"/static/img/socials/bluesky.png\" width=\"39\" height=\"35\" alt=\"BlueSky Logo\"></a></p></div></div>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 8, "</ul></p></div><div class=\"grow\"><h2 class=\"mt-0 text-rose-500\">About Me</h2><p class=\"mt-0\">Software Developer, Amateur Photographer, and NeoVim enthusiast.</p><p class=\"mt-0\">This site was made using <a href=\"https://go.dev/\">Go</a>, <a href=\"https://templ.guide/\">Templ</a>, <a href=\"https://htmx.org/\">HTMX</a>, and <a href=\"https://tailwindcss.com/\">Tailwind</a>. Written using <a href=\"https://neovim.io/\">NeoVim</a>, of course. 😉</p><p class=\"flex flex-row gap-2 mt-0\"><a href=\"/feed.xml\" title=\"RSS Feed\"><img src=\"/static/img/socials/rss.png\" width=\"35\" height=\"35\" alt=\"RSS Feed Icon\"></a> <a href=\"https://github.com/synic\" title=\"GitHub Profile\"><img src=\"/static/img/socials/github.png\" width=\"35\" height=\"35\" alt=\"GitHub Icon\"></a> <a href=\"https://instagram.com/synic.dev\" title=\"Instagram Profile\"><img src=\"/static/img/socials/instagram.png\" width=\"35\" height=\"35\" alt=\"Instagram Icon\"></a> <a href=\"https://bsky.app/profile/synic.dev\" title=\"Bluesky Profile\"><img src=\"/static/img/socials/bluesky.png\" width=\"39\" height=\"35\" alt=\"BlueSky Logo\"></a></p></div></div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

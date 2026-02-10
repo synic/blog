@@ -4,9 +4,9 @@ slug: jbother-brought-back-to-life
 publishedAt: 2024-11-25T12:08:11-07:00
 tags: [Random]
 openGraph:
-  image: /static/img/screenshots/jbother.png
+  image: /static/img/screenshots/jbother.webp
 summary: |
-  <img src="/static/img/screenshots/jbother.png" alt="JBother screenshot" width="400" height="243"/>
+  <img src="/static/img/screenshots/jbother.webp" alt="JBother screenshot" width="400" height="243"/>
 
   15 years or so ago, I abandoned my first opensource project,
   [JBother](https://github.com/synic/JBother) and eventually let the domain
@@ -19,8 +19,8 @@ summary: |
 In 2003, I released my very first opensource project,
 [JBother](https://github.com/synic/JBother). A Jabber client, written in Java.
 
-<a href="/static/img/screenshots/jbother.png">
-  <img src="/static/img/screenshots/jbother.png" alt="JBother screenshot" width="400" height="243"/>
+<a href="/static/img/screenshots/jbother.webp">
+  <img src="/static/img/screenshots/jbother.webp" alt="JBother screenshot" width="400" height="243"/>
 </a>
 
 It was an awesome experience. I learned a lot of Java, Swing, and a lot about
@@ -41,7 +41,7 @@ Eventually I just let the domain expire.
 # Someone Else Has Taken Over?
 
 <a href="https://jbother.org">
-  <img src="/static/img/screenshots/jbothersite.png" alt="Jbother
+  <img src="/static/img/screenshots/jbothersite.webp" alt="Jbother
 site screenshot, click to go to the new site" />
 </a>
 

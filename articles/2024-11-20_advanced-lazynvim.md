@@ -5,9 +5,9 @@ publishedAt: 2024-11-20T18:59:00-07:00
 tags: [NeoVim, Programming]
 openGraph:
   description: Does lazy.nvim configuration confuse you? This article is for you!
-  image: /static/img/screenshots/lazynvim.png
+  image: /static/img/screenshots/lazynvim.webp
 summary: |
-  <img src="/static/img/screenshots/lazynvim.png" width="592" height="299" alt="lazy.nvim screenshot" />
+  <img src="/static/img/screenshots/lazynvim.webp" width="592" height="299" alt="lazy.nvim screenshot" />
 
   There have been many plugin managers in the Vim ecosystem over the years. I've
   used quite a number of them, but
@@ -20,7 +20,7 @@ summary: |
   without just getting your hands dirty, it can be difficult to understand how it
   all comes together. That's where this article comes in.
 ---
-<img src="/static/img/screenshots/lazynvim.png" width="592" height="299" alt="lazy.nvim screenshot" />
+<img src="/static/img/screenshots/lazynvim.webp" width="592" height="299" alt="lazy.nvim screenshot" />
 
 There have been many plugin managers in the Vim ecosystem over the years. I've
 used quite a number of them, but

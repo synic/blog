@@ -10,13 +10,12 @@ import (
 	"os"
 	"path"
 	"path/filepath"
-	"regexp"
-	"strings"
 	"time"
 
 	"github.com/magefile/mage/mg"
 	"github.com/magefile/mage/sh"
 
+	"github.com/synic/blog/internal/article"
 	"github.com/synic/blog/internal/converter"
 )
 
@@ -135,32 +134,7 @@ func (Articles) Create() error {
 		os.Exit(1)
 	}
 
-	// Create a proper slug from title:
-	// 1. Convert to lowercase
-	// 2. Replace all spaces and underscores with hyphens
-	// 3. Remove all non-alphanumeric characters except hyphens
-	// 4. Remove multiple consecutive hyphens
-	// 5. Trim hyphens from start/end
-	slug := strings.ToLower(title)
-	slug = strings.ReplaceAll(slug, " ", "-")
-	slug = strings.ReplaceAll(slug, "_", "-")
-	re := regexp.MustCompile(`[^a-z0-9-]`)
-	slug = re.ReplaceAllString(slug, "")
-	re = regexp.MustCompile(`-+`)
-	slug = re.ReplaceAllString(slug, "-")
-	slug = strings.Trim(slug, "-")
-
-	fmt.Println(slug)
-	now := time.Now()
-
-	fn := fmt.Sprintf(
-		"%s/%d-%02d-%02d_%s.md",
-		articlesInPath,
-		now.Year(),
-		now.Month(),
-		now.Day(),
-		slug,
-	)
+	fn, content := article.CreateBlankArticleTemplate(title, tags, time.Now())
 
 	f, err := os.Create(fn)
 
@@ -168,28 +142,7 @@ func (Articles) Create() error {
 		return err
 	}
 
-	// Quote title if it contains special characters
-	needsQuotes := strings.ContainsAny(title, `:"'[]{}#|>&*?!`)
-	titleField := title
-	if needsQuotes {
-		titleField = fmt.Sprintf("%q", title)
-	}
-
-	tagList := strings.Split(tags, ",")
-	for i, tag := range tagList {
-		tagList[i] = strings.TrimSpace(tag)
-	}
-	tagsField := fmt.Sprintf("[%s]", strings.Join(tagList, ", "))
-
-	_, err = f.WriteString(fmt.Sprintf(`---
-title: %s
-slug: %s
-tags: %s
-publishedAt: %s
-summary: |
-
----
-`, titleField, slug, tagsField, now.Format(time.RFC3339)))
+	_, err = f.WriteString(content)
 
 	if err != nil {
 		return err

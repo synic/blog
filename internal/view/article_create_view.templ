@@ -1,0 +1,22 @@
+package view
+
+templ ArticleCreateView() {
+	@BaseLayout("Create Article") {
+		<div class="w-full md:w-3/4 lg:w-1/2">
+			<h2 class="mt-0 text-rose-500">Create Article</h2>
+			<form method="post" class="mt-0" hx-boost="false">
+				<div class="flex flex-row items-center mb-4 gap-2">
+					<label for="title" class="w-16 flex-none text-slate-300">Title:</label>
+					<input type="text" id="title" name="title" class="flex-auto font-normal bg-gray-700 rounded border border-gray-600 border-solid outline-gray-600 px-2 py-0.5"/>
+				</div>
+				<div class="flex flex-row items-center mb-4 gap-2">
+					<label for="tags" class="w-16 flex-none text-slate-300">Tags:</label>
+					<input type="text" id="tags" name="tags" class="flex-auto font-normal bg-gray-700 rounded border border-gray-600 border-solid outline-gray-600 px-2 py-0.5"/>
+				</div>
+				<div class="mt-6">
+					<button type="submit" class="bg-gray-700 text-slate-300 font-bold px-5 py-0.5 rounded border border-gray-600 border-solid cursor-pointer hover:bg-gray-600">Create</button>
+				</div>
+			</form>
+		</div>
+	}
+}

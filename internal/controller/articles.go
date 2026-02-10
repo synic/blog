@@ -2,12 +2,15 @@ package controller
 
 import (
 	"errors"
-	"github.com/gorilla/feeds"
 	"math"
 	"net/http"
+	"net/url"
 	"strconv"
 	"time"
 
+	"github.com/gorilla/feeds"
+
+	"github.com/synic/blog/internal/article"
 	"github.com/synic/blog/internal/model"
 	"github.com/synic/blog/internal/store"
 	"github.com/synic/blog/internal/view"
@@ -50,7 +53,9 @@ func NewArticleController(
 	return ArticleController{repo: repo, articleControllerConfig: conf}
 }
 
-func (h ArticleController) listAndPaginateArticles(r *http.Request) (model.ArticleListResponse, error) {
+func (h ArticleController) listAndPaginateArticles(
+	r *http.Request,
+) (model.ArticleListResponse, error) {
 	var err error = nil
 	articles := []*model.Article{}
 
@@ -112,7 +117,14 @@ func (h ArticleController) Index(w http.ResponseWriter, r *http.Request) {
 		if errors.Is(err, store.ErrNotFound) {
 			view.Error(w, r, err, 404, "Not Found", "Sorry, no articles could be found.")
 		} else {
-			view.Error(w, r, err, 500, "Internal Server Error", "An error occurred while retrieving articles.")
+			view.Error(
+				w,
+				r,
+				err,
+				500,
+				"Internal Server Error",
+				"An error occurred while retrieving articles.",
+			)
 		}
 		return
 	}
@@ -136,12 +148,37 @@ func (h ArticleController) Article(w http.ResponseWriter, r *http.Request) {
 		if errors.Is(err, store.ErrNotFound) {
 			view.Error(w, r, err, 404, "Not Found", "Sorry, that article could not be found.")
 		} else {
-			view.Error(w, r, err, 500, "Internal Server Error", "An error occurred while retrieving the article.")
+			view.Error(
+				w,
+				r,
+				err,
+				500,
+				"Internal Server Error",
+				"An error occurred while retrieving the article.",
+			)
 		}
 		return
 	}
 
 	view.Render(w, r, view.ArticleView(article))
+}
+
+func (h ArticleController) Create(w http.ResponseWriter, r *http.Request) {
+	title := r.FormValue("title")
+	tags := r.FormValue("tags")
+
+	if title == "" {
+		view.Render(w, r, view.ArticleCreateView())
+	} else {
+		fn, content := article.CreateBlankArticleTemplate(title, tags, time.Now())
+		u, _ := url.Parse("https://github.com/synic/blog/new/main")
+		q := u.Query()
+		q.Set("filename", fn)
+		q.Set("value", content)
+		u.RawQuery = q.Encode()
+		http.Redirect(w, r, u.String(), http.StatusSeeOther)
+		return
+	}
 }
 
 func (h ArticleController) Feed(w http.ResponseWriter, r *http.Request) {

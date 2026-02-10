@@ -18,6 +18,7 @@ func RegisterRoutes(
 
 	// articles
 	handler.HandleFunc("/{$}", articleController.Index)
+	handler.HandleFunc("/article/create", articleController.Create)
 	handler.HandleFunc("/article/{date}/{slug}", articleController.Article)
 	handler.HandleFunc("/archive", articleController.Archive)
 	handler.HandleFunc(

@@ -53,4 +53,5 @@ require (
 tool (
 	github.com/a-h/templ/cmd/templ
 	github.com/air-verse/air
+	github.com/magefile/mage
 )

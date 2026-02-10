@@ -3,7 +3,7 @@ FROM golang:1.26rc3-trixie AS build-base
 WORKDIR /app
 COPY . .
 
-RUN go run github.com/magefile/mage@2385abb build:release
+RUN go tool github.com/magefile/mage build:release
 FROM gcr.io/distroless/static-debian13
 
 WORKDIR /

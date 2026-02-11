@@ -458,7 +458,7 @@ func navlink(url, label string, hideMobile bool) templ.Component {
 			templ_7745c5c3_Var14 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		var templ_7745c5c3_Var15 = []any{"py-3 px-5 text-center no-underline border-l border-gray-700 cursor-pointer hover:text-white hover:bg-gray-700 item-center w-22 lg:last:rounded-tr-xl",
+		var templ_7745c5c3_Var15 = []any{"py-3 px-5 text-center no-underline border-l border-gray-700 cursor-pointer hover:text-white hover:bg-gray-700 items-center lg:last:rounded-tr-xl",
 			templ.KV("hidden lg:block", hideMobile),
 		}
 		templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var15...)

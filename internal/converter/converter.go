@@ -62,9 +62,13 @@ func Convert(inputPath, outputPath string, reconvert bool) (ConvertResult, error
 		out := path.Join(outputPath, strings.TrimSuffix(file.Name(), ext)+".json")
 		validOutputFiles = append(validOutputFiles, out)
 
-		shouldConvert, err := shouldConvert(in, out)
+		needsConvert, err := shouldConvert(in, out)
 
-		if !shouldConvert && !reconvert {
+		if err != nil {
+			return res, fmt.Errorf("error checking %s: %w", file.Name(), err)
+		}
+
+		if !needsConvert && !reconvert {
 			res.UpToDateCount += 1
 			continue
 		}
@@ -91,7 +95,7 @@ func Convert(inputPath, outputPath string, reconvert bool) (ConvertResult, error
 		res.ConvertedCount += 1
 	}
 
-	files, err = os.ReadDir(inputPath)
+	files, err = os.ReadDir(outputPath)
 
 	if err != nil {
 		return res, err
@@ -123,17 +127,6 @@ func Convert(inputPath, outputPath string, reconvert bool) (ConvertResult, error
 	return res, nil
 }
 
-func isGitDirty(filePath string) (bool, error) {
-	cmd := exec.Command("git", "status", "--porcelain", "--", filePath)
-	output, err := cmd.Output()
-
-	if err != nil {
-		return false, err
-	}
-
-	return strings.TrimSpace(string(output)) != "", nil
-}
-
 func getGitModTime(filePath string) (time.Time, error) {
 	cmd := exec.Command("git", "log", "-1", "--format=%ct", "--", filePath)
 	output, err := cmd.Output()
@@ -158,20 +151,22 @@ func getGitModTime(filePath string) (time.Time, error) {
 }
 
 func shouldConvert(sourceFn, destFn string) (bool, error) {
-	if _, err := os.Stat(destFn); err != nil {
+	destInfo, err := os.Stat(destFn)
+
+	if err != nil {
 		if errors.Is(err, os.ErrNotExist) {
 			return true, nil
 		}
 		return false, err
 	}
 
-	dirty, err := isGitDirty(sourceFn)
+	sourceInfo, err := os.Stat(sourceFn)
 
 	if err != nil {
 		return false, err
 	}
 
-	if dirty {
+	if sourceInfo.ModTime().After(destInfo.ModTime()) {
 		return true, nil
 	}
 

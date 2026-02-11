@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"io/fs"
+	"log"
 	"os"
 	"path"
 	"path/filepath"
@@ -282,6 +283,6 @@ func convertArticles(reconvert bool) error {
 		return err
 	}
 
-	fmt.Print(res.String())
+	log.New(os.Stderr, "", log.LstdFlags).Print(res.String())
 	return nil
 }

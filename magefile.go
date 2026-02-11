@@ -264,7 +264,7 @@ func maybeRunTailwind() error {
 
 	if lastInputModTime == nil || outModTime == nil || lastInputModTime.After(*outModTime) {
 		fmt.Println("View or CSS changes detected, running tailwind...")
-		err := tailwindCmd("--postcss", "-i", tailwinInFile, "-o", tailwindOutFile, "--minify")
+		err := tailwindCmd("-i", tailwinInFile, "-o", tailwindOutFile, "--minify")
 
 		if err != nil {
 			return err

@@ -213,6 +213,17 @@ func (h ArticleController) Feed(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h ArticleController) Archive(w http.ResponseWriter, r *http.Request) {
-	articles, _ := h.repo.FindAll(r.Context())
+	articles, err := h.repo.FindAll(r.Context())
+	if err != nil {
+		view.Error(
+			w,
+			r,
+			err,
+			500,
+			"Internal Server Error",
+			"An error occurred while retrieving articles.",
+		)
+		return
+	}
 	view.Render(w, r, view.ArchiveView(len(articles), h.repo.TagInfo(r.Context())))
 }

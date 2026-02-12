@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"log"
 	"time"
+
+	"github.com/joho/godotenv"
 )
 
 var (
@@ -17,6 +19,7 @@ var (
 
 func init() {
 	if DebugFlag == "true" {
+		godotenv.Load()
 		log.Println("🐝 Debugging enabled!")
 		Debug = true
 	}

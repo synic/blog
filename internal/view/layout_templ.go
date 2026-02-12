@@ -181,7 +181,7 @@ func head(conf baseLayoutConfig, partial bool) templ.Component {
 			var templ_7745c5c3_Var3 string
 			templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(static(ctx, "js/htmx.min.js"))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/base_layout.templ`, Line: 104, Col: 46}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/layout.templ`, Line: 104, Col: 46}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 			if templ_7745c5c3_Err != nil {
@@ -194,7 +194,7 @@ func head(conf baseLayoutConfig, partial bool) templ.Component {
 			var templ_7745c5c3_Var4 string
 			templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(static(ctx, "js/htmx-head-support.min.js"))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/base_layout.templ`, Line: 105, Col: 59}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/layout.templ`, Line: 105, Col: 59}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
 			if templ_7745c5c3_Err != nil {
@@ -207,7 +207,7 @@ func head(conf baseLayoutConfig, partial bool) templ.Component {
 			var templ_7745c5c3_Var5 string
 			templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(static(ctx, "js/app.js"))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/base_layout.templ`, Line: 106, Col: 41}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/layout.templ`, Line: 106, Col: 41}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
 			if templ_7745c5c3_Err != nil {
@@ -242,7 +242,7 @@ func head(conf baseLayoutConfig, partial bool) templ.Component {
 			var templ_7745c5c3_Var6 string
 			templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(conf.title)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/base_layout.templ`, Line: 116, Col: 18}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/layout.templ`, Line: 116, Col: 18}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
 			if templ_7745c5c3_Err != nil {
@@ -286,7 +286,7 @@ func openGraphTags(og model.OpenGraphData) templ.Component {
 			var templ_7745c5c3_Var8 string
 			templ_7745c5c3_Var8, templ_7745c5c3_Err = templ.JoinStringErrs(og.Type)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/base_layout.templ`, Line: 124, Col: 44}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/layout.templ`, Line: 124, Col: 44}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var8))
 			if templ_7745c5c3_Err != nil {
@@ -310,7 +310,7 @@ func openGraphTags(og model.OpenGraphData) templ.Component {
 			var templ_7745c5c3_Var9 string
 			templ_7745c5c3_Var9, templ_7745c5c3_Err = templ.JoinStringErrs(og.Title)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/base_layout.templ`, Line: 129, Col: 46}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/layout.templ`, Line: 129, Col: 46}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var9))
 			if templ_7745c5c3_Err != nil {
@@ -329,7 +329,7 @@ func openGraphTags(og model.OpenGraphData) templ.Component {
 			var templ_7745c5c3_Var10 string
 			templ_7745c5c3_Var10, templ_7745c5c3_Err = templ.JoinStringErrs(og.Description)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/base_layout.templ`, Line: 132, Col: 58}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/layout.templ`, Line: 132, Col: 58}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var10))
 			if templ_7745c5c3_Err != nil {
@@ -348,7 +348,7 @@ func openGraphTags(og model.OpenGraphData) templ.Component {
 			var templ_7745c5c3_Var11 string
 			templ_7745c5c3_Var11, templ_7745c5c3_Err = templ.JoinStringErrs(og.Image)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/base_layout.templ`, Line: 135, Col: 46}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/layout.templ`, Line: 135, Col: 46}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var11))
 			if templ_7745c5c3_Err != nil {
@@ -384,7 +384,7 @@ func header() templ.Component {
 			templ_7745c5c3_Var12 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 25, "<header class=\"w-full shadow-md\"><form method=\"post\" action=\"/\" autocomplete=\"off\" class=\"flex flex-row flex-nowrap pl-6 rounded-md shadow-md\"><div class=\"justify-start py-3 whitespace-nowrap cursor-pointer shrink\" hx-get=\"/\" hx-on::after-request=\"document.getElementById('search-nav').value = '';\" hx-trigger=\"click\"><a href=\"/\" hx-trigger=\"click consume\" class=\"no-underline hover:underline\"><span class=\"font-bold spin-around text-sky-700\">::/</span> Adam's Things</a></div><div class=\"grow\">&nbsp;</div><input class=\"hidden flex-auto px-2 my-2 mr-4 font-normal bg-gray-700 rounded border border-gray-600 border-solid md:inline outline-gray-600 md:max-w-40 lg:max-w-56\" placeholder=\"Search...\" type=\"text\" name=\"search\" id=\"search-nav\" hx-post=\"/\" hx-swap=\"innerHTML show:window:top\" hx-trigger=\"input changed delay:200ms, search\"><nav class=\"flex flex-row content-end p-0 m-0 grow-0 shrink\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 25, "<header class=\"w-full shadow-md\"><form method=\"post\" action=\"/\" autocomplete=\"off\" class=\"flex flex-row flex-nowrap pl-6 rounded-md shadow-md\"><div class=\"justify-start py-3 whitespace-nowrap cursor-pointer shrink\" hx-get=\"/\" hx-on::after-request=\"document.getElementById('search-nav').value = '';\" hx-trigger=\"click\"><a href=\"/\" hx-trigger=\"click consume\" class=\"no-underline hover:underline\"><span class=\"font-bold spin-around text-sky-700\">::/</span> Adam's Things</a></div><div class=\"grow\">&nbsp;</div><input class=\"hidden flex-auto px-2 my-2 mr-4 font-normal bg-gray-700 rounded border border-gray-600 border-solid md:inline outline-gray-600 md:max-w-40 lg:max-w-56\" placeholder=\"Search...\" type=\"text\" name=\"search\" id=\"search-nav\" hx-post=\"/\" hx-swap=\"innerHTML show:window:top\" hx-trigger=\"input changed delay:200ms, search\"><nav class=\"flex flex-row content-end items-center p-0 m-0 grow-0 shrink\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -472,7 +472,7 @@ func navlink(url, label string, hideMobile bool) templ.Component {
 		var templ_7745c5c3_Var16 string
 		templ_7745c5c3_Var16, templ_7745c5c3_Err = templ.JoinStringErrs("nav-link-" + label)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/base_layout.templ`, Line: 189, Col: 26}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/layout.templ`, Line: 189, Col: 26}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var16))
 		if templ_7745c5c3_Err != nil {
@@ -485,7 +485,7 @@ func navlink(url, label string, hideMobile bool) templ.Component {
 		var templ_7745c5c3_Var17 string
 		templ_7745c5c3_Var17, templ_7745c5c3_Err = templ.JoinStringErrs(templ.CSSClasses(templ_7745c5c3_Var15).String())
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/base_layout.templ`, Line: 1, Col: 0}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/layout.templ`, Line: 1, Col: 0}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var17))
 		if templ_7745c5c3_Err != nil {
@@ -498,7 +498,7 @@ func navlink(url, label string, hideMobile bool) templ.Component {
 		var templ_7745c5c3_Var18 templ.SafeURL
 		templ_7745c5c3_Var18, templ_7745c5c3_Err = templ.JoinURLErrs(templ.URL(url))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/base_layout.templ`, Line: 195, Col: 23}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/layout.templ`, Line: 195, Col: 23}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var18))
 		if templ_7745c5c3_Err != nil {
@@ -511,7 +511,7 @@ func navlink(url, label string, hideMobile bool) templ.Component {
 		var templ_7745c5c3_Var19 string
 		templ_7745c5c3_Var19, templ_7745c5c3_Err = templ.JoinStringErrs(label)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/base_layout.templ`, Line: 197, Col: 9}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/layout.templ`, Line: 197, Col: 9}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var19))
 		if templ_7745c5c3_Err != nil {

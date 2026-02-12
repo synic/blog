@@ -11,6 +11,7 @@ import (
 	"github.com/gorilla/feeds"
 
 	"github.com/synic/blog/internal/article"
+	"github.com/synic/blog/internal/middleware"
 	"github.com/synic/blog/internal/model"
 	"github.com/synic/blog/internal/store"
 	"github.com/synic/blog/internal/view"
@@ -22,7 +23,9 @@ type articleControllerConfig struct {
 }
 
 type ArticleController struct {
-	repo store.ArticleRepository
+	repo     store.ArticleRepository
+	comments *store.CommentRepository
+	views    *store.PageViewRepository
 	articleControllerConfig
 }
 
@@ -42,6 +45,8 @@ func WithPagination(perPage, maxPerPage int) func(*articleControllerConfig) {
 
 func NewArticleController(
 	repo store.ArticleRepository,
+	comments *store.CommentRepository,
+	views *store.PageViewRepository,
 	options ...func(*articleControllerConfig),
 ) ArticleController {
 	conf := defaultArticleControllerConfig()
@@ -50,7 +55,7 @@ func NewArticleController(
 		option(&conf)
 	}
 
-	return ArticleController{repo: repo, articleControllerConfig: conf}
+	return ArticleController{repo: repo, comments: comments, views: views, articleControllerConfig: conf}
 }
 
 func (h ArticleController) listAndPaginateArticles(
@@ -160,7 +165,18 @@ func (h ArticleController) Article(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	view.Render(w, r, view.ArticleView(article))
+	if h.views != nil {
+		h.views.LogView(article.Slug, r.RemoteAddr, r.UserAgent())
+	}
+
+	commentCount := 0
+	if h.comments != nil {
+		commentCount = h.comments.CommentCount(article.Slug)
+	}
+	user := middleware.UserFromContext(r.Context())
+	showComments := r.URL.Query().Get("show_comments") == "1"
+
+	view.Render(w, r, view.ArticleView(article, commentCount, user, showComments))
 }
 
 func (h ArticleController) Create(w http.ResponseWriter, r *http.Request) {
@@ -177,12 +193,15 @@ func (h ArticleController) Create(w http.ResponseWriter, r *http.Request) {
 			Body:        r.FormValue("body"),
 			PublishedAt: time.Now(),
 		}
+
 		fn, content := article.CreateBlankArticleTemplate(payload)
+
 		u, _ := url.Parse("https://github.com/synic/blog/new/main")
 		q := u.Query()
 		q.Set("filename", fn)
 		q.Set("value", content)
 		u.RawQuery = q.Encode()
+
 		http.Redirect(w, r, u.String(), http.StatusSeeOther)
 		return
 	}

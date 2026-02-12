@@ -34,13 +34,21 @@ function handleHtmxError(event) {
 }
 
 window.addEventListener("load", () => {
-  // scroll
   showScrollToTopButton();
   window.addEventListener("scroll", showScrollToTopButton);
   window.addEventListener("resize", showScrollToTopButton);
   window.addEventListener("htmx:afterSwap", showScrollToTopButton);
 
-  // error
+  document.body.addEventListener("htmx:configRequest", (event) => {
+    const csrfToken = document.cookie
+      .split("; ")
+      .find((row) => row.startsWith("csrf_token="))
+      ?.split("=")[1];
+    if (csrfToken) {
+      event.detail.headers["X-CSRF-Token"] = csrfToken;
+    }
+  });
+
   document.body.addEventListener("htmx:onLoadError", handleHtmxError);
   document.body.addEventListener("htmx:responseError", handleHtmxError);
   document.body.addEventListener("htmx:sendError", handleHtmxError);

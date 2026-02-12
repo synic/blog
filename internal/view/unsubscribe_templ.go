@@ -8,7 +8,7 @@ package view
 import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
-func ArticleCreateView() templ.Component {
+func UnsubscribeView() templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
@@ -41,13 +41,13 @@ func ArticleCreateView() templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div class=\"w-full\"><h2 class=\"mt-0 text-rose-500\">Create Article</h2><form method=\"post\" class=\"mt-0\" hx-boost=\"false\"><div class=\"flex flex-row items-center mb-4 gap-2\"><label for=\"title\" class=\"w-24 flex-none text-slate-300\">Title:</label> <input type=\"text\" id=\"title\" name=\"title\" class=\"w-1/2 font-normal bg-gray-700 rounded border border-gray-600 border-solid outline-gray-600 px-2 py-0.5\"></div><div class=\"flex flex-row items-center mb-4 gap-2\"><label for=\"tags\" class=\"w-24 flex-none text-slate-300\">Tags:</label> <input type=\"text\" id=\"tags\" name=\"tags\" class=\"w-1/2 font-normal bg-gray-700 rounded border border-gray-600 border-solid outline-gray-600 px-2 py-0.5\"></div><div class=\"flex flex-row items-start mb-4 gap-2\"><label for=\"summary\" class=\"w-24 flex-none text-slate-300\">Summary:</label> <textarea id=\"summary\" name=\"summary\" rows=\"4\" class=\"flex-auto font-normal bg-gray-700 rounded border border-gray-600 border-solid outline-gray-600 px-2 py-0.5\"></textarea></div><div class=\"flex flex-row items-start mb-4 gap-2\"><label for=\"body\" class=\"w-24 flex-none text-slate-300\">Body:</label> <textarea id=\"body\" name=\"body\" rows=\"5\" class=\"flex-auto font-normal bg-gray-700 rounded border border-gray-600 border-solid outline-gray-600 px-2 py-0.5\"></textarea></div><div class=\"mt-6\"><button type=\"submit\" class=\"bg-gray-700 text-slate-300 font-bold px-5 py-0.5 rounded border border-gray-600 border-solid cursor-pointer hover:bg-gray-600\">Create</button></div></form></div>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div class=\"max-w-xl mx-auto py-12 text-center\"><h1 class=\"text-2xl font-bold text-slate-200 mb-4\">Unsubscribed</h1><p class=\"text-slate-400\">You have been unsubscribed from email notifications.</p></div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			return nil
 		})
-		templ_7745c5c3_Err = BaseLayout("Create Article").Render(templ.WithChildren(ctx, templ_7745c5c3_Var2), templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = BaseLayout("Unsubscribed").Render(templ.WithChildren(ctx, templ_7745c5c3_Var2), templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

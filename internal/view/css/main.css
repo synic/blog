@@ -1,22 +1,6 @@
 @import "tailwindcss";
 
 @layer base {
-  * {
-    @apply text-lg md:text-xl;
-  }
-
-  a {
-    @apply decoration-dashed underline decoration-slate-500;
-  }
-
-  p {
-    @apply my-4;
-  }
-
-  img {
-    @apply mt-1.5 mb-7;
-  }
-
   ul {
     @apply list-disc p-3 list-outside ml-4;
   }
@@ -37,6 +21,9 @@
     @apply font-bold text-xl md:text-2xl my-5;
   }
 
+  a {
+    @apply underline decoration-slate-500;
+  }
 }
 
 @layer components {
@@ -49,6 +36,14 @@
    *     blocks)
    **/
   .mdgen {
+    p {
+      @apply my-4;
+    }
+
+    img {
+      @apply mt-1.5 mb-7;
+    }
+
     li:not(:last-child) {
       @apply mb-2;
     }

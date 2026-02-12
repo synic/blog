@@ -5,6 +5,116 @@ import (
 	"github.com/synic/blog/internal/model"
 )
 
+templ ArticleView(a *model.Article, commentCount int, user *model.User, showComments bool) {
+	@BaseLayout(a.Title, WithOpenGraphData(a.OpenGraphData)) {
+		@article(a, false)
+		<div id="comment-area" class="mt-4">
+			@CommentArea(a.URL(), commentCount, user, showComments)
+		</div>
+	}
+}
+
+templ article(a *model.Article, inList bool) {
+	<article
+		id={ "article-" + a.Slug }
+		if inList {
+			class="cursor-pointer"
+			hx-get={ string(a.SafeURL()) }
+		}
+	>
+		<div>
+			<a
+				class={ "font-bold no-underline text-rose-500 decoration-rose-500", templ.KV("hover:underline", inList) }
+				href={ a.SafeURL() }
+				hx-trigger="click consume"
+				hx-get={ string(a.SafeURL()) }
+			>
+				<h1 class="mt-0 mb-0 text-rose-500">{ a.Title }</h1>
+			</a>
+			<div class="mt-3 text-sm italic">
+				if a.IsPublished {
+					Published: { a.PublishedAt.Format("Jan 2, 2006") }
+				} else {
+					<span class="text-sm text-red-200">
+						Unpublished
+					</span>
+				}
+			</div>
+		</div>
+		<div class="mt-3 w-full break-words mdgen" hx-push-url="false" hx-boost="false" hx-disable="true">
+			if !inList {
+				@templ.Raw(a.Body)
+			} else {
+				@templ.Raw(a.Summary)
+			}
+		</div>
+		if !inList {
+			<hr class="mt-4 mb-4 h-px bg-gray-200 border-0 dark:bg-gray-700 my-flex-col"/>
+			<div>
+				Filed Under:&nbsp;
+				@taglinks(a.Tags)
+			</div>
+		} else {
+			<a class="underline decoration-dashed decoration-slate-500" hx-get={ string(a.SafeURL()) } href={ a.SafeURL() } hx-trigger="click consume">
+				<i class="text-base">Read more...</i>
+			</a>
+		}
+	</article>
+}
+
+func maybeComma(comma bool) string {
+	if comma {
+		return ",&nbsp;"
+	}
+	return ""
+}
+
+templ taglinks(tags []string) {
+	<ul class="inline-block p-0 m-0 list-none list-inside">
+		for i, t := range tags {
+			<li class="inline-block">
+				<a
+					href={ templ.URL("/?tag=" + t) }
+					id={ "tag-link-" + t }
+					class="underline decoration-dashed decoration-slate-500"
+					hx-on::before-request="document.getElementById('search-nav').value = '';"
+				>
+					{ t }
+				</a>@templ.Raw(maybeComma(i < len(tags)-1))
+			</li>
+		}
+	</ul>
+}
+
+templ ArticleCreateView() {
+	@BaseLayout("Create Article") {
+		<div class="w-full">
+			<h2 class="mt-0 text-rose-500">Create Article</h2>
+			<form method="post" class="mt-0" hx-boost="false">
+				<div class="flex flex-row items-center mb-4 gap-2">
+					<label for="title" class="w-24 flex-none text-slate-300">Title:</label>
+					<input type="text" id="title" name="title" class="w-1/2 font-normal bg-gray-700 rounded border border-gray-600 border-solid outline-gray-600 px-2 py-0.5"/>
+				</div>
+				<div class="flex flex-row items-center mb-4 gap-2">
+					<label for="tags" class="w-24 flex-none text-slate-300">Tags:</label>
+					<input type="text" id="tags" name="tags" class="w-1/2 font-normal bg-gray-700 rounded border border-gray-600 border-solid outline-gray-600 px-2 py-0.5"/>
+				</div>
+				<div class="flex flex-row items-start mb-4 gap-2">
+					<label for="summary" class="w-24 flex-none text-slate-300">Summary:</label>
+					<textarea id="summary" name="summary" rows="4" class="flex-auto font-normal bg-gray-700 rounded border border-gray-600 border-solid outline-gray-600 px-2 py-0.5"></textarea>
+				</div>
+				<div class="flex flex-row items-start mb-4 gap-2">
+					<label for="body" class="w-24 flex-none text-slate-300">Body:</label>
+					<textarea id="body" name="body" rows="5" class="flex-auto font-normal bg-gray-700 rounded border border-gray-600 border-solid outline-gray-600 px-2 py-0.5"></textarea>
+				</div>
+				<div class="mt-6">
+					<button type="submit" class="bg-gray-700 text-slate-300 font-bold px-5 py-0.5 rounded border border-gray-600 border-solid cursor-pointer hover:bg-gray-600">Create</button>
+				</div>
+			</form>
+		</div>
+	}
+}
+
 templ ArticlesView(res model.ArticleListResponse) {
 	@BaseLayout(titleFromPageData(res)) {
 		if res.Page <= 1 {

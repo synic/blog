@@ -13,6 +13,7 @@ import (
 	"path/filepath"
 	"time"
 
+	"github.com/joho/godotenv"
 	"github.com/magefile/mage/mg"
 	"github.com/magefile/mage/sh"
 
@@ -20,6 +21,10 @@ import (
 	"github.com/synic/blog/internal/converter"
 	"github.com/synic/blog/internal/model"
 )
+
+func init() {
+	godotenv.Load()
+}
 
 var (
 	Default        = Dev
@@ -38,6 +43,8 @@ var (
 	articlesOutPath = "./assets/articles"
 	buildInfoPath   = packageName + "/internal"
 
+	migrationsPath = "./migrations"
+
 	// commands
 	runCmd      = sh.RunCmd("go", "run")
 	buildCmd    = sh.RunCmd("go", "build")
@@ -45,6 +52,7 @@ var (
 	minifyCmd   = sh.RunCmd("node_modules/.bin/css-minify")
 	templCmd    = sh.RunCmd("go", "tool", "github.com/a-h/templ/cmd/templ")
 	airCmd      = sh.RunCmd("go", "tool", "github.com/air-verse/air")
+	gooseCmd    = sh.RunCmd("go", "tool", "github.com/pressly/goose/v3/cmd/goose")
 )
 
 func Dev() error {
@@ -72,7 +80,7 @@ func (Deps) Dev() error {
 type Build mg.Namespace
 
 func (Build) Dev() error {
-	mg.Deps(Codegen, Vet)
+	mg.Deps(Codegen, Check)
 	mg.Deps(Articles.Convert)
 
 	return buildCmd("-tags", "debug",
@@ -83,8 +91,8 @@ func (Build) Dev() error {
 }
 
 func (Build) Release() error {
-	mg.Deps(Test)
-	mg.Deps(Articles.Convert)
+	mg.Deps(Check)
+	mg.Deps(Articles.ConvertWithGit)
 	return sh.RunWithV(
 		map[string]string{"CGO_ENABLED": "0"},
 		"go", "build",
@@ -98,6 +106,10 @@ func (Build) Release() error {
 func Codegen() error {
 	mg.Deps(Deps.Dev)
 
+	if err := Sqlc(); err != nil {
+		return err
+	}
+
 	err := templCmd("generate")
 
 	if err != nil {
@@ -110,11 +122,15 @@ func Codegen() error {
 type Articles mg.Namespace
 
 func (Articles) Convert() error {
-	return convertArticles(false)
+	return convertArticles(false, false)
+}
+
+func (Articles) ConvertWithGit() error {
+	return convertArticles(false, true)
 }
 
 func (Articles) Reconvert() error {
-	return convertArticles(true)
+	return convertArticles(true, false)
 }
 
 func (Articles) Create() error {
@@ -159,6 +175,24 @@ func (Articles) Create() error {
 	return sh.RunV("nvim", fn, "-c", "/summary: |", "-c", "normal! j0i   ", "-c", "startinsert")
 }
 
+type DB mg.Namespace
+
+func (DB) Migrate() error {
+	return gooseCmd("-dir", migrationsPath, "postgres", os.Getenv("DATABASE_URL"), "up")
+}
+
+func (DB) Rollback() error {
+	return gooseCmd("-dir", migrationsPath, "postgres", os.Getenv("DATABASE_URL"), "down")
+}
+
+func (DB) Status() error {
+	return gooseCmd("-dir", migrationsPath, "postgres", os.Getenv("DATABASE_URL"), "status")
+}
+
+func Sqlc() error {
+	return sh.RunV("sqlc", "generate")
+}
+
 func Pygmentize() error {
 	data, err := sh.Output("pygmentize", "-S", syntaxCssTheme, "-f", "html", "-a", ".chroma")
 
@@ -185,6 +219,24 @@ func Vet() error {
 
 func Test() error {
 	mg.Deps(Vet)
+	return sh.RunV("go", "test", "-race", "./...")
+}
+
+func Check() error {
+	mg.Deps(Codegen)
+
+	if err := templCmd("fmt", "."); err != nil {
+		return err
+	}
+
+	if err := sh.RunV("gofmt", "-w", "."); err != nil {
+		return err
+	}
+
+	if err := Vet(); err != nil {
+		return err
+	}
+
 	return sh.RunV("go", "test", "-race", "./...")
 }
 
@@ -283,8 +335,8 @@ func maybeRunTailwind() error {
 	return nil
 }
 
-func convertArticles(reconvert bool) error {
-	res, err := converter.Convert(articlesInPath, articlesOutPath, reconvert)
+func convertArticles(reconvert, useGit bool) error {
+	res, err := converter.Convert(articlesInPath, articlesOutPath, reconvert, useGit)
 
 	if err != nil {
 		return err

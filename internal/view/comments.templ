@@ -1,0 +1,193 @@
+package view
+
+import (
+	"fmt"
+	"github.com/synic/blog/internal/model"
+	"strconv"
+)
+
+func commentCountText(count int) string {
+	if count == 1 {
+		return "1 comment"
+	}
+	return fmt.Sprintf("%d comments", count)
+}
+
+func i64str(id int64) string {
+	return strconv.FormatInt(id, 10)
+}
+
+templ CommentArea(articleURL string, commentCount int, user *model.User, showComments bool) {
+	if user != nil {
+		<form
+			hx-post={ articleURL + "/comments" }
+			hx-target="#comment-list"
+			hx-swap="innerHTML"
+			hx-on::after-request="if(event.detail.successful) this.reset()"
+			class="mb-4"
+		>
+			<div class="flex gap-3">
+				if user.AvatarURL != "" {
+					<img src={ user.AvatarURL } alt={ user.Username } class="w-8 h-8 rounded-full shrink-0 mt-0.5"/>
+				}
+				<div class="flex-1">
+					<textarea
+						name="body"
+						rows="3"
+						placeholder="Leave a comment..."
+						required
+						maxlength="5000"
+						class="w-full p-2 text-sm bg-gray-700 rounded border border-gray-600 text-slate-300 placeholder-slate-500 focus:outline-none focus:border-sky-500 resize-y"
+					></textarea>
+					<div class="flex items-center gap-3 mt-1.5">
+						<button
+							type="submit"
+							class="px-3 py-1 text-xs text-white bg-sky-600 rounded cursor-pointer hover:bg-sky-500"
+						>
+							Post Comment
+						</button>
+						<span class="text-xs text-slate-500">
+							{ user.Username }
+							&middot;
+							<a
+								href="/auth/logout"
+								hx-post="/auth/logout"
+								class="text-slate-500 hover:text-slate-300 no-underline"
+							>
+								Logout
+							</a>
+						</span>
+					</div>
+				</div>
+			</div>
+		</form>
+	} else {
+		<p class="mb-4 text-sm text-slate-500">
+			<a href="/auth/login" hx-boost="false" class="text-sky-400 hover:text-sky-300 no-underline">Sign in with GitHub</a> to leave a comment.
+		</p>
+	}
+	<div id="comment-list">
+		if showComments {
+			<div
+				hx-get={ articleURL + "/comments" }
+				hx-trigger="load"
+				hx-target="#comment-list"
+				hx-swap="innerHTML"
+				hx-push-url="false"
+			>
+				<span class="text-sm text-slate-500">Loading comments...</span>
+			</div>
+			@scrollToCommentsOnLoad()
+		} else {
+			<div>
+				<span class="text-sm text-slate-400">{ commentCountText(commentCount) }</span>
+				<button
+					class="ml-2 text-sm text-sky-500 underline cursor-pointer"
+					hx-get={ articleURL + "/comments" }
+					hx-target="#comment-list"
+					hx-swap="innerHTML"
+					hx-push-url="false"
+					onclick={ scrollToComments() }
+				>
+					View Comments
+				</button>
+			</div>
+		}
+	</div>
+}
+
+templ CommentListWithPending(articleURL string, threads []model.CommentThread, user *model.User) {
+	<div class="mb-4 p-3 rounded bg-sky-900/30 text-sm text-sky-300">
+		Your comment has been submitted and is pending approval.
+	</div>
+	@CommentList(articleURL, threads, user)
+}
+
+templ CommentList(articleURL string, threads []model.CommentThread, user *model.User) {
+	if len(threads) == 0 {
+		<p class="text-sm text-slate-500 italic">No comments yet.</p>
+	}
+	for _, t := range threads {
+		@commentCard(articleURL, t.Comment, user)
+		for _, reply := range t.Replies {
+			<div class="ml-10">
+				@commentCard(articleURL, reply, user)
+			</div>
+		}
+	}
+}
+
+script scrollToCommentsOnLoad() {
+	var ca = document.getElementById("comment-area");
+	ca.addEventListener("htmx:afterSettle", function handler() {
+		ca.removeEventListener("htmx:afterSettle", handler);
+		ca.scrollIntoView({ behavior: "smooth", block: "start" });
+	});
+}
+
+script scrollToComments() {
+	var cl = document.getElementById("comment-list");
+	cl.addEventListener("htmx:afterSettle", function handler() {
+		cl.removeEventListener("htmx:afterSettle", handler);
+		var last = cl.lastElementChild;
+		if (last) {
+			last.scrollIntoView({ behavior: "smooth", block: "end" });
+		} else {
+			cl.scrollIntoView({ behavior: "smooth", block: "start" });
+		}
+	});
+}
+
+script expandReply() {
+	var el = event.currentTarget;
+	setTimeout(function() {
+		var ta = el.querySelector("textarea");
+		if (ta) {
+			ta.focus();
+			ta.scrollIntoView({ behavior: "smooth", block: "center" });
+		}
+	}, 0);
+}
+
+templ commentCard(articleURL string, c model.Comment, user *model.User) {
+	<div class="mb-2 flex gap-3">
+		if c.AvatarURL != "" {
+			<img src={ c.AvatarURL } alt={ c.Username } class="w-7 h-7 rounded-full shrink-0 mt-0.5"/>
+		}
+		<div class="flex-1 min-w-0">
+			<div class="flex items-baseline gap-2">
+				<span class="text-sm font-bold text-slate-200">{ c.Username }</span>
+				<span class="text-xs text-slate-500">{ c.CreatedAt.Format("Jan 2, 2006 3:04 PM") }</span>
+			</div>
+			<div class="text-sm text-slate-300 whitespace-pre-wrap mt-0.5">{ c.Body }</div>
+			if user != nil && c.ParentID == nil {
+				<details class="mt-1" onclick={ expandReply() }>
+					<summary class="text-xs text-sky-500 cursor-pointer select-none">Reply</summary>
+					<form
+						hx-post={ articleURL + "/comments" }
+						hx-target="#comment-list"
+						hx-swap="innerHTML"
+						hx-push-url="false"
+						class="mt-1.5"
+					>
+						<input type="hidden" name="parent_id" value={ i64str(c.ID) }/>
+						<textarea
+							name="body"
+							rows="2"
+							placeholder="Write a reply..."
+							required
+							maxlength="5000"
+							class="w-full p-2 text-sm bg-gray-700 rounded border border-gray-600 text-slate-300 placeholder-slate-500 focus:outline-none focus:border-sky-500 resize-y"
+						></textarea>
+						<button
+							type="submit"
+							class="mt-1 px-3 py-1 text-xs text-white bg-sky-600 rounded cursor-pointer hover:bg-sky-500"
+						>
+							Reply
+						</button>
+					</form>
+				</details>
+			}
+		</div>
+	</div>
+}

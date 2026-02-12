@@ -19,6 +19,14 @@ type Article struct {
 	OpenGraphData OpenGraphData     `json:"openGraph"       yaml:"openGraph"`
 }
 
+type ArticleCreatePayload struct {
+	PublishedAt time.Time
+	Tags        string
+	Title       string
+	Summary     string
+	Body        string
+}
+
 func (a *Article) URL() string {
 	return fmt.Sprintf(
 		"/article/%d-%02d-%02d/%s",

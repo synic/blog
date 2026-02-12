@@ -170,7 +170,14 @@ func (h ArticleController) Create(w http.ResponseWriter, r *http.Request) {
 	if title == "" {
 		view.Render(w, r, view.ArticleCreateView())
 	} else {
-		fn, content := article.CreateBlankArticleTemplate(title, tags, time.Now())
+		payload := model.ArticleCreatePayload{
+			Title:       title,
+			Tags:        tags,
+			Summary:     r.FormValue("summary"),
+			Body:        r.FormValue("body"),
+			PublishedAt: time.Now(),
+		}
+		fn, content := article.CreateBlankArticleTemplate(payload)
 		u, _ := url.Parse("https://github.com/synic/blog/new/main")
 		q := u.Query()
 		q.Set("filename", fn)

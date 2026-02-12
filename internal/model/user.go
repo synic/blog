@@ -1,0 +1,9 @@
+package model
+
+type User struct {
+	ID        int64
+	Username  string
+	AvatarURL string
+	Email     string
+	IsAdmin   bool
+}

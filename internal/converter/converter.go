@@ -39,7 +39,7 @@ func (r ConvertResult) String() string {
 	return b.String()
 }
 
-func Convert(inputPath, outputPath string, reconvert bool) (ConvertResult, error) {
+func Convert(inputPath, outputPath string, reconvert bool, useGit bool) (ConvertResult, error) {
 	res := ConvertResult{reconvert: reconvert}
 	files, err := os.ReadDir(inputPath)
 
@@ -62,7 +62,7 @@ func Convert(inputPath, outputPath string, reconvert bool) (ConvertResult, error
 		out := path.Join(outputPath, strings.TrimSuffix(file.Name(), ext)+".json")
 		validOutputFiles = append(validOutputFiles, out)
 
-		needsConvert, err := shouldConvert(in, out)
+		needsConvert, err := shouldConvert(in, out, useGit)
 
 		if err != nil {
 			return res, fmt.Errorf("error checking %s: %w", file.Name(), err)
@@ -150,7 +150,7 @@ func getGitModTime(filePath string) (time.Time, error) {
 	return time.Unix(timestamp, 0), nil
 }
 
-func shouldConvert(sourceFn, destFn string) (bool, error) {
+func shouldConvert(sourceFn, destFn string, useGit bool) (bool, error) {
 	destInfo, err := os.Stat(destFn)
 
 	if err != nil {
@@ -168,6 +168,10 @@ func shouldConvert(sourceFn, destFn string) (bool, error) {
 
 	if sourceInfo.ModTime().After(destInfo.ModTime()) {
 		return true, nil
+	}
+
+	if !useGit {
+		return false, nil
 	}
 
 	inTime, err := getGitModTime(sourceFn)

@@ -18,6 +18,7 @@ import (
 
 	"github.com/synic/blog/internal/article"
 	"github.com/synic/blog/internal/converter"
+	"github.com/synic/blog/internal/model"
 )
 
 var (
@@ -135,7 +136,13 @@ func (Articles) Create() error {
 		os.Exit(1)
 	}
 
-	fn, content := article.CreateBlankArticleTemplate(title, tags, time.Now())
+	payload := model.ArticleCreatePayload{
+		Title:       title,
+		Tags:        tags,
+		PublishedAt: time.Now(),
+	}
+
+	fn, content := article.CreateBlankArticleTemplate(payload)
 
 	f, err := os.Create(fn)
 

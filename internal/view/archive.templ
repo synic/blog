@@ -33,7 +33,7 @@ templ ArchiveView(articleCount int, tags map[string]int) {
 				</form>
 			</div>
 			<div class="pb-4 grow">
-				<h2 class="mt-0 text-rose-500 md:hidden">Tags</h2>
+				<h2 class="mt-0 mb-1 text-rose-500 md:hidden">Tags</h2>
 				<p class="mt-0">
 					<ul class="flex flex-row flex-wrap p-0 m-0 list-none list-inside">
 						for _, t := range sortedTags(tags) {
@@ -51,11 +51,11 @@ templ ArchiveView(articleCount int, tags map[string]int) {
 				</p>
 			</div>
 			<div class="grow">
-				<h2 class="mt-0 text-rose-500">About Me</h2>
+				<h2 class="mt-0 mb-1 text-rose-500">About Me</h2>
 				<p class="mt-0">
 					Software Developer, Amateur Photographer, and NeoVim enthusiast.
 				</p>
-				<p class="mt-0">
+				<p class="my-0 pb-4">
 					This site was made using <a href="https://go.dev/">Go</a>, <a href="https://templ.guide/">Templ</a>,
 					<a href="https://htmx.org/">HTMX</a>, and <a href="https://tailwindcss.com/">Tailwind</a>.
 					Written using <a href="https://neovim.io/">NeoVim</a>, of course. 😉

@@ -12,6 +12,9 @@ func RegisterRoutes(
 	handler *http.ServeMux,
 	assets fs.FS,
 	articleController controller.ArticleController,
+	commentController controller.CommentController,
+	authController controller.AuthController,
+	leaderboardController controller.LeaderboardController,
 ) {
 	// static files
 	handler.Handle("GET /static/", StaticHandler(assets))
@@ -19,7 +22,7 @@ func RegisterRoutes(
 	// articles
 	handler.HandleFunc("/{$}", articleController.Index)
 	handler.HandleFunc("/article/create", articleController.Create)
-	handler.HandleFunc("/article/{date}/{slug}", articleController.Article)
+	handler.HandleFunc("GET /article/{date}/{slug}", articleController.Article)
 	handler.HandleFunc("/archive", articleController.Archive)
 	handler.HandleFunc(
 		"/articles/{date}/{slug}",
@@ -33,6 +36,23 @@ func RegisterRoutes(
 		},
 	)
 	handler.HandleFunc("/feed.xml", articleController.Feed)
+
+	// comments
+	handler.HandleFunc("GET /article/{date}/{slug}/comments", commentController.List)
+	handler.HandleFunc("POST /article/{date}/{slug}/comments", commentController.Create)
+
+	// admin
+	handler.HandleFunc("GET /admin/comments/{id}/approve", commentController.Approve)
+	handler.HandleFunc("GET /admin/comments/{id}/delete", commentController.Delete)
+
+	// auth
+	handler.HandleFunc("GET /auth/login", authController.Login)
+	handler.HandleFunc("GET /auth/callback", authController.Callback)
+	handler.HandleFunc("POST /auth/logout", authController.Logout)
+	handler.HandleFunc("GET /unsubscribe", authController.Unsubscribe)
+
+	// leaderboard
+	handler.HandleFunc("GET /leaderboard", leaderboardController.Show)
 
 	// errors
 	handler.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {

@@ -223,8 +223,6 @@ func Test() error {
 }
 
 func Check() error {
-	mg.Deps(Codegen)
-
 	if err := templCmd("fmt", "."); err != nil {
 		return err
 	}

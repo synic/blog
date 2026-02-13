@@ -11,7 +11,6 @@ import (
 	"github.com/gorilla/feeds"
 
 	"github.com/synic/blog/internal/article"
-	"github.com/synic/blog/internal/middleware"
 	"github.com/synic/blog/internal/model"
 	"github.com/synic/blog/internal/store"
 	"github.com/synic/blog/internal/view"
@@ -173,10 +172,9 @@ func (h ArticleController) Article(w http.ResponseWriter, r *http.Request) {
 	if h.comments != nil {
 		commentCount = h.comments.CommentCount(article.Slug)
 	}
-	user := middleware.UserFromContext(r.Context())
 	showComments := r.URL.Query().Get("show_comments") == "1"
 
-	view.Render(w, r, view.ArticleView(article, commentCount, user, showComments))
+	view.Render(w, r, view.ArticleView(article, commentCount, showComments))
 }
 
 func (h ArticleController) Create(w http.ResponseWriter, r *http.Request) {

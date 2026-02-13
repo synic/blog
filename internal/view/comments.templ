@@ -17,7 +17,56 @@ func i64str(id int64) string {
 	return strconv.FormatInt(id, 10)
 }
 
-templ CommentArea(articleURL string, commentCount int, user *model.User, showComments bool) {
+templ CommentArea(articleURL string, commentCount int, showComments bool) {
+	<div id="comment-list">
+		if showComments {
+			<div
+				hx-get={ articleURL + "/comments" }
+				hx-trigger="load"
+				hx-target="#comment-list"
+				hx-swap="innerHTML"
+				hx-push-url="false"
+			>
+				<span class="text-sm text-slate-500">Loading comments...</span>
+			</div>
+			@scrollToCommentsOnLoad()
+		} else {
+			<div>
+				<span class="text-sm text-slate-400">{ commentCountText(commentCount) }</span>
+				<button
+					class="ml-2 text-sm text-sky-500 underline cursor-pointer"
+					hx-get={ articleURL + "/comments" }
+					hx-target="#comment-list"
+					hx-swap="innerHTML"
+					hx-push-url="false"
+					onclick={ scrollToComments() }
+				>
+					View Comments
+				</button>
+			</div>
+		}
+	</div>
+}
+
+templ CommentListWithPending(articleURL string, threads []model.CommentThread, user *model.User) {
+	@commentForm(articleURL, user)
+	<div class="mb-4 p-3 rounded bg-sky-900/30 text-sm text-sky-300">
+		Your comment has been submitted and is pending approval.
+	</div>
+	if len(threads) == 0 {
+		<p class="text-sm text-slate-500 italic">No comments yet.</p>
+	}
+	for _, t := range threads {
+		@commentCard(articleURL, t.Comment, user)
+		for _, reply := range t.Replies {
+			<div class="ml-10">
+				@commentCard(articleURL, reply, user)
+			</div>
+		}
+	}
+}
+
+templ commentForm(articleURL string, user *model.User) {
 	if user != nil {
 		<form
 			hx-post={ articleURL + "/comments" }
@@ -66,44 +115,10 @@ templ CommentArea(articleURL string, commentCount int, user *model.User, showCom
 			<a href="/auth/login" hx-boost="false" class="text-sky-400 hover:text-sky-300 no-underline">Sign in with GitHub</a> to leave a comment.
 		</p>
 	}
-	<div id="comment-list">
-		if showComments {
-			<div
-				hx-get={ articleURL + "/comments" }
-				hx-trigger="load"
-				hx-target="#comment-list"
-				hx-swap="innerHTML"
-				hx-push-url="false"
-			>
-				<span class="text-sm text-slate-500">Loading comments...</span>
-			</div>
-			@scrollToCommentsOnLoad()
-		} else {
-			<div>
-				<span class="text-sm text-slate-400">{ commentCountText(commentCount) }</span>
-				<button
-					class="ml-2 text-sm text-sky-500 underline cursor-pointer"
-					hx-get={ articleURL + "/comments" }
-					hx-target="#comment-list"
-					hx-swap="innerHTML"
-					hx-push-url="false"
-					onclick={ scrollToComments() }
-				>
-					View Comments
-				</button>
-			</div>
-		}
-	</div>
-}
-
-templ CommentListWithPending(articleURL string, threads []model.CommentThread, user *model.User) {
-	<div class="mb-4 p-3 rounded bg-sky-900/30 text-sm text-sky-300">
-		Your comment has been submitted and is pending approval.
-	</div>
-	@CommentList(articleURL, threads, user)
 }
 
 templ CommentList(articleURL string, threads []model.CommentThread, user *model.User) {
+	@commentForm(articleURL, user)
 	if len(threads) == 0 {
 		<p class="text-sm text-slate-500 italic">No comments yet.</p>
 	}

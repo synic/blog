@@ -106,14 +106,15 @@ func main() {
 
 	mux := http.NewServeMux()
 
+	authMW := middleware.AuthMiddleware(queries, cfg.AdminEmail)
+	csrfMW := middleware.CSRFMiddleware()
+
 	server := &http.Server{
 		Addr: ":3000",
 		Handler: middleware.Wrap(
 			mux,
 			middleware.LoggerMiddleware(),
 			middleware.HtmxMiddleware(),
-			middleware.AuthMiddleware(queries, cfg.AdminEmail),
-			middleware.CSRFMiddleware(),
 		),
 		BaseContext: func(net.Listener) context.Context {
 			data := model.ContextData{
@@ -125,7 +126,16 @@ func main() {
 		},
 	}
 
-	internal.RegisterRoutes(mux, assets, articleController, commentController, authController, leaderboardController)
+	internal.RegisterRoutes(
+		mux,
+		assets,
+		authMW,
+		csrfMW,
+		articleController,
+		commentController,
+		authController,
+		leaderboardController,
+	)
 
 	log.Printf("🚀 Serving on %s...", server.Addr)
 	if err = server.ListenAndServe(); err != nil {

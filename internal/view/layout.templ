@@ -189,7 +189,7 @@ templ navlink(url, label string, hideMobile bool) {
 		id={ "nav-link-" + label }
 		hx-on::after-request="document.getElementById('search-nav').value = '';"
 		class={
-			"py-3 px-5 text-center no-underline border-l border-gray-700 cursor-pointer hover:text-white hover:bg-gray-700 items-center lg:last:rounded-tr-xl",
+			"py-3 px-5 text-center no-underline border-l border-gray-700 cursor-pointer hover:text-white hover:bg-gray-700 items-center md:last:rounded-tr-xl",
 			templ.KV("hidden lg:block", hideMobile),
 		}
 		href={ templ.URL(url) }

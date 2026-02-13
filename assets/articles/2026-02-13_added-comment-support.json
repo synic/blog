@@ -1,0 +1,16 @@
+{
+  "publishedAt": "2026-02-13T11:58:27-07:00",
+  "body": "\u003cp\u003eThe blog has officially been given comment support. While the articles\nthemselves are markdown files in the repository and are pre-rendered to json\nduring the build process, the comments are stored in a database.\nAuthentication is provided by GitHub OAuth.\u003c/p\u003e\n\u003cp\u003eFor the time being, I'm going to have it so that I need to approve comments\nwhen they are posted. Hopefully with the GitHub OAuth requirement there won't\nbe too much spam. Guess we shall find out - that was the reason I removed\ncomment support in the first place.\u003c/p\u003e\n\u003cp\u003eUnfortunately, I no longer have the comments from older vimtips.org articles.\nNot sure what happened to them. I guess when I turned them off I forgot to back\nthem up. Oh well 😉\u003c/p\u003e\n",
+  "summary": "\u003cp\u003eThe blog has officially been given comment support. While the articles\nthemselves are markdown files in the repository and are pre-rendered to json\nduring the build process, the comments are stored in a database.\nAuthentication is provided by GitHub OAuth.\u003c/p\u003e\n\u003cp\u003eFor the time being, I'm going to have it so that I need to approve comments\nwhen they are posted. Hopefully with the GitHub OAuth requirement there won't\nbe too much spam. Guess we shall find out - that was the reason I removed\ncomment support in the first place.\u003c/p\u003e\n\u003cp\u003eUnfortunately, I no longer have the comments from older vimtips.org articles.\nNot sure what happened to them. I guess when I turned them off I forgot to back\nthem up. Oh well 😉\u003c/p\u003e\n",
+  "title": "Added: Comment support",
+  "slug": "added-comment-support",
+  "tags": [
+    "Programming",
+    "Go"
+  ],
+  "isPublished": true,
+  "openGraph": {
+    "title": "Added: Comment support",
+    "type": "article"
+  }
+}

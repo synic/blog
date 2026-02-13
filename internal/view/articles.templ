@@ -5,11 +5,11 @@ import (
 	"github.com/synic/blog/internal/model"
 )
 
-templ ArticleView(a *model.Article, commentCount int, user *model.User, showComments bool) {
+templ ArticleView(a *model.Article, commentCount int, showComments bool) {
 	@BaseLayout(a.Title, WithOpenGraphData(a.OpenGraphData)) {
 		@article(a, false)
 		<div id="comment-area" class="mt-4">
-			@CommentArea(a.URL(), commentCount, user, showComments)
+			@CommentArea(a.URL(), commentCount, showComments)
 		</div>
 	}
 }

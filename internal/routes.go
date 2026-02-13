@@ -8,9 +8,21 @@ import (
 	"github.com/synic/blog/internal/view"
 )
 
+type middleware = func(http.Handler) http.Handler
+
+func withMiddleware(fn http.HandlerFunc, mws ...middleware) http.Handler {
+	var h http.Handler = fn
+	for _, mw := range mws {
+		h = mw(h)
+	}
+	return h
+}
+
 func RegisterRoutes(
 	handler *http.ServeMux,
 	assets fs.FS,
+	auth middleware,
+	csrf middleware,
 	articleController controller.ArticleController,
 	commentController controller.CommentController,
 	authController controller.AuthController,
@@ -38,21 +50,21 @@ func RegisterRoutes(
 	handler.HandleFunc("/feed.xml", articleController.Feed)
 
 	// comments
-	handler.HandleFunc("GET /article/{date}/{slug}/comments", commentController.List)
-	handler.HandleFunc("POST /article/{date}/{slug}/comments", commentController.Create)
+	handler.Handle("GET /article/{date}/{slug}/comments", withMiddleware(commentController.List, auth, csrf))
+	handler.Handle("POST /article/{date}/{slug}/comments", withMiddleware(commentController.Create, auth, csrf))
 
 	// admin
-	handler.HandleFunc("GET /admin/comments/{id}/approve", commentController.Approve)
-	handler.HandleFunc("GET /admin/comments/{id}/delete", commentController.Delete)
+	handler.Handle("GET /admin/comments/{id}/approve", withMiddleware(commentController.Approve, auth))
+	handler.Handle("GET /admin/comments/{id}/delete", withMiddleware(commentController.Delete, auth))
 
 	// auth
-	handler.HandleFunc("GET /auth/login", authController.Login)
-	handler.HandleFunc("GET /auth/callback", authController.Callback)
-	handler.HandleFunc("POST /auth/logout", authController.Logout)
+	handler.Handle("GET /auth/login", withMiddleware(authController.Login, auth))
+	handler.Handle("GET /auth/callback", withMiddleware(authController.Callback, auth))
+	handler.Handle("POST /auth/logout", withMiddleware(authController.Logout, auth, csrf))
 	handler.HandleFunc("GET /unsubscribe", authController.Unsubscribe)
 
 	// leaderboard
-	handler.HandleFunc("GET /leaderboard", leaderboardController.Show)
+	handler.Handle("GET /leaderboard", withMiddleware(leaderboardController.Show, auth))
 
 	// errors
 	handler.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {

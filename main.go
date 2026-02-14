@@ -17,6 +17,7 @@ import (
 	"github.com/synic/blog/internal/config"
 	"github.com/synic/blog/internal/controller"
 	"github.com/synic/blog/internal/db"
+	"github.com/synic/blog/internal/fs"
 	"github.com/synic/blog/internal/mail"
 	"github.com/synic/blog/internal/middleware"
 	"github.com/synic/blog/internal/model"
@@ -32,12 +33,12 @@ var embeddedMigrations embed.FS
 
 func main() {
 	ctx := context.Background()
-	cfg := config.Load()
-	assets := internal.MustSub(embeddedAssets, "assets")
+	conf := config.Load()
+	assets := fs.MustSub(embeddedAssets, "assets")
 
 	repo, res, err := store.NewArticleRepositoryFromFS(
-		internal.MustSub(assets, "articles"),
-		internal.Debug,
+		fs.MustSub(assets, "articles"),
+		conf.Debug,
 	)
 
 	if err != nil {
@@ -57,13 +58,13 @@ func main() {
 		log.Fatal(err)
 	}
 
-	pool, err := pgxpool.New(ctx, cfg.DatabaseURL)
+	pool, err := pgxpool.New(ctx, conf.DatabaseURL)
 	if err != nil {
 		log.Fatal(err)
 	}
 	defer pool.Close()
 
-	sqlDB, err := sql.Open("pgx", cfg.DatabaseURL)
+	sqlDB, err := sql.Open("pgx", conf.DatabaseURL)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -98,15 +99,15 @@ func main() {
 
 	viewRepo := store.NewPageViewRepository(queries, repo)
 
-	mailer := mail.NewMailer(cfg)
+	mailer := mail.NewMailer(conf)
 	articleController := controller.NewArticleController(repo, commentRepo, viewRepo)
-	commentController := controller.NewCommentController(commentRepo, repo, queries, mailer, cfg)
-	authController := controller.NewAuthController(queries, cfg)
+	commentController := controller.NewCommentController(commentRepo, repo, queries, mailer, conf)
+	authController := controller.NewAuthController(queries, conf)
 	leaderboardController := controller.NewLeaderboardController(viewRepo)
 
 	mux := http.NewServeMux()
 
-	authMW := middleware.AuthMiddleware(queries, cfg.AdminEmail)
+	authMW := middleware.AuthMiddleware(queries, conf.AdminEmail)
 	csrfMW := middleware.CSRFMiddleware()
 
 	server := &http.Server{
@@ -118,9 +119,9 @@ func main() {
 		),
 		BaseContext: func(net.Listener) context.Context {
 			data := model.ContextData{
-				BuildTime:           internal.BuildTime,
+				BuildTime:           conf.BuildTime,
 				BundledStaticAssets: bundledAssets,
-				Debug:               internal.Debug,
+				Debug:               conf.Debug,
 			}
 			return context.WithValue(ctx, "data", data)
 		},

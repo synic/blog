@@ -61,14 +61,14 @@ func isBot(userAgent string) bool {
 }
 
 type PageViewRepository struct {
-	queries  *db.Queries
-	articles ArticleRepository
+	queries *db.Queries
+	repo    ArticleRepository
 }
 
-func NewPageViewRepository(queries *db.Queries, articles ArticleRepository) *PageViewRepository {
+func NewPageViewRepository(queries *db.Queries, repo ArticleRepository) *PageViewRepository {
 	return &PageViewRepository{
-		queries:  queries,
-		articles: articles,
+		queries: queries,
+		repo:    repo,
 	}
 }
 
@@ -98,7 +98,7 @@ func (r *PageViewRepository) ViewCounts(ctx context.Context) ([]model.PageViewEn
 	for _, row := range rows {
 		title := row.ArticleSlug
 		articleURL := ""
-		if article, err := r.articles.FindOneBySlug(ctx, row.ArticleSlug); err == nil {
+		if article, err := r.repo.FindOneBySlug(ctx, row.ArticleSlug); err == nil {
 			title = article.Title
 			articleURL = article.URL()
 		}

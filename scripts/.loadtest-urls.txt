@@ -9,4 +9,11 @@
 /?search=test
 /article/2008-09-11/exaile-03-roundup
 /?page=2
+/?page=3
+/?page=4
 /article/2007-03-27/setting-up-icecast2-to-stream-mp3s-on-ubuntu
+/article/2024-04-24/best-macro-2023
+/article/2026-02-12/how-i-made-this-blog-super-fast
+/article/2024-11-25/jbother-brought-back-to-life
+/archive
+/article/2012-11-19/upgrade-captcha

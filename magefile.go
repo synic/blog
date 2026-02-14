@@ -41,7 +41,7 @@ var (
 	syntaxCssFile   = "./internal/view/css/syntax.css"
 	articlesInPath  = "./articles"
 	articlesOutPath = "./assets/articles"
-	buildInfoPath   = packageName + "/internal"
+	configPath      = packageName + "/internal/config"
 
 	migrationsPath = "./migrations"
 
@@ -84,7 +84,7 @@ func (Build) Dev() error {
 	mg.Deps(Articles.Convert)
 
 	return buildCmd("-tags", "debug",
-		fmt.Sprintf("-ldflags=-X %s.DebugFlag=true", buildInfoPath),
+		fmt.Sprintf("-ldflags=-X %s.DebugFlag=true", configPath),
 		"-o", debugPath,
 		".",
 	)
@@ -97,7 +97,7 @@ func (Build) Release() error {
 		map[string]string{"CGO_ENABLED": "0"},
 		"go", "build",
 		"-tags", "release",
-		fmt.Sprintf("-ldflags=-s -w -X %s.BuildTime=%d", buildInfoPath, time.Now().Unix()),
+		fmt.Sprintf("-ldflags=-s -w -X %s.BuildTime=%d", configPath, time.Now().Unix()),
 		"-o", releasePath,
 		".",
 	)
@@ -223,11 +223,11 @@ func Test() error {
 }
 
 func Check() error {
-	if err := templCmd("fmt", "."); err != nil {
+	if err := templCmd("fmt", "internal/view"); err != nil {
 		return err
 	}
 
-	if err := sh.RunV("gofmt", "-w", "."); err != nil {
+	if err := sh.RunV("go", "fmt", "./..."); err != nil {
 		return err
 	}
 

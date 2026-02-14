@@ -27,3 +27,6 @@ mine/
 
 # tailwind
 /node_modules
+
+# lsp
+.elixir-tools

@@ -1,5 +1,5 @@
 ---
-title: How I made this blog fast
+title: How I made this blog super speedy
 slug: how-i-made-this-blog-super-fast
 tags: [Programming, Go]
 publishedAt: 2026-02-12T12:17:06-07:00

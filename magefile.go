@@ -235,6 +235,10 @@ func Check() error {
 		return err
 	}
 
+	if err := sh.RunV("go", "tool", "golang.org/x/vuln/cmd/govulncheck", "./..."); err != nil {
+		return err
+	}
+
 	return sh.RunV("go", "test", "-race", "./...")
 }
 

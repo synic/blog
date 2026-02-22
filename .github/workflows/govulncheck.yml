@@ -1,5 +1,5 @@
 ---
-name: govulncheck
+name: Blog Vulnerability Check
 
 on:  # yamllint disable-line rule:truthy
   schedule:

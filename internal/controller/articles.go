@@ -95,10 +95,7 @@ func (h ArticleController) listAndPaginateArticles(
 	i, err = strconv.Atoi(r.URL.Query().Get("per_page"))
 
 	if err == nil {
-		perPage = i
-		if perPage > h.maxArticlesPerPage {
-			perPage = h.maxArticlesPerPage
-		}
+		perPage = min(i, h.maxArticlesPerPage)
 	}
 
 	start := min(max(0, page*perPage), len(articles))

@@ -100,8 +100,10 @@ require (
 	golang.org/x/net v0.43.0 // indirect
 	golang.org/x/sync v0.17.0 // indirect
 	golang.org/x/sys v0.35.0 // indirect
+	golang.org/x/telemetry v0.0.0-20250807160809-1a19826ec488 // indirect
 	golang.org/x/text v0.29.0 // indirect
 	golang.org/x/tools v0.36.0 // indirect
+	golang.org/x/vuln v1.1.4 // indirect
 	google.golang.org/protobuf v1.34.2 // indirect
 )
 
@@ -110,4 +112,5 @@ tool (
 	github.com/air-verse/air
 	github.com/magefile/mage
 	github.com/pressly/goose/v3/cmd/goose
+	golang.org/x/vuln/cmd/govulncheck
 )

@@ -1,0 +1,20 @@
+---
+name: govulncheck
+
+on:  # yamllint disable-line rule:truthy
+  schedule:
+    - cron: '0 13 * * 6'
+  workflow_dispatch:
+
+jobs:
+  vulncheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+
+      - name: Run govulncheck
+        run: go tool golang.org/x/vuln/cmd/govulncheck ./...

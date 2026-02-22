@@ -4,10 +4,11 @@ import (
 	"fmt"
 	"io/fs"
 	"path/filepath"
+	"strings"
 )
 
 func BundleStaticAssets(filesystem fs.FS, files ...string) ([]byte, error) {
-	content := ""
+	var content strings.Builder
 	for _, file := range files {
 		data, err := fs.ReadFile(filesystem, file)
 		wrap := "script"
@@ -20,8 +21,8 @@ func BundleStaticAssets(filesystem fs.FS, files ...string) ([]byte, error) {
 			return []byte{}, err
 		}
 
-		content += fmt.Sprintf("<%s hx-preserve=\"true\">/* %s */\n%s</%s>", wrap, file, data, wrap)
+		content.WriteString(fmt.Sprintf("<%s hx-preserve=\"true\">/* %s */\n%s</%s>", wrap, file, data, wrap))
 	}
 
-	return []byte(content), nil
+	return []byte(content.String()), nil
 }

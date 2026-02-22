@@ -5,6 +5,7 @@ import (
 	"errors"
 	"net/http"
 	"net/http/httptest"
+	"slices"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -34,11 +35,8 @@ func (m *mockArticleRepository) FindByTag(
 	}
 	var filtered []*model.Article
 	for _, article := range m.articles {
-		for _, t := range article.Tags {
-			if t == tag {
-				filtered = append(filtered, article)
-				break
-			}
+		if slices.Contains(article.Tags, tag) {
+			filtered = append(filtered, article)
 		}
 	}
 	return filtered, nil
@@ -260,7 +258,7 @@ func TestArticleController_ArchiveEmpty(t *testing.T) {
 
 func TestArticleController_ListAndPaginateArticlesDefault(t *testing.T) {
 	articles := make([]*model.Article, 25)
-	for i := 0; i < 25; i++ {
+	for i := range 25 {
 		articles[i] = &model.Article{Title: "Test" + string(rune(i))}
 	}
 
@@ -277,7 +275,7 @@ func TestArticleController_ListAndPaginateArticlesDefault(t *testing.T) {
 
 func TestArticleController_ListAndPaginateArticlesSecondPage(t *testing.T) {
 	articles := make([]*model.Article, 25)
-	for i := 0; i < 25; i++ {
+	for i := range 25 {
 		articles[i] = &model.Article{Title: "Test" + string(rune(i))}
 	}
 
@@ -293,7 +291,7 @@ func TestArticleController_ListAndPaginateArticlesSecondPage(t *testing.T) {
 
 func TestArticleController_ListAndPaginateArticlesCustomPerPage(t *testing.T) {
 	articles := make([]*model.Article, 25)
-	for i := 0; i < 25; i++ {
+	for i := range 25 {
 		articles[i] = &model.Article{Title: "Test" + string(rune(i))}
 	}
 
@@ -310,7 +308,7 @@ func TestArticleController_ListAndPaginateArticlesCustomPerPage(t *testing.T) {
 
 func TestArticleController_ListAndPaginateArticlesInvalidPage(t *testing.T) {
 	articles := make([]*model.Article, 25)
-	for i := 0; i < 25; i++ {
+	for i := range 25 {
 		articles[i] = &model.Article{Title: "Test" + string(rune(i))}
 	}
 
@@ -325,7 +323,7 @@ func TestArticleController_ListAndPaginateArticlesInvalidPage(t *testing.T) {
 
 func TestArticleController_ListAndPaginateArticlesExceedMaxPerPage(t *testing.T) {
 	articles := make([]*model.Article, 25)
-	for i := 0; i < 25; i++ {
+	for i := range 25 {
 		articles[i] = &model.Article{Title: "Test" + string(rune(i))}
 	}
 

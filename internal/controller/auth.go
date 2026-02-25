@@ -11,8 +11,6 @@ import (
 	"net/url"
 	"time"
 
-	"github.com/jackc/pgx/v5/pgtype"
-
 	"github.com/synic/blog/internal/config"
 	"github.com/synic/blog/internal/db"
 	"github.com/synic/blog/internal/view"
@@ -118,7 +116,7 @@ func (c AuthController) Callback(w http.ResponseWriter, r *http.Request) {
 		UserID:    dbUser.ID,
 		Token:     sessionToken,
 		CsrfToken: csrfToken,
-		ExpiresAt: pgtype.Timestamptz{Time: time.Now().Add(30 * 24 * time.Hour), Valid: true},
+		ExpiresAt: time.Now().Add(30 * 24 * time.Hour),
 	})
 	if err != nil {
 		http.Error(w, "Failed to create session", http.StatusInternalServerError)

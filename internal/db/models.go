@@ -5,7 +5,8 @@
 package db
 
 import (
-	"github.com/jackc/pgx/v5/pgtype"
+	"database/sql"
+	"time"
 )
 
 type Comment struct {
@@ -13,8 +14,8 @@ type Comment struct {
 	ArticleSlug string
 	UserID      int64
 	Body        string
-	CreatedAt   pgtype.Timestamptz
-	ParentID    pgtype.Int8
+	CreatedAt   time.Time
+	ParentID    sql.NullInt64
 	Approved    bool
 }
 
@@ -23,7 +24,7 @@ type PageView struct {
 	ArticleSlug string
 	IpAddress   string
 	UserAgent   string
-	CreatedAt   pgtype.Timestamptz
+	CreatedAt   time.Time
 }
 
 type Session struct {
@@ -31,8 +32,8 @@ type Session struct {
 	UserID    int64
 	Token     string
 	CsrfToken string
-	ExpiresAt pgtype.Timestamptz
-	CreatedAt pgtype.Timestamptz
+	ExpiresAt time.Time
+	CreatedAt time.Time
 }
 
 type User struct {
@@ -40,8 +41,8 @@ type User struct {
 	GithubID         int64
 	Username         string
 	AvatarUrl        string
-	CreatedAt        pgtype.Timestamptz
-	UpdatedAt        pgtype.Timestamptz
+	CreatedAt        time.Time
+	UpdatedAt        time.Time
 	Email            string
 	Unsubscribed     bool
 	UnsubscribeToken string

@@ -10,7 +10,7 @@ import (
 )
 
 const getUserByEmail = `-- name: GetUserByEmail :one
-SELECT id, username, email, unsubscribed, unsubscribe_token FROM users WHERE email = $1
+SELECT id, username, email, unsubscribed, unsubscribe_token FROM users WHERE email = ?
 `
 
 type GetUserByEmailRow struct {
@@ -22,7 +22,7 @@ type GetUserByEmailRow struct {
 }
 
 func (q *Queries) GetUserByEmail(ctx context.Context, email string) (GetUserByEmailRow, error) {
-	row := q.db.QueryRow(ctx, getUserByEmail, email)
+	row := q.db.QueryRowContext(ctx, getUserByEmail, email)
 	var i GetUserByEmailRow
 	err := row.Scan(
 		&i.ID,
@@ -35,22 +35,22 @@ func (q *Queries) GetUserByEmail(ctx context.Context, email string) (GetUserByEm
 }
 
 const unsubscribeUser = `-- name: UnsubscribeUser :execrows
-UPDATE users SET unsubscribed = true WHERE unsubscribe_token = $1 AND unsubscribed = false
+UPDATE users SET unsubscribed = true WHERE unsubscribe_token = ? AND unsubscribed = false
 `
 
 func (q *Queries) UnsubscribeUser(ctx context.Context, unsubscribeToken string) (int64, error) {
-	result, err := q.db.Exec(ctx, unsubscribeUser, unsubscribeToken)
+	result, err := q.db.ExecContext(ctx, unsubscribeUser, unsubscribeToken)
 	if err != nil {
 		return 0, err
 	}
-	return result.RowsAffected(), nil
+	return result.RowsAffected()
 }
 
 const upsertUser = `-- name: UpsertUser :one
 INSERT INTO users (github_id, username, avatar_url, email)
-VALUES ($1, $2, $3, $4)
+VALUES (?, ?, ?, ?)
 ON CONFLICT (github_id)
-DO UPDATE SET username = EXCLUDED.username, avatar_url = EXCLUDED.avatar_url, email = EXCLUDED.email, updated_at = now()
+DO UPDATE SET username = EXCLUDED.username, avatar_url = EXCLUDED.avatar_url, email = EXCLUDED.email, updated_at = datetime('now')
 RETURNING id, github_id, username, avatar_url, created_at, updated_at, email, unsubscribed, unsubscribe_token
 `
 
@@ -62,7 +62,7 @@ type UpsertUserParams struct {
 }
 
 func (q *Queries) UpsertUser(ctx context.Context, arg UpsertUserParams) (User, error) {
-	row := q.db.QueryRow(ctx, upsertUser,
+	row := q.db.QueryRowContext(ctx, upsertUser,
 		arg.GithubID,
 		arg.Username,
 		arg.AvatarUrl,

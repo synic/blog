@@ -2,9 +2,8 @@ package store
 
 import (
 	"context"
+	"database/sql"
 	"sync"
-
-	"github.com/jackc/pgx/v5/pgtype"
 
 	"github.com/synic/blog/internal/db"
 	"github.com/synic/blog/internal/model"
@@ -60,7 +59,7 @@ func (r *CommentRepository) Create(
 		Approved:    approved,
 	}
 	if parentID != nil {
-		params.ParentID = pgtype.Int8{Int64: *parentID, Valid: true}
+		params.ParentID = sql.NullInt64{Int64: *parentID, Valid: true}
 	}
 
 	comment, err := r.queries.CreateComment(ctx, params)
@@ -129,7 +128,7 @@ func (r *CommentRepository) ListBySlug(
 			Body:      row.Body,
 			Username:  row.Username,
 			AvatarURL: row.AvatarUrl,
-			CreatedAt: row.CreatedAt.Time,
+			CreatedAt: row.CreatedAt,
 			ParentID:  parentID,
 		}
 	}

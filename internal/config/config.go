@@ -34,8 +34,13 @@ func Load() Config {
 		Debug = true
 	}
 
+	databaseURL := os.Getenv("DATABASE_URL")
+	if databaseURL == "" {
+		databaseURL = "db.sqlite"
+	}
+
 	return Config{
-		DatabaseURL:        os.Getenv("DATABASE_URL"),
+		DatabaseURL:        databaseURL,
 		GitHubClientID:     os.Getenv("GITHUB_CLIENT_ID"),
 		GitHubClientSecret: os.Getenv("GITHUB_CLIENT_SECRET"),
 		ServerAddress:      os.Getenv("SERVER_ADDRESS"),

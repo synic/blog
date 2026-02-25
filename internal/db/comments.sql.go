@@ -7,16 +7,16 @@ package db
 
 import (
 	"context"
-
-	"github.com/jackc/pgx/v5/pgtype"
+	"database/sql"
+	"time"
 )
 
 const approveComment = `-- name: ApproveComment :one
-UPDATE comments SET approved = true WHERE id = $1 RETURNING id, article_slug, user_id, body, created_at, parent_id, approved
+UPDATE comments SET approved = true WHERE id = ? RETURNING id, article_slug, user_id, body, created_at, parent_id, approved
 `
 
 func (q *Queries) ApproveComment(ctx context.Context, id int64) (Comment, error) {
-	row := q.db.QueryRow(ctx, approveComment, id)
+	row := q.db.QueryRowContext(ctx, approveComment, id)
 	var i Comment
 	err := row.Scan(
 		&i.ID,
@@ -31,7 +31,7 @@ func (q *Queries) ApproveComment(ctx context.Context, id int64) (Comment, error)
 }
 
 const countCommentsBySlug = `-- name: CountCommentsBySlug :many
-SELECT article_slug, count(*)::int AS comment_count
+SELECT article_slug, CAST(count(*) AS int) AS comment_count
 FROM comments
 WHERE approved = true
 GROUP BY article_slug
@@ -39,11 +39,11 @@ GROUP BY article_slug
 
 type CountCommentsBySlugRow struct {
 	ArticleSlug  string
-	CommentCount int32
+	CommentCount int64
 }
 
 func (q *Queries) CountCommentsBySlug(ctx context.Context) ([]CountCommentsBySlugRow, error) {
-	rows, err := q.db.Query(ctx, countCommentsBySlug)
+	rows, err := q.db.QueryContext(ctx, countCommentsBySlug)
 	if err != nil {
 		return nil, err
 	}
@@ -56,6 +56,9 @@ func (q *Queries) CountCommentsBySlug(ctx context.Context) ([]CountCommentsBySlu
 		}
 		items = append(items, i)
 	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
 	if err := rows.Err(); err != nil {
 		return nil, err
 	}
@@ -64,7 +67,7 @@ func (q *Queries) CountCommentsBySlug(ctx context.Context) ([]CountCommentsBySlu
 
 const createComment = `-- name: CreateComment :one
 INSERT INTO comments (article_slug, user_id, body, parent_id, approved)
-VALUES ($1, $2, $3, $4, $5)
+VALUES (?, ?, ?, ?, ?)
 RETURNING id, article_slug, user_id, body, created_at, parent_id, approved
 `
 
@@ -72,12 +75,12 @@ type CreateCommentParams struct {
 	ArticleSlug string
 	UserID      int64
 	Body        string
-	ParentID    pgtype.Int8
+	ParentID    sql.NullInt64
 	Approved    bool
 }
 
 func (q *Queries) CreateComment(ctx context.Context, arg CreateCommentParams) (Comment, error) {
-	row := q.db.QueryRow(ctx, createComment,
+	row := q.db.QueryRowContext(ctx, createComment,
 		arg.ArticleSlug,
 		arg.UserID,
 		arg.Body,
@@ -98,11 +101,11 @@ func (q *Queries) CreateComment(ctx context.Context, arg CreateCommentParams) (C
 }
 
 const deleteComment = `-- name: DeleteComment :exec
-DELETE FROM comments WHERE id = $1
+DELETE FROM comments WHERE id = ?
 `
 
 func (q *Queries) DeleteComment(ctx context.Context, id int64) error {
-	_, err := q.db.Exec(ctx, deleteComment, id)
+	_, err := q.db.ExecContext(ctx, deleteComment, id)
 	return err
 }
 
@@ -111,15 +114,15 @@ SELECT c.id, c.article_slug, c.body, c.created_at, c.parent_id, c.approved,
        u.username, u.avatar_url, u.email, u.unsubscribe_token, u.unsubscribed
 FROM comments c
 JOIN users u ON c.user_id = u.id
-WHERE c.id = $1
+WHERE c.id = ?
 `
 
 type GetCommentWithUserRow struct {
 	ID               int64
 	ArticleSlug      string
 	Body             string
-	CreatedAt        pgtype.Timestamptz
-	ParentID         pgtype.Int8
+	CreatedAt        time.Time
+	ParentID         sql.NullInt64
 	Approved         bool
 	Username         string
 	AvatarUrl        string
@@ -129,7 +132,7 @@ type GetCommentWithUserRow struct {
 }
 
 func (q *Queries) GetCommentWithUser(ctx context.Context, id int64) (GetCommentWithUserRow, error) {
-	row := q.db.QueryRow(ctx, getCommentWithUser, id)
+	row := q.db.QueryRowContext(ctx, getCommentWithUser, id)
 	var i GetCommentWithUserRow
 	err := row.Scan(
 		&i.ID,
@@ -152,7 +155,7 @@ SELECT c.id, c.article_slug, c.body, c.created_at, c.parent_id,
        u.username, u.avatar_url
 FROM comments c
 JOIN users u ON c.user_id = u.id
-WHERE c.article_slug = $1 AND c.approved = true
+WHERE c.article_slug = ? AND c.approved = true
 ORDER BY c.created_at ASC
 `
 
@@ -160,14 +163,14 @@ type ListCommentsBySlugRow struct {
 	ID          int64
 	ArticleSlug string
 	Body        string
-	CreatedAt   pgtype.Timestamptz
-	ParentID    pgtype.Int8
+	CreatedAt   time.Time
+	ParentID    sql.NullInt64
 	Username    string
 	AvatarUrl   string
 }
 
 func (q *Queries) ListCommentsBySlug(ctx context.Context, articleSlug string) ([]ListCommentsBySlugRow, error) {
-	rows, err := q.db.Query(ctx, listCommentsBySlug, articleSlug)
+	rows, err := q.db.QueryContext(ctx, listCommentsBySlug, articleSlug)
 	if err != nil {
 		return nil, err
 	}
@@ -187,6 +190,9 @@ func (q *Queries) ListCommentsBySlug(ctx context.Context, articleSlug string) ([
 			return nil, err
 		}
 		items = append(items, i)
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
 	}
 	if err := rows.Err(); err != nil {
 		return nil, err

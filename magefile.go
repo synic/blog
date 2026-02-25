@@ -54,6 +54,8 @@ var (
 	templCmd    = sh.RunCmd("go", "tool", "github.com/a-h/templ/cmd/templ")
 	airCmd      = sh.RunCmd("go", "tool", "github.com/air-verse/air")
 	gooseCmd    = sh.RunCmd("go", "tool", "github.com/pressly/goose/v3/cmd/goose")
+	sqlcCmd     = sh.RunCmd("go", "tool", "github.com/sqlc-dev/sqlc/cmd/sqlc")
+	govunlCmd   = sh.RunCmd("go", "tool", "golang.org/x/vuln/cmd/govulncheck")
 )
 
 func Dev() error {
@@ -196,7 +198,7 @@ func (DB) Status() error {
 }
 
 func Sqlc() error {
-	return sh.RunV("go", "tool", "github.com/sqlc-dev/sqlc/cmd/sqlc", "generate")
+	return sqlcCmd("generate")
 }
 
 func Pygmentize() error {
@@ -241,7 +243,7 @@ func Check() error {
 		return err
 	}
 
-	if err := sh.RunV("go", "tool", "golang.org/x/vuln/cmd/govulncheck", "./..."); err != nil {
+	if err := govunlCmd("./..."); err != nil {
 		return err
 	}
 

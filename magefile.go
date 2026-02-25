@@ -80,7 +80,7 @@ func (Deps) Dev() error {
 type Build mg.Namespace
 
 func (Build) Dev() error {
-	mg.Deps(Codegen, Check)
+	mg.Deps(Codegen)
 	mg.Deps(Articles.Convert)
 
 	return buildCmd("-tags", "debug",
@@ -190,7 +190,7 @@ func (DB) Status() error {
 }
 
 func Sqlc() error {
-	return sh.RunV("sqlc", "generate")
+	return sh.RunV("go", "tool", "github.com/sqlc-dev/sqlc/cmd/sqlc", "generate")
 }
 
 func Pygmentize() error {

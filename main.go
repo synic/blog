@@ -9,8 +9,8 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/jackc/pgx/v5/pgxpool"
-	_ "github.com/jackc/pgx/v5/stdlib"
+	_ "modernc.org/sqlite"
+
 	"github.com/pressly/goose/v3"
 
 	"github.com/synic/blog/internal"
@@ -58,27 +58,32 @@ func main() {
 		log.Fatal(err)
 	}
 
-	pool, err := pgxpool.New(ctx, conf.DatabaseURL)
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer pool.Close()
-
-	sqlDB, err := sql.Open("pgx", conf.DatabaseURL)
+	sqlDB, err := sql.Open("sqlite", conf.DatabaseURL)
 	if err != nil {
 		log.Fatal(err)
 	}
 	defer sqlDB.Close()
 
+	for _, pragma := range []string{
+		"PRAGMA journal_mode=WAL",
+		"PRAGMA busy_timeout=5000",
+		"PRAGMA foreign_keys=ON",
+		"PRAGMA synchronous=NORMAL",
+	} {
+		if _, err := sqlDB.Exec(pragma); err != nil {
+			log.Fatal(err)
+		}
+	}
+
 	goose.SetBaseFS(embeddedMigrations)
-	if err := goose.SetDialect("postgres"); err != nil {
+	if err := goose.SetDialect("sqlite3"); err != nil {
 		log.Fatal(err)
 	}
 	if err := goose.Up(sqlDB, "migrations"); err != nil {
 		log.Fatal(err)
 	}
 
-	queries := db.New(pool)
+	queries := db.New(sqlDB)
 
 	commentRepo := store.NewCommentRepository(queries)
 	if err := commentRepo.LoadCounts(ctx); err != nil {

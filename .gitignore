@@ -28,5 +28,10 @@ mine/
 # tailwind
 /node_modules
 
+# sqlite
+*.sqlite
+*.sqlite-wal
+*.sqlite-shm
+
 # lsp
 .elixir-tools

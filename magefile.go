@@ -18,6 +18,7 @@ import (
 	"github.com/magefile/mage/sh"
 
 	"github.com/synic/blog/internal/article"
+	"github.com/synic/blog/internal/config"
 	"github.com/synic/blog/internal/converter"
 	"github.com/synic/blog/internal/model"
 )
@@ -177,16 +178,21 @@ func (Articles) Create() error {
 
 type DB mg.Namespace
 
+func databaseUrl() string {
+	conf := config.Load()
+	return conf.DatabaseURL
+}
+
 func (DB) Migrate() error {
-	return gooseCmd("-dir", migrationsPath, "postgres", os.Getenv("DATABASE_URL"), "up")
+	return gooseCmd("-dir", migrationsPath, "sqlite3", databaseUrl(), "up")
 }
 
 func (DB) Rollback() error {
-	return gooseCmd("-dir", migrationsPath, "postgres", os.Getenv("DATABASE_URL"), "down")
+	return gooseCmd("-dir", migrationsPath, "sqlite3", databaseUrl(), "down")
 }
 
 func (DB) Status() error {
-	return gooseCmd("-dir", migrationsPath, "postgres", os.Getenv("DATABASE_URL"), "status")
+	return gooseCmd("-dir", migrationsPath, "sqlite3", databaseUrl(), "status")
 }
 
 func Sqlc() error {

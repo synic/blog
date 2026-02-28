@@ -1,5 +1,5 @@
 ---
-title: ChatGPT as a Therapist
+title: Hello Jake
 slug: chatgpt-as-a-therapist
 tags: [Personal, Therapy]
 publishedAt: 2026-02-22T08:02:31-07:00

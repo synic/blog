@@ -234,7 +234,7 @@ func article(a *model.Article, inList bool) templ.Component {
 			return templ_7745c5c3_Err
 		}
 		if !inList {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 17, "<hr class=\"mt-4 mb-4 h-px bg-gray-200 border-0 dark:bg-gray-700 my-flex-col\"><div>Filed Under:&nbsp;")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 17, "<hr class=\"mt-4 mb-4 h-px bg-gray-700 border-0\"><div>Filed Under:&nbsp;")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -530,7 +530,7 @@ func ArticlesView(res model.ArticleListResponse) templ.Component {
 					return templ_7745c5c3_Err
 				}
 				if i < len(res.Items)-1 || res.TotalPages > 1 {
-					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 38, "<hr class=\"mt-6 mb-4 h-px bg-gray-200 border-0 dark:bg-gray-700\">")
+					templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 38, "<hr class=\"mt-6 mb-4 h-px bg-gray-700 border-0\">")
 					if templ_7745c5c3_Err != nil {
 						return templ_7745c5c3_Err
 					}

@@ -54,7 +54,12 @@ func NewArticleController(
 		option(&conf)
 	}
 
-	return ArticleController{repo: repo, comments: comments, views: views, articleControllerConfig: conf}
+	return ArticleController{
+		repo:                    repo,
+		comments:                comments,
+		views:                   views,
+		articleControllerConfig: conf,
+	}
 }
 
 func (h ArticleController) listAndPaginateArticles(
@@ -221,7 +226,7 @@ func (h ArticleController) Feed(w http.ResponseWriter, r *http.Request) {
 	for _, article := range articles {
 		item := &feeds.Item{
 			Title:       article.Title,
-			Link:        &feeds.Link{Href: "https://synic.dev" + article.URL()},
+			Link:        &feeds.Link{Href: "https://synic.dev" + article.URL},
 			Description: article.Summary,
 			Created:     article.PublishedAt,
 		}

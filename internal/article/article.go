@@ -55,3 +55,13 @@ summary: |
 %s
 `, titleField, slug, tagsField, article.PublishedAt.Format(time.RFC3339), summary, article.Body)
 }
+
+func BuildArticleURL(publishedAt time.Time, slug string) string {
+	return fmt.Sprintf(
+		"/article/%d-%02d-%02d/%s",
+		publishedAt.Year(),
+		publishedAt.Month(),
+		publishedAt.Day(),
+		slug,
+	)
+}

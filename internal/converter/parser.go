@@ -49,6 +49,8 @@ func parseMetadata(content string) (model.Article, string, error) {
 		return model.Article{}, "", errors.New("tags are required")
 	}
 
+	article.Prepare()
+
 	return article, strings.TrimSpace(matches[2]), nil
 }
 
@@ -80,6 +82,7 @@ func parseArticleFromData(content string) (model.Article, error) {
 
 	article.Summary = summaryHtml
 	article.Body = bodyHtml
+	article.Prepare()
 	return article, nil
 }
 

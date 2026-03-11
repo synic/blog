@@ -199,6 +199,7 @@ func parseArticles(filesystem fs.FS, includeUnpublished bool) (ParseResult, erro
 		}
 
 		if includeUnpublished || article.IsPublished {
+			article.Prepare()
 			res.Articles = append(res.Articles, &article)
 			res.Count += 1
 			if !article.IsPublished {

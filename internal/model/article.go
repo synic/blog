@@ -17,6 +17,15 @@ type Article struct {
 	Tags          []string          `json:"tags"            yaml:"tags"`
 	IsPublished   bool              `json:"isPublished"     yaml:"isPublished"`
 	OpenGraphData OpenGraphData     `json:"openGraph"       yaml:"openGraph"`
+	URL           string
+}
+
+func (a *Article) SafeURL() templ.SafeURL {
+	return templ.URL(a.URL)
+}
+
+func (a *Article) Prepare() {
+	a.URL = buildArticleURL(a.PublishedAt, a.Slug)
 }
 
 type ArticleCreatePayload struct {
@@ -27,20 +36,6 @@ type ArticleCreatePayload struct {
 	Body        string
 }
 
-func (a *Article) URL() string {
-	return fmt.Sprintf(
-		"/article/%d-%02d-%02d/%s",
-		a.PublishedAt.Year(),
-		a.PublishedAt.Month(),
-		a.PublishedAt.Day(),
-		a.Slug,
-	)
-}
-
-func (a *Article) SafeURL() templ.SafeURL {
-	return templ.URL(a.URL())
-}
-
 type ArticleListResponse struct {
 	Search     string
 	Tag        string
@@ -48,4 +43,14 @@ type ArticleListResponse struct {
 	TotalPages int
 	Page       int
 	PerPage    int
+}
+
+func buildArticleURL(publishedAt time.Time, slug string) string {
+	return fmt.Sprintf(
+		"/article/%d-%02d-%02d/%s",
+		publishedAt.Year(),
+		publishedAt.Month(),
+		publishedAt.Day(),
+		slug,
+	)
 }

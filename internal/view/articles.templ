@@ -9,7 +9,7 @@ templ ArticleView(a *model.Article, commentCount int, showComments bool) {
 	@BaseLayout(a.Title, WithOpenGraphData(a.OpenGraphData)) {
 		@article(a, false)
 		<div id="comment-area" class="mt-4">
-			@CommentArea(a.URL(), commentCount, showComments)
+			@CommentArea(a.URL, commentCount, showComments)
 		</div>
 	}
 }

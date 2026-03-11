@@ -29,6 +29,7 @@ Article content`
 			Type:  "article",
 		},
 	}
+	expected.Prepare()
 
 	article, body, err := parseMetadata(content)
 	assert.NoError(t, err)
@@ -57,6 +58,7 @@ Content`
 			Type:  "article",
 		},
 	}
+	expected.Prepare()
 
 	article, body, err := parseMetadata(content)
 	assert.NoError(t, err)
@@ -122,6 +124,7 @@ Article content`
 			Type:  "article",
 		},
 	}
+	expected.Prepare()
 
 	article, err := parseArticleFromData(content)
 	assert.NoError(t, err)

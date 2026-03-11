@@ -1,10 +1,10 @@
 package static
 
 import (
-	"fmt"
 	"io/fs"
 	"log"
 	"net/http"
+	"strconv"
 )
 
 type staticHandlerConfig struct {
@@ -63,7 +63,7 @@ func StaticHandler(
 
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if conf.maxAge > -1 {
-			w.Header().Set("Cache-Control", fmt.Sprintf("max-age=%d", conf.maxAge))
+			w.Header().Set("Cache-Control", "max-age="+strconv.Itoa(conf.maxAge))
 		}
 		staticHandler.ServeHTTP(w, r)
 	})

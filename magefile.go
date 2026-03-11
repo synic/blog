@@ -95,7 +95,7 @@ func (Build) Dev() error {
 
 func (Build) Release() error {
 	mg.Deps(Check)
-	mg.Deps(Articles.ConvertWithGit)
+	mg.Deps(Articles.convertWithGit)
 	return sh.RunWithV(
 		map[string]string{"CGO_ENABLED": "0"},
 		"go", "build",
@@ -128,7 +128,7 @@ func (Articles) Convert() error {
 	return convertArticles(false, false)
 }
 
-func (Articles) ConvertWithGit() error {
+func (Articles) convertWithGit() error {
 	return convertArticles(false, true)
 }
 

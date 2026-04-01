@@ -3,7 +3,7 @@
 @layer base {
   html, body {
     touch-action: manipulation;
-    overscroll-behavior: none;
+    overscroll-behavior-x: none;
   }
 
   ul {

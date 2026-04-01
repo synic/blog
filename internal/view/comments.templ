@@ -172,9 +172,9 @@ templ commentCard(articleURL string, c model.Comment, user *model.User) {
 			<img src={ c.AvatarURL } alt={ c.Username } class="w-7 h-7 rounded-full shrink-0 mt-0.5"/>
 		}
 		<div class="flex-1 min-w-0">
-			<div class="flex items-baseline gap-2">
+			<div class="flex items-baseline gap-2 flex-wrap">
 				<span class="text-sm font-bold text-slate-200">{ c.Username }</span>
-				<span class="text-xs text-slate-500">{ c.CreatedAt.Format("Jan 2, 2006 3:04 PM") }</span>
+				<span class="text-xs text-slate-500 whitespace-nowrap">{ c.CreatedAt.Format("Jan 2, 2006 3:04 PM") }</span>
 			</div>
 			<div class="text-sm text-slate-300 whitespace-pre-wrap mt-0.5">{ c.Body }</div>
 			if user != nil && c.ParentID == nil {

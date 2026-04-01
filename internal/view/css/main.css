@@ -1,6 +1,11 @@
 @import "tailwindcss";
 
 @layer base {
+  html, body {
+    touch-action: manipulation;
+    overscroll-behavior: none;
+  }
+
   ul {
     @apply list-disc p-3 list-outside ml-4;
   }

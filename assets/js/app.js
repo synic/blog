@@ -29,8 +29,9 @@ function handleHtmxError(event) {
 
   const errorBox = document.getElementById("errorbox");
   errorBox.style.display = "flex";
-  clearTimeout(window.errorBoxTimeout);
-  window.errorBoxTimeout = setTimeout(hideErrorBox, 3500);
+  if (!window.errorBoxTimeout) {
+    window.errorBoxTimeout = setTimeout(hideErrorBox, 1500);
+  }
 }
 
 window.addEventListener("load", () => {

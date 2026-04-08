@@ -9,9 +9,8 @@ import (
 	"net/http"
 	"time"
 
-	_ "modernc.org/sqlite"
-
 	"github.com/pressly/goose/v3"
+	_ "modernc.org/sqlite"
 
 	"github.com/synic/blog/internal"
 	"github.com/synic/blog/internal/config"

@@ -99,7 +99,7 @@ templ head(conf baseLayoutConfig, partial bool) {
 	<head hx-head="merge">
 		if !partial {
 			<meta charset="utf-8" hx-preserve="true"/>
-			<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" hx-preserve="true"/>
+			<meta name="viewport" content="width=device-width, initial-scale=1.0" hx-preserve="true"/>
 			<meta name="description" content="Adam's Blog. Programming, Vim, Photography, and more!" hx-preserve="true"/>
 			<script src={ static(ctx, "js/htmx.min.js") } hx-preserve="true" defer></script>
 			<script src={ static(ctx, "js/htmx-head-support.min.js") } hx-preserve="true" defer></script>

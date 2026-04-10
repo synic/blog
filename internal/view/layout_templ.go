@@ -174,7 +174,7 @@ func head(conf baseLayoutConfig, partial bool) templ.Component {
 			return templ_7745c5c3_Err
 		}
 		if !partial {
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 8, "<meta charset=\"utf-8\" hx-preserve=\"true\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no\" hx-preserve=\"true\"><meta name=\"description\" content=\"Adam's Blog. Programming, Vim, Photography, and more!\" hx-preserve=\"true\"><script src=\"")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 8, "<meta charset=\"utf-8\" hx-preserve=\"true\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" hx-preserve=\"true\"><meta name=\"description\" content=\"Adam's Blog. Programming, Vim, Photography, and more!\" hx-preserve=\"true\"><script src=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

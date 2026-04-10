@@ -61,6 +61,14 @@ var (
 func Dev() error {
 	mg.Deps(Deps.Dev)
 
+	if err := os.MkdirAll(".tmp", 0o755); err != nil {
+		return err
+	}
+
+	if err := sh.Run("go", "tool", "github.com/magefile/mage", "-compile", ".tmp/mage-bin"); err != nil {
+		return err
+	}
+
 	return airCmd()
 }
 

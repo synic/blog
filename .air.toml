@@ -4,7 +4,7 @@ tmp_dir = ".tmp"
 [build]
   bin = "bin/blog-debug"
   full_bin = "./bin/blog-debug"
-  cmd = "go tool github.com/magefile/mage build:dev"
+  cmd = ".tmp/mage-bin build:dev"
   delay = 200
   exclude_dir = [
     "logs",

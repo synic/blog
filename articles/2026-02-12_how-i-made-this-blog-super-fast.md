@@ -12,7 +12,7 @@ summary: |
   to a perfect score on Lighthouse, and indeed, if you click around on the links
   or use the search box, you will see that things load pretty much instantly.
 
-  <img src="/static/img/articles/lighthouseresults.webp" alt="Lighthouse Results" width="600" height="193" />
+  <img src="/static/images/articles/2026-02-12_how-i-made-this-blog-super-fast/lighthouseresults.webp" alt="Lighthouse Results" width="600" height="193" />
 ---
 When I was making the current version of this blog, there was a lot of
 discussion on Twitter around improving load times and responsiveness on dynamic
@@ -22,7 +22,7 @@ pull off with this little site, served from a cheap VPS. I was able to get it
 to a perfect score on Lighthouse, and indeed, if you click around on the links
 or use the search box, you will see that things load pretty much instantly.
 
-<img src="/static/img/articles/lighthouseresults.webp" alt="Lighthouse Results" width="600" height="193" />
+<img src="/static/images/articles/2026-02-12_how-i-made-this-blog-super-fast/lighthouseresults.webp" alt="Lighthouse Results" width="600" height="193" />
 
 ## How
 

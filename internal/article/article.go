@@ -2,6 +2,8 @@ package article
 
 import (
 	"fmt"
+	"log"
+	"os"
 	"regexp"
 	"strings"
 	"time"
@@ -12,10 +14,9 @@ import (
 
 var summaryFormatRe = regexp.MustCompile(`\n(.)`)
 
-func ArticleFileName(articlesDir string, slug string, publishedAt time.Time) string {
+func ArticleBaseName(slug string, publishedAt time.Time) string {
 	return fmt.Sprintf(
-		"%s/%d-%02d-%02d_%s.md",
-		articlesDir,
+		"%d-%02d-%02d_%s",
 		publishedAt.Year(),
 		publishedAt.Month(),
 		publishedAt.Day(),
@@ -23,7 +24,52 @@ func ArticleFileName(articlesDir string, slug string, publishedAt time.Time) str
 	)
 }
 
-func CreateBlankArticleTemplate(article model.ArticleCreatePayload) (string, string) {
+func ArticleFileName(articlesDir string, slug string, publishedAt time.Time) string {
+	return fmt.Sprintf(
+		"%s/%s.md",
+		articlesDir,
+		ArticleBaseName(slug, publishedAt),
+	)
+}
+
+func CreateArticle(
+	article model.ArticleCreatePayload,
+	createImageDir bool,
+) (string, error) {
+	slug := text.Slugify(article.Title)
+	if createImageDir {
+		articleBaseName := ArticleBaseName(slug, article.PublishedAt)
+		log.Printf("Creating image directory `./assets/images/articles/%s`...", articleBaseName)
+		err := os.MkdirAll(fmt.Sprintf("./assets/images/articles/%s", articleBaseName), 0755)
+		if err != nil {
+			log.Fatal(err)
+			return "", fmt.Errorf(
+				"Could not create image directory `./assets/images/articles/%s`.",
+				articleBaseName,
+			)
+		}
+	}
+
+	fn, content := CreateBlankArticleTemplate(article)
+
+	f, err := os.Create(fn)
+
+	if err != nil {
+		return fn, err
+	}
+
+	_, err = f.WriteString(content)
+
+	if err != nil {
+		return fn, err
+	}
+
+	return fn, nil
+}
+
+func CreateBlankArticleTemplate(
+	article model.ArticleCreatePayload,
+) (string, string) {
 	slug := text.Slugify(article.Title)
 	fn := ArticleFileName("./articles", slug, article.PublishedAt)
 

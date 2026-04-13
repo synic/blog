@@ -11,6 +11,7 @@ import (
 	"os"
 	"path"
 	"path/filepath"
+	"strings"
 	"time"
 
 	"github.com/joho/godotenv"
@@ -146,6 +147,7 @@ func (Articles) Reconvert() error {
 
 func (Articles) Create() error {
 	var title, tags string
+	var createImageDir = false
 
 	scanner := bufio.NewScanner(os.Stdin)
 	fmt.Print("Title: ")
@@ -163,21 +165,21 @@ func (Articles) Create() error {
 		os.Exit(1)
 	}
 
+	fmt.Print("Create image directory [y/N]? ")
+
+	if scanner.Scan() {
+		if strings.ToLower(scanner.Text()) == "y" {
+			createImageDir = true
+		}
+	}
+
 	payload := model.ArticleCreatePayload{
 		Title:       title,
 		Tags:        tags,
 		PublishedAt: time.Now(),
 	}
 
-	fn, content := article.CreateBlankArticleTemplate(payload)
-
-	f, err := os.Create(fn)
-
-	if err != nil {
-		return err
-	}
-
-	_, err = f.WriteString(content)
+	fn, err := article.CreateArticle(payload, createImageDir)
 
 	if err != nil {
 		return err

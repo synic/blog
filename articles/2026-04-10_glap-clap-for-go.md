@@ -5,7 +5,7 @@ tags: [Programming, Go]
 publishedAt: 2026-04-10T12:00:00-07:00
 openGraph:
   title: "Golang: Meet glap, clap-style argument parsing"
-  image: /static/img/articles/glap-gopher.webp
+  image: /static/images/articles/2026-04-10_glap-clap-for-go/glap-gopher.webp
 summary: |
   Rustaceans have been spoiled by Rust's
   [clap](https://github.com/clap-rs/clap) (or, at least, I think they have).
@@ -17,7 +17,7 @@ summary: |
   need more, but neither has that declarative feel. So I wrote
   [glap](https://github.com/synic/glap).
 
-  <img src="/static/img/articles/glap-gopher.webp" alt="Go gopher" width="115" height="128" />
+  <img src="/static/images/articles/2026-04-10_glap-clap-for-go/glap-gopher.webp" alt="Go gopher" width="115" height="128" />
 
   Define your CLI with a struct and some tags:
 
@@ -44,7 +44,7 @@ this." Go's standard `flag` package works, and
 more, but neither has that declarative feel. So I wrote
 [glap](https://github.com/synic/glap).
 
-<img src="/static/img/articles/glap-gopher.webp" alt="Go gopher" width="115" height="128" />
+<img src="/static/images/articles/2026-04-10_glap-clap-for-go/glap-gopher.webp" alt="Go gopher" width="115" height="128" />
 
 ## The struct tag API
 

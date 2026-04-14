@@ -32,6 +32,8 @@ mine/
 *.sqlite
 *.sqlite-wal
 *.sqlite-shm
+/data/*
+!/data/.gitkeep
 
 # lsp
 .elixir-tools

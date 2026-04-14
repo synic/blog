@@ -48,7 +48,6 @@ var (
 	migrationsPath = "./migrations"
 
 	// commands
-	runCmd      = sh.RunCmd("go", "run")
 	buildCmd    = sh.RunCmd("go", "build")
 	tailwindCmd = sh.RunCmd("node_modules/.bin/tailwindcss")
 	minifyCmd   = sh.RunCmd("node_modules/.bin/css-minify")

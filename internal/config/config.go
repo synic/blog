@@ -36,7 +36,7 @@ func Load() Config {
 
 	databaseURL := os.Getenv("DATABASE_URL")
 	if databaseURL == "" {
-		databaseURL = "db.sqlite"
+		databaseURL = "./data/db.sqlite"
 	}
 
 	return Config{

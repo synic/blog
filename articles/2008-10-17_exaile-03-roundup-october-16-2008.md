@@ -3,10 +3,12 @@ title: Exaile 0.3 Roundup for October 16, 2008
 slug: exaile-03-roundup-october-16-2008
 publishedAt: 2008-10-17T00:44:45-07:00
 tags: [Exaile]
-summary: |
-  It's been longer than a week since the last roundup, so I figured it was time.
-  Since the first 0.3 alpha release, the following items have been implemented:
 ---
+<!-- summary -->
+It's been longer than a week since the last roundup, so I figured it was time.
+Since the first 0.3 alpha release, the following items have been implemented:
+<!-- /summary -->
+
 <p>It's been longer than a week since the last roundup, so I figured it was
 time.  Since the first 0.3 alpha release, the following items have been
 implemented:

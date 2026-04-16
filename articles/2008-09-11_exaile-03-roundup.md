@@ -3,15 +3,14 @@ title: Exaile 0.3 Roundup
 slug: exaile-03-roundup
 publishedAt: 2008-09-11T20:21:53-07:00
 tags: [Exaile, Programming]
-summary: |
-  A nice fellow emailed and asked me if I could post a monthly (possibly weekly)
-  roundup on Exaile 0.3 so that people can follow what's going on.  It sounded
-  like a good idea to me, so here's the first one.
 ---
+<!-- summary -->
 A nice fellow emailed and asked me if I could post a monthly (possibly weekly)
 roundup on Exaile 0.3 so that people can follow what's going on.  It sounded
 like a good idea to me, so here's the first one.
+<!-- /summary -->
 
+<!-- article-summary -->
 We've pretty much ironed out the storage details, and gotten playback/playlists
 figured out.  What we have now is a fully functioning media player.  The things
 that are still missing are:

@@ -3,17 +3,19 @@ title: Exaile 0.3 Roundup for October 29, 2008
 slug: exaile-03-roundup-october-29-2008
 publishedAt: 2008-10-29T18:28:29-07:00
 tags: [Exaile]
-summary: |
-  This week I've been focusing on album art support.  It was actually Aren's idea
-  that, from the beginning, we should create pluggable interfaces for things like
-  dynamic playlists, album art, lyrics, devices, and etc.  This means that album
-  art support wouldn't be hard coded to one place like Amazon, but anyone could
-  add a plugin to support album art from anywhere.  Currently, there are three
-  album art plugins:  local search, which checks local directories for image
-  names like 'cover.jpg' and etc., Amazon, and Last.FM.  The idea is that each
-  plugin will be searched in order until something is found.  Also Aren's idea:
-  the order that each plugin is searched should be user definable...
 ---
+<!-- summary -->
+This week I've been focusing on album art support.  It was actually Aren's idea
+that, from the beginning, we should create pluggable interfaces for things like
+dynamic playlists, album art, lyrics, devices, and etc.  This means that album
+art support wouldn't be hard coded to one place like Amazon, but anyone could
+add a plugin to support album art from anywhere.  Currently, there are three
+album art plugins:  local search, which checks local directories for image
+names like 'cover.jpg' and etc., Amazon, and Last.FM.  The idea is that each
+plugin will be searched in order until something is found.  Also Aren's idea:
+the order that each plugin is searched should be user definable...
+<!-- /summary -->
+
 <p>This week I've been focusing on album art support.  It was actually Aren's
 idea that, from the beginning, we should create pluggable interfaces for things
 like dynamic playlists, album art, lyrics, devices, and etc.  This means that

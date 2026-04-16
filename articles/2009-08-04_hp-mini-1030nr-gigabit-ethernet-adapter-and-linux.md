@@ -3,15 +3,14 @@ title: HP Mini 1030NR Gigabit Ethernet Adapter and Linux
 slug: hp-mini-1030nr-gigabit-ethernet-adapter-and-linux
 publishedAt: 2009-08-04T21:42:18-07:00
 tags: [Linux, Gadgets]
-summary: |
-  I purchased an HP 1030NR, because, IMHO, they are the sexiest netbooks
-  currently on the market.  They are sleek, lightweight, and they don't have a
-  wonkey keyboard layout like some netbooks (I'm looking at you, ASUS).
 ---
+<!-- summary -->
 I purchased an HP 1030NR, because, IMHO, they are the sexiest netbooks
 currently on the market.  They are sleek, lightweight, and they don't have a
 wonkey keyboard layout like some netbooks (I'm looking at you, ASUS).
+<!-- /summary -->
 
+<!-- article-summary -->
 One problem: the onboard nic controller (Marvell 88E8040 adapter, sky2 kernel
 module) doesn't quite work right on a default install of Ubuntu 9.04.
 Sometimes it works, sometimes it's not even detected (you can't see it listed

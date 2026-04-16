@@ -184,7 +184,7 @@ func (Articles) Create() error {
 		return err
 	}
 
-	return sh.RunV("nvim", fn, "-c", "/summary: |", "-c", "normal! j0i   ", "-c", "startinsert")
+	return sh.RunV("nvim", fn, "-c", "/<!-- summary -->", "-c", "normal! j0", "-c", "startinsert")
 }
 
 type DB mg.Namespace

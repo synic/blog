@@ -12,9 +12,14 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
+const articleSummaryPlaceholder = "<!-- article-summary -->"
+
 var (
 	markdown         = newRenderer()
 	frontmatterRegex = regexp.MustCompile(`(?s)\A---\n(.*?)\n---\n(.*)`)
+	summaryOpenRe    = regexp.MustCompile(`^\s*<!--\s*summary\s*-->\s*$`)
+	summaryCloseRe   = regexp.MustCompile(`^\s*<!--\s*/summary\s*-->\s*$`)
+	fenceRe          = regexp.MustCompile("^\\s{0,3}(`{3,}|~{3,})")
 )
 
 func parseMetadata(content string) (model.Article, string, error) {
@@ -68,20 +73,26 @@ func parseArticleFromData(content string) (model.Article, error) {
 		article.PublishedAt = time.Now()
 	}
 
-	summaryHtml, err := markdown.MarkdownToHtml(article.Summary)
+	summaryMd, bodyMd, err := extractSummary(body)
+
+	if err != nil {
+		return article, fmt.Errorf("error extracting article summary: %w", err)
+	}
+
+	summaryHtml, err := markdown.MarkdownToHtml(summaryMd)
 
 	if err != nil {
 		return article, fmt.Errorf("error converting article summary to html: %w", err)
 	}
 
-	bodyHtml, err := markdown.MarkdownToHtml(body)
+	bodyHtml, err := markdown.MarkdownToHtml(bodyMd)
 
 	if err != nil {
 		return article, fmt.Errorf("error converting article body to html: %w", err)
 	}
 
 	article.Summary = summaryHtml
-	article.Body = bodyHtml
+	article.Body = substitutePlaceholder(bodyHtml, strings.TrimRight(summaryHtml, "\n"))
 	article.Prepare()
 	return article, nil
 }
@@ -94,4 +105,65 @@ func Parse(filepath string) (model.Article, error) {
 	}
 
 	return parseArticleFromData(string(content))
+}
+
+func extractSummary(body string) (string, string, error) {
+	lines := strings.Split(body, "\n")
+
+	openIdx := -1
+	closeIdx := -1
+	inFence := false
+
+	for i, line := range lines {
+		if fenceRe.MatchString(line) {
+			inFence = !inFence
+			continue
+		}
+
+		if inFence {
+			continue
+		}
+
+		if summaryOpenRe.MatchString(line) {
+			if openIdx != -1 {
+				return "", "", errors.New("multiple summary blocks found")
+			}
+			openIdx = i
+			continue
+		}
+
+		if summaryCloseRe.MatchString(line) {
+			if openIdx == -1 {
+				return "", "", errors.New("closing summary marker without opening marker")
+			}
+			if closeIdx != -1 {
+				return "", "", errors.New("multiple summary blocks found")
+			}
+			closeIdx = i
+		}
+	}
+
+	if openIdx == -1 && closeIdx == -1 {
+		return "", body, nil
+	}
+
+	if openIdx != -1 && closeIdx == -1 {
+		return "", "", errors.New("opening summary marker without closing marker")
+	}
+
+	if closeIdx <= openIdx {
+		return "", "", errors.New("mismatched summary markers")
+	}
+
+	summary := strings.Join(lines[openIdx+1:closeIdx], "\n")
+
+	remaining := make([]string, 0, len(lines)-(closeIdx-openIdx+1))
+	remaining = append(remaining, lines[:openIdx]...)
+	remaining = append(remaining, lines[closeIdx+1:]...)
+
+	return strings.TrimSpace(summary), strings.TrimSpace(strings.Join(remaining, "\n")), nil
+}
+
+func substitutePlaceholder(bodyHtml, summaryHtml string) string {
+	return strings.ReplaceAll(bodyHtml, articleSummaryPlaceholder, summaryHtml)
 }

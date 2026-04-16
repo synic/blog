@@ -3,15 +3,8 @@ title: Awesome-wm screenshot hotkey
 slug: awesome-wm-screenshot-hotkey
 publishedAt: 2015-02-12T17:18:03-07:00
 tags: [Programming, Linux]
-summary: |
-  At [Ender Labs](http://enderlabs.com), pretty much everyone but me uses a Mac.
-  In the last year or so, I've started to realize that there must be some new Mac
-  app or function that, via a hotkey, allows you to select an arbitrary region of
-  your screen, create a screenshot, and then automatically uploads it to a
-  hosting service. I know this, without doing any research, because in
-  irc/slack/gtalk I've started receiving screenshots as responses to questions I
-  ask. These screenshots arrive fairly quickly after said question is asked.
 ---
+<!-- summary -->
 At [Ender Labs](http://enderlabs.com), pretty much everyone but me uses a Mac.
 In the last year or so, I've started to realize that there must be some new Mac
 app or function that, via a hotkey, allows you to select an arbitrary region of
@@ -19,7 +12,9 @@ your screen, create a screenshot, and then automatically uploads it to a
 hosting service. I know this, without doing any research, because in
 irc/slack/gtalk I've started receiving screenshots as responses to questions I
 ask. These screenshots arrive fairly quickly after said question is asked.
+<!-- /summary -->
 
+<!-- article-summary -->
 I rarely take screenshots (unless I absolutely have to), because my process
 involves opening gimp, going to file->create->screenshot, selecting the "select
 region to grab" option, setting the delay to 2 seconds so I can get the gimp

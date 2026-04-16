@@ -3,10 +3,12 @@ title: Running Exaile on MS Windows
 slug: running-exaile-on-ms-windows
 publishedAt: 2007-08-07T16:47:40-07:00
 tags: [Exaile]
-summary: |
-  Exaile now runs on Windows, and runs quite well.  Thanks to the GStreamer and
-  Songbird people who recently ported GStreamer to Windows...
 ---
+<!-- summary -->
+Exaile now runs on Windows, and runs quite well.  Thanks to the GStreamer and
+Songbird people who recently ported GStreamer to Windows...
+<!-- /summary -->
+
 <p>Exaile now runs on Windows, and runs quite well.  Thanks to the GStreamer
 and Songbird people who recently ported GStreamer to Windows.</p>
 

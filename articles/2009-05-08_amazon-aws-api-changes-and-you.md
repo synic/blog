@@ -3,19 +3,16 @@ title: Amazon AWS API Changes and You
 slug: amazon-aws-api-changes-and-you
 publishedAt: 2009-05-08T17:21:47-07:00
 tags: [Exaile, Programming]
-summary: |
-  I got an email from Amazon today saying that they were changing some things in
-  their API.  Aside from changing the name of the services from "Amazon Web
-  Service" to "Product Advertising API", by August 15th, they are requiring that
-  users of the API send the previously optional HMAC signature when
-  authenticating.  What does this mean to you?
 ---
+<!-- summary -->
 I got an email from Amazon today saying that they were changing some things in
 their API.  Aside from changing the name of the services from "Amazon Web
 Service" to "Product Advertising API", by August 15th, they are requiring that
 users of the API send the previously optional HMAC signature when
 authenticating.  What does this mean to you?
+<!-- /summary -->
 
+<!-- article-summary -->
 This signature is created using your "Secret Access Key", which is available on
 their website in your account details.  From their website: ??"Your Shared
 Access Key is secret, and should only be known by you and AWS."??

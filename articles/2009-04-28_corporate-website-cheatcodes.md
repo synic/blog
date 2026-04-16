@@ -3,15 +3,14 @@ title: Corporate Website Cheatcodes?
 slug: corporate-website-cheatcodes
 publishedAt: 2009-04-28T02:19:14-07:00
 tags: [Random, Funny]
-summary: |
-  One of my friends on IRC just pointed this out to me.  Go to <a
-  href='http://www.espn.com'>ESPN.com</a>, and press the following key
-  combination:
 ---
+<!-- summary -->
 One of my friends on IRC just pointed this out to me.  Go to <a
 href='http://www.espn.com'>ESPN.com</a>, and press the following key
 combination:
+<!-- /summary -->
 
+<!-- article-summary -->
 **Up**, **Up**, **Down**, **Down**, **Left**, **Right**,
 **Left**, **Right**, **B**, **A**
 

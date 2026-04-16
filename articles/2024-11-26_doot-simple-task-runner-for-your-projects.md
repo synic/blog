@@ -5,15 +5,14 @@ publishedAt: 2024-11-26T16:36:04-07:00
 tags: [Programming, Python]
 openGraph:
   image: "https://github.com/synic/doot/raw/aec35bbc68fc846c606ce04a14b9a1cce8c7ccdd/docs/images/thebestdoots.jpg"
-summary: |
-  Doot is a simple, zero dependency (except Python 3, which comes installed on
-  most *nix operating systems) task runner. Similar to `make`, but meant to be
-  used for non-C style projects.
 ---
+<!-- summary -->
 Doot is a simple, zero dependency (except Python 3, which comes installed on
 most *nix operating systems) task runner. Similar to `make`, but meant to be
 used for non-C style projects.
+<!-- /summary -->
 
+<!-- article-summary -->
 # Getting Started
 
 First,

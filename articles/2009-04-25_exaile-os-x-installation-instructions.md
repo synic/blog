@@ -3,11 +3,13 @@ title: "Exaile: OS X Installation Instructions"
 slug: exaile-os-x-installation-instructions
 publishedAt: 2009-04-25T00:32:54-07:00
 tags: [Exaile]
-summary: |
-  Following up on an earlier article, I'm providing a link to the Mac OS X
-  installation instructions that Lasse Riis has written up for us on our
-  wiki.
 ---
+<!-- summary -->
+Following up on an earlier article, I'm providing a link to the Mac OS X
+installation instructions that Lasse Riis has written up for us on our
+wiki.
+<!-- /summary -->
+
 <p>Following up on an earlier article, I'm providing a link to the Mac OS X
 installation instructions that Lasse Riis has written up for us on our
 wiki.</p>

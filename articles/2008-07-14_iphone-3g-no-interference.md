@@ -3,11 +3,13 @@ title: iPhone 3G, no interference
 slug: iphone-3g-no-interference
 publishedAt: 2008-07-14T16:52:40-07:00
 tags: [Random, Gadgets]
-summary: |
-  I downloaded the new iPhone software last Friday after my coworker informed me
-  that there was a "Pandora Radio" application available on the AppStore.
-  Internet radio on your phone?  No brainer, had to have it...
 ---
+<!-- summary -->
+I downloaded the new iPhone software last Friday after my coworker informed me
+that there was a "Pandora Radio" application available on the AppStore.
+Internet radio on your phone?  No brainer, had to have it...
+<!-- /summary -->
+
 I downloaded the new iPhone software last Friday after my coworker informed me
 that there was a "Pandora Radio" application available on the AppStore.
 Internet radio on your phone?  No brainer, had to have it.<br><br>

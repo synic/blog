@@ -11,13 +11,13 @@ type Article struct {
 	PublishedAt   time.Time         `json:"publishedAt"     yaml:"publishedAt"`
 	Extra         map[string]string `json:"extra,omitempty" yaml:"extra,omitempty"`
 	Body          string            `json:"body"            yaml:"body"`
-	Summary       string            `json:"summary"         yaml:"summary"`
+	Summary       string            `json:"summary"         yaml:"-"`
 	Title         string            `json:"title"           yaml:"title"`
 	Slug          string            `json:"slug"            yaml:"slug"`
 	Tags          []string          `json:"tags"            yaml:"tags"`
 	IsPublished   bool              `json:"isPublished"     yaml:"isPublished"`
 	OpenGraphData OpenGraphData     `json:"openGraph"       yaml:"openGraph"`
-	URL           string
+	URL           string            `json:"-"`
 }
 
 func (a *Article) SafeURL() templ.SafeURL {

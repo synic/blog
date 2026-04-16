@@ -3,15 +3,8 @@ title: DAAP Music Sharing and Exaile
 slug: daap-music-sharing-and-exaile
 publishedAt: 2007-06-08T19:36:00-07:00
 tags: [Exaile, Music]
-summary: |
-  <p>I&#8217;m pleased to announce that Exaile gained a new developer last week
-  &#8211; Aren Olson.  Aren has been contributing here and there for a while now,
-  and as of last week with his new plugin, <a
-  href='http://www.exaile.org/trac/browser/plugins/trunk/daap-share.py'>daap-share.py</a>.
-  What is <a
-  href='http://en.wikipedia.org/wiki/Digital_Audio_Access_Protocol'><span
-  class="caps">DAAP</span> </a> you might ask?</p>
 ---
+<!-- summary -->
 <p>I&#8217;m pleased to announce that Exaile gained a new developer last week
 &#8211; Aren Olson.  Aren has been contributing here and there for a while now,
 and as of last week with his new plugin, <a
@@ -19,7 +12,9 @@ href='http://www.exaile.org/trac/browser/plugins/trunk/daap-share.py'>daap-share
 What is <a
 href='http://en.wikipedia.org/wiki/Digital_Audio_Access_Protocol'><span
 class="caps">DAAP</span> </a> you might ask?</p>
+<!-- /summary -->
 
+<!-- article-summary -->
 <p>Imagine that while at work, you could load up Exaile and connect to your
 collection running on your machine at home, search through it just like you
 search through your local collection, drag some tracks over to your playlist

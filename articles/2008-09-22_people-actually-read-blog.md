@@ -3,10 +3,12 @@ title: People actually read this blog?
 slug: people-actually-read-blog
 publishedAt: 2008-09-22T20:33:34-07:00
 tags: [Random]
-summary: |
-  So, according to the comments I've been getting on the Exaile 0.3 roundup
-  article, people actually read this blog.
 ---
+<!-- summary -->
+So, according to the comments I've been getting on the Exaile 0.3 roundup
+article, people actually read this blog.
+<!-- /summary -->
+
 So, according to the comments I've been getting on the Exaile 0.3 roundup
 article, people actually read this blog.  A lot of the comments have been
 questions or answers to previous questions in the comments, so, I've set up an

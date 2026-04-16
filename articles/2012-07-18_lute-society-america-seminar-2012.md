@@ -3,15 +3,14 @@ title: Lute Society of America Seminar 2012
 slug: lute-society-america-seminar-2012
 publishedAt: 2012-07-18T19:17:02-07:00
 tags: [Music]
-summary: |
-  This year, I went to the Lute Society of America Seminar at Case Western
-  Reserve University in Cleveland, Ohio. It was a lot of fun, and I'm going to
-  share some of my experience here.
 ---
+<!-- summary -->
 This year, I went to the Lute Society of America Seminar at Case Western
 Reserve University in Cleveland, Ohio. It was a lot of fun, and I'm going to
 share some of my experience here.
+<!-- /summary -->
 
+<!-- article-summary -->
 Getting there with a lute was quite an adventure. Lutes are terribly delicate
 instruments, even the larger ones weigh no more than a few pounds. Trusting the
 airline not to body slam a very expensive belonging like this pushes your

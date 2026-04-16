@@ -3,17 +3,19 @@ title: Exaile LastFM Proxy Plugin
 slug: exaile-lastfm-proxy-plugin
 publishedAt: 2008-04-17T18:12:32-07:00
 tags: [Exaile, Programming, Music]
-summary: |
-  A few versions ago, Exaile had Last.FM streaming support using <a
-  href='http://svn.base-art.net/public/elisa/lastfm/lastfm_src.py'>LastFMSource</a>,
-  a pygst plugin created by Philippe Normand of <a
-  href='http://elisa.fluendo.com'>Elisa</a>. It worked... sort of.  Every other
-  time you tried to connect to LastFM station, Gstreamer would lock up entirely,
-  taking Exaile out with it.  Not being able to fix this problem, it was
-  eventually removed from Exaile entirely.<br><br>
-   Enter: <a
-  href='http://vidar.gimp.org/?page_id=50'>LastFM Proxy</a>...
 ---
+<!-- summary -->
+A few versions ago, Exaile had Last.FM streaming support using <a
+href='http://svn.base-art.net/public/elisa/lastfm/lastfm_src.py'>LastFMSource</a>,
+a pygst plugin created by Philippe Normand of <a
+href='http://elisa.fluendo.com'>Elisa</a>. It worked... sort of.  Every other
+time you tried to connect to LastFM station, Gstreamer would lock up entirely,
+taking Exaile out with it.  Not being able to fix this problem, it was
+eventually removed from Exaile entirely.<br><br>
+ Enter: <a
+href='http://vidar.gimp.org/?page_id=50'>LastFM Proxy</a>...
+<!-- /summary -->
+
 A few versions ago, Exaile had Last.FM streaming support using <a
 href='http://svn.base-art.net/public/elisa/lastfm/lastfm_src.py'>LastFMSource</a>,
 a pygst plugin created by Philippe Normand of <a

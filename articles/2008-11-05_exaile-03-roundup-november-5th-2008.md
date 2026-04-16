@@ -3,9 +3,11 @@ title: Exaile 0.3 Roundup for November 5th, 2008
 slug: exaile-03-roundup-november-5th-2008
 publishedAt: 2008-11-05T23:18:35-07:00
 tags: [Exaile]
-summary: |
-  This week we've worked on the following:
 ---
+<!-- summary -->
+This week we've worked on the following:
+<!-- /summary -->
+
 <p>This week we've worked on the following:</p>
  <p><ul>
  <li>Aren converted

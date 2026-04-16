@@ -3,13 +3,13 @@ title: Exaile 0.3 Update for July 9, 2009
 slug: exaile-03-update-july-9-2009
 publishedAt: 2009-07-09T16:51:34-07:00
 tags: [Exaile, Programming, Linux]
-summary: |
-  Don't worry, we're still here, and still hard at work.  I thought I would give
-  an update since it's been quite a while since the last one.
 ---
+<!-- summary -->
 Don't worry, we're still here, and still hard at work.  I thought I would give
 an update since it's been quite a while since the last one.
+<!-- /summary -->
 
+<!-- article-summary -->
 We've decided that we're going to shoot hard to get a 0.3 release ready for the
 August Ubuntu feature freeze.  This may mean that 0.3 doesn't have *all* the
 features that 0.2.14 had, but I feel that it's got enough.  However, as a trade

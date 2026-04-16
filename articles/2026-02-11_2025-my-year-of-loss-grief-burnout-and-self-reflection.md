@@ -3,15 +3,16 @@ title: 2025 - My Year of Loss, Grief, Burnout, and Self Reflection
 slug: 2025-my-year-of-loss-grief-burnout-and-self-reflection
 tags: [Personal, Therapy]
 publishedAt: 2026-02-11T13:03:49-07:00
-summary: |
-  One year ago today at 10:30am, I opened our closet door to find that my
-  spouse and soulmate had ended their own life in there. I didn’t know it yet,
-  but this was the day that my life, as I knew it, was over.
-
-  I've been off work, turned off notifications, and haven't really talked to
-  friends or family in months. This is my story of *why*.
-
 ---
+<!-- summary -->
+One year ago today at 10:30am, I opened our closet door to find that my
+spouse and soulmate had ended their own life in there. I didn’t know it yet,
+but this was the day that my life, as I knew it, was over.
+
+I've been off work, turned off notifications, and haven't really talked to
+friends or family in months. This is my story of *why*.
+<!-- /summary -->
+
 ## The Loss
 
 One year ago today at 10:30am, I opened our closet door to find that my spouse

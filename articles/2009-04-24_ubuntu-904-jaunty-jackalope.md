@@ -3,9 +3,11 @@ title: Ubuntu 9.04  - Jaunty Jackalope
 slug: ubuntu-904-jaunty-jackalope
 publishedAt: 2009-04-24T00:59:41-07:00
 tags: [Linux]
-summary: |
-  Following the tradition of retarded naming schemes, Jaunty Jackalope was released today...
 ---
+<!-- summary -->
+Following the tradition of retarded naming schemes, Jaunty Jackalope was released today...
+<!-- /summary -->
+
 <p>Following the tradition of retarded naming schemes, Jaunty Jackalope was
 released today.  I've successfully upgraded 4 machines (three from aptitude
 safe-upgrades, and one from a fresh install).  Here are some notes I've

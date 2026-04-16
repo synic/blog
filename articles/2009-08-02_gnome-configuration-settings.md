@@ -3,13 +3,15 @@ title: My Gnome Configuration Settings
 slug: gnome-configuration-settings
 publishedAt: 2009-08-02T23:26:52-07:00
 tags: [Linux]
-summary: |
-  I've installed Ubuntu on my netbook twice today (don't ask).  Probably like the
-  rest of you, part of installing Ubuntu involves going through and changing all
-  of the moronic settings that Gnome comes with as default.  This includes
-  changing the default terminal background from white to black, changing font
-  sizes, setting toolbars to "icon only", setting up hotkeys, etc.
 ---
+<!-- summary -->
+I've installed Ubuntu on my netbook twice today (don't ask).  Probably like the
+rest of you, part of installing Ubuntu involves going through and changing all
+of the moronic settings that Gnome comes with as default.  This includes
+changing the default terminal background from white to black, changing font
+sizes, setting toolbars to "icon only", setting up hotkeys, etc.
+<!-- /summary -->
+
 <p>I've installed Ubuntu on my netbook twice today (don't ask).  Probably like
 the rest of you, part of installing Ubuntu involves going through and changing
 all of the moronic settings that Gnome comes with as default.  This includes

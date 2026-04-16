@@ -14,6 +14,5 @@
     "description": "Does lazy.nvim configuration confuse you? This article is for you!",
     "image": "/static/images/articles/2024-11-20_advanced_lazyvim/lazynvim.webp",
     "type": "article"
-  },
-  "URL": "/article/2024-11-20/advanced-lazynvim"
+  }
 }

@@ -3,12 +3,14 @@ title: "NeoVim: Normalize and Copy Code Block"
 slug: neovim-copy-without-leading-indent
 tags: [NeoVim, Programming]
 publishedAt: 2025-01-29T03:35:36-07:00
-summary: |
-  When copying code blocks to share on GitHub or other platforms, preserving
-  proper indentation can be tricky. I created a NeoVim function that
-  automatically normalizes indentation when copying, making your shared code
-  snippets clean and consistent. Here's how to set it up!
 ---
+<!-- summary -->
+When copying code blocks to share on GitHub or other platforms, preserving
+proper indentation can be tricky. I created a NeoVim function that
+automatically normalizes indentation when copying, making your shared code
+snippets clean and consistent. Here's how to set it up!
+<!-- /summary -->
+
 
 Let's say I wanted to copy this block of code so that I can paste it into a
 github comment:

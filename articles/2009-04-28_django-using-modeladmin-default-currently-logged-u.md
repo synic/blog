@@ -3,15 +3,14 @@ title: "Django: Using ModelAdmin to default to currently logged in user"
 slug: django-using-modeladmin-default-currently-logged-u
 publishedAt: 2009-04-28T17:51:36-07:00
 tags: [Programming, Python, Django]
-summary: |
-  Yeah, you may have noticed that I've been working on the blog lately.
-  Poor openclue.org got flooded with already posted RSS feeds again. This
-  happens all to often. Sorry guys.
 ---
+<!-- summary -->
 Yeah, you may have noticed that I've been working on the blog lately.
 Poor openclue.org got flooded with already posted RSS feeds again. This
 happens all to often. Sorry guys.
+<!-- /summary -->
 
+<!-- article-summary -->
 Anyway, this blog system has the ability to have more than one person
 post articles. In the past, sjohannes used to post here too. The model
 for articles looks something like this:

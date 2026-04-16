@@ -3,10 +3,12 @@ title: Ubuntu 9.04 Update Notifications
 slug: ubuntu-904-update-notifications
 publishedAt: 2009-04-29T14:56:41-07:00
 tags: [Linux]
-summary: |
-  Since I upgraded to Jaunty, I had been seriously irritated with their decision
-  to change the way updates are handled.
 ---
+<!-- summary -->
+Since I upgraded to Jaunty, I had been seriously irritated with their decision
+to change the way updates are handled.
+<!-- /summary -->
+
 <p>Since I upgraded to Jaunty, I had been seriously irritated with their
 decision to change the way updates are handled.</p>
 

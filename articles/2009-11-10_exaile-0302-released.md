@@ -3,9 +3,11 @@ title: Exaile 0.3.0.2 Released!
 slug: exaile-0302-released
 publishedAt: 2009-11-10T07:25:35-07:00
 tags: [Exaile]
-summary: |
-  Repost from <a href='http://www.exaile.org'>exaile.org</a>:
 ---
+<!-- summary -->
+Repost from <a href='http://www.exaile.org'>exaile.org</a>:
+<!-- /summary -->
+
 <p>Repost from <a href='http://www.exaile.org'>exaile.org</a>:</p>
 
 <p>Exaile 0.3.0.2 is the second bugfix release in the 0.3.0 series. It contains

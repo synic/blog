@@ -3,17 +3,15 @@ title: Sony Reader (PRS-700) Review
 slug: sony-reader-prs-700-review
 publishedAt: 2009-06-04T23:31:04-07:00
 tags: [Random, Gadgets]
-summary: |
-  So, work got me a <a
-  href='http://www.sonystyle.com/webapp/wcs/stores/servlet/ProductDisplay?catalogId=10551&storeId=10151&langId=-1&productId=8198552921665562069'>Sony
-  PRS-700</a> for being awesome, which is awesome, so here are my thoughts so
-  far.
 ---
+<!-- summary -->
 So, work got me a <a
 href='http://www.sonystyle.com/webapp/wcs/stores/servlet/ProductDisplay?catalogId=10551&storeId=10151&langId=-1&productId=8198552921665562069'>Sony
 PRS-700</a> for being awesome, which is awesome, so here are my thoughts so
 far.
+<!-- /summary -->
 
+<!-- article-summary -->
 eBook readers are pretty cool.  It brings back a lot of nostalgia - when I was
 20 the company I was working for bought me a Palm Pilot, and the only things I
 really used it for was as a phone book and to read ebooks.  I took it with me

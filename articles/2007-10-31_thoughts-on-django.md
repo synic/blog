@@ -3,15 +3,14 @@ title: Thoughts on Django
 slug: thoughts-on-django
 publishedAt: 2007-10-31T17:45:25-07:00
 tags: [Programming, Django]
-summary: |
-  <a href='http://www.djangoproject.com'>Django</a> is a "high-level Python Web
-  framework that encourages rapid development and clean, pragmatic design."  So
-  far, I have absolutely no complaints... and much praise.
 ---
+<!-- summary -->
 <a href='http://www.djangoproject.com'>Django</a> is a "high-level Python Web
 framework that encourages rapid development and clean, pragmatic design."  So
 far, I have absolutely no complaints... and much praise.
+<!-- /summary -->
 
+<!-- article-summary -->
 Going from never using Django to entirely rewriting my blog and converting all
 the old entries took me only a few days.  I only had to write the HTML
 templates and a little Python code, and Django does the rest for me, including

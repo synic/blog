@@ -3,15 +3,14 @@ title: Exaile.org gets hacked!
 slug: exaileorg-gets-hacked
 publishedAt: 2007-08-21T03:12:19-07:00
 tags: [Exaile, Security]
-summary: |
-  I'll admit. I didn't think this really happened to sites as
-  small as exaile.org, where they are running Linux and not too many services,
-  but I guess that type of thinking is what leads to these types of things...
 ---
+<!-- summary -->
 I'll admit. I didn't think this really happened to sites as
 small as exaile.org, where they are running Linux and not too many services,
 but I guess that type of thinking is what leads to these types of things...
+<!-- /summary -->
 
+<!-- article-summary -->
 <p>After it happened I began reading blog posts and other material regarding
 rootkits and security.  I was surprised, and rather distraught to find out that
 this type of thing happens more than you might think, and that in most cases,

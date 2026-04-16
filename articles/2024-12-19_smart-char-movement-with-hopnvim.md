@@ -3,14 +3,16 @@ title: Smart character movement (f,F,t,T) with hop.nvim
 slug: smart-char-movement-with-hopnvim
 publishedAt: 2024-12-19T18:09:22-07:00
 tags: [NeoVim, Programming]
-summary: |
-  I've enhanced Neovim's character navigation motions (`f`, `F`, `t`, `T`) by
-  integrating them with [hop.nvim](https://github.com/smoka7/hop.nvim). The
-  default behavior remains unchanged when there's only one occurrence of the
-  target character, or when using a count prefix (like `3f`). However, when
-  multiple matches exist, hop.nvim automatically labels each occurrence, making
-  it much easier to jump directly to your desired location.
 ---
+<!-- summary -->
+I've enhanced Neovim's character navigation motions (`f`, `F`, `t`, `T`) by
+integrating them with [hop.nvim](https://github.com/smoka7/hop.nvim). The
+default behavior remains unchanged when there's only one occurrence of the
+target character, or when using a count prefix (like `3f`). However, when
+multiple matches exist, hop.nvim automatically labels each occurrence, making
+it much easier to jump directly to your desired location.
+<!-- /summary -->
+
 ## Goal
 
 Enhance Neovim's character navigation motions (`f`, `F`, `t`, `T`) with smart,

@@ -3,12 +3,14 @@ title: "Exaile: Shoutcast Plugin 0.4.8"
 slug: exaile-shoutcast-plugin-048
 publishedAt: 2008-10-07T17:02:07-07:00
 tags: [Exaile]
-summary: |
-  Some of you might have noticed that the Shoutcast plugin hasn't worked for a
-  while, and wasn't fixed with the 0.2.14 update.  This is because they changed
-  the way that their site looks, and so the plugin wasn't able to parse
-  it...
 ---
+<!-- summary -->
+Some of you might have noticed that the Shoutcast plugin hasn't worked for a
+while, and wasn't fixed with the 0.2.14 update.  This is because they changed
+the way that their site looks, and so the plugin wasn't able to parse
+it...
+<!-- /summary -->
+
 <p>Some of you might have noticed that the Shoutcast plugin hasn't worked for a
 while, and wasn't fixed with the 0.2.14 update.  This is because they changed
 the way that their site looks, and so the plugin wasn't able to parse

@@ -3,19 +3,16 @@ title: Supa Dupa Count
 slug: supa-dupa-count
 publishedAt: 2012-02-14T19:29:40-07:00
 tags: [Programming, Android, Scala]
-summary: |
-  [A few years
-  ago](http://synicworld.com/2009/12/22/supacount-published-android-market/)
-  I posted [SupaCount](http://bitbucket.org/synic/supacount) to the
-  Android market. Shortly after that, I stopped posting updates for three
-  years.
 ---
+<!-- summary -->
 [A few years
 ago](http://synicworld.com/2009/12/22/supacount-published-android-market/)
 I posted [SupaCount](http://bitbucket.org/synic/supacount) to the
 Android market. Shortly after that, I stopped posting updates for three
 years.
+<!-- /summary -->
 
+<!-- article-summary -->
 The reason for this? I lost my signing key. Even if I wanted to make
 updates to it, I couldn't upload it to the same project on the Android
 Market, at least, not without a lot of grief. So, I just avoided it...

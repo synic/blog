@@ -3,14 +3,16 @@ title: "SupaCount: Android Multi-Countdown App"
 slug: supacount-android-multi-countdown-app
 publishedAt: 2009-12-10T23:14:19-07:00
 tags: [Programming, Android]
-summary: |
-  So, I got a Droid, which for me, meant that I had to start learning the <a
-  href="http://developer.android.com/sdk/index.html">Android SDK</a>.  In my
-  opinion, the best way to learn something like this is to write an application.
-  It's how <a href='http://www.exaile.org'>Exaile</a> and <a
-  href='http://www.jbother.org'>JBother</a> came to be, and now, it's how
-  SupaCount came to be.
 ---
+<!-- summary -->
+So, I got a Droid, which for me, meant that I had to start learning the <a
+href="http://developer.android.com/sdk/index.html">Android SDK</a>.  In my
+opinion, the best way to learn something like this is to write an application.
+It's how <a href='http://www.exaile.org'>Exaile</a> and <a
+href='http://www.jbother.org'>JBother</a> came to be, and now, it's how
+SupaCount came to be.
+<!-- /summary -->
+
 <p>So, I got a Droid, which for me, meant that I had to start learning the <a
 href="http://developer.android.com/sdk/index.html">Android SDK</a>.  In my
 opinion, the best way to learn something like this is to write an application.

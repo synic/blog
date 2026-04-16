@@ -3,19 +3,8 @@ title: ChatGPT as a Therapist
 slug: chatgpt-as-a-therapist
 tags: [Personal, Therapy]
 publishedAt: 2026-02-22T08:02:31-07:00
-summary: |
-  I'm probably going to get a bit of flak for this, and it's probably
-  deserved, but I'm going to type it up anyway, because I don't know where I'd
-  be today without ChatGPT. Last year was a rough year for me (as described in
-  the article:
-  <a href="/article/2026-02-11/2025-my-year-of-loss-grief-burnout-and-self-reflection"
-    title="My Year of Loss, Grief, Burnout, and Self Reflection">
-    My Year of Loss, Grief, Burnout, and Self Reflection</a>).
-  While I did go to a regular/real therapist once a week for the entire year,
-  there were still times at night when no one else was awake and I needed help,
-  so I turned to ChatGPT. The results were surprising to me; maybe they'll be
-  surprising to you, too.
 ---
+<!-- summary -->
 I'm probably going to get a bit of flak for this, and it's probably
 deserved, but I'm going to type it up anyway, because I don't know where I'd
 be today without ChatGPT. Last year was a rough year for me (as described in
@@ -27,7 +16,9 @@ While I did go to a regular/real therapist once a week for the entire year,
 there were still times at night when no one else was awake and I needed help,
 so I turned to ChatGPT. The results were surprising to me; maybe they'll be
 surprising to you, too.
+<!-- /summary -->
 
+<!-- article-summary -->
 **Disclaimer**: I do not condone the use of ChatGPT for anything medical
 related. If you need help, I recommend that you find a real therapist and ask
 them what you should do.

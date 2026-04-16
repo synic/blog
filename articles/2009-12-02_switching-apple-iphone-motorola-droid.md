@@ -3,14 +3,16 @@ title: Switching from the iPhone to the Droid
 slug: switching-apple-iphone-motorola-droid
 publishedAt: 2009-12-02T16:41:51-07:00
 tags: [Gadgets]
-summary: |
-  I bought myself the first generation iPhone about 8 days after it came out, and
-  have followed the upgrade path (getting the 3G and 3Gs as soon as they were
-  available) clear up until about a week and a half ago, when I jumped ship from
-  AT&T.  I love the iPhone.  Sure, there are some things that bother me about it,
-  but it really was good to me.  Especially now, that a lot of the features I was
-  missing in a phone were suddenly there (copy & paste, MMS, etc).
 ---
+<!-- summary -->
+I bought myself the first generation iPhone about 8 days after it came out, and
+have followed the upgrade path (getting the 3G and 3Gs as soon as they were
+available) clear up until about a week and a half ago, when I jumped ship from
+AT&T.  I love the iPhone.  Sure, there are some things that bother me about it,
+but it really was good to me.  Especially now, that a lot of the features I was
+missing in a phone were suddenly there (copy & paste, MMS, etc).
+<!-- /summary -->
+
 <p>I bought myself the first generation iPhone about 8 days after it came out,
 and have followed the upgrade path (getting the 3G and 3Gs as soon as they were
 available) clear up until about a week and a half ago, when I jumped ship from

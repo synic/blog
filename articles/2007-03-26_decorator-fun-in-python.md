@@ -3,13 +3,13 @@ title: Decorator fun in Python
 slug: decorator-fun-in-python
 publishedAt: 2007-03-26T18:25:00-07:00
 tags: [Programming, Python]
-summary: |
-  I came across the following code a while ago.  I can't take credit for it, and
-  I can't remember where I got it.  Oh well.  It's pretty cool nonetheless.
 ---
+<!-- summary -->
 I came across the following code a while ago.  I can't take credit for it, and
 I can't remember where I got it.  Oh well.  It's pretty cool nonetheless.
+<!-- /summary -->
 
+<!-- article-summary -->
 ```python
 def threaded(f):
     """

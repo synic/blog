@@ -3,15 +3,14 @@ title: Setting up icecast2 to stream mp3s on Ubuntu
 slug: setting-up-icecast2-to-stream-mp3s-on-ubuntu
 publishedAt: 2007-03-27T21:29:00-07:00
 tags: [Linux, Music]
-summary: |
-  I do this every time I have to reinstall the OS on my work machine... and as
-  you saw in the previous article, it's about that time again.  I always forget
-  to save the configuration files for it....
 ---
+<!-- summary -->
 I do this every time I have to reinstall the OS on my work machine... and as
 you saw in the previous article, it's about that time again.  I always forget
 to save the configuration files for it....
+<!-- /summary -->
 
+<!-- article-summary -->
 Let's start with this:
 
 ```bash

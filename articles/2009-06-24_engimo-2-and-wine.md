@@ -3,15 +3,8 @@ title: Engimo 2 and Wine
 slug: engimo-2-and-wine
 publishedAt: 2009-06-24T18:19:34-07:00
 tags: [Linux]
-summary: |
-  After beating Enigmo in the iPhone, I was eager for more.  I'm a sucker for
-  these type of games.  I downloaded the demo of the Windows version of <a
-  href='http://www.pangeasoft.net/enigmo/downloads.html'>Enigmo 2</a>, and, to my
-  delight, it works great out of the box in <a
-  href='http://www.winehq.com'>Wine</a>!  It's got tons more doodads and etc than
-  the iPhone version, so I'd say it's a perfect upgrade path if you like that
-  game.
 ---
+<!-- summary -->
 After beating Enigmo in the iPhone, I was eager for more.  I'm a sucker for
 these type of games.  I downloaded the demo of the Windows version of <a
 href='http://www.pangeasoft.net/enigmo/downloads.html'>Enigmo 2</a>, and, to my
@@ -19,7 +12,9 @@ delight, it works great out of the box in <a
 href='http://www.winehq.com'>Wine</a>!  It's got tons more doodads and etc than
 the iPhone version, so I'd say it's a perfect upgrade path if you like that
 game.
+<!-- /summary -->
 
+<!-- article-summary -->
 The installer works fine, but I recommend launching the Enigmo 2 application
 after you have installed it with a command similar to this:
 

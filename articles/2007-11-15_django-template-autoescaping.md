@@ -3,13 +3,15 @@ title: Django template autoescaping
 slug: django-template-autoescaping
 publishedAt: 2007-11-15T23:38:50-07:00
 tags: [Programming, Python, Django]
-summary: |
-  Vimtips.org is running the SVN version of Django.  This morning I ran an
-  <code>svn update</code>, and I ran into my first API change.  While looking at
-  my site later on in the day, I noticed that both of my template filters were
-  being HTML escaped, IE, things like <b>&lt;</b> were showing up as
-  <b>&amp;lt;</b>...
 ---
+<!-- summary -->
+Vimtips.org is running the SVN version of Django.  This morning I ran an
+<code>svn update</code>, and I ran into my first API change.  While looking at
+my site later on in the day, I noticed that both of my template filters were
+being HTML escaped, IE, things like <b>&lt;</b> were showing up as
+<b>&amp;lt;</b>...
+<!-- /summary -->
+
 Vimtips.org is running the SVN version of Django.  This morning I ran an
 <code>svn update</code>, and I ran into my first API change.  While looking at
 my site later on in the day, I noticed that both of my template filters were

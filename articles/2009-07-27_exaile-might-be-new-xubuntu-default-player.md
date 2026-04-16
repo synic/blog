@@ -3,15 +3,14 @@ title: Exaile might be the new Xubuntu default player
 slug: exaile-might-be-new-xubuntu-default-player
 publishedAt: 2009-07-27T17:37:37-07:00
 tags: [Exaile]
-summary: |
-  <a href='http://www.xubuntu.org'>Xubuntu</a> has been rethinking their default
-  applications for their next release, Karmic.  Personally, I think it's great,
-  but not just because of the topic of this article.
 ---
+<!-- summary -->
 <a href='http://www.xubuntu.org'>Xubuntu</a> has been rethinking their default
 applications for their next release, Karmic.  Personally, I think it's great,
 but not just because of the topic of this article.
+<!-- /summary -->
 
+<!-- article-summary -->
 They are <a
 href='https://wiki.ubuntu.com/Xubuntu/Specifications/Karmic/DefaultMusicPlayer'>considering</a>
 <a href='http://www.exaile.org'>Exaile</a> for their new default music player,

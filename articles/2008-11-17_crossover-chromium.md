@@ -3,14 +3,16 @@ title: Crossover Chromium
 slug: crossover-chromium
 publishedAt: 2008-11-17T18:54:10-07:00
 tags: [Random]
-summary: |
-  If you're following me on Twitter, you'll know that recently installed Windows
-  Vista so that I could stream Netflix to my Xbox 360.  That venture didn't quite
-  work out, apparently Microsoft is working with Netflix and the new Xbox update
-  due on November 19th will have built in Netflix support.  Updates to the
-  Netflix interface have caused the vmcNetflix extender for Vista Media Player to
-  stop working. So really, I never needed to install Vista in the first place.
 ---
+<!-- summary -->
+If you're following me on Twitter, you'll know that recently installed Windows
+Vista so that I could stream Netflix to my Xbox 360.  That venture didn't quite
+work out, apparently Microsoft is working with Netflix and the new Xbox update
+due on November 19th will have built in Netflix support.  Updates to the
+Netflix interface have caused the vmcNetflix extender for Vista Media Player to
+stop working. So really, I never needed to install Vista in the first place.
+<!-- /summary -->
+
 If you're following me on Twitter, you'll know that recently installed Windows
 Vista so that I could stream Netflix to my Xbox 360.  That venture didn't quite
 work out, apparently Microsoft is working with Netflix and the new Xbox update

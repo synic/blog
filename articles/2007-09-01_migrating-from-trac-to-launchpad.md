@@ -3,15 +3,14 @@ title: Migrating from Trac to Launchpad
 slug: migrating-from-trac-to-launchpad
 publishedAt: 2007-09-01T18:57:19-07:00
 tags: [Random]
-summary: |
-  <p>I love trac.  <span class="caps">LOVE</span> it.  With the recent exaile.org
-  hack, however, I wanted my bugs and code to be in a place that isn&#8217;t
-  going anywhere soon.  I chose Launchpad.</p>
 ---
+<!-- summary -->
 <p>I love trac.  <span class="caps">LOVE</span> it.  With the recent exaile.org
 hack, however, I wanted my bugs and code to be in a place that isn&#8217;t
 going anywhere soon.  I chose Launchpad.</p>
+<!-- /summary -->
 
+<!-- article-summary -->
 <p>I was faced with a problem &#8211; all of our bugs were in trac.  Lots and
 lots of bugs.  I had to somehow migrate them from trac to Launchpad, so I wrote
 up a script to do so fairly painlessly.  You use it like this:</p>

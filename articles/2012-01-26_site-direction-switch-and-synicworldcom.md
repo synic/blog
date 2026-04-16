@@ -3,13 +3,13 @@ title: Site direction switch, and synicworld.com
 slug: site-direction-switch-and-synicworldcom
 publishedAt: 2012-01-26T22:59:11-07:00
 tags: [Random]
-summary: |
-  I haven't posted in forever.  I have a bunch of things I want to post about,
-  though, and I will continuing forward.
 ---
+<!-- summary -->
 I haven't posted in forever.  I have a bunch of things I want to post about,
 though, and I will continuing forward.
+<!-- /summary -->
 
+<!-- article-summary -->
 Thing is, a lot of these things I want to write about having absolutely nothing
 to do with the tech world, and I didn't feel that it was appropriate to post
 non-techy things on "vimtips.org".

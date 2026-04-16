@@ -3,15 +3,14 @@ title: Exaile needs a team leader
 slug: exaile-needs-team-leader
 publishedAt: 2012-05-10T19:23:20-07:00
 tags: [Exaile, Programming, Linux, Music]
-summary: |
-  Due to the recent news Regarding Stallman's heart attack, I ended up on the
-  wikipedia page for The Cathedral and the Bazaar, and I was reading the
-  "Guidelines for creating good opensource software".  Number 3 says:
 ---
+<!-- summary -->
 Due to the recent news Regarding Stallman's heart attack, I ended up on the
 wikipedia page for The Cathedral and the Bazaar, and I was reading the
 "Guidelines for creating good opensource software".  Number 3 says:
+<!-- /summary -->
 
+<!-- article-summary -->
 "When you lose interest in a program, your last duty to it is to hand it off to
 a competent successor."
 

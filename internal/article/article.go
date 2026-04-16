@@ -4,15 +4,12 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"regexp"
 	"strings"
 	"time"
 
 	"github.com/synic/blog/internal/model"
 	"github.com/synic/blog/internal/text"
 )
-
-var summaryFormatRe = regexp.MustCompile(`\n(.)`)
 
 func ArticleBaseName(slug string, publishedAt time.Time) string {
 	return fmt.Sprintf(
@@ -86,18 +83,17 @@ func CreateBlankArticleTemplate(
 	tagsField := fmt.Sprintf("[%s]", strings.Join(tagList, ", "))
 
 	summary := strings.TrimSpace(article.Summary)
-	summary = strings.TrimSpace(
-		string(summaryFormatRe.ReplaceAll([]byte(summary), []byte("\n  $1"))),
-	)
 
 	return fn, fmt.Sprintf(`---
 title: %s
 slug: %s
 tags: %s
 publishedAt: %s
-summary: |
-%s
 ---
+<!-- summary -->
+%s
+<!-- /summary -->
+
 %s
 `, titleField, slug, tagsField, article.PublishedAt.Format(time.RFC3339), summary, article.Body)
 }

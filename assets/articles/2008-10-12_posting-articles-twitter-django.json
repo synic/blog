@@ -13,5 +13,6 @@
   "openGraph": {
     "title": "Posting articles to Twitter via Django",
     "type": "article"
-  }
+  },
+  "URL": "/article/2008-10-12/posting-articles-twitter-django"
 }

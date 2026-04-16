@@ -3,15 +3,14 @@ title: Upgrade to Captcha
 slug: upgrade-captcha
 publishedAt: 2012-11-19T18:10:37-07:00
 tags: [Programming]
-summary: |
-  Welp, my simple human test, where you had to type "vim" to enter comments on
-  this blog, finally failed to keep out the spam.  Surprisingly, it did work for
-  6 years before I had problems.
 ---
+<!-- summary -->
 Welp, my simple human test, where you had to type "vim" to enter comments on
 this blog, finally failed to keep out the spam.  Surprisingly, it did work for
 6 years before I had problems.
+<!-- /summary -->
 
+<!-- article-summary -->
 Over the weekend, there was a steady stream of spam to the comments.
 Fortunately, I don't get a lot of comments, so removing all comments after a
 certain date was sufficient.

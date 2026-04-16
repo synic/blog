@@ -1,6 +1,7 @@
 package converter
 
 import (
+	"strings"
 	"testing"
 	"time"
 
@@ -14,7 +15,6 @@ title: Test Article
 slug: test-article
 publishedAt: 2024-01-01T00:00:00Z
 tags: [test, article]
-summary: Test summary
 ---
 Article content`
 
@@ -22,7 +22,6 @@ Article content`
 		Title:       "Test Article",
 		PublishedAt: time.Date(2024, 1, 1, 0, 0, 0, 0, time.UTC),
 		Tags:        []string{"test", "article"},
-		Summary:     "Test summary",
 		Slug:        "test-article",
 		OpenGraphData: model.OpenGraphData{
 			Title: "Test Article",
@@ -66,6 +65,21 @@ Content`
 	assert.Equal(t, "Content", body)
 }
 
+func TestParseMetadataIgnoresSummaryKey(t *testing.T) {
+	content := `---
+title: Test Article
+slug: test-article
+publishedAt: 2024-01-01T00:00:00Z
+tags: [test]
+summary: should be ignored
+---
+Body`
+
+	article, _, err := parseMetadata(content)
+	assert.NoError(t, err)
+	assert.Equal(t, "", article.Summary)
+}
+
 func TestParseMetadataMissingFrontmatter(t *testing.T) {
 	_, _, err := parseMetadata("No frontmatter here")
 	assert.ErrorContains(t, err, "unable to parse frontmatter block")
@@ -107,8 +121,11 @@ title: Test Article
 slug: test-article
 publishedAt: 2024-01-01T00:00:00Z
 tags: [test]
-summary: Test summary
 ---
+<!-- summary -->
+Test summary
+<!-- /summary -->
+
 Article content`
 
 	expected := model.Article{
@@ -136,8 +153,11 @@ func TestParseArticleFromDataUnpublished(t *testing.T) {
 title: Draft
 slug: draft
 tags: [draft]
-summary: Draft summary
 ---
+<!-- summary -->
+Draft summary
+<!-- /summary -->
+
 Draft content`
 
 	article, err := parseArticleFromData(content)
@@ -151,6 +171,186 @@ Draft content`
 	assert.False(t, article.IsPublished)
 	assert.False(t, article.PublishedAt.IsZero())
 	assert.Equal(t, "Draft", article.OpenGraphData.Title)
+}
+
+func TestParseArticleFromDataNoSummaryBlock(t *testing.T) {
+	content := `---
+title: Test
+slug: test
+tags: [test]
+publishedAt: 2024-01-01T00:00:00Z
+---
+Just the body.`
+
+	article, err := parseArticleFromData(content)
+	assert.NoError(t, err)
+	assert.Equal(t, "", article.Summary)
+	assert.Equal(t, "<p>Just the body.</p>\n", article.Body)
+}
+
+func TestParseArticleFromDataEmptySummaryBlock(t *testing.T) {
+	content := `---
+title: Test
+slug: test
+tags: [test]
+publishedAt: 2024-01-01T00:00:00Z
+---
+<!-- summary -->
+<!-- /summary -->
+
+Body here.`
+
+	article, err := parseArticleFromData(content)
+	assert.NoError(t, err)
+	assert.Equal(t, "", article.Summary)
+	assert.Equal(t, "<p>Body here.</p>\n", article.Body)
+}
+
+func TestParseArticleFromDataPlaceholder(t *testing.T) {
+	content := `---
+title: Test
+slug: test
+tags: [test]
+publishedAt: 2024-01-01T00:00:00Z
+---
+<!-- summary -->
+My summary.
+<!-- /summary -->
+
+Intro paragraph.
+
+<!-- article-summary -->
+
+## Heading
+
+Trailing content.`
+
+	article, err := parseArticleFromData(content)
+	assert.NoError(t, err)
+	assert.Equal(t, "<p>My summary.</p>\n", article.Summary)
+	assert.Contains(t, article.Body, "<p>Intro paragraph.</p>")
+	assert.Contains(t, article.Body, "<p>My summary.</p>")
+	assert.Contains(t, article.Body, "<h2")
+	assert.NotContains(t, article.Body, "<!-- article-summary -->")
+}
+
+func TestParseArticleFromDataMultiplePlaceholders(t *testing.T) {
+	content := `---
+title: Test
+slug: test
+tags: [test]
+publishedAt: 2024-01-01T00:00:00Z
+---
+<!-- summary -->
+Shared summary.
+<!-- /summary -->
+
+<!-- article-summary -->
+
+Middle.
+
+<!-- article-summary -->`
+
+	article, err := parseArticleFromData(content)
+	assert.NoError(t, err)
+	assert.Equal(t, 2, strings.Count(article.Body, "<p>Shared summary.</p>"))
+}
+
+func TestParseArticleFromDataMultipleSummaryBlocks(t *testing.T) {
+	content := `---
+title: Test
+slug: test
+tags: [test]
+publishedAt: 2024-01-01T00:00:00Z
+---
+<!-- summary -->
+First.
+<!-- /summary -->
+
+<!-- summary -->
+Second.
+<!-- /summary -->
+
+Body.`
+
+	_, err := parseArticleFromData(content)
+	assert.ErrorContains(t, err, "multiple summary blocks")
+}
+
+func TestParseArticleFromDataMismatchedMarkers(t *testing.T) {
+	content := `---
+title: Test
+slug: test
+tags: [test]
+publishedAt: 2024-01-01T00:00:00Z
+---
+<!-- summary -->
+No closing marker.
+
+Body.`
+
+	_, err := parseArticleFromData(content)
+	assert.ErrorContains(t, err, "opening summary marker without closing marker")
+}
+
+func TestParseArticleFromDataClosingWithoutOpening(t *testing.T) {
+	content := `---
+title: Test
+slug: test
+tags: [test]
+publishedAt: 2024-01-01T00:00:00Z
+---
+<!-- /summary -->
+
+Body.`
+
+	_, err := parseArticleFromData(content)
+	assert.ErrorContains(t, err, "closing summary marker without opening marker")
+}
+
+func TestParseArticleFromDataMarkersInCodeBlockIgnored(t *testing.T) {
+	content := "---\n" +
+		"title: Test\n" +
+		"slug: test\n" +
+		"tags: [test]\n" +
+		"publishedAt: 2024-01-01T00:00:00Z\n" +
+		"---\n" +
+		"Body intro.\n\n" +
+		"```\n" +
+		"<!-- summary -->\n" +
+		"fake summary inside code\n" +
+		"<!-- /summary -->\n" +
+		"```\n\n" +
+		"Trailing."
+
+	article, err := parseArticleFromData(content)
+	assert.NoError(t, err)
+	assert.Equal(t, "", article.Summary)
+	assert.Contains(t, article.Body, "&lt;!-- summary --&gt;")
+	assert.Contains(t, article.Body, "&lt;!-- /summary --&gt;")
+}
+
+func TestParseArticleFromDataPlaceholderInCodeBlockNotSubstituted(t *testing.T) {
+	content := "---\n" +
+		"title: Test\n" +
+		"slug: test\n" +
+		"tags: [test]\n" +
+		"publishedAt: 2024-01-01T00:00:00Z\n" +
+		"---\n" +
+		"<!-- summary -->\n" +
+		"Real summary.\n" +
+		"<!-- /summary -->\n\n" +
+		"Body.\n\n" +
+		"```\n" +
+		"<!-- article-summary -->\n" +
+		"```\n"
+
+	article, err := parseArticleFromData(content)
+	assert.NoError(t, err)
+	assert.Equal(t, "<p>Real summary.</p>\n", article.Summary)
+	assert.Contains(t, article.Body, "&lt;!-- article-summary --&gt;")
+	assert.NotContains(t, article.Body, "Real summary.</p>\n</code>")
+	assert.Equal(t, 0, strings.Count(article.Body, "<p>Real summary.</p>"))
 }
 
 func TestParseArticleFromDataInvalidFrontmatter(t *testing.T) {

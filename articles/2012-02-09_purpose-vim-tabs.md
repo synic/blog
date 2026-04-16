@@ -3,15 +3,14 @@ title: The Purpose of Vim Tabs
 slug: purpose-vim-tabs
 publishedAt: 2012-02-09T18:59:34-07:00
 tags: [Programming, VIM]
-summary: |
-  Yesterday, after many years of using Vim, I've finally realized what the
-  purpose of Vim Tabs is.   My friend asked me to post this article, because she
-  was also stumped by their functionality.
 ---
+<!-- summary -->
 Yesterday, after many years of using Vim, I've finally realized what the
 purpose of Vim Tabs is.   My friend asked me to post this article, because she
 was also stumped by their functionality.
+<!-- /summary -->
 
+<!-- article-summary -->
 When they first came out, I tried them.  I didn't understand why they'd even
 put tabs in, when there are far superior ways to navigate Vim buffers, but I
 soon found out that tabs in Vim don't show buffers.  -They show, in essence,

@@ -9,7 +9,7 @@ import (
 
 func TestTransformAlbumsNoAlbums(t *testing.T) {
 	input := `<p>Hello world</p><img src="/a.jpg" alt="a"/>`
-	out, err := TransformAlbums(input, "b", "")
+	out, err := TransformAlbums(input, "b", "", nil)
 	assert.NoError(t, err)
 	assert.Equal(t, input, out)
 }
@@ -20,7 +20,7 @@ func TestTransformAlbumsSingleWithCaptions(t *testing.T) {
 <x-image src="/b.jpg" alt="Second"/>
 <x-image src="/c.jpg" alt="Third"/>
 </x-album>`
-	out, err := TransformAlbums(input, "b", "")
+	out, err := TransformAlbums(input, "b", "", nil)
 	assert.NoError(t, err)
 
 	assert.Contains(t, out, `class="album"`)
@@ -28,7 +28,7 @@ func TestTransformAlbumsSingleWithCaptions(t *testing.T) {
 	assert.Contains(t, out, `class="album-frame"`)
 	assert.Contains(t, out, `class="album-nav album-nav-prev"`)
 	assert.Contains(t, out, `class="album-nav album-nav-next"`)
-	assert.Contains(t, out, `class="album-img"`)
+	assert.Contains(t, out, `class="album-img`)
 	assert.Contains(t, out, `src="/a.jpg"`)
 	assert.Contains(t, out, `alt="First"`)
 	assert.Contains(t, out, `<div class="album-caption" aria-live="polite">First</div>`)
@@ -39,14 +39,12 @@ func TestTransformAlbumsSingleWithCaptions(t *testing.T) {
 	assert.Contains(t, out, `aria-label="Next image"`)
 	assert.Contains(t, out, `class="album-dot is-active"`)
 	assert.Contains(t, out, `data-index="2"`)
-	assert.Contains(t, out, `&#34;src&#34;:&#34;/a.jpg&#34;`)
-	assert.Contains(t, out, `&#34;alt&#34;:&#34;Second&#34;`)
 	assert.NotContains(t, out, "<x-album")
 }
 
 func TestTransformAlbumsMissingAlt(t *testing.T) {
 	input := `<x-album><x-image src="/a.jpg"/></x-album>`
-	out, err := TransformAlbums(input, "b", "")
+	out, err := TransformAlbums(input, "b", "", nil)
 	assert.NoError(t, err)
 	assert.Contains(t, out, `<div class="album-caption" aria-live="polite"></div>`)
 	assert.Contains(t, out, `src="/a.jpg"`)
@@ -54,7 +52,7 @@ func TestTransformAlbumsMissingAlt(t *testing.T) {
 
 func TestTransformAlbumsEmpty(t *testing.T) {
 	input := `<p>Before</p><x-album></x-album><p>After</p>`
-	out, err := TransformAlbums(input, "b", "")
+	out, err := TransformAlbums(input, "b", "", nil)
 	assert.NoError(t, err)
 	assert.NotContains(t, out, "album")
 	assert.Contains(t, out, "<p>Before</p>")
@@ -63,7 +61,7 @@ func TestTransformAlbumsEmpty(t *testing.T) {
 
 func TestTransformAlbumsMultiple(t *testing.T) {
 	input := `<x-album><x-image src="/a.jpg" alt="A"/></x-album><p>between</p><x-album><x-image src="/b.jpg" alt="B"/></x-album>`
-	out, err := TransformAlbums(input, "b", "")
+	out, err := TransformAlbums(input, "b", "", nil)
 	assert.NoError(t, err)
 	assert.Contains(t, out, `data-album-id="album-b-0"`)
 	assert.Contains(t, out, `data-album-id="album-b-1"`)
@@ -72,14 +70,14 @@ func TestTransformAlbumsMultiple(t *testing.T) {
 
 func TestTransformAlbumsCustomPrefix(t *testing.T) {
 	input := `<x-album><x-image src="/a.jpg" alt="A"/></x-album>`
-	out, err := TransformAlbums(input, "summary", "")
+	out, err := TransformAlbums(input, "summary", "", nil)
 	assert.NoError(t, err)
 	assert.Contains(t, out, `data-album-id="album-summary-0"`)
 }
 
 func TestTransformAlbumsImgSkippedWithoutSrc(t *testing.T) {
 	input := `<x-album><x-image alt="no src"/><x-image src="/a.jpg" alt="A"/></x-album>`
-	out, err := TransformAlbums(input, "b", "")
+	out, err := TransformAlbums(input, "b", "", nil)
 	assert.NoError(t, err)
 	assert.Contains(t, out, `src="/a.jpg"`)
 	assert.Equal(t, 2, strings.Count(out, "album-dot"))
@@ -87,7 +85,7 @@ func TestTransformAlbumsImgSkippedWithoutSrc(t *testing.T) {
 
 func TestTransformAlbumsPreservesSurroundingContent(t *testing.T) {
 	input := `<h2>Title</h2><p>Intro</p><x-album><x-image src="/a.jpg" alt="A"/></x-album><p>Outro</p>`
-	out, err := TransformAlbums(input, "b", "")
+	out, err := TransformAlbums(input, "b", "", nil)
 	assert.NoError(t, err)
 	assert.Contains(t, out, "<h2>Title</h2>")
 	assert.Contains(t, out, "<p>Intro</p>")

@@ -13,14 +13,14 @@ import (
 
 func TestTransformImagesNoImageTag(t *testing.T) {
 	input := `<p>Hello</p><img src="/a.jpg" alt="A"/>`
-	out, err := TransformImages(input, "")
+	out, err := TransformImages(input, "", nil)
 	assert.NoError(t, err)
 	assert.Equal(t, input, out)
 }
 
 func TestTransformImagesBasic(t *testing.T) {
 	input := `<p>Before</p><x-image src="/static/foo.jpg" alt="My photo"/><p>After</p>`
-	out, err := TransformImages(input, "")
+	out, err := TransformImages(input, "", nil)
 	assert.NoError(t, err)
 	assert.Contains(t, out, `class="photo lightbox-img"`)
 	assert.Contains(t, out, `src="/static/foo.jpg"`)
@@ -33,7 +33,7 @@ func TestTransformImagesBasic(t *testing.T) {
 
 func TestTransformImagesManualDimensions(t *testing.T) {
 	input := `<x-image src="/static/foo.jpg" alt="X" width="400" height="300"/>`
-	out, err := TransformImages(input, "")
+	out, err := TransformImages(input, "", nil)
 	assert.NoError(t, err)
 	assert.Contains(t, out, `width="400"`)
 	assert.Contains(t, out, `height="300"`)
@@ -56,7 +56,7 @@ func TestTransformImagesAutoDimensions(t *testing.T) {
 	f.Close()
 
 	input := `<x-image src="/static/images/test.jpg" alt="Test"/>`
-	out, err := TransformImages(input, dir)
+	out, err := TransformImages(input, dir, nil)
 	assert.NoError(t, err)
 	assert.Contains(t, out, `width="800"`)
 	assert.Contains(t, out, `height="600"`)
@@ -74,7 +74,7 @@ func TestTransformImagesPartialManualWidth(t *testing.T) {
 	f.Close()
 
 	input := `<x-image src="/static/images/test.jpg" alt="Test" width="400"/>`
-	out, err := TransformImages(input, dir)
+	out, err := TransformImages(input, dir, nil)
 	assert.NoError(t, err)
 	assert.Contains(t, out, `width="400"`)
 	assert.Contains(t, out, `height="300"`)
@@ -92,7 +92,7 @@ func TestTransformImagesPartialManualHeight(t *testing.T) {
 	f.Close()
 
 	input := `<x-image src="/static/images/test.jpg" alt="Test" height="300"/>`
-	out, err := TransformImages(input, dir)
+	out, err := TransformImages(input, dir, nil)
 	assert.NoError(t, err)
 	assert.Contains(t, out, `width="400"`)
 	assert.Contains(t, out, `height="300"`)
@@ -100,7 +100,7 @@ func TestTransformImagesPartialManualHeight(t *testing.T) {
 
 func TestTransformImagesMissingFile(t *testing.T) {
 	input := `<x-image src="/static/images/nonexistent.jpg" alt="X"/>`
-	out, err := TransformImages(input, "/tmp/empty")
+	out, err := TransformImages(input, "/tmp/empty", nil)
 	assert.NoError(t, err)
 	assert.Contains(t, out, `src="/static/images/nonexistent.jpg"`)
 	assert.NotContains(t, out, "width=")
@@ -109,7 +109,7 @@ func TestTransformImagesMissingFile(t *testing.T) {
 
 func TestTransformImagesPreservesSurrounding(t *testing.T) {
 	input := `<h2>Title</h2><x-image src="/a.jpg" alt="A"/><p>End</p>`
-	out, err := TransformImages(input, "")
+	out, err := TransformImages(input, "", nil)
 	assert.NoError(t, err)
 	assert.Contains(t, out, "<h2>Title</h2>")
 	assert.Contains(t, out, "<p>End</p>")

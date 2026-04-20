@@ -1,0 +1,15 @@
+{
+  "publishedAt": "2008-10-29T18:28:29-07:00",
+  "body": "\u003cp\u003eThis week I've been focusing on album art support. It was actually Aren's\nidea that, from the beginning, we should create pluggable interfaces for things\nlike dynamic playlists, album art, lyrics, devices, and etc. This means that\nalbum art support wouldn't be hard coded to one place like Amazon, but anyone\ncould add a plugin to support album art from anywhere. Currently, there are\nthree album art plugins: local search, which checks local directories for image\nnames like 'cover.jpg' and etc., Amazon, and Last.FM. The idea is that each\nplugin will be searched in order until something is found. Also Aren's idea: the\norder that each plugin is searched should be user definable.\u003c/p\u003e\n\u003cp\u003eSo, this week's tarball includes the following:\u003c/p\u003e \u003cp\u003e \u003cul\u003e \u003cli\u003eAlbum Art\nManager (it's basically just like the old one)\u003c/li\u003e \u003cli\u003ePreferences page to\nallow you to drag and drop the album art search methods\u003c/li\u003e \u003c/ul\u003e \u003c/p\u003e\n\u003cp\u003e\u003cimg src='/media/images/screenie.jpg' alt='Screenshot of album art preferences' border='0' /\u003e\u003c/p\u003e\n\u003cp\u003e Also, I've uploaded the current Exaile 0.3\n\u003ca href='http://www.exaile.org/doc'\u003eAPI Documentation\u003c/a\u003e. Note that it's\nprobably going to change. \u003c/p\u003e\n\u003cdiv class=\"restored-from-archive\"\u003e \u003ch3\u003eRestored from VimTips archive\u003c/h3\u003e \u003cp\u003e\nThis article was restored from the VimTips archive. There's probably missing\nimages and broken links (and even some flash references), but it was still\nimportant to me to bring them back. \u003c/p\u003e \u003c/div\u003e",
+  "summary": "\u003cp\u003eThis week I've been focusing on album art support. It was actually Aren's idea\nthat, from the beginning, we should create pluggable interfaces for things like\ndynamic playlists, album art, lyrics, devices, and etc. This means that album\nart support wouldn't be hard coded to one place like Amazon, but anyone could\nadd a plugin to support album art from anywhere. Currently, there are three\nalbum art plugins: local search, which checks local directories for image names\nlike 'cover.jpg' and etc., Amazon, and Last.FM. The idea is that each plugin\nwill be searched in order until something is found. Also Aren's idea: the order\nthat each plugin is searched should be user definable...\u003c/p\u003e\n",
+  "title": "Exaile 0.3 Roundup for October 29, 2008",
+  "slug": "exaile-03-roundup-october-29-2008",
+  "tags": [
+    "Exaile"
+  ],
+  "isPublished": true,
+  "openGraph": {
+    "title": "Exaile 0.3 Roundup for October 29, 2008",
+    "type": "article"
+  }
+}

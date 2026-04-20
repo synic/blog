@@ -55,8 +55,8 @@ templ article(a *model.Article, inList bool) {
 				@taglinks(a.Tags)
 			</div>
 		} else {
-			<a class="underline decoration-dashed decoration-slate-500" hx-get={ string(a.SafeURL()) } href={ a.SafeURL() } hx-trigger="click consume">
-				<i class="text-base">Read more...</i>
+			<a class="underline decoration-dashed decoration-slate-500" hx-get={ string(a.SafeURL()) } href={ a.SafeURL() } hx-trigger="click consume" aria-label={ "Read more about " + a.Title }>
+				<em class="text-base not-italic">Read more...</em>
 			</a>
 		}
 	</article>
@@ -205,7 +205,7 @@ func articlePageButtonNextClasses(res model.ArticleListResponse) []string {
 }
 
 templ articlePageButtons(res model.ArticleListResponse) {
-	<nav class="flex justify-center items-center mx-auto w-full">
+	<nav class="flex justify-center items-center mx-auto w-full" aria-label="Article pagination">
 		<ul class="flex flex-row flex-wrap p-0 list-none list-inside no-underline" hx-trigger="click consume">
 			<li
 				if res.Page > 1 {

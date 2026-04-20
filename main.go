@@ -3,10 +3,11 @@ package main
 import (
 	"context"
 	"database/sql"
-	"embed"
+	"io/fs"
 	"log"
 	"net"
 	"net/http"
+	"os"
 	"time"
 
 	"github.com/pressly/goose/v3"
@@ -16,7 +17,6 @@ import (
 	"github.com/synic/blog/internal/config"
 	"github.com/synic/blog/internal/controller"
 	"github.com/synic/blog/internal/db"
-	"github.com/synic/blog/internal/fs"
 	"github.com/synic/blog/internal/mail"
 	"github.com/synic/blog/internal/middleware"
 	"github.com/synic/blog/internal/model"
@@ -24,19 +24,18 @@ import (
 	"github.com/synic/blog/internal/view"
 )
 
-//go:embed assets/*
-var embeddedAssets embed.FS
-
-//go:embed migrations/*.sql
-var embeddedMigrations embed.FS
-
 func main() {
 	ctx := context.Background()
 	conf := config.Load()
-	assets := fs.MustSub(embeddedAssets, "assets")
+	staticFS := os.DirFS(conf.StaticDir)
+
+	articlesFS, err := fs.Sub(staticFS, "articles")
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	repo, res, err := store.NewArticleRepositoryFromFS(
-		fs.MustSub(assets, "articles"),
+		articlesFS,
 		conf.Debug,
 	)
 
@@ -47,10 +46,10 @@ func main() {
 	res.PrintOutput()
 
 	bundledAssets, err := view.BundleStaticAssets(
-		assets,
-		"css/main.css",
+		staticFS,
+		"css/main.min.css",
 		"css/syntax.min.css",
-		"js/app.js",
+		"js/app.min.js",
 	)
 
 	if err != nil {
@@ -74,11 +73,11 @@ func main() {
 		}
 	}
 
-	goose.SetBaseFS(embeddedMigrations)
+	goose.SetBaseFS(os.DirFS(conf.MigrationsDir))
 	if err := goose.SetDialect("sqlite3"); err != nil {
 		log.Fatal(err)
 	}
-	if err := goose.Up(sqlDB, "migrations"); err != nil {
+	if err := goose.Up(sqlDB, "."); err != nil {
 		log.Fatal(err)
 	}
 
@@ -133,7 +132,7 @@ func main() {
 
 	internal.RegisterRoutes(
 		mux,
-		assets,
+		staticFS,
 		authMW,
 		csrfMW,
 		articleController,

@@ -14,6 +14,8 @@ type Config struct {
 	ServerAddress      string
 	ResendAPIKey       string
 	AdminEmail         string
+	StaticDir          string
+	MigrationsDir      string
 	Debug              bool
 	BuildTime          string
 }
@@ -39,6 +41,16 @@ func Load() Config {
 		databaseURL = "./data/db.sqlite"
 	}
 
+	staticDir := os.Getenv("STATIC_DIR")
+	if staticDir == "" {
+		staticDir = "./static"
+	}
+
+	migrationsDir := os.Getenv("MIGRATIONS_DIR")
+	if migrationsDir == "" {
+		migrationsDir = "./migrations"
+	}
+
 	return Config{
 		DatabaseURL:        databaseURL,
 		GitHubClientID:     os.Getenv("GITHUB_CLIENT_ID"),
@@ -46,6 +58,8 @@ func Load() Config {
 		ServerAddress:      os.Getenv("SERVER_ADDRESS"),
 		ResendAPIKey:       os.Getenv("RESEND_API_KEY"),
 		AdminEmail:         os.Getenv("ADMIN_EMAIL"),
+		StaticDir:          staticDir,
+		MigrationsDir:      migrationsDir,
 		Debug:              Debug,
 		BuildTime:          BuildTime,
 	}

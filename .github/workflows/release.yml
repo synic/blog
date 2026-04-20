@@ -48,6 +48,14 @@ jobs:
       - name: Remove out of date articles
         run: ./.github/scripts/pre-build.sh
 
+      - name: Cache generated images
+        uses: actions/cache@v4
+        with:
+          path: static/images
+          key: images-${{ hashFiles('images/**') }}
+          restore-keys: |
+            images-
+
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
 

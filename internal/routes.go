@@ -12,7 +12,7 @@ import (
 
 func RegisterRoutes(
 	handler *http.ServeMux,
-	assets fs.FS,
+	staticFS fs.FS,
 	auth middleware.Middleware,
 	csrf middleware.Middleware,
 	articleController controller.ArticleController,
@@ -21,7 +21,7 @@ func RegisterRoutes(
 	leaderboardController controller.LeaderboardController,
 ) {
 	// static files
-	handler.Handle("GET /static/", static.StaticHandler(assets))
+	handler.Handle("GET /static/", static.StaticHandler(staticFS))
 
 	// articles
 	handler.HandleFunc("/{$}", articleController.Index)

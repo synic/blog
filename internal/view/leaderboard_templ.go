@@ -56,7 +56,7 @@ func LeaderboardView(entries []model.PageViewEntry) templ.Component {
 					return templ_7745c5c3_Err
 				}
 			} else {
-				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, "<table class=\"w-full text-left border-collapse\"><thead><tr class=\"border-b border-gray-700\"><th class=\"py-2 pr-4 w-16 text-slate-400\">#</th><th class=\"py-2 pr-4 text-slate-400\">Article</th><th class=\"py-2 text-right text-slate-400\">Views</th></tr></thead> <tbody>")
+				templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, "<table class=\"w-full text-left border-collapse\"><thead><tr class=\"border-b border-gray-700\"><th scope=\"col\" class=\"py-2 pr-4 w-16 text-slate-400\">#</th><th scope=\"col\" class=\"py-2 pr-4 text-slate-400\">Article</th><th scope=\"col\" class=\"py-2 text-right text-slate-400\">Views</th></tr></thead> <tbody>")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}

@@ -8,17 +8,16 @@ import (
 	"strings"
 	"time"
 
-	"github.com/synic/blog/internal/model"
 	"gopkg.in/yaml.v3"
-)
 
-const articleSummaryPlaceholder = "<!-- article-summary -->"
+	"github.com/synic/blog/internal/model"
+)
 
 var (
 	markdown         = newRenderer()
 	frontmatterRegex = regexp.MustCompile(`(?s)\A---\n(.*?)\n---\n(.*)`)
-	summaryOpenRe    = regexp.MustCompile(`^\s*<!--\s*summary\s*-->\s*$`)
-	summaryCloseRe   = regexp.MustCompile(`^\s*<!--\s*/summary\s*-->\s*$`)
+	summaryOpenRe    = regexp.MustCompile(`^\s*<!--\s*summary\s*(.*?)\s*-->\s*$`)
+	summaryCloseRe   = regexp.MustCompile(`^\s*<!--\s*end-summary\s*-->\s*$`)
 	fenceRe          = regexp.MustCompile("^\\s{0,3}(`{3,}|~{3,})")
 )
 
@@ -34,14 +33,12 @@ func parseMetadata(content string) (model.Article, string, error) {
 		return model.Article{}, "", fmt.Errorf("error parsing frontmatter: %w", err)
 	}
 
-	// default opengraph
 	if article.OpenGraphData.Title == "" {
 		article.OpenGraphData.Title = article.Title
 	}
 
 	article.OpenGraphData.Type = "article"
 
-	// Validate required fields
 	if article.Title == "" {
 		return model.Article{}, "", errors.New("title is required")
 	}
@@ -73,7 +70,7 @@ func parseArticleFromData(content string) (model.Article, error) {
 		article.PublishedAt = time.Now()
 	}
 
-	summaryMd, bodyMd, err := extractSummary(body)
+	summaryMd, bodyMd, options, err := extractSummary(body)
 
 	if err != nil {
 		return article, fmt.Errorf("error extracting article summary: %w", err)
@@ -85,14 +82,45 @@ func parseArticleFromData(content string) (model.Article, error) {
 		return article, fmt.Errorf("error converting article summary to html: %w", err)
 	}
 
+	firstSeen := false
+	summaryHtml, err = TransformAlbums(summaryHtml, "s", "./static", &firstSeen)
+
+	if err != nil {
+		return article, fmt.Errorf("error transforming albums in summary: %w", err)
+	}
+
+	summaryHtml, err = TransformImages(summaryHtml, "./static", &firstSeen)
+
+	if err != nil {
+		return article, fmt.Errorf("error transforming images in summary: %w", err)
+	}
+
 	bodyHtml, err := markdown.MarkdownToHtml(bodyMd)
 
 	if err != nil {
 		return article, fmt.Errorf("error converting article body to html: %w", err)
 	}
 
+	bodyHtml, err = TransformAlbums(bodyHtml, "b", "./static", &firstSeen)
+
+	if err != nil {
+		return article, fmt.Errorf("error transforming albums in body: %w", err)
+	}
+
+	bodyHtml, err = TransformImages(bodyHtml, "./static", &firstSeen)
+
+	if err != nil {
+		return article, fmt.Errorf("error transforming images in body: %w", err)
+	}
+
 	article.Summary = summaryHtml
-	article.Body = substitutePlaceholder(bodyHtml, strings.TrimRight(summaryHtml, "\n"))
+
+	if options["render-in-body"] == "true" {
+		article.Body = strings.TrimRight(summaryHtml, "\n") + "\n" + bodyHtml
+	} else {
+		article.Body = bodyHtml
+	}
+
 	article.Prepare()
 	return article, nil
 }
@@ -107,12 +135,34 @@ func Parse(filepath string) (model.Article, error) {
 	return parseArticleFromData(string(content))
 }
 
-func extractSummary(body string) (string, string, error) {
+func parseSummaryOptions(raw string) map[string]string {
+	options := make(map[string]string)
+	raw = strings.TrimSpace(raw)
+	if raw == "" {
+		return options
+	}
+
+	for _, pair := range strings.Split(raw, ",") {
+		pair = strings.TrimSpace(pair)
+		if pair == "" {
+			continue
+		}
+		parts := strings.SplitN(pair, "=", 2)
+		if len(parts) == 2 {
+			options[strings.TrimSpace(parts[0])] = strings.TrimSpace(parts[1])
+		}
+	}
+
+	return options
+}
+
+func extractSummary(body string) (string, string, map[string]string, error) {
 	lines := strings.Split(body, "\n")
 
 	openIdx := -1
 	closeIdx := -1
 	inFence := false
+	var optionsRaw string
 
 	for i, line := range lines {
 		if fenceRe.MatchString(line) {
@@ -124,35 +174,36 @@ func extractSummary(body string) (string, string, error) {
 			continue
 		}
 
-		if summaryOpenRe.MatchString(line) {
+		if m := summaryOpenRe.FindStringSubmatch(line); m != nil {
 			if openIdx != -1 {
-				return "", "", errors.New("multiple summary blocks found")
+				return "", "", nil, errors.New("multiple summary blocks found")
 			}
 			openIdx = i
+			optionsRaw = m[1]
 			continue
 		}
 
 		if summaryCloseRe.MatchString(line) {
 			if openIdx == -1 {
-				return "", "", errors.New("closing summary marker without opening marker")
+				return "", "", nil, errors.New("closing summary marker without opening marker")
 			}
 			if closeIdx != -1 {
-				return "", "", errors.New("multiple summary blocks found")
+				return "", "", nil, errors.New("multiple summary blocks found")
 			}
 			closeIdx = i
 		}
 	}
 
 	if openIdx == -1 && closeIdx == -1 {
-		return "", body, nil
+		return "", body, nil, nil
 	}
 
 	if openIdx != -1 && closeIdx == -1 {
-		return "", "", errors.New("opening summary marker without closing marker")
+		return "", "", nil, errors.New("opening summary marker without closing marker")
 	}
 
 	if closeIdx <= openIdx {
-		return "", "", errors.New("mismatched summary markers")
+		return "", "", nil, errors.New("mismatched summary markers")
 	}
 
 	summary := strings.Join(lines[openIdx+1:closeIdx], "\n")
@@ -161,9 +212,11 @@ func extractSummary(body string) (string, string, error) {
 	remaining = append(remaining, lines[:openIdx]...)
 	remaining = append(remaining, lines[closeIdx+1:]...)
 
-	return strings.TrimSpace(summary), strings.TrimSpace(strings.Join(remaining, "\n")), nil
-}
+	options := parseSummaryOptions(optionsRaw)
 
-func substitutePlaceholder(bodyHtml, summaryHtml string) string {
-	return strings.ReplaceAll(bodyHtml, articleSummaryPlaceholder, summaryHtml)
+	return strings.TrimSpace(
+			summary,
+		), strings.TrimSpace(
+			strings.Join(remaining, "\n"),
+		), options, nil
 }

@@ -4,15 +4,14 @@ tmp_dir = ".tmp"
 [build]
   bin = "bin/blog-debug"
   full_bin = "./bin/blog-debug"
-  cmd = ".tmp/mage-bin build:dev"
+  cmd = "go tool mage build:dev"
   delay = 200
   exclude_dir = [
     "logs",
     "bin",
     "node_modules",
-    "assets/css",
-    "internal/db",
-    "assets/articles"
+    "static",
+    "internal/db"
   ]
   exclude_file = ["Dockerfile", "docker-compose.yaml", "mage_output_file.go"]
   exclude_regex = ["_test\\.go", "\\.null-ls", "_templ\\.go"]

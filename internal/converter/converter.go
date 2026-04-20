@@ -26,15 +26,13 @@ type ConvertResult struct {
 func (r ConvertResult) String() string {
 	var b strings.Builder
 
-	b.WriteString(
-		fmt.Sprintf("🎉 Article processing done in %s. converted: %d", r.Duration, r.ConvertedCount),
-	)
+	fmt.Fprintf(&b, "🎉 Article processing done in %s. converted: %d", r.Duration, r.ConvertedCount)
 
 	if !r.reconvert {
-		b.WriteString(fmt.Sprintf(", up-to-date: %d", r.UpToDateCount))
+		fmt.Fprintf(&b, ", up-to-date: %d", r.UpToDateCount)
 	}
 
-	b.WriteString(fmt.Sprintf(", deleted: %d\n", r.DeletedCount))
+	fmt.Fprintf(&b, ", deleted: %d\n", r.DeletedCount)
 
 	return b.String()
 }

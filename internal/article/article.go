@@ -36,12 +36,12 @@ func CreateArticle(
 	slug := text.Slugify(article.Title)
 	if createImageDir {
 		articleBaseName := ArticleBaseName(slug, article.PublishedAt)
-		log.Printf("Creating image directory `./assets/images/articles/%s`...", articleBaseName)
-		err := os.MkdirAll(fmt.Sprintf("./assets/images/articles/%s", articleBaseName), 0755)
+		log.Printf("Creating image directory `./static/images/articles/%s`...", articleBaseName)
+		err := os.MkdirAll(fmt.Sprintf("./static/images/articles/%s", articleBaseName), 0755)
 		if err != nil {
 			log.Fatal(err)
 			return "", fmt.Errorf(
-				"Could not create image directory `./assets/images/articles/%s`.",
+				"Could not create image directory `./static/images/articles/%s`.",
 				articleBaseName,
 			)
 		}
@@ -90,9 +90,9 @@ slug: %s
 tags: %s
 publishedAt: %s
 ---
-<!-- summary -->
+<!-- summary render-in-body=true -->
 %s
-<!-- /summary -->
+<!-- end-summary -->
 
 %s
 `, titleField, slug, tagsField, article.PublishedAt.Format(time.RFC3339), summary, article.Body)

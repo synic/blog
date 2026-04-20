@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/stretchr/testify/assert"
+
 	"github.com/synic/blog/internal/model"
 )
 
@@ -124,7 +125,7 @@ tags: [test]
 ---
 <!-- summary -->
 Test summary
-<!-- /summary -->
+<!-- end-summary -->
 
 Article content`
 
@@ -156,7 +157,7 @@ tags: [draft]
 ---
 <!-- summary -->
 Draft summary
-<!-- /summary -->
+<!-- end-summary -->
 
 Draft content`
 
@@ -196,7 +197,7 @@ tags: [test]
 publishedAt: 2024-01-01T00:00:00Z
 ---
 <!-- summary -->
-<!-- /summary -->
+<!-- end-summary -->
 
 Body here.`
 
@@ -206,20 +207,16 @@ Body here.`
 	assert.Equal(t, "<p>Body here.</p>\n", article.Body)
 }
 
-func TestParseArticleFromDataPlaceholder(t *testing.T) {
+func TestParseArticleFromDataRenderInBody(t *testing.T) {
 	content := `---
 title: Test
 slug: test
 tags: [test]
 publishedAt: 2024-01-01T00:00:00Z
 ---
-<!-- summary -->
+<!-- summary render-in-body=true -->
 My summary.
-<!-- /summary -->
-
-Intro paragraph.
-
-<!-- article-summary -->
+<!-- end-summary -->
 
 ## Heading
 
@@ -228,13 +225,12 @@ Trailing content.`
 	article, err := parseArticleFromData(content)
 	assert.NoError(t, err)
 	assert.Equal(t, "<p>My summary.</p>\n", article.Summary)
-	assert.Contains(t, article.Body, "<p>Intro paragraph.</p>")
 	assert.Contains(t, article.Body, "<p>My summary.</p>")
 	assert.Contains(t, article.Body, "<h2")
-	assert.NotContains(t, article.Body, "<!-- article-summary -->")
+	assert.True(t, strings.HasPrefix(article.Body, "<p>My summary.</p>"))
 }
 
-func TestParseArticleFromDataMultiplePlaceholders(t *testing.T) {
+func TestParseArticleFromDataNoRenderInBody(t *testing.T) {
 	content := `---
 title: Test
 slug: test
@@ -242,18 +238,16 @@ tags: [test]
 publishedAt: 2024-01-01T00:00:00Z
 ---
 <!-- summary -->
-Shared summary.
-<!-- /summary -->
+My summary.
+<!-- end-summary -->
 
-<!-- article-summary -->
-
-Middle.
-
-<!-- article-summary -->`
+Body content.`
 
 	article, err := parseArticleFromData(content)
 	assert.NoError(t, err)
-	assert.Equal(t, 2, strings.Count(article.Body, "<p>Shared summary.</p>"))
+	assert.Equal(t, "<p>My summary.</p>\n", article.Summary)
+	assert.NotContains(t, article.Body, "<p>My summary.</p>")
+	assert.Contains(t, article.Body, "<p>Body content.</p>")
 }
 
 func TestParseArticleFromDataMultipleSummaryBlocks(t *testing.T) {
@@ -265,11 +259,11 @@ publishedAt: 2024-01-01T00:00:00Z
 ---
 <!-- summary -->
 First.
-<!-- /summary -->
+<!-- end-summary -->
 
 <!-- summary -->
 Second.
-<!-- /summary -->
+<!-- end-summary -->
 
 Body.`
 
@@ -300,7 +294,7 @@ slug: test
 tags: [test]
 publishedAt: 2024-01-01T00:00:00Z
 ---
-<!-- /summary -->
+<!-- end-summary -->
 
 Body.`
 
@@ -319,7 +313,7 @@ func TestParseArticleFromDataMarkersInCodeBlockIgnored(t *testing.T) {
 		"```\n" +
 		"<!-- summary -->\n" +
 		"fake summary inside code\n" +
-		"<!-- /summary -->\n" +
+		"<!-- end-summary -->\n" +
 		"```\n\n" +
 		"Trailing."
 
@@ -327,30 +321,40 @@ func TestParseArticleFromDataMarkersInCodeBlockIgnored(t *testing.T) {
 	assert.NoError(t, err)
 	assert.Equal(t, "", article.Summary)
 	assert.Contains(t, article.Body, "&lt;!-- summary --&gt;")
-	assert.Contains(t, article.Body, "&lt;!-- /summary --&gt;")
+	assert.Contains(t, article.Body, "&lt;!-- end-summary --&gt;")
 }
 
-func TestParseArticleFromDataPlaceholderInCodeBlockNotSubstituted(t *testing.T) {
-	content := "---\n" +
-		"title: Test\n" +
-		"slug: test\n" +
-		"tags: [test]\n" +
-		"publishedAt: 2024-01-01T00:00:00Z\n" +
-		"---\n" +
-		"<!-- summary -->\n" +
-		"Real summary.\n" +
-		"<!-- /summary -->\n\n" +
-		"Body.\n\n" +
-		"```\n" +
-		"<!-- article-summary -->\n" +
-		"```\n"
+func TestParseSummaryOptions(t *testing.T) {
+	opts := parseSummaryOptions("render-in-body=true,foo=bar")
+	assert.Equal(t, "true", opts["render-in-body"])
+	assert.Equal(t, "bar", opts["foo"])
+
+	opts = parseSummaryOptions("  render-in-body=true , foo=bar  ")
+	assert.Equal(t, "true", opts["render-in-body"])
+	assert.Equal(t, "bar", opts["foo"])
+
+	opts = parseSummaryOptions("")
+	assert.Empty(t, opts)
+}
+
+func TestParseArticleFromDataRenderInBodyWithMultipleOptions(t *testing.T) {
+	content := `---
+title: Test
+slug: test
+tags: [test]
+publishedAt: 2024-01-01T00:00:00Z
+---
+<!-- summary render-in-body=true,foo=bar -->
+My summary.
+<!-- end-summary -->
+
+Body content.`
 
 	article, err := parseArticleFromData(content)
 	assert.NoError(t, err)
-	assert.Equal(t, "<p>Real summary.</p>\n", article.Summary)
-	assert.Contains(t, article.Body, "&lt;!-- article-summary --&gt;")
-	assert.NotContains(t, article.Body, "Real summary.</p>\n</code>")
-	assert.Equal(t, 0, strings.Count(article.Body, "<p>Real summary.</p>"))
+	assert.Equal(t, "<p>My summary.</p>\n", article.Summary)
+	assert.True(t, strings.HasPrefix(article.Body, "<p>My summary.</p>"))
+	assert.Contains(t, article.Body, "<p>Body content.</p>")
 }
 
 func TestParseArticleFromDataInvalidFrontmatter(t *testing.T) {

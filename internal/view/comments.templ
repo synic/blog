@@ -78,7 +78,7 @@ templ commentForm(articleURL string, user *model.User) {
 		>
 			<div class="flex gap-3">
 				if user.AvatarURL != "" {
-					<img src={ user.AvatarURL } alt={ user.Username } class="w-8 h-8 rounded-full shrink-0 mt-0.5"/>
+					<img src={ user.AvatarURL } alt={ user.Username } width="32" height="32" loading="lazy" class="w-8 h-8 rounded-full shrink-0 mt-0.5"/>
 				}
 				<div class="flex-1">
 					<textarea
@@ -169,7 +169,7 @@ script expandReply() {
 templ commentCard(articleURL string, c model.Comment, user *model.User) {
 	<div class="mb-2 flex gap-3">
 		if c.AvatarURL != "" {
-			<img src={ c.AvatarURL } alt={ c.Username } class="w-7 h-7 rounded-full shrink-0 mt-0.5"/>
+			<img src={ c.AvatarURL } alt={ c.Username } width="28" height="28" loading="lazy" class="w-7 h-7 rounded-full shrink-0 mt-0.5"/>
 		}
 		<div class="flex-1 min-w-0">
 			<div class="flex items-baseline gap-2 flex-wrap">

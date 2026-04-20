@@ -1,0 +1,15 @@
+{
+  "publishedAt": "2009-10-29T16:48:41-07:00",
+  "body": "\u003cp\u003e\u003ca href='http://www.ubuntu.com'\u003eUbuntu 9.10 (Karmic Koala)\u003c/a\u003e is out today!\u003c/p\u003e\n\u003cp\u003eI've actually been running the RC since\n\u003ca href='http://2009.utosc.com/pages/home/'\u003eUTOSC\u003c/a\u003e on October 9th. On my home\nmachine, work machine, and my HP netbook. I really haven't had any problems on\nany of them, though only one of them was an upgrade - the other two were fresh\ninstalls.\u003c/p\u003e\n\u003cp\u003eActually, I lied. I've had one major problem.\n\u003ca href='http://www.eveonline.com'\u003eEVE Online\u003c/a\u003e no longer works out of the box\nin Karmic. After a lot of searching, I've found that if you disable your network\nconnection before you start EVE, and reconnect so that you can log in, it'll\nlaunch and work, but it's still a pain in the ass. Hopefully they get this\nresolved soon, so I can shoot some spaceships without disconnecting.\u003c/p\u003e\n\u003cdiv class=\"restored-from-archive\"\u003e \u003ch3\u003eRestored from VimTips archive\u003c/h3\u003e \u003cp\u003e\nThis article was restored from the VimTips archive. There's probably missing\nimages and broken links (and even some flash references), but it was still\nimportant to me to bring them back. \u003c/p\u003e \u003c/div\u003e",
+  "summary": "\u003cp\u003e\u003ca href='http://www.ubuntu.com'\u003eUbuntu 9.10 (Karmic Koala)\u003c/a\u003e is out today!\u003c/p\u003e\n",
+  "title": "Ubuntu 9.10 is Here!",
+  "slug": "ubuntu-910-here",
+  "tags": [
+    "Linux"
+  ],
+  "isPublished": true,
+  "openGraph": {
+    "title": "Ubuntu 9.10 is Here!",
+    "type": "article"
+  }
+}

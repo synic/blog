@@ -1,0 +1,16 @@
+{
+  "publishedAt": "2008-12-05T17:48:28-07:00",
+  "body": "\u003cp\u003e\u003cpicture\u003e\u003cimg class=\"photo lightbox-img\" src=\"/media/images/0d.jpg\" alt=\"\" loading=\"eager\" decoding=\"sync\" fetchpriority=\"high\"/\u003e\u003c/picture\u003e So yesterday, I started\nworking on putting together a 16 drive storage machine that will serve as a\ntemporary backup for the holidays. The machine in question has a 3ware SATA RAID\ncontroller, which in turn has a configuration utility which I used to set up a\nfew volumes. Once the configuration was complete, I saved it, and exited. At\nthis point, the controller had to clear the drives of data, and because all 16\ndrives are 1.5TB drives, it was taking forever. I started this process in the\nmorning, and by the time I left, it was only at around 45% complete. \u003c/p\u003e\n\u003cp\u003eThis morning I came in to see how far it had progressed, and I was presented\nwith a dialog not unlike the one you see here. It said nothing other than \"OD\"\nand had a button for \"OK\". Yeah. The only way this could be more awesome is if\nthe \"OK\" had a question mark after it. \u003c/p\u003e\n\u003cdiv class=\"restored-from-archive\"\u003e \u003ch3\u003eRestored from VimTips archive\u003c/h3\u003e \u003cp\u003e\nThis article was restored from the VimTips archive. There's probably missing\nimages and broken links (and even some flash references), but it was still\nimportant to me to bring them back. \u003c/p\u003e \u003c/div\u003e",
+  "summary": "\u003cp\u003eSo yesterday, I started working on putting together a 16 drive storage machine\nthat will serve as a temporary backup for the holidays. The machine in question\nhas a 3ware SATA RAID controller, which in turn has a configuration utility\nwhich I used to set up a few volumes. Once the configuration was complete, I\nsaved it, and exited. At this point, the controller had to clear the drives of\ndata, and because all 16 drives are 1.5TB drives, it was taking forever. I\nstarted this process in the morning, and by the time I left, it was only at\naround 45% complete.\u003c/p\u003e\n",
+  "title": "I'm Ron Burgundy?",
+  "slug": "im-ron-burgundy",
+  "tags": [
+    "Random",
+    "Administration"
+  ],
+  "isPublished": true,
+  "openGraph": {
+    "title": "I'm Ron Burgundy?",
+    "type": "article"
+  }
+}

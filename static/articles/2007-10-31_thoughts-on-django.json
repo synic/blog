@@ -1,0 +1,16 @@
+{
+  "publishedAt": "2007-10-31T17:45:25-07:00",
+  "body": "\u003cp\u003e\u003ca href='http://www.djangoproject.com'\u003eDjango\u003c/a\u003e is a \u0026quot;high-level Python Web\nframework that encourages rapid development and clean, pragmatic design.\u0026quot; So\nfar, I have absolutely no complaints... and much praise.\u003c/p\u003e\n\u003cp\u003eGoing from never using Django to entirely rewriting my blog and converting all\nthe old entries took me only a few days. I only had to write the HTML templates\nand a little Python code, and Django does the rest for me, including the entire\nadministration panel where I can edit articles, article categories, links and\netc.\u003c/p\u003e\n\u003cp\u003eInitial impressions are this: I can tell that this is going to be one of those\nthings (like VIM) that is going to make me think \u0026quot;why, oh why, didn't I learn\nthis earlier?\u0026quot;\u003c/p\u003e\n\u003cp\u003eI had a bit of trouble installing it on my\n\u003ca href='http://www.dreamhost.com'\u003eDreamhost\u003c/a\u003e account, but nothing that\nwasn't covered in their wiki (\u003ca href=\"http://wiki.dreamhost.com/index.php/Django)\"\u003ehttp://wiki.dreamhost.com/index.php/Django)\u003c/a\u003e. I\nbasically just had to contact support and ask them to configure my site for\nPython+FCGI. They were quick to respond and I had it working in a few hours from\nbegin to end.\u003c/p\u003e\n\u003cp\u003eI am \u003cb\u003eVERY\u003c/b\u003e pleased at this point :)\u003c/p\u003e\n\u003cdiv class='vimtip'\u003e \u003ch3\u003e\u003cb\u003evim tip:\u003c/b\u003e \u003ci\u003eDjango template syntax\ndefinition\u003c/i\u003e\u003c/h3\u003e \u003cp\u003e Searching Google for helpers for Django developers, I\nfound a few things, but the only thing I've actually decided to use is the\nsyntax definition file, which you can find here:\n\u003ca href='http://www.vim.org/scripts/script.php?script_id=1487'\u003e\nhttp://www.vim.org/scripts/script.php?script_id=1487\u003c/a\u003e \u003c/div\u003e \u003c/p\u003e\n\u003cdiv class=\"restored-from-archive\"\u003e \u003ch3\u003eRestored from VimTips archive\u003c/h3\u003e \u003cp\u003e\nThis article was restored from the VimTips archive. There's probably missing\nimages and broken links (and even some flash references), but it was still\nimportant to me to bring them back. \u003c/p\u003e \u003c/div\u003e",
+  "summary": "\u003cp\u003e\u003ca href='http://www.djangoproject.com'\u003eDjango\u003c/a\u003e is a \u0026quot;high-level Python Web\nframework that encourages rapid development and clean, pragmatic design.\u0026quot; So\nfar, I have absolutely no complaints... and much praise.\u003c/p\u003e\n",
+  "title": "Thoughts on Django",
+  "slug": "thoughts-on-django",
+  "tags": [
+    "Programming",
+    "Django"
+  ],
+  "isPublished": true,
+  "openGraph": {
+    "title": "Thoughts on Django",
+    "type": "article"
+  }
+}

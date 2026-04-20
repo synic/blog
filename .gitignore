@@ -13,6 +13,7 @@ logs/
 
 # environments
 .env
+.envrc
 
 # misc
 .DS_Store
@@ -37,3 +38,7 @@ mine/
 
 # lsp
 .elixir-tools
+
+# generated images (built from images/ masters)
+/static/images/
+!/static/images/index.html

@@ -57,12 +57,17 @@ controllers → stores → database (pgx/v5)
 **Database:** PostgreSQL with goose migrations in `migrations/`. Schema
 has users, sessions, comments, and page_views tables.
 
-**Articles:** Markdown files in `articles/` with format
-`YYYY-MM-DD_slug.md`. Converted to JSON in `assets/articles/` at build
+**Articles:** Markdown files in `assets/articles/` with format
+`YYYY-MM-DD_slug.md`. Converted to JSON in `static/articles/` at build
 time. Loaded into memory at startup with O(1) slug lookups.
 
-**Static assets:** Embedded via Go's `embed` package. TailwindCSS input
-is `internal/view/css/main.css`, output is `assets/css/main.css`.
+**Static assets:** Served from filesystem (`static/` directory). TailwindCSS input
+is `assets/css/main.css`, output is `static/css/main.min.css`. JS is in `assets/js/app.js`,
+minified to `static/js/app.min.js`.
+
+**Images:** Full-resolution masters stored in `assets/images/` (git tracked).
+Build step (`mage images:build`) generates optimized WebP variants
+(1200px, 800px, 480px) into `static/images/` (gitignored).
 
 ## Code Generation Workflow
 

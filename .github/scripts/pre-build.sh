@@ -10,7 +10,7 @@
 
 for mdfn in ./articles/*.md; do
   mdct=$(git log -1 --format="%ct" -- "${mdfn}")
-  jsonfn=$(echo "${mdfn}" | sed 's/\.md$/\.json/' | sed 's#^\./articles#\./assets/articles#')
+  jsonfn=$(echo "${mdfn}" | sed 's/\.md$/\.json/' | sed 's#^\./articles#\./static/articles#')
   jsonct=$(git log -1 --format="%ct" -- "${jsonfn}")
 
   if [[ ! -f "$jsonfn" ]]; then

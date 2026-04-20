@@ -5,7 +5,8 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "@tailwindcss/cli": "^4.0.0"
+    "@tailwindcss/cli": "^4.0.0",
+    "terser": "^5.46.1"
   },
   "dependencies": {
     "css-minify": "^2.0.0"

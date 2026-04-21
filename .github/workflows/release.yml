@@ -52,7 +52,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: static/images
-          key: images-${{ hashFiles('images/**') }}
+          key: images-${{ hashFiles('assets/images/**', 'assets/articles/**') }}
           restore-keys: |
             images-
 

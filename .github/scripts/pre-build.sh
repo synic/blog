@@ -8,9 +8,9 @@
 # markdown file is newer, delete the json file, which will cause the build
 # system to re-create it.
 
-for mdfn in ./articles/*.md; do
+for mdfn in ./assets/articles/*.md; do
   mdct=$(git log -1 --format="%ct" -- "${mdfn}")
-  jsonfn=$(echo "${mdfn}" | sed 's/\.md$/\.json/' | sed 's#^\./articles#\./static/articles#')
+  jsonfn=$(echo "${mdfn}" | sed 's/\.md$/\.json/' | sed 's#^\./assets/articles#\./static/articles#')
   jsonct=$(git log -1 --format="%ct" -- "${jsonfn}")
 
   if [[ ! -f "$jsonfn" ]]; then

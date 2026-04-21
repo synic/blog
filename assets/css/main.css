@@ -183,7 +183,19 @@
   }
 
   .album-lightbox-close {
-    @apply absolute top-4 right-4 text-3xl text-white cursor-pointer select-none leading-none;
+    @apply absolute top-4 right-4 text-3xl text-white cursor-pointer select-none leading-none z-50;
+  }
+
+  .album-lightbox-nav {
+    @apply absolute top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/20 text-white rounded-full w-12 h-12 flex items-center justify-center cursor-pointer select-none z-50 border-0 p-0 text-2xl leading-none transition-colors;
+  }
+
+  .album-lightbox-prev {
+    @apply left-4;
+  }
+
+  .album-lightbox-next {
+    @apply right-4;
   }
 }
 

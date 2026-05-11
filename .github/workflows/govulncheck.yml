@@ -3,7 +3,7 @@ name: Blog Vulnerability Check
 
 on:  # yamllint disable-line rule:truthy
   schedule:
-    - cron: '0 13 * * 6'
+    - cron: '0 13 * * *'
   workflow_dispatch:
 
 jobs:

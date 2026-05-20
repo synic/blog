@@ -1,16 +1,21 @@
 package view
 
 import (
+	"fmt"
 	"sort"
 	"strconv"
+
+	"github.com/synic/blog/internal/model"
 )
 
 templ ArchiveView(articleCount int, tags map[string]int) {
 	@BaseLayout("Article Archive") {
 		<div class="flex flex-col w-full">
 			<h1 class="my-0 text-rose-500">Archive</h1>
-			<div class="pb-4 mt-1 grow">
-				Total articles: { strconv.Itoa(articleCount) }
+			<div class="pb-4 mt-1 grow flex flex-row items-center gap-2">
+				<span>Total articles: { strconv.Itoa(articleCount) }</span>
+				<span>&bull;</span>
+				<a class="no-underline hover:underline text-rose-500" href="/archive/articles">View complete chronological list</a>
 			</div>
 			<div class="block pb-4 md:hidden grow" hx-include="#search">
 				<form method="post" action="/" flex flex-row flex-nowrap pl-6 rounded-md shadow-md>
@@ -89,4 +94,41 @@ func sortedTags(tagCounts map[string]int) []tagInfo {
 	})
 
 	return tags
+}
+
+templ ArchiveListView(articles []*model.Article) {
+	@BaseLayout("Complete Article List") {
+		<div class="w-full">
+			<h2 class="mt-0 text-rose-500">Articles</h2>
+			if len(articles) == 0 {
+				<p>No articles found.</p>
+			} else {
+				<table class="w-full text-left border-collapse">
+					<thead>
+						<tr class="border-b border-gray-700">
+							<th scope="col" class="py-2 pr-4 w-16 text-slate-400">#</th>
+							<th scope="col" class="py-2 pr-4 text-slate-400">Article</th>
+							<th scope="col" class="py-2 text-right text-slate-400">Published</th>
+						</tr>
+					</thead>
+					<tbody>
+						for i, a := range articles {
+							<tr class="border-b border-gray-700">
+								<td class="py-2 pr-4 text-slate-500">{ fmt.Sprint(i + 1) }</td>
+								<td class="py-2 pr-4">
+									<a
+										class="no-underline text-rose-500 hover:underline"
+										href={ a.SafeURL() }
+									>
+										{ a.Title }
+									</a>
+								</td>
+								<td class="py-2 text-right text-slate-400">{ a.PublishedAt.Format("Jan 2, 2006") }</td>
+							</tr>
+						}
+					</tbody>
+				</table>
+			}
+		</div>
+	}
 }

@@ -18,3 +18,8 @@ that I couldn't go.
 It's gotten a lot better, but only after months of fighting for it.
 
 Happy birthday, Victoria! I'm glad you're with us!
+
+<div class="restored-from-archive"> <h3>Restored from VimTips archive</h3> <p>
+This article was restored from the VimTips archive. There's probably missing
+images and broken links (and even some flash references), but it was still
+important to me to bring them back. </p> </div>

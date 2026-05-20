@@ -28,6 +28,7 @@ func RegisterRoutes(
 	handler.HandleFunc("/article/create", articleController.Create)
 	handler.HandleFunc("GET /article/{date}/{slug}", articleController.Article)
 	handler.HandleFunc("/archive", articleController.Archive)
+	handler.HandleFunc("GET /archive/articles", articleController.ArchiveList)
 	handler.HandleFunc(
 		"/articles/{date}/{slug}",
 		func(w http.ResponseWriter, r *http.Request) {

@@ -101,7 +101,10 @@ func (r *PageViewRepository) ViewCounts(ctx context.Context) ([]model.PageViewEn
 		if article, err := r.repo.FindOneBySlug(ctx, row.ArticleSlug); err == nil {
 			title = article.Title
 			articleURL = article.URL
+		} else {
+			continue
 		}
+
 		entries = append(entries, model.PageViewEntry{
 			Slug:      row.ArticleSlug,
 			Title:     title,

@@ -18,3 +18,8 @@ that this field is completely optional. If you fill it in with your valid email
 address, you'll get an email anytime someone makes another comment on that
 article. In the email message, there will be a link to unsubscribe from the
 topic.
+
+<div class="restored-from-archive"> <h3>Restored from VimTips archive</h3> <p>
+This article was restored from the VimTips archive. There's probably missing
+images and broken links (and even some flash references), but it was still
+important to me to bring them back. </p> </div>

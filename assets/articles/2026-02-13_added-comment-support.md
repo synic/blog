@@ -19,4 +19,3 @@ Unfortunately, I no longer have the comments from older vimtips.org articles.
 Not sure what happened to them. I guess when I turned them off I forgot to back
 them up. Oh well 😉
 <!-- end-summary -->
-

@@ -7,6 +7,7 @@ import (
 	"net/http/httptest"
 	"slices"
 	"testing"
+	"time"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/synic/blog/internal/model"
@@ -255,6 +256,38 @@ func TestArticleController_ArchiveEmpty(t *testing.T) {
 	controller.Archive(w, req)
 	assert.Equal(t, http.StatusOK, w.Code)
 }
+
+func TestArticleController_ArchiveListSuccessful(t *testing.T) {
+	mockArticles := []*model.Article{
+		{Title: "Test1", Slug: "test1", PublishedAt: time.Now()},
+		{Title: "Test2", Slug: "test2", PublishedAt: time.Now().Add(-24 * time.Hour)},
+	}
+
+	repo := &mockArticleRepository{
+		articles: mockArticles,
+	}
+	controller := NewArticleController(repo, nil, nil)
+
+	req := httptest.NewRequest(http.MethodGet, "/archive/articles", nil)
+	w := httptest.NewRecorder()
+
+	controller.ArchiveList(w, req)
+	assert.Equal(t, http.StatusOK, w.Code)
+}
+
+func TestArticleController_ArchiveListEmpty(t *testing.T) {
+	repo := &mockArticleRepository{
+		articles: []*model.Article{},
+	}
+	controller := NewArticleController(repo, nil, nil)
+
+	req := httptest.NewRequest(http.MethodGet, "/archive/articles", nil)
+	w := httptest.NewRecorder()
+
+	controller.ArchiveList(w, req)
+	assert.Equal(t, http.StatusOK, w.Code)
+}
+
 
 func TestArticleController_ListAndPaginateArticlesDefault(t *testing.T) {
 	articles := make([]*model.Article, 25)

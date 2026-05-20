@@ -1,7 +1,6 @@
 package view
 
 import (
-	"fmt"
 	"sort"
 	"strconv"
 
@@ -12,10 +11,8 @@ templ ArchiveView(articleCount int, tags map[string]int) {
 	@BaseLayout("Article Archive") {
 		<div class="flex flex-col w-full">
 			<h1 class="my-0 text-rose-500">Archive</h1>
-			<div class="pb-4 mt-1 grow flex flex-row items-center gap-2">
-				<span>Total articles: { strconv.Itoa(articleCount) }</span>
-				<span>&bull;</span>
-				<a class="no-underline hover:underline text-rose-500" href="/archive/articles">View complete chronological list</a>
+			<div class="pb-4 mt-1 text-slate-400 text-sm">
+				Total articles: <span class="font-semibold text-slate-200">{ strconv.Itoa(articleCount) }</span>
 			</div>
 			<div class="block pb-4 md:hidden grow" hx-include="#search">
 				<form method="post" action="/" flex flex-row flex-nowrap pl-6 rounded-md shadow-md>
@@ -54,6 +51,14 @@ templ ArchiveView(articleCount int, tags map[string]int) {
 						}
 					</ul>
 				</p>
+			</div>
+			<div class="pb-6">
+				<a class="inline-flex items-center text-base font-semibold text-rose-500 hover:text-rose-400 transition-colors no-underline hover:underline" href="/archive/articles">
+					<span>View complete chronological list</span>
+					<svg class="w-4 h-4 ml-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+					</svg>
+				</a>
 			</div>
 			<div class="grow">
 				<h2 class="mt-0 mb-1 text-rose-500">About Me</h2>
@@ -96,38 +101,58 @@ func sortedTags(tagCounts map[string]int) []tagInfo {
 	return tags
 }
 
+type yearGroup struct {
+	Year     int
+	Articles []*model.Article
+}
+
+func groupByYear(articles []*model.Article) []yearGroup {
+	var groups []yearGroup
+	for _, a := range articles {
+		year := a.PublishedAt.Year()
+		if len(groups) == 0 || groups[len(groups)-1].Year != year {
+			groups = append(groups, yearGroup{
+				Year:     year,
+				Articles: []*model.Article{a},
+			})
+		} else {
+			groups[len(groups)-1].Articles = append(groups[len(groups)-1].Articles, a)
+		}
+	}
+	return groups
+}
+
 templ ArchiveListView(articles []*model.Article) {
 	@BaseLayout("Complete Article List") {
 		<div class="w-full">
 			<h2 class="mt-0 text-rose-500">Articles</h2>
 			if len(articles) == 0 {
-				<p>No articles found.</p>
+				<p class="text-slate-400">No articles found.</p>
 			} else {
-				<table class="w-full text-left border-collapse">
-					<thead>
-						<tr class="border-b border-gray-700">
-							<th scope="col" class="py-2 pr-4 w-16 text-slate-400">#</th>
-							<th scope="col" class="py-2 pr-4 text-slate-400">Article</th>
-							<th scope="col" class="py-2 text-right text-slate-400">Published</th>
-						</tr>
-					</thead>
-					<tbody>
-						for i, a := range articles {
-							<tr class="border-b border-gray-700">
-								<td class="py-2 pr-4 text-slate-500">{ fmt.Sprint(i + 1) }</td>
-								<td class="py-2 pr-4">
-									<a
-										class="no-underline text-rose-500 hover:underline"
-										href={ a.SafeURL() }
-									>
-										{ a.Title }
-									</a>
-								</td>
-								<td class="py-2 text-right text-slate-400">{ a.PublishedAt.Format("Jan 2, 2006") }</td>
-							</tr>
+				<div class="space-y-8">
+					for i, group := range groupByYear(articles) {
+						if i > 0 {
+							<hr class="mt-6 mb-6 h-px bg-gray-700 border-0"/>
 						}
-					</tbody>
-				</table>
+						<div>
+							<h3 class="text-slate-300 text-lg font-bold border-b border-gray-800 pb-1 mb-3">
+								{ strconv.Itoa(group.Year) }
+							</h3>
+							<ul class="space-y-3 list-none pl-0 m-0">
+								for _, a := range group.Articles {
+									<li class="flex flex-row items-baseline gap-4 group">
+										<span class="text-sm text-slate-400 w-16 flex-none font-mono">
+											{ a.PublishedAt.Format("Jan 02") }
+										</span>
+										<a class="text-rose-500 hover:text-rose-400 font-medium transition-colors no-underline group-hover:underline" href={ a.SafeURL() }>
+											{ a.Title }
+										</a>
+									</li>
+								}
+							</ul>
+						</div>
+					}
+				</div>
 			}
 		</div>
 	}

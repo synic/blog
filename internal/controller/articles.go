@@ -269,4 +269,3 @@ func (h ArticleController) ArchiveList(w http.ResponseWriter, r *http.Request) {
 	}
 	view.Render(w, r, view.ArchiveListView(articles))
 }
-

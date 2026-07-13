@@ -288,7 +288,6 @@ func TestArticleController_ArchiveListEmpty(t *testing.T) {
 	assert.Equal(t, http.StatusOK, w.Code)
 }
 
-
 func TestArticleController_ListAndPaginateArticlesDefault(t *testing.T) {
 	articles := make([]*model.Article, 25)
 	for i := range 25 {

@@ -5,6 +5,7 @@ import (
 	"log"
 
 	"github.com/resend/resend-go/v2"
+
 	"github.com/synic/blog/internal/config"
 )
 
@@ -45,11 +46,14 @@ func (m *Mailer) Send(to, subject, body string) {
 func (m *Mailer) unsubscribeFooter(unsubscribeToken string) string {
 	return fmt.Sprintf(
 		"\n\n---\nUnsubscribe: %s/unsubscribe?token=%s",
-		m.cfg.ServerAddress, unsubscribeToken,
+		m.cfg.SiteUrl, unsubscribeToken,
 	)
 }
 
-func (m *Mailer) NotifyPendingComment(commentID int64, articleSlug, articleURL, username, body, unsubscribeToken string) {
+func (m *Mailer) NotifyPendingComment(
+	commentID int64,
+	articleSlug, articleURL, username, body, unsubscribeToken string,
+) {
 	if m.cfg.AdminEmail == "" {
 		return
 	}
@@ -57,9 +61,13 @@ func (m *Mailer) NotifyPendingComment(commentID int64, articleSlug, articleURL, 
 	subject := fmt.Sprintf("New comment pending approval on %s", articleSlug)
 	text := fmt.Sprintf(
 		"%s commented on %s:\n\n%s\n\nApprove: %s/admin/comments/%d/approve\nDelete: %s/admin/comments/%d/delete",
-		username, articleSlug, body,
-		m.cfg.ServerAddress, commentID,
-		m.cfg.ServerAddress, commentID,
+		username,
+		articleSlug,
+		body,
+		m.cfg.SiteUrl,
+		commentID,
+		m.cfg.SiteUrl,
+		commentID,
 	)
 	text += m.unsubscribeFooter(unsubscribeToken)
 
@@ -74,14 +82,16 @@ func (m *Mailer) NotifyCommentApproved(toEmail, articleSlug, articleURL, unsubsc
 	subject := fmt.Sprintf("Your comment on %s has been approved", articleSlug)
 	text := fmt.Sprintf(
 		"Your comment on %s has been approved.\n\nView: %s",
-		articleSlug, m.cfg.ServerAddress+articleURL+"?show_comments=1",
+		articleSlug, m.cfg.SiteUrl+articleURL+"?show_comments=1",
 	)
 	text += m.unsubscribeFooter(unsubscribeToken)
 
 	m.Send(toEmail, subject, text)
 }
 
-func (m *Mailer) NotifyReply(toEmail, articleSlug, articleURL, replyUsername, replyBody, unsubscribeToken string) {
+func (m *Mailer) NotifyReply(
+	toEmail, articleSlug, articleURL, replyUsername, replyBody, unsubscribeToken string,
+) {
 	if toEmail == "" {
 		return
 	}
@@ -89,7 +99,7 @@ func (m *Mailer) NotifyReply(toEmail, articleSlug, articleURL, replyUsername, re
 	subject := fmt.Sprintf("%s replied to your comment on %s", replyUsername, articleSlug)
 	text := fmt.Sprintf(
 		"%s replied to your comment on %s:\n\n%s\n\nView: %s",
-		replyUsername, articleSlug, replyBody, m.cfg.ServerAddress+articleURL+"?show_comments=1",
+		replyUsername, articleSlug, replyBody, m.cfg.SiteUrl+articleURL+"?show_comments=1",
 	)
 	text += m.unsubscribeFooter(unsubscribeToken)
 

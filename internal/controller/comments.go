@@ -178,7 +178,14 @@ func (c CommentController) Approve(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	if existing.Approved {
-		view.Error(w, r, nil, http.StatusConflict, "Already Approved", "This comment has already been approved.")
+		view.Error(
+			w,
+			r,
+			nil,
+			http.StatusConflict,
+			"Already Approved",
+			"This comment has already been approved.",
+		)
 		return
 	}
 
@@ -235,7 +242,7 @@ func (c CommentController) Approve(w http.ResponseWriter, r *http.Request) {
 			http.Redirect(
 				w,
 				r,
-				c.config.ServerAddress+articleURL+"?show_comments=1",
+				c.config.SiteUrl+articleURL+"?show_comments=1",
 				http.StatusFound,
 			)
 			return
@@ -263,7 +270,14 @@ func (c CommentController) Delete(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if _, err := c.comments.GetCommentWithUser(r.Context(), id); err != nil {
-		view.Error(w, r, nil, http.StatusNotFound, "Not Found", "This comment has already been deleted.")
+		view.Error(
+			w,
+			r,
+			nil,
+			http.StatusNotFound,
+			"Not Found",
+			"This comment has already been deleted.",
+		)
 		return
 	}
 

@@ -114,7 +114,7 @@ func main() {
 	csrfMW := middleware.CSRFMiddleware()
 
 	server := &http.Server{
-		Addr: ":3000",
+		Addr: conf.HttpAddress,
 		Handler: middleware.Wrap(
 			mux,
 			middleware.LoggerMiddleware(),

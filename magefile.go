@@ -370,8 +370,8 @@ func collectXImageSizes() (map[string][]string, error) {
 		rel := strings.TrimPrefix(src, "/static/images/")
 		var sizes []string
 		if sizesStr != "" {
-			for _, s := range strings.Split(sizesStr, ",") {
-				if s = strings.TrimSpace(s); s != "" {
+			for s := range strings.SplitSeq(sizesStr, ",") {
+				if s := strings.TrimSpace(s); s != "" {
 					sizes = append(sizes, s)
 				}
 			}

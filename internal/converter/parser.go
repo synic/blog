@@ -142,7 +142,7 @@ func parseSummaryOptions(raw string) map[string]string {
 		return options
 	}
 
-	for _, pair := range strings.Split(raw, ",") {
+	for pair := range strings.SplitSeq(raw, ",") {
 		pair = strings.TrimSpace(pair)
 		if pair == "" {
 			continue

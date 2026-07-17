@@ -56,7 +56,7 @@ func (c AuthController) Login(w http.ResponseWriter, r *http.Request) {
 	u := fmt.Sprintf(
 		"https://github.com/login/oauth/authorize?client_id=%s&redirect_uri=%s&state=%s&scope=%s",
 		url.QueryEscape(c.config.GitHubClientID),
-		url.QueryEscape(c.config.ServerAddress+"/auth/callback"),
+		url.QueryEscape(c.config.SiteUrl+"/auth/callback"),
 		url.QueryEscape(state),
 		url.QueryEscape("read:user user:email"),
 	)
@@ -157,13 +157,27 @@ func (c AuthController) Callback(w http.ResponseWriter, r *http.Request) {
 func (c AuthController) Unsubscribe(w http.ResponseWriter, r *http.Request) {
 	token := r.URL.Query().Get("token")
 	if token == "" {
-		view.Error(w, r, nil, http.StatusBadRequest, "Invalid Link", "This unsubscribe link is invalid.")
+		view.Error(
+			w,
+			r,
+			nil,
+			http.StatusBadRequest,
+			"Invalid Link",
+			"This unsubscribe link is invalid.",
+		)
 		return
 	}
 
 	result, err := c.queries.UnsubscribeUser(r.Context(), token)
 	if err != nil || result == 0 {
-		view.Error(w, r, err, http.StatusNotFound, "Not Found", "This unsubscribe link is invalid or has already been used.")
+		view.Error(
+			w,
+			r,
+			err,
+			http.StatusNotFound,
+			"Not Found",
+			"This unsubscribe link is invalid or has already been used.",
+		)
 		return
 	}
 

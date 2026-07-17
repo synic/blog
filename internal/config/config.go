@@ -11,9 +11,10 @@ type Config struct {
 	DatabaseURL        string
 	GitHubClientID     string
 	GitHubClientSecret string
-	ServerAddress      string
+	SiteUrl            string
 	ResendAPIKey       string
 	AdminEmail         string
+	HttpAddress        string
 	StaticDir          string
 	MigrationsDir      string
 	Debug              bool
@@ -51,13 +52,20 @@ func Load() Config {
 		migrationsDir = "./migrations"
 	}
 
+	httpAddress := os.Getenv("HTTP_ADDRESS")
+
+	if httpAddress == "" {
+		httpAddress = ":3000"
+	}
+
 	return Config{
 		DatabaseURL:        databaseURL,
 		GitHubClientID:     os.Getenv("GITHUB_CLIENT_ID"),
 		GitHubClientSecret: os.Getenv("GITHUB_CLIENT_SECRET"),
-		ServerAddress:      os.Getenv("SERVER_ADDRESS"),
+		SiteUrl:            os.Getenv("SITE_URL"),
 		ResendAPIKey:       os.Getenv("RESEND_API_KEY"),
 		AdminEmail:         os.Getenv("ADMIN_EMAIL"),
+		HttpAddress:        httpAddress,
 		StaticDir:          staticDir,
 		MigrationsDir:      migrationsDir,
 		Debug:              Debug,

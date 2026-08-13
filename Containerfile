@@ -15,4 +15,4 @@ COPY --from=build-base /app/migrations /migrations
 ENV STATIC_DIR=/static
 ENV MIGRATIONS_DIR=/migrations
 
-CMD ["./blog"]
+CMD ["/blog"]

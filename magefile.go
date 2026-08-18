@@ -481,9 +481,11 @@ func Pygmentize() error {
 	if err != nil {
 		return err
 	}
+	defer f.Close()
 
-	f.WriteString(data)
-	f.Close()
+	if _, err := f.WriteString(data); err != nil {
+		return err
+	}
 
 	return minifyCmd("-f", syntaxCssFile, "--output", cssOutPath)
 }

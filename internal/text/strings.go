@@ -5,6 +5,11 @@ import (
 	"strings"
 )
 
+var (
+	nonAlphaNumRe = regexp.MustCompile(`[^a-z0-9-]`)
+	multiHyphenRe = regexp.MustCompile(`-+`)
+)
+
 func Slugify(title string) string {
 	// Create a proper slug from title:
 	// 1. Convert to lowercase
@@ -15,9 +20,7 @@ func Slugify(title string) string {
 	slug := strings.ToLower(title)
 	slug = strings.ReplaceAll(slug, " ", "-")
 	slug = strings.ReplaceAll(slug, "_", "-")
-	re := regexp.MustCompile(`[^a-z0-9-]`)
-	slug = re.ReplaceAllString(slug, "")
-	re = regexp.MustCompile(`-+`)
-	slug = re.ReplaceAllString(slug, "-")
+	slug = nonAlphaNumRe.ReplaceAllString(slug, "")
+	slug = multiHyphenRe.ReplaceAllString(slug, "-")
 	return strings.Trim(slug, "-")
 }

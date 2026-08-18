@@ -54,6 +54,7 @@ func CreateArticle(
 	if err != nil {
 		return fn, err
 	}
+	defer f.Close()
 
 	_, err = f.WriteString(content)
 

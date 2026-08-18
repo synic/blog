@@ -1,25 +1,64 @@
 package mail
 
 import (
+	"context"
 	"fmt"
 	"log"
+	"net/http"
+	"time"
 
 	"github.com/resend/resend-go/v2"
 
 	"github.com/synic/blog/internal/config"
 )
 
+type emailTask struct {
+	to      string
+	subject string
+	body    string
+}
+
 type Mailer struct {
 	cfg    config.Config
 	client *resend.Client
+	queue  chan emailTask
 }
 
 func NewMailer(cfg config.Config) *Mailer {
 	var client *resend.Client
 	if cfg.ResendAPIKey != "" {
-		client = resend.NewClient(cfg.ResendAPIKey)
+		httpClient := &http.Client{
+			Timeout: 15 * time.Second,
+		}
+		client = resend.NewCustomClient(httpClient, cfg.ResendAPIKey)
 	}
-	return &Mailer{cfg: cfg, client: client}
+	m := &Mailer{
+		cfg:    cfg,
+		client: client,
+		queue:  make(chan emailTask, 128),
+	}
+	if client != nil {
+		go m.worker()
+	}
+	return m
+}
+
+func (m *Mailer) worker() {
+	for task := range m.queue {
+		ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
+		params := &resend.SendEmailRequest{
+			From:    "Blog <noreply@synic.dev>",
+			To:      []string{task.to},
+			Subject: task.subject,
+			Text:    task.body,
+		}
+
+		_, err := m.client.Emails.SendWithContext(ctx, params)
+		cancel()
+		if err != nil {
+			log.Printf("Failed to send email to %s: %v", task.to, err)
+		}
+	}
 }
 
 func (m *Mailer) Send(to, subject, body string) {
@@ -28,19 +67,11 @@ func (m *Mailer) Send(to, subject, body string) {
 		return
 	}
 
-	go func() {
-		params := &resend.SendEmailRequest{
-			From:    "Blog <noreply@synic.dev>",
-			To:      []string{to},
-			Subject: subject,
-			Text:    body,
-		}
-
-		_, err := m.client.Emails.Send(params)
-		if err != nil {
-			log.Printf("Failed to send email to %s: %v", to, err)
-		}
-	}()
+	select {
+	case m.queue <- emailTask{to: to, subject: subject, body: body}:
+	default:
+		log.Printf("Email queue full, dropping email to %s: %s", to, subject)
+	}
 }
 
 func (m *Mailer) unsubscribeFooter(unsubscribeToken string) string {

@@ -62,6 +62,10 @@ func main() {
 	}
 	defer sqlDB.Close()
 
+	sqlDB.SetMaxOpenConns(10)
+	sqlDB.SetMaxIdleConns(5)
+	sqlDB.SetConnMaxLifetime(time.Hour)
+
 	for _, pragma := range []string{
 		"PRAGMA journal_mode=WAL",
 		"PRAGMA busy_timeout=5000",
@@ -114,7 +118,11 @@ func main() {
 	csrfMW := middleware.CSRFMiddleware()
 
 	server := &http.Server{
-		Addr: conf.HttpAddress,
+		Addr:              conf.HttpAddress,
+		ReadHeaderTimeout: 5 * time.Second,
+		ReadTimeout:       15 * time.Second,
+		WriteTimeout:      15 * time.Second,
+		IdleTimeout:       60 * time.Second,
 		Handler: middleware.Wrap(
 			mux,
 			middleware.LoggerMiddleware(),

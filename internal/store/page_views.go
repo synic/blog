@@ -4,6 +4,7 @@ import (
 	"context"
 	"log"
 	"strings"
+	"time"
 
 	"github.com/synic/blog/internal/db"
 	"github.com/synic/blog/internal/model"
@@ -63,12 +64,27 @@ func isBot(userAgent string) bool {
 type PageViewRepository struct {
 	queries *db.Queries
 	repo    ArticleRepository
+	queue   chan db.CreatePageViewParams
 }
 
 func NewPageViewRepository(queries *db.Queries, repo ArticleRepository) *PageViewRepository {
-	return &PageViewRepository{
+	r := &PageViewRepository{
 		queries: queries,
 		repo:    repo,
+		queue:   make(chan db.CreatePageViewParams, 1024),
+	}
+	go r.worker()
+	return r
+}
+
+func (r *PageViewRepository) worker() {
+	for param := range r.queue {
+		ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+		err := r.queries.CreatePageView(ctx, param)
+		cancel()
+		if err != nil {
+			log.Printf("Error logging page view for %s: %v", param.ArticleSlug, err)
+		}
 	}
 }
 
@@ -76,16 +92,15 @@ func (r *PageViewRepository) LogView(slug, ip, userAgent string) {
 	if isBot(userAgent) {
 		return
 	}
-	go func() {
-		err := r.queries.CreatePageView(context.Background(), db.CreatePageViewParams{
-			ArticleSlug: slug,
-			IpAddress:   ip,
-			UserAgent:   userAgent,
-		})
-		if err != nil {
-			log.Printf("Error logging page view for %s: %v", slug, err)
-		}
-	}()
+	select {
+	case r.queue <- db.CreatePageViewParams{
+		ArticleSlug: slug,
+		IpAddress:   ip,
+		UserAgent:   userAgent,
+	}:
+	default:
+		log.Printf("Page view queue full, dropping view for %s", slug)
+	}
 }
 
 func (r *PageViewRepository) ViewCounts(ctx context.Context) ([]model.PageViewEntry, error) {

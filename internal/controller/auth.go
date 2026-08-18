@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"context"
 	"crypto/rand"
 	"encoding/hex"
 	"encoding/json"
@@ -17,12 +18,17 @@ import (
 )
 
 type AuthController struct {
-	queries *db.Queries
-	config  config.Config
+	queries    *db.Queries
+	config     config.Config
+	httpClient *http.Client
 }
 
 func NewAuthController(queries *db.Queries, cfg config.Config) AuthController {
-	return AuthController{queries: queries, config: cfg}
+	return AuthController{
+		queries:    queries,
+		config:     cfg,
+		httpClient: &http.Client{Timeout: 10 * time.Second},
+	}
 }
 
 func (c AuthController) Login(w http.ResponseWriter, r *http.Request) {
@@ -84,19 +90,19 @@ func (c AuthController) Callback(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	accessToken, err := c.exchangeCode(code)
+	accessToken, err := c.exchangeCode(r.Context(), code)
 	if err != nil {
 		http.Error(w, "Failed to exchange code", http.StatusInternalServerError)
 		return
 	}
 
-	ghUser, err := c.fetchGitHubUser(accessToken)
+	ghUser, err := c.fetchGitHubUser(r.Context(), accessToken)
 	if err != nil {
 		http.Error(w, "Failed to fetch user", http.StatusInternalServerError)
 		return
 	}
 
-	email := c.fetchGitHubEmail(accessToken)
+	email := c.fetchGitHubEmail(r.Context(), accessToken)
 
 	dbUser, err := c.queries.UpsertUser(r.Context(), db.UpsertUserParams{
 		GithubID:  ghUser.ID,
@@ -233,21 +239,21 @@ type githubTokenResponse struct {
 	AccessToken string `json:"access_token"`
 }
 
-func (c AuthController) exchangeCode(code string) (string, error) {
+func (c AuthController) exchangeCode(ctx context.Context, code string) (string, error) {
 	data := url.Values{
 		"client_id":     {c.config.GitHubClientID},
 		"client_secret": {c.config.GitHubClientSecret},
 		"code":          {code},
 	}
 
-	req, err := http.NewRequest("POST", "https://github.com/login/oauth/access_token", nil)
+	req, err := http.NewRequestWithContext(ctx, "POST", "https://github.com/login/oauth/access_token", nil)
 	if err != nil {
 		return "", err
 	}
 	req.URL.RawQuery = data.Encode()
 	req.Header.Set("Accept", "application/json")
 
-	resp, err := http.DefaultClient.Do(req)
+	resp, err := c.httpClient.Do(req)
 	if err != nil {
 		return "", err
 	}
@@ -272,15 +278,15 @@ type githubUser struct {
 	AvatarURL string `json:"avatar_url"`
 }
 
-func (c AuthController) fetchGitHubUser(accessToken string) (githubUser, error) {
-	req, err := http.NewRequest("GET", "https://api.github.com/user", nil)
+func (c AuthController) fetchGitHubUser(ctx context.Context, accessToken string) (githubUser, error) {
+	req, err := http.NewRequestWithContext(ctx, "GET", "https://api.github.com/user", nil)
 	if err != nil {
 		return githubUser{}, err
 	}
 	req.Header.Set("Authorization", "Bearer "+accessToken)
 	req.Header.Set("Accept", "application/json")
 
-	resp, err := http.DefaultClient.Do(req)
+	resp, err := c.httpClient.Do(req)
 	if err != nil {
 		return githubUser{}, err
 	}
@@ -305,15 +311,15 @@ type githubEmail struct {
 	Verified bool   `json:"verified"`
 }
 
-func (c AuthController) fetchGitHubEmail(accessToken string) string {
-	req, err := http.NewRequest("GET", "https://api.github.com/user/emails", nil)
+func (c AuthController) fetchGitHubEmail(ctx context.Context, accessToken string) string {
+	req, err := http.NewRequestWithContext(ctx, "GET", "https://api.github.com/user/emails", nil)
 	if err != nil {
 		return ""
 	}
 	req.Header.Set("Authorization", "Bearer "+accessToken)
 	req.Header.Set("Accept", "application/json")
 
-	resp, err := http.DefaultClient.Do(req)
+	resp, err := c.httpClient.Do(req)
 	if err != nil {
 		return ""
 	}

@@ -1,4 +1,4 @@
-FROM golang:1.17.0-trixie AS build-base
+FROM golang:1.17-trixie AS build-base
 
 WORKDIR /app
 COPY . .

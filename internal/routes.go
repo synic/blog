@@ -22,6 +22,9 @@ func RegisterRoutes(
 ) {
 	// static files
 	handler.Handle("GET /static/", static.StaticHandler(staticFS))
+	handler.HandleFunc("GET /favicon.ico", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFileFS(w, r, staticFS, "images/favicon.ico")
+	})
 
 	// articles
 	handler.HandleFunc("/{$}", articleController.Index)

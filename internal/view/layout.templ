@@ -107,7 +107,12 @@ templ head(conf baseLayoutConfig, partial bool) {
 			<link rel="alternate" type="application/rss+xml" title="RSS Feed" href="/feed.xml" hx-preserve="true"/>
 			@inlinestatic()
 			<meta name="htmx-config" content='{"ignoreTitle":true}' hx-preserve="true"/>
-			<link rel="icon" href="data:," hx-preserve="true"/>
+			<link rel="icon" type="image/svg+xml" href={ static(ctx, "images/favicon.svg") } hx-preserve="true"/>
+			<link rel="icon" type="image/png" sizes="48x48" href={ static(ctx, "images/favicon-48x48.png") } hx-preserve="true"/>
+			<link rel="icon" type="image/png" sizes="32x32" href={ static(ctx, "images/favicon-32x32.png") } hx-preserve="true"/>
+			<link rel="icon" type="image/png" sizes="16x16" href={ static(ctx, "images/favicon-16x16.png") } hx-preserve="true"/>
+			<link rel="icon" href={ static(ctx, "images/favicon.ico") } hx-preserve="true"/>
+			<link rel="apple-touch-icon" sizes="180x180" href={ static(ctx, "images/apple-touch-icon.png") } hx-preserve="true"/>
 			@openGraphTags(conf.og)
 		}
 		<title>

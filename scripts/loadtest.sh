@@ -8,5 +8,5 @@ go run github.com/rogerwelin/cassowary/cmd/cassowary@latest run \
     -u $BLOG_HOST \
     -c $USERS \
     -n $COUNT \
-    -f scripts/.loadtest-urls.txt \
+    -f scripts/loadtest-urls.txt \
     -H "Accept-Encoding: identity"

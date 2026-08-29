@@ -6,6 +6,7 @@ import (
 	"github.com/synic/blog/internal/middleware"
 	"github.com/synic/blog/internal/model"
 	"io"
+	"strings"
 )
 
 var defaultCtxData = model.ContextData{BuildTime: "unknown"}
@@ -77,7 +78,7 @@ func isPartial(ctx context.Context) bool {
 
 func searchTerm(ctx context.Context) string {
 	if search, ok := ctx.Value(middleware.SearchContextKey).(string); ok {
-		return search
+		return strings.TrimSpace(search)
 	}
 	return ""
 }

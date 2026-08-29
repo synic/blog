@@ -3,6 +3,7 @@ package middleware
 import (
 	"context"
 	"net/http"
+	"strings"
 )
 
 var SearchContextKey = "search"
@@ -13,7 +14,7 @@ func SearchMiddleware() func(http.Handler) http.Handler {
 			ctx := context.WithValue(
 				r.Context(),
 				SearchContextKey,
-				r.URL.Query().Get("search"),
+				strings.TrimSpace(r.URL.Query().Get("search")),
 			)
 			next.ServeHTTP(w, r.WithContext(ctx))
 		})

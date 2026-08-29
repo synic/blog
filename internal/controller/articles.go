@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"net/url"
 	"strconv"
+	"strings"
 	"time"
 
 	"github.com/gorilla/feeds"
@@ -68,7 +69,7 @@ func (h ArticleController) listAndPaginateArticles(
 	var err error = nil
 	articles := []*model.Article{}
 
-	search := r.FormValue("search")
+	search := strings.TrimSpace(r.FormValue("search"))
 
 	if search == "" {
 		search = r.URL.Query().Get("search")

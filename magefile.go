@@ -103,9 +103,7 @@ func (Build) Dev() error {
 	)
 }
 
-func (Build) Release() error {
-	mg.Deps(Check)
-	mg.Deps(Articles.convertWithGit, Images{}.Build)
+func buildRelease() error {
 	return sh.RunWithV(
 		map[string]string{"CGO_ENABLED": "0"},
 		"go", "build",
@@ -114,6 +112,18 @@ func (Build) Release() error {
 		"-o", releasePath,
 		".",
 	)
+}
+
+func (Build) Release() error {
+	mg.Deps(Check)
+	mg.Deps(Articles.convertWithGit, Images{}.Build)
+	return buildRelease()
+}
+
+func (Build) Docker() error {
+	mg.Deps(Check)
+	mg.Deps(Articles.convertWithGit) // no image build
+	return buildRelease()
 }
 
 func MinifyJs() error {
@@ -354,7 +364,11 @@ func gitModTime(filePath string) (time.Time, error) {
 	return time.Unix(ts, 0), nil
 }
 
-func isImageUpToDate(srcPath, dstPath string, srcInfo os.FileInfo, gitTimes map[string]time.Time) bool {
+func isImageUpToDate(
+	srcPath, dstPath string,
+	srcInfo os.FileInfo,
+	gitTimes map[string]time.Time,
+) bool {
 	dstInfo, dstErr := os.Stat(dstPath)
 	if dstErr != nil || dstInfo.Size() == 0 {
 		return false

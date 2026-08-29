@@ -3,9 +3,7 @@ FROM golang:1.27.0-trixie AS build-base
 WORKDIR /app
 COPY . .
 
-RUN apt-get update && apt-get install -y webp git && rm -rf /var/lib/apt/lists/*
-RUN git config --global --add safe.directory '*'
-RUN go tool github.com/magefile/mage build:release
+RUN go tool github.com/magefile/mage build:docker
 
 FROM gcr.io/distroless/static-debian13
 

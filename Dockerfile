@@ -4,6 +4,7 @@ WORKDIR /app
 COPY . .
 
 RUN apt-get update && apt-get install -y webp git && rm -rf /var/lib/apt/lists/*
+RUN git config --global --add safe.directory '*'
 RUN go tool github.com/magefile/mage build:release
 
 FROM gcr.io/distroless/static-debian13

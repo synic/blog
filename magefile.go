@@ -120,7 +120,7 @@ func (Build) Release() error {
 	return buildRelease()
 }
 
-func (Build) releaseForDocker() error {
+func (Build) ReleaseForDocker() error {
 	mg.Deps(Check)
 	mg.Deps(Articles.convertWithGit) // no image build
 	return buildRelease()

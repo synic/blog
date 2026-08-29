@@ -127,6 +127,7 @@ func main() {
 			mux,
 			middleware.LoggerMiddleware(),
 			middleware.HtmxMiddleware(),
+			middleware.SearchMiddleware(),
 		),
 		BaseContext: func(net.Listener) context.Context {
 			data := model.ContextData{

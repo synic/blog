@@ -21,14 +21,14 @@
   function hideErrorBox() {
     const errorBox = document.getElementById("errorbox");
     if (errorBox) errorBox.style.display = "none";
+    if (window.errorBoxTimeout) clearTimeout(window.errorBoxTimeout);
     window.errorBoxTimeout = undefined;
   }
 
   function handleHtmxError(event) {
-    if (event?.detail?.xhr?.status == 404) {
-      window.location =
-        event.detail.pathInfo.finalRequestPath ||
-        event.detail.pathInfo.requestPath;
+    const ctx = event?.detail?.ctx;
+    if (ctx?.response?.status == 404) {
+      window.location = ctx.response.raw?.url || ctx.request?.action;
       return;
     }
 
@@ -416,11 +416,20 @@
     });
   }
 
+  function syncSearchInputs() {
+    const search = new URLSearchParams(location.search).get("search") || "";
+    document.querySelectorAll("#search-nav, #search").forEach((el) => {
+      if (el === document.activeElement) return;
+      if (el.value !== search) el.value = search;
+    });
+  }
+
   function init() {
     showScrollToTopButton();
     initAlbums();
     initLightboxImages();
     formatCommentDates();
+    syncSearchInputs();
   }
 
   window.addEventListener("load", () => {
@@ -437,20 +446,21 @@
       });
     }, { passive: true });
     
-    window.addEventListener("htmx:afterSwap", init);
+    document.getElementById("errorbox")?.addEventListener("click", hideErrorBox);
 
-    document.body.addEventListener("htmx:configRequest", (event) => {
+    window.addEventListener("htmx:after:swap", init);
+
+    document.body.addEventListener("htmx:config:request", (event) => {
       const csrfToken = document.cookie
         .split("; ")
         .find((row) => row.startsWith("csrf_token="))
         ?.split("=")[1];
       if (csrfToken) {
-        event.detail.headers["X-CSRF-Token"] = csrfToken;
+        event.detail.ctx.request.headers["X-CSRF-Token"] = csrfToken;
       }
     });
 
-    document.body.addEventListener("htmx:onLoadError", handleHtmxError);
-    document.body.addEventListener("htmx:responseError", handleHtmxError);
-    document.body.addEventListener("htmx:sendError", handleHtmxError);
+    document.body.addEventListener("htmx:response:error", handleHtmxError);
+    document.body.addEventListener("htmx:error", handleHtmxError);
   });
 })();

@@ -214,7 +214,7 @@ func article(a *model.Article, inList bool) templ.Component {
 				return templ_7745c5c3_Err
 			}
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 15, "</div></div><div class=\"mt-3 w-full break-words mdgen\" hx-push-url=\"false\" hx-boost=\"false\" hx-disable=\"true\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 15, "</div></div><div class=\"mt-3 w-full break-words mdgen\" hx-push-url=\"false\" hx-boost=\"false\" hx-ignore=\"true\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -358,7 +358,7 @@ func taglinks(tags []string) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 27, "\" class=\"underline decoration-dashed decoration-slate-500\" hx-on::before-request=\"document.getElementById('search-nav').value = '';\">")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 27, "\" class=\"underline decoration-dashed decoration-slate-500\" hx-on::before:request=\"document.getElementById('search-nav').value = '';\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}

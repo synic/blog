@@ -224,7 +224,7 @@ func commentForm(articleURL string, user *model.User) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 15, "\" hx-target=\"#comment-list\" hx-swap=\"innerHTML\" hx-push-url=\"false\" hx-on::after-request=\"if(event.detail.successful) this.reset()\" class=\"mb-4\"><div class=\"flex gap-3\">")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 15, "\" hx-target:inherited=\"#comment-list\" hx-swap:inherited=\"innerHTML\" hx-push-url:inherited=\"false\" hx-on::after:request=\"if(ctx.response?.raw?.ok) this.reset()\" class=\"mb-4\"><div class=\"flex gap-3\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -344,24 +344,24 @@ func CommentList(articleURL string, threads []model.CommentThread, user *model.U
 
 func scrollToCommentsOnLoad() templ.ComponentScript {
 	return templ.ComponentScript{
-		Name: `__templ_scrollToCommentsOnLoad_1989`,
-		Function: `function __templ_scrollToCommentsOnLoad_1989(){var ca = document.getElementById("comment-area");
-	ca.addEventListener("htmx:afterSettle", function handler() {
-		ca.removeEventListener("htmx:afterSettle", handler);
+		Name: `__templ_scrollToCommentsOnLoad_0ce5`,
+		Function: `function __templ_scrollToCommentsOnLoad_0ce5(){var ca = document.getElementById("comment-area");
+	ca.addEventListener("htmx:after:swap", function handler() {
+		ca.removeEventListener("htmx:after:swap", handler);
 		ca.scrollIntoView({ behavior: "smooth", block: "start" });
 	});
 }`,
-		Call:       templ.SafeScript(`__templ_scrollToCommentsOnLoad_1989`),
-		CallInline: templ.SafeScriptInline(`__templ_scrollToCommentsOnLoad_1989`),
+		Call:       templ.SafeScript(`__templ_scrollToCommentsOnLoad_0ce5`),
+		CallInline: templ.SafeScriptInline(`__templ_scrollToCommentsOnLoad_0ce5`),
 	}
 }
 
 func scrollToComments() templ.ComponentScript {
 	return templ.ComponentScript{
-		Name: `__templ_scrollToComments_1f2e`,
-		Function: `function __templ_scrollToComments_1f2e(){var cl = document.getElementById("comment-list");
-	cl.addEventListener("htmx:afterSettle", function handler() {
-		cl.removeEventListener("htmx:afterSettle", handler);
+		Name: `__templ_scrollToComments_43ad`,
+		Function: `function __templ_scrollToComments_43ad(){var cl = document.getElementById("comment-list");
+	cl.addEventListener("htmx:after:swap", function handler() {
+		cl.removeEventListener("htmx:after:swap", handler);
 		var last = cl.lastElementChild;
 		if (last) {
 			last.scrollIntoView({ behavior: "smooth", block: "end" });
@@ -370,8 +370,8 @@ func scrollToComments() templ.ComponentScript {
 		}
 	});
 }`,
-		Call:       templ.SafeScript(`__templ_scrollToComments_1f2e`),
-		CallInline: templ.SafeScriptInline(`__templ_scrollToComments_1f2e`),
+		Call:       templ.SafeScript(`__templ_scrollToComments_43ad`),
+		CallInline: templ.SafeScriptInline(`__templ_scrollToComments_43ad`),
 	}
 }
 

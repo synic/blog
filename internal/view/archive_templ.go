@@ -61,7 +61,7 @@ func ArchiveView(articleCount int, tags map[string]int) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "</span></div><div class=\"block pb-4 md:hidden grow\" hx-include:inherited=\"#search\"><form method=\"get\" action=\"/\"><input class=\"flex-auto px-2 font-normal bg-gray-700 rounded border border-gray-600 border-solid outline-gray-600 max-w-56\" placeholder=\"Search...\" type=\"text\" name=\"search\" hx-get=\"/\" id=\"search\"> <button class=\"px-2 text-center border-gray-700 bg-sky-700 text-white\" type=\"submit\" hx-get=\"/\" hx-trigger=\"click consume\">Go</button></form></div><div class=\"pb-4 grow\"><h2 class=\"mt-0 mb-1 text-rose-500 md:hidden\">Tags</h2><p class=\"mt-0\"><ul class=\"flex flex-row flex-wrap p-0 m-0 list-none list-inside\">")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "</span></div><div class=\"block pb-4 md:hidden grow\" hx-include:inherited=\"#search\"><form method=\"get\" action=\"/\" hx-push-url=\"true\" hx-sync=\"this:replace\"><input class=\"flex-auto px-2 font-normal bg-gray-700 rounded border border-gray-600 border-solid outline-gray-600 max-w-56\" placeholder=\"Search...\" type=\"text\" name=\"search\" id=\"search\"> <button class=\"px-2 text-center border-gray-700 bg-sky-700 text-white\" type=\"submit\">Go</button></form></div><div class=\"pb-4 grow\"><h2 class=\"mt-0 mb-1 text-rose-500 md:hidden\">Tags</h2><p class=\"mt-0\"><ul class=\"flex flex-row flex-wrap p-0 m-0 list-none list-inside\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -73,7 +73,7 @@ func ArchiveView(articleCount int, tags map[string]int) templ.Component {
 				var templ_7745c5c3_Var4 string
 				templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.ResolveAttributeValue("tag-link-" + t.tag)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/archive.templ`, Line: 44, Col: 32}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/archive.templ`, Line: 41, Col: 32}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var4)
 				if templ_7745c5c3_Err != nil {
@@ -86,7 +86,7 @@ func ArchiveView(articleCount int, tags map[string]int) templ.Component {
 				var templ_7745c5c3_Var5 templ.SafeURL
 				templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinURLErrs(templ.URL("/?search=&tag=" + t.tag))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/archive.templ`, Line: 47, Col: 95}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/archive.templ`, Line: 44, Col: 95}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
 				if templ_7745c5c3_Err != nil {
@@ -99,7 +99,7 @@ func ArchiveView(articleCount int, tags map[string]int) templ.Component {
 				var templ_7745c5c3_Var6 string
 				templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(t.tag)
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/archive.templ`, Line: 48, Col: 16}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/archive.templ`, Line: 45, Col: 16}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
 				if templ_7745c5c3_Err != nil {
@@ -112,7 +112,7 @@ func ArchiveView(articleCount int, tags map[string]int) templ.Component {
 				var templ_7745c5c3_Var7 string
 				templ_7745c5c3_Var7, templ_7745c5c3_Err = templ.JoinStringErrs(strconv.Itoa(t.count))
 				if templ_7745c5c3_Err != nil {
-					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/archive.templ`, Line: 48, Col: 43}
+					return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/archive.templ`, Line: 45, Col: 43}
 				}
 				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var7))
 				if templ_7745c5c3_Err != nil {
@@ -237,7 +237,7 @@ func ArchiveListView(articles []*model.Article) templ.Component {
 					var templ_7745c5c3_Var10 string
 					templ_7745c5c3_Var10, templ_7745c5c3_Err = templ.JoinStringErrs(strconv.Itoa(group.Year))
 					if templ_7745c5c3_Err != nil {
-						return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/archive.templ`, Line: 136, Col: 34}
+						return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/archive.templ`, Line: 133, Col: 34}
 					}
 					_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var10))
 					if templ_7745c5c3_Err != nil {
@@ -255,7 +255,7 @@ func ArchiveListView(articles []*model.Article) templ.Component {
 						var templ_7745c5c3_Var11 string
 						templ_7745c5c3_Var11, templ_7745c5c3_Err = templ.JoinStringErrs(a.PublishedAt.Format("Jan 02"))
 						if templ_7745c5c3_Err != nil {
-							return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/archive.templ`, Line: 142, Col: 43}
+							return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/archive.templ`, Line: 139, Col: 43}
 						}
 						_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var11))
 						if templ_7745c5c3_Err != nil {
@@ -268,7 +268,7 @@ func ArchiveListView(articles []*model.Article) templ.Component {
 						var templ_7745c5c3_Var12 templ.SafeURL
 						templ_7745c5c3_Var12, templ_7745c5c3_Err = templ.JoinURLErrs(a.SafeURL())
 						if templ_7745c5c3_Err != nil {
-							return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/archive.templ`, Line: 144, Col: 138}
+							return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/archive.templ`, Line: 141, Col: 138}
 						}
 						_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var12))
 						if templ_7745c5c3_Err != nil {
@@ -281,7 +281,7 @@ func ArchiveListView(articles []*model.Article) templ.Component {
 						var templ_7745c5c3_Var13 string
 						templ_7745c5c3_Var13, templ_7745c5c3_Err = templ.JoinStringErrs(a.Title)
 						if templ_7745c5c3_Err != nil {
-							return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/archive.templ`, Line: 145, Col: 20}
+							return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/archive.templ`, Line: 142, Col: 20}
 						}
 						_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var13))
 						if templ_7745c5c3_Err != nil {

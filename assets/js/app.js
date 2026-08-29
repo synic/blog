@@ -2,6 +2,97 @@
   if (window.__synicAppJsLoaded) return;
   window.__synicAppJsLoaded = true;
 
+  // htmx 4 dropped the client side history cache: every back/forward refetches
+  // the page from the server and swaps it into <body>. That means the browser
+  // never gets to restore scroll position or form state itself, because the
+  // document it would restore them into is replaced afterwards. Keep both
+  // ourselves and reapply them once the restore swap lands.
+  const SCROLL_STORAGE_KEY = "htmx-scroll-positions";
+  const FORM_STORAGE_KEY = "htmx-form-state";
+  const MAX_STORED_PATHS = 50;
+  const UNRESTORABLE_TYPES = [
+    "hidden",
+    "password",
+    "file",
+    "submit",
+    "button",
+    "image",
+    "reset",
+  ];
+  let pendingRestorePath = null;
+  let restoreTimeout;
+
+  function endRestore() {
+    pendingRestorePath = null;
+    clearTimeout(restoreTimeout);
+  }
+
+  function historyPath() {
+    return window.location.pathname + window.location.search;
+  }
+
+  function readStore(key) {
+    try {
+      return JSON.parse(sessionStorage.getItem(key)) || {};
+    } catch {
+      return {};
+    }
+  }
+
+  function writeStore(key, path, value) {
+    try {
+      const store = readStore(key);
+      store[path] = value;
+      for (const stale of Object.keys(store).slice(0, -MAX_STORED_PATHS)) {
+        delete store[stale];
+      }
+      sessionStorage.setItem(key, JSON.stringify(store));
+    } catch {
+      // private mode or quota exceeded, restoration is best effort
+    }
+  }
+
+  // Keyed by position rather than by name: a page re-rendered from the same URL
+  // lays its fields out identically, and pinning the name to the position stops
+  // a draft landing in the wrong box if the server output has shifted.
+  function restorableFields() {
+    const selector = "input[name], textarea[name], select[name]";
+    return Array.from(document.querySelectorAll(selector)).filter(
+      (el) => !UNRESTORABLE_TYPES.includes(el.type) && !el.closest("[data-no-restore]"),
+    );
+  }
+
+  function rememberPage() {
+    const path = historyPath();
+    writeStore(SCROLL_STORAGE_KEY, path, window.scrollY);
+    writeStore(FORM_STORAGE_KEY, path, captureFormState());
+  }
+
+  function captureFormState() {
+    const state = {};
+    restorableFields().forEach((el, i) => {
+      if (el.type === "checkbox" || el.type === "radio") {
+        if (el.checked) state[i + ":" + el.name] = true;
+      } else if (el.value) {
+        state[i + ":" + el.name] = el.value;
+      }
+    });
+    return state;
+  }
+
+  function applyFormState(state) {
+    if (!state) return;
+    restorableFields().forEach((el, i) => {
+      const value = state[i + ":" + el.name];
+      if (value === undefined) return;
+      if (el.type === "checkbox" || el.type === "radio") {
+        el.checked = true;
+      } else {
+        el.value = value;
+      }
+    });
+  }
+
   function showScrollToTopButton() {
     const scrollButton = document.getElementById("scroll-to-top");
     const content = document.getElementById("content");
@@ -426,13 +517,17 @@
   }
 
   function syncSearchInput() {
+    // Only the header field needs this. It sits outside #content, so it
+    // survives swaps carrying whatever was last typed into it, and on pages
+    // that filter by ?search= the URL is the truth. The archive field is
+    // re-rendered by the server on every swap and its page never carries the
+    // param, so it is a draft and applyFormState owns it.
     const searchNav = document.getElementById("search-nav");
-    if (searchNav && document.activeElement !== searchNav) {
-      const params = new URLSearchParams(window.location.search);
-      const searchVal = params.get("search") || "";
-      if (searchNav.value !== searchVal) {
-        searchNav.value = searchVal;
-      }
+    if (!searchNav || document.activeElement === searchNav) return;
+    const params = new URLSearchParams(window.location.search);
+    const searchVal = params.get("search") || "";
+    if (searchNav.value !== searchVal) {
+      searchNav.value = searchVal;
     }
   }
 
@@ -460,6 +555,41 @@
     }, { passive: true });
     
     window.addEventListener("htmx:after:swap", init);
+
+    if ("scrollRestoration" in history) {
+      history.scrollRestoration = "manual";
+    }
+
+    document.addEventListener("htmx:before:history:restore", (event) => {
+      pendingRestorePath = event?.detail?.path || historyPath();
+      clearTimeout(restoreTimeout);
+      restoreTimeout = setTimeout(endRestore, 5000);
+    });
+
+    // htmx 4 runs a history restore as an ordinary request sourced from
+    // <body>, which inherits hx-push-url, so the restore pushes a fresh entry
+    // for the page it just went back to and history never grows past one step
+    document.addEventListener("htmx:before:history:update", (event) => {
+      if (pendingRestorePath !== null) {
+        event.preventDefault();
+        return;
+      }
+      rememberPage();
+    });
+
+    document.addEventListener("htmx:after:swap", () => {
+      if (pendingRestorePath === null) return;
+      const path = pendingRestorePath;
+      endRestore();
+      applyFormState(readStore(FORM_STORAGE_KEY)[path]);
+      const y = readStore(SCROLL_STORAGE_KEY)[path] || 0;
+      window.scrollTo(0, y);
+      // the browser may still run its own restoration once the navigation
+      // handler settles, so reassert after it has had a frame to do so
+      requestAnimationFrame(() => window.scrollTo(0, y));
+    });
+
+    window.addEventListener("pagehide", rememberPage);
 
     document.body.addEventListener("htmx:config:request", (event) => {
       const csrfToken = document.cookie

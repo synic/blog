@@ -147,6 +147,7 @@ templ header() {
 			autocomplete="off"
 			class="flex flex-row flex-nowrap pl-6 rounded-md shadow-md"
 			role="search"
+			hx-sync="this:replace"
 		>
 			<div class="justify-start py-3 whitespace-nowrap cursor-pointer shrink">
 				<a
@@ -170,6 +171,7 @@ templ header() {
 				hx-push-url="true"
 				hx-swap="innerHTML show:top showTarget:#body"
 				hx-trigger="input changed delay:200ms, search"
+				hx-sync="closest form:replace"
 			/>
 			<nav class="flex flex-row content-end items-center p-0 m-0 grow-0 shrink" aria-label="Main Navigation">
 				@navlink("/", "Home", true)

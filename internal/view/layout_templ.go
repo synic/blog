@@ -462,7 +462,7 @@ func header() templ.Component {
 			templ_7745c5c3_Var18 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 31, "<header class=\"w-full shadow-md\"><form method=\"post\" action=\"/\" autocomplete=\"off\" class=\"flex flex-row flex-nowrap pl-6 rounded-md shadow-md\" role=\"search\"><div class=\"justify-start py-3 whitespace-nowrap cursor-pointer shrink\"><a href=\"/\" hx-on:htmx:after:request=\"document.getElementById('search-nav').value = '';\" class=\"no-underline hover:underline\" aria-label=\"Adam's Things Home\"><span class=\"font-bold spin-around text-sky-700\">::/</span> Adam's Things</a></div><div class=\"grow\">&nbsp;</div><input class=\"hidden flex-auto px-2 my-2 mr-4 font-normal bg-gray-700 rounded border border-gray-600 border-solid md:inline outline-gray-600 md:max-w-40 lg:max-w-56\" placeholder=\"Search...\" type=\"text\" name=\"search\" id=\"search-nav\" aria-label=\"Search articles\" hx-post=\"/\" hx-swap=\"innerHTML show:top showTarget:#body\" hx-trigger=\"input changed delay:200ms, search\"><nav class=\"flex flex-row content-end items-center p-0 m-0 grow-0 shrink\" aria-label=\"Main Navigation\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 31, "<header class=\"w-full shadow-md\"><form method=\"get\" action=\"/\" autocomplete=\"off\" class=\"flex flex-row flex-nowrap pl-6 rounded-md shadow-md\" role=\"search\"><div class=\"justify-start py-3 whitespace-nowrap cursor-pointer shrink\"><a href=\"/\" hx-on:htmx:after:request=\"document.getElementById('search-nav').value = '';\" class=\"no-underline hover:underline\" aria-label=\"Adam's Things Home\"><span class=\"font-bold spin-around text-sky-700\">::/</span> Adam's Things</a></div><div class=\"grow\">&nbsp;</div><input class=\"hidden flex-auto px-2 my-2 mr-4 font-normal bg-gray-700 rounded border border-gray-600 border-solid md:inline outline-gray-600 md:max-w-40 lg:max-w-56\" placeholder=\"Search...\" type=\"text\" name=\"search\" id=\"search-nav\" aria-label=\"Search articles\" hx-get=\"/\" hx-push-url=\"true\" hx-swap=\"innerHTML show:top showTarget:#body\" hx-trigger=\"input changed delay:200ms, search\"><nav class=\"flex flex-row content-end items-center p-0 m-0 grow-0 shrink\" aria-label=\"Main Navigation\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -550,7 +550,7 @@ func navlink(url, label string, hideMobile bool) templ.Component {
 		var templ_7745c5c3_Var22 string
 		templ_7745c5c3_Var22, templ_7745c5c3_Err = templ.ResolveAttributeValue("nav-link-" + label)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/layout.templ`, Line: 196, Col: 26}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/layout.templ`, Line: 197, Col: 26}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var22)
 		if templ_7745c5c3_Err != nil {
@@ -576,7 +576,7 @@ func navlink(url, label string, hideMobile bool) templ.Component {
 		var templ_7745c5c3_Var24 templ.SafeURL
 		templ_7745c5c3_Var24, templ_7745c5c3_Err = templ.JoinURLErrs(templ.URL(url))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/layout.templ`, Line: 202, Col: 23}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/layout.templ`, Line: 203, Col: 23}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var24))
 		if templ_7745c5c3_Err != nil {
@@ -589,7 +589,7 @@ func navlink(url, label string, hideMobile bool) templ.Component {
 		var templ_7745c5c3_Var25 string
 		templ_7745c5c3_Var25, templ_7745c5c3_Err = templ.JoinStringErrs(label)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/layout.templ`, Line: 204, Col: 9}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/layout.templ`, Line: 205, Col: 9}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var25))
 		if templ_7745c5c3_Err != nil {

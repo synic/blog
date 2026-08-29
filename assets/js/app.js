@@ -425,15 +425,28 @@
     });
   }
 
+  function syncSearchInput() {
+    const searchNav = document.getElementById("search-nav");
+    if (searchNav && document.activeElement !== searchNav) {
+      const params = new URLSearchParams(window.location.search);
+      const searchVal = params.get("search") || "";
+      if (searchNav.value !== searchVal) {
+        searchNav.value = searchVal;
+      }
+    }
+  }
+
   function init() {
     showScrollToTopButton();
     initAlbums();
     initLightboxImages();
     formatCommentDates();
+    syncSearchInput();
   }
 
   window.addEventListener("load", () => {
     init();
+    window.addEventListener("popstate", syncSearchInput);
     window.addEventListener("scroll", showScrollToTopButton, { passive: true });
     window.addEventListener("resize", () => {
       showScrollToTopButton();

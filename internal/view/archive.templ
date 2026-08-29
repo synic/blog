@@ -15,19 +15,19 @@ templ ArchiveView(articleCount int, tags map[string]int) {
 				Total articles: <span class="font-semibold text-slate-200">{ strconv.Itoa(articleCount) }</span>
 			</div>
 			<div class="block pb-4 md:hidden grow" hx-include:inherited="#search">
-				<form method="post" action="/" flex flex-row flex-nowrap pl-6 rounded-md shadow-md>
+				<form method="get" action="/" class="flex flex-row flex-nowrap pl-6 rounded-md shadow-md">
 					<input
 						class="flex-auto px-2 font-normal bg-gray-700 rounded border border-gray-600 border-solid outline-gray-600 max-w-56"
 						placeholder="Search..."
 						type="text"
 						name="search"
-						hx-post="/"
+						hx-get="/"
 						id="search"
 					/>
 					<button
 						class="px-2 text-center border-gray-700 bg-sky-700 text-white"
 						type="submit"
-						hx-post="/"
+						hx-get="/"
 						hx-trigger="click consume"
 					>
 						Go

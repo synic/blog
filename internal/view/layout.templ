@@ -142,7 +142,7 @@ templ openGraphTags(og model.OpenGraphData) {
 templ header() {
 	<header class="w-full shadow-md">
 		<form
-			method="post"
+			method="get"
 			action="/"
 			autocomplete="off"
 			class="flex flex-row flex-nowrap pl-6 rounded-md shadow-md"
@@ -166,7 +166,8 @@ templ header() {
 				name="search"
 				id="search-nav"
 				aria-label="Search articles"
-				hx-post="/"
+				hx-get="/"
+				hx-push-url="true"
 				hx-swap="innerHTML show:top showTarget:#body"
 				hx-trigger="input changed delay:200ms, search"
 			/>

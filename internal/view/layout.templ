@@ -117,8 +117,8 @@ templ head(conf baseLayoutConfig, partial bool) {
 			<link rel="icon" type="image/png" sizes="16x16" href={ static(ctx, "images/favicon-16x16.png") } hx-preserve="true"/>
 			<link rel="icon" href={ static(ctx, "images/favicon.ico") } hx-preserve="true"/>
 			<link rel="apple-touch-icon" sizes="180x180" href={ static(ctx, "images/apple-touch-icon.png") } hx-preserve="true"/>
-			@openGraphTags(conf.og)
 		}
+		@openGraphTags(conf.og)
 		<title>
 			Adam's Blog
 			if conf.title != "" {

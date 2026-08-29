@@ -74,7 +74,7 @@ templ commentForm(articleURL string, user *model.User) {
 			hx-target="#comment-list"
 			hx-swap="innerHTML"
 			hx-push-url="false"
-			hx-on::after-request="if(event.detail.successful) this.reset()"
+			hx-on:htmx:after:request="if(event.detail.successful) this.reset()"
 			class="mb-4"
 		>
 			<div class="flex gap-3">
@@ -103,6 +103,8 @@ templ commentForm(articleURL string, user *model.User) {
 							<a
 								href="/auth/logout"
 								hx-post="/auth/logout"
+								hx-target="body"
+								hx-swap="innerHTML"
 								hx-push-url="false"
 								class="text-slate-500 hover:text-slate-300 no-underline"
 							>
@@ -137,16 +139,16 @@ templ CommentList(articleURL string, threads []model.CommentThread, user *model.
 
 script scrollToCommentsOnLoad() {
 	var ca = document.getElementById("comment-area");
-	ca.addEventListener("htmx:afterSettle", function handler() {
-		ca.removeEventListener("htmx:afterSettle", handler);
+	ca.addEventListener("htmx:after:settle", function handler() {
+		ca.removeEventListener("htmx:after:settle", handler);
 		ca.scrollIntoView({ behavior: "smooth", block: "start" });
 	});
 }
 
 script scrollToComments() {
 	var cl = document.getElementById("comment-list");
-	cl.addEventListener("htmx:afterSettle", function handler() {
-		cl.removeEventListener("htmx:afterSettle", handler);
+	cl.addEventListener("htmx:after:settle", function handler() {
+		cl.removeEventListener("htmx:after:settle", handler);
 		var last = cl.lastElementChild;
 		if (last) {
 			last.scrollIntoView({ behavior: "smooth", block: "end" });

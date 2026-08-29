@@ -47,11 +47,10 @@ templ baseLayout(conf baseLayoutConfig) {
 			<body
 				id="body"
 				class="w-full text-xl bg-gray-900 md:p-6 md:text-xl lg:p-9 lg:text-2xl xl:px-12 xl:pt-8 text-slate-300"
-				hx-ext="head-support"
-				hx-target="#content"
-				hx-swap="innerHTML show:window:top swap:150ms"
-				hx-push-url="true"
-				hx-boost="true"
+				hx-target:inherited="#content"
+				hx-swap:inherited="innerHTML show:top showTarget:window swap:150ms"
+				hx-push-url:inherited="true"
+				hx-boost:inherited="true"
 			>
 				<div class="mx-auto bg-gray-800 shadow-xl md:rounded-xl xl:max-w-6xl">
 					@header()
@@ -102,11 +101,10 @@ templ head(conf baseLayoutConfig, partial bool) {
 			<meta name="viewport" content="width=device-width, initial-scale=1.0" hx-preserve="true"/>
 			<meta name="description" content="Adam's Blog. Programming, Vim, Photography, and more!" hx-preserve="true"/>
 			<script src={ static(ctx, "js/htmx.min.js") } hx-preserve="true" defer></script>
-			<script src={ static(ctx, "js/htmx-head-support.min.js") } hx-preserve="true" defer></script>
+			<script src={ static(ctx, "js/hx-head.min.js") } hx-preserve="true" defer></script>
 			<script src={ static(ctx, "js/app.min.js") } hx-preserve="true" defer></script>
 			<link rel="alternate" type="application/rss+xml" title="RSS Feed" href="/feed.xml" hx-preserve="true"/>
 			@inlinestatic()
-			<meta name="htmx-config" content='{"ignoreTitle":true}' hx-preserve="true"/>
 			<link rel="icon" type="image/svg+xml" href={ static(ctx, "images/favicon.svg") } hx-preserve="true"/>
 			<link rel="icon" type="image/png" sizes="48x48" href={ static(ctx, "images/favicon-48x48.png") } hx-preserve="true"/>
 			<link rel="icon" type="image/png" sizes="32x32" href={ static(ctx, "images/favicon-32x32.png") } hx-preserve="true"/>
@@ -150,13 +148,13 @@ templ header() {
 			class="flex flex-row flex-nowrap pl-6 rounded-md shadow-md"
 			role="search"
 		>
-			<div
-				class="justify-start py-3 whitespace-nowrap cursor-pointer shrink"
-				hx-get="/"
-				hx-on::after-request="document.getElementById('search-nav').value = '';"
-				hx-trigger="click"
-			>
-				<a href="/" hx-trigger="click consume" class="no-underline hover:underline" aria-label="Adam's Things Home">
+			<div class="justify-start py-3 whitespace-nowrap cursor-pointer shrink">
+				<a
+					href="/"
+					hx-on:htmx:after:request="document.getElementById('search-nav').value = '';"
+					class="no-underline hover:underline"
+					aria-label="Adam's Things Home"
+				>
 					<span class="font-bold spin-around text-sky-700">::/</span> Adam's Things
 				</a>
 			</div>
@@ -169,7 +167,7 @@ templ header() {
 				id="search-nav"
 				aria-label="Search articles"
 				hx-post="/"
-				hx-swap="innerHTML show:window:top"
+				hx-swap="innerHTML show:top showTarget:window"
 				hx-trigger="input changed delay:200ms, search"
 			/>
 			<nav class="flex flex-row content-end items-center p-0 m-0 grow-0 shrink" aria-label="Main Navigation">
@@ -196,7 +194,7 @@ templ errorbox() {
 templ navlink(url, label string, hideMobile bool) {
 	<a
 		id={ "nav-link-" + label }
-		hx-on::after-request="document.getElementById('search-nav').value = '';"
+		hx-on:htmx:after:request="document.getElementById('search-nav').value = '';"
 		class={
 			"py-3 px-5 text-center no-underline border-l border-gray-700 cursor-pointer hover:text-white hover:bg-gray-700 items-center md:last:rounded-tr-xl",
 			templ.KV("hidden lg:block", hideMobile),

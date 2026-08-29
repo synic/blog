@@ -224,7 +224,7 @@ func commentForm(articleURL string, user *model.User) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 15, "\" hx-target=\"#comment-list\" hx-swap=\"innerHTML\" hx-push-url=\"false\" hx-on::after-request=\"if(event.detail.successful) this.reset()\" class=\"mb-4\"><div class=\"flex gap-3\">")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 15, "\" hx-target=\"#comment-list\" hx-swap=\"innerHTML\" hx-push-url=\"false\" hx-on:htmx:after:request=\"if(event.detail.successful) this.reset()\" class=\"mb-4\"><div class=\"flex gap-3\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -273,7 +273,7 @@ func commentForm(articleURL string, user *model.User) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 20, " &middot; <a href=\"/auth/logout\" hx-post=\"/auth/logout\" hx-push-url=\"false\" class=\"text-slate-500 hover:text-slate-300 no-underline\">Logout</a></span></div></div></div></form>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 20, " &middot; <a href=\"/auth/logout\" hx-post=\"/auth/logout\" hx-target=\"body\" hx-swap=\"innerHTML\" hx-push-url=\"false\" class=\"text-slate-500 hover:text-slate-300 no-underline\">Logout</a></span></div></div></div></form>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -344,24 +344,24 @@ func CommentList(articleURL string, threads []model.CommentThread, user *model.U
 
 func scrollToCommentsOnLoad() templ.ComponentScript {
 	return templ.ComponentScript{
-		Name: `__templ_scrollToCommentsOnLoad_1989`,
-		Function: `function __templ_scrollToCommentsOnLoad_1989(){var ca = document.getElementById("comment-area");
-	ca.addEventListener("htmx:afterSettle", function handler() {
-		ca.removeEventListener("htmx:afterSettle", handler);
+		Name: `__templ_scrollToCommentsOnLoad_38bb`,
+		Function: `function __templ_scrollToCommentsOnLoad_38bb(){var ca = document.getElementById("comment-area");
+	ca.addEventListener("htmx:after:settle", function handler() {
+		ca.removeEventListener("htmx:after:settle", handler);
 		ca.scrollIntoView({ behavior: "smooth", block: "start" });
 	});
 }`,
-		Call:       templ.SafeScript(`__templ_scrollToCommentsOnLoad_1989`),
-		CallInline: templ.SafeScriptInline(`__templ_scrollToCommentsOnLoad_1989`),
+		Call:       templ.SafeScript(`__templ_scrollToCommentsOnLoad_38bb`),
+		CallInline: templ.SafeScriptInline(`__templ_scrollToCommentsOnLoad_38bb`),
 	}
 }
 
 func scrollToComments() templ.ComponentScript {
 	return templ.ComponentScript{
-		Name: `__templ_scrollToComments_1f2e`,
-		Function: `function __templ_scrollToComments_1f2e(){var cl = document.getElementById("comment-list");
-	cl.addEventListener("htmx:afterSettle", function handler() {
-		cl.removeEventListener("htmx:afterSettle", handler);
+		Name: `__templ_scrollToComments_c123`,
+		Function: `function __templ_scrollToComments_c123(){var cl = document.getElementById("comment-list");
+	cl.addEventListener("htmx:after:settle", function handler() {
+		cl.removeEventListener("htmx:after:settle", handler);
 		var last = cl.lastElementChild;
 		if (last) {
 			last.scrollIntoView({ behavior: "smooth", block: "end" });
@@ -370,8 +370,8 @@ func scrollToComments() templ.ComponentScript {
 		}
 	});
 }`,
-		Call:       templ.SafeScript(`__templ_scrollToComments_1f2e`),
-		CallInline: templ.SafeScriptInline(`__templ_scrollToComments_1f2e`),
+		Call:       templ.SafeScript(`__templ_scrollToComments_c123`),
+		CallInline: templ.SafeScriptInline(`__templ_scrollToComments_c123`),
 	}
 }
 
@@ -425,7 +425,7 @@ func commentCard(articleURL string, c model.Comment, user *model.User) templ.Com
 			var templ_7745c5c3_Var14 string
 			templ_7745c5c3_Var14, templ_7745c5c3_Err = templ.ResolveAttributeValue(c.AvatarURL)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/comments.templ`, Line: 173, Col: 25}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/comments.templ`, Line: 175, Col: 25}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var14)
 			if templ_7745c5c3_Err != nil {
@@ -438,7 +438,7 @@ func commentCard(articleURL string, c model.Comment, user *model.User) templ.Com
 			var templ_7745c5c3_Var15 string
 			templ_7745c5c3_Var15, templ_7745c5c3_Err = templ.ResolveAttributeValue(c.Username)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/comments.templ`, Line: 173, Col: 44}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/comments.templ`, Line: 175, Col: 44}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var15)
 			if templ_7745c5c3_Err != nil {
@@ -456,7 +456,7 @@ func commentCard(articleURL string, c model.Comment, user *model.User) templ.Com
 		var templ_7745c5c3_Var16 string
 		templ_7745c5c3_Var16, templ_7745c5c3_Err = templ.JoinStringErrs(c.Username)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/comments.templ`, Line: 177, Col: 63}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/comments.templ`, Line: 179, Col: 63}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var16))
 		if templ_7745c5c3_Err != nil {
@@ -469,7 +469,7 @@ func commentCard(articleURL string, c model.Comment, user *model.User) templ.Com
 		var templ_7745c5c3_Var17 string
 		templ_7745c5c3_Var17, templ_7745c5c3_Err = templ.ResolveAttributeValue(c.CreatedAt.UTC().Format(time.RFC3339))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/comments.templ`, Line: 178, Col: 59}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/comments.templ`, Line: 180, Col: 59}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var17)
 		if templ_7745c5c3_Err != nil {
@@ -482,7 +482,7 @@ func commentCard(articleURL string, c model.Comment, user *model.User) templ.Com
 		var templ_7745c5c3_Var18 string
 		templ_7745c5c3_Var18, templ_7745c5c3_Err = templ.JoinStringErrs(c.CreatedAt.Format("Jan 2, 2006 3:04 PM"))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/comments.templ`, Line: 178, Col: 167}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/comments.templ`, Line: 180, Col: 167}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var18))
 		if templ_7745c5c3_Err != nil {
@@ -495,7 +495,7 @@ func commentCard(articleURL string, c model.Comment, user *model.User) templ.Com
 		var templ_7745c5c3_Var19 string
 		templ_7745c5c3_Var19, templ_7745c5c3_Err = templ.JoinStringErrs(c.Body)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/comments.templ`, Line: 180, Col: 74}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/comments.templ`, Line: 182, Col: 74}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var19))
 		if templ_7745c5c3_Err != nil {
@@ -526,7 +526,7 @@ func commentCard(articleURL string, c model.Comment, user *model.User) templ.Com
 			var templ_7745c5c3_Var21 string
 			templ_7745c5c3_Var21, templ_7745c5c3_Err = templ.ResolveAttributeValue(articleURL + "/comments")
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/comments.templ`, Line: 185, Col: 40}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/comments.templ`, Line: 187, Col: 40}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var21)
 			if templ_7745c5c3_Err != nil {
@@ -539,7 +539,7 @@ func commentCard(articleURL string, c model.Comment, user *model.User) templ.Com
 			var templ_7745c5c3_Var22 string
 			templ_7745c5c3_Var22, templ_7745c5c3_Err = templ.ResolveAttributeValue(i64str(c.ID))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/comments.templ`, Line: 191, Col: 64}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `internal/view/comments.templ`, Line: 193, Col: 64}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ_7745c5c3_Var22)
 			if templ_7745c5c3_Err != nil {

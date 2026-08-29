@@ -24,14 +24,7 @@
     window.errorBoxTimeout = undefined;
   }
 
-  function handleHtmxError(event) {
-    if (event?.detail?.xhr?.status == 404) {
-      window.location =
-        event.detail.pathInfo.finalRequestPath ||
-        event.detail.pathInfo.requestPath;
-      return;
-    }
-
+  function showErrorBox() {
     const errorBox = document.getElementById("errorbox");
     if (errorBox) {
       errorBox.style.display = "flex";
@@ -39,6 +32,22 @@
         window.errorBoxTimeout = setTimeout(hideErrorBox, 1500);
       }
     }
+  }
+
+  function handleHtmxResponseError(event) {
+    const ctx = event?.detail?.ctx;
+    if (ctx?.response?.status === 404) {
+      const path = ctx?.request?.action;
+      if (path) {
+        window.location = path;
+        return;
+      }
+    }
+    showErrorBox();
+  }
+
+  function handleHtmxError() {
+    showErrorBox();
   }
 
   let lastTouchEnd = 0;
@@ -437,20 +446,19 @@
       });
     }, { passive: true });
     
-    window.addEventListener("htmx:afterSwap", init);
+    window.addEventListener("htmx:after:swap", init);
 
-    document.body.addEventListener("htmx:configRequest", (event) => {
+    document.body.addEventListener("htmx:config:request", (event) => {
       const csrfToken = document.cookie
         .split("; ")
         .find((row) => row.startsWith("csrf_token="))
         ?.split("=")[1];
-      if (csrfToken) {
-        event.detail.headers["X-CSRF-Token"] = csrfToken;
+      if (csrfToken && event.detail?.ctx?.request?.headers) {
+        event.detail.ctx.request.headers["X-CSRF-Token"] = csrfToken;
       }
     });
 
-    document.body.addEventListener("htmx:onLoadError", handleHtmxError);
-    document.body.addEventListener("htmx:responseError", handleHtmxError);
-    document.body.addEventListener("htmx:sendError", handleHtmxError);
+    document.body.addEventListener("htmx:response:error", handleHtmxResponseError);
+    document.body.addEventListener("htmx:error", handleHtmxError);
   });
 })();

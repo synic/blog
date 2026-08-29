@@ -77,7 +77,7 @@ func baseLayout(conf baseLayoutConfig) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "<body id=\"body\" class=\"w-full text-xl bg-gray-900 md:p-6 md:text-xl lg:p-9 lg:text-2xl xl:px-12 xl:pt-8 text-slate-300\" hx-target:inherited=\"#content\" hx-swap:inherited=\"innerHTML show:top showTarget:window swap:150ms\" hx-push-url:inherited=\"true\" hx-boost:inherited=\"true\"><div class=\"mx-auto bg-gray-800 shadow-xl md:rounded-xl xl:max-w-6xl\">")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "<body id=\"body\" class=\"w-full text-xl bg-gray-900 md:p-6 md:text-xl lg:p-9 lg:text-2xl xl:px-12 xl:pt-8 text-slate-300\" hx-target:inherited=\"#content\" hx-swap:inherited=\"innerHTML show:top showTarget:#body swap:150ms\" hx-push-url:inherited=\"true\" hx-boost:inherited=\"true\"><div class=\"mx-auto bg-gray-800 shadow-xl md:rounded-xl xl:max-w-6xl\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -462,7 +462,7 @@ func header() templ.Component {
 			templ_7745c5c3_Var18 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 31, "<header class=\"w-full shadow-md\"><form method=\"post\" action=\"/\" autocomplete=\"off\" class=\"flex flex-row flex-nowrap pl-6 rounded-md shadow-md\" role=\"search\"><div class=\"justify-start py-3 whitespace-nowrap cursor-pointer shrink\"><a href=\"/\" hx-on:htmx:after:request=\"document.getElementById('search-nav').value = '';\" class=\"no-underline hover:underline\" aria-label=\"Adam's Things Home\"><span class=\"font-bold spin-around text-sky-700\">::/</span> Adam's Things</a></div><div class=\"grow\">&nbsp;</div><input class=\"hidden flex-auto px-2 my-2 mr-4 font-normal bg-gray-700 rounded border border-gray-600 border-solid md:inline outline-gray-600 md:max-w-40 lg:max-w-56\" placeholder=\"Search...\" type=\"text\" name=\"search\" id=\"search-nav\" aria-label=\"Search articles\" hx-post=\"/\" hx-swap=\"innerHTML show:top showTarget:window\" hx-trigger=\"input changed delay:200ms, search\"><nav class=\"flex flex-row content-end items-center p-0 m-0 grow-0 shrink\" aria-label=\"Main Navigation\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 31, "<header class=\"w-full shadow-md\"><form method=\"post\" action=\"/\" autocomplete=\"off\" class=\"flex flex-row flex-nowrap pl-6 rounded-md shadow-md\" role=\"search\"><div class=\"justify-start py-3 whitespace-nowrap cursor-pointer shrink\"><a href=\"/\" hx-on:htmx:after:request=\"document.getElementById('search-nav').value = '';\" class=\"no-underline hover:underline\" aria-label=\"Adam's Things Home\"><span class=\"font-bold spin-around text-sky-700\">::/</span> Adam's Things</a></div><div class=\"grow\">&nbsp;</div><input class=\"hidden flex-auto px-2 my-2 mr-4 font-normal bg-gray-700 rounded border border-gray-600 border-solid md:inline outline-gray-600 md:max-w-40 lg:max-w-56\" placeholder=\"Search...\" type=\"text\" name=\"search\" id=\"search-nav\" aria-label=\"Search articles\" hx-post=\"/\" hx-swap=\"innerHTML show:top showTarget:#body\" hx-trigger=\"input changed delay:200ms, search\"><nav class=\"flex flex-row content-end items-center p-0 m-0 grow-0 shrink\" aria-label=\"Main Navigation\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

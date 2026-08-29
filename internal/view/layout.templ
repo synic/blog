@@ -48,7 +48,7 @@ templ baseLayout(conf baseLayoutConfig) {
 				id="body"
 				class="w-full text-xl bg-gray-900 md:p-6 md:text-xl lg:p-9 lg:text-2xl xl:px-12 xl:pt-8 text-slate-300"
 				hx-target:inherited="#content"
-				hx-swap:inherited="innerHTML show:top showTarget:window swap:150ms"
+				hx-swap:inherited="innerHTML show:top showTarget:#body swap:150ms"
 				hx-push-url:inherited="true"
 				hx-boost:inherited="true"
 			>
@@ -167,7 +167,7 @@ templ header() {
 				id="search-nav"
 				aria-label="Search articles"
 				hx-post="/"
-				hx-swap="innerHTML show:top showTarget:window"
+				hx-swap="innerHTML show:top showTarget:#body"
 				hx-trigger="input changed delay:200ms, search"
 			/>
 			<nav class="flex flex-row content-end items-center p-0 m-0 grow-0 shrink" aria-label="Main Navigation">

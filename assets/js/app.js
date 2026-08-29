@@ -97,7 +97,7 @@
     }
 
     function navigate(dir) {
-      if (!lb._albumImgs || lb._currentIndex === -1) return;
+      if (!lb._albumImgs || lb._albumImgs.length === 0 || lb._currentIndex === -1) return;
       lb._currentIndex = (lb._currentIndex + dir + lb._albumImgs.length) % lb._albumImgs.length;
       const nextEl = lb._albumImgs[lb._currentIndex];
       updateLightboxImage(lb, nextEl);
@@ -106,7 +106,82 @@
     close.addEventListener("click", hide);
     prev.addEventListener("click", (e) => { e.stopPropagation(); navigate(-1); });
     next.addEventListener("click", (e) => { e.stopPropagation(); navigate(1); });
+
+    let lbTouchStartX = 0;
+    let lbTouchStartY = 0;
+    let lbTouchStartTime = 0;
+    let lbSwiped = false;
+
+    lb.addEventListener("touchstart", (e) => {
+      if (e.touches.length !== 1) return;
+      lbTouchStartX = e.touches[0].clientX;
+      lbTouchStartY = e.touches[0].clientY;
+      lbTouchStartTime = Date.now();
+      lbSwiped = false;
+    }, { passive: true });
+
+    lb.addEventListener("touchend", (e) => {
+      if (!lbTouchStartTime) return;
+      const touchEndX = e.changedTouches[0].clientX;
+      const touchEndY = e.changedTouches[0].clientY;
+      const dx = touchEndX - lbTouchStartX;
+      const dy = touchEndY - lbTouchStartY;
+      lbTouchStartTime = 0;
+
+      if (Math.abs(dx) > 30 && Math.abs(dx) > Math.abs(dy)) {
+        lbSwiped = true;
+        if (dx < 0) {
+          navigate(1);
+        } else {
+          navigate(-1);
+        }
+        setTimeout(() => { lbSwiped = false; }, 300);
+      }
+    }, { passive: true });
+
+    let lbPointerStartX = 0;
+    let lbPointerStartY = 0;
+    let lbIsPointerDown = false;
+
+    lb.addEventListener("pointerdown", (e) => {
+      if (e.pointerType === "touch") return;
+      if (e.button !== 0) return;
+      if (e.target.closest(".album-lightbox-nav") || e.target.closest(".album-lightbox-close")) return;
+      lbPointerStartX = e.clientX;
+      lbPointerStartY = e.clientY;
+      lbIsPointerDown = true;
+      lbSwiped = false;
+    });
+
+    lb.addEventListener("pointerup", (e) => {
+      if (e.pointerType === "touch" || !lbIsPointerDown) return;
+      lbIsPointerDown = false;
+      const dx = e.clientX - lbPointerStartX;
+      const dy = e.clientY - lbPointerStartY;
+      if (Math.abs(dx) > 30 && Math.abs(dx) > Math.abs(dy)) {
+        lbSwiped = true;
+        if (dx < 0) {
+          navigate(1);
+        } else {
+          navigate(-1);
+        }
+        setTimeout(() => { lbSwiped = false; }, 300);
+      }
+    });
+
+    lb.addEventListener("pointercancel", () => {
+      lbIsPointerDown = false;
+    });
+
+    lb.addEventListener("dragstart", (e) => {
+      e.preventDefault();
+    });
+
     lb.addEventListener("click", (e) => {
+      if (lbSwiped) {
+        lbSwiped = false;
+        return;
+      }
       if (e.target === lb) hide();
     });
 
@@ -170,19 +245,36 @@
     const next = album.querySelector(".album-nav-next");
     if (!scroller || items.length === 0) return;
 
+    let currentIndex = 0;
+    const activeDot = album.querySelector(".album-dot.is-active");
+    if (activeDot && activeDot.dataset.index) {
+      currentIndex = parseInt(activeDot.dataset.index, 10) || 0;
+    }
+
     function setActiveState(index) {
+      currentIndex = (index + items.length) % items.length;
       dots.forEach((d, i) => {
-        d.classList.toggle("is-active", i === index);
+        d.classList.toggle("is-active", i === currentIndex);
       });
-      const currentImg = items[index]?.querySelector("img");
+      const currentImg = items[currentIndex]?.querySelector("img");
       if (currentImg && caption) {
         caption.textContent = currentImg.alt || "";
       }
     }
 
-    function updateActiveState() {
-      const index = Math.round(scroller.scrollLeft / scroller.clientWidth);
+    function goToIndex(index, smooth = true) {
       setActiveState(index);
+      scroller.scrollTo({
+        left: currentIndex * scroller.clientWidth,
+        behavior: smooth ? "smooth" : "instant",
+      });
+    }
+
+    function updateActiveState() {
+      if (scroller.clientWidth > 0) {
+        const index = Math.round(scroller.scrollLeft / scroller.clientWidth);
+        setActiveState(index);
+      }
     }
 
     scroller.addEventListener("scroll", () => {
@@ -192,31 +284,98 @@
 
     prev?.addEventListener("click", (e) => {
       e.stopPropagation();
-      const currentIndex = Math.round(scroller.scrollLeft / scroller.clientWidth);
-      const newIndex = (currentIndex - 1 + items.length) % items.length;
-      setActiveState(newIndex);
-      scroller.scrollTo({ left: newIndex * scroller.clientWidth, behavior: "smooth" });
+      goToIndex(currentIndex - 1);
     });
 
     next?.addEventListener("click", (e) => {
       e.stopPropagation();
-      const currentIndex = Math.round(scroller.scrollLeft / scroller.clientWidth);
-      const newIndex = (currentIndex + 1) % items.length;
-      setActiveState(newIndex);
-      scroller.scrollTo({ left: newIndex * scroller.clientWidth, behavior: "smooth" });
+      goToIndex(currentIndex + 1);
     });
 
     dots.forEach((dot, i) => {
       dot.addEventListener("click", (e) => {
         e.stopPropagation();
-        setActiveState(i);
-        scroller.scrollTo({ left: i * scroller.clientWidth, behavior: "smooth" });
+        goToIndex(i);
       });
+    });
+
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let touchStartTime = 0;
+    let swiped = false;
+
+    album.addEventListener("touchstart", (e) => {
+      if (e.touches.length !== 1) return;
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+      touchStartTime = Date.now();
+      swiped = false;
+    }, { passive: true });
+
+    album.addEventListener("touchend", (e) => {
+      if (!touchStartTime) return;
+      const touchEndX = e.changedTouches[0].clientX;
+      const touchEndY = e.changedTouches[0].clientY;
+      const dx = touchEndX - touchStartX;
+      const dy = touchEndY - touchStartY;
+      touchStartTime = 0;
+
+      if (Math.abs(dx) > 30 && Math.abs(dx) > Math.abs(dy)) {
+        swiped = true;
+        if (dx < 0) {
+          goToIndex(currentIndex + 1);
+        } else {
+          goToIndex(currentIndex - 1);
+        }
+        setTimeout(() => { swiped = false; }, 300);
+      }
+    }, { passive: true });
+
+    let pointerStartX = 0;
+    let pointerStartY = 0;
+    let isPointerDown = false;
+
+    album.addEventListener("pointerdown", (e) => {
+      if (e.pointerType === "touch") return;
+      if (e.button !== 0) return;
+      if (e.target.closest(".album-nav") || e.target.closest(".album-dots")) return;
+      pointerStartX = e.clientX;
+      pointerStartY = e.clientY;
+      isPointerDown = true;
+      swiped = false;
+    });
+
+    album.addEventListener("pointerup", (e) => {
+      if (e.pointerType === "touch" || !isPointerDown) return;
+      isPointerDown = false;
+      const dx = e.clientX - pointerStartX;
+      const dy = e.clientY - pointerStartY;
+      if (Math.abs(dx) > 30 && Math.abs(dx) > Math.abs(dy)) {
+        swiped = true;
+        if (dx < 0) {
+          goToIndex(currentIndex + 1);
+        } else {
+          goToIndex(currentIndex - 1);
+        }
+        setTimeout(() => { swiped = false; }, 300);
+      }
+    });
+
+    album.addEventListener("pointercancel", () => {
+      isPointerDown = false;
+    });
+
+    album.addEventListener("dragstart", (e) => {
+      e.preventDefault();
     });
 
     const albumImgs = Array.from(album.querySelectorAll(".lightbox-img"));
     albumImgs.forEach((img, i) => {
       img.addEventListener("click", (e) => {
+        if (swiped) {
+          swiped = false;
+          return;
+        }
         e.stopPropagation();
         openLightbox(img, albumImgs, i);
       });
@@ -241,10 +400,27 @@
     });
   }
 
+  function formatCommentDates() {
+    document.querySelectorAll("time.comment-time[datetime]").forEach((el) => {
+      const dt = el.getAttribute("datetime");
+      if (!dt) return;
+      const d = new Date(dt);
+      if (isNaN(d.getTime())) return;
+      el.textContent = new Intl.DateTimeFormat(undefined, {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+        hour: "numeric",
+        minute: "2-digit",
+      }).format(d);
+    });
+  }
+
   function init() {
     showScrollToTopButton();
     initAlbums();
     initLightboxImages();
+    formatCommentDates();
   }
 
   window.addEventListener("load", () => {

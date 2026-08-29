@@ -118,23 +118,26 @@
     }
 
     .album-frame {
-      @apply relative flex items-center justify-center bg-gray-900 rounded overflow-hidden w-full;
+      @apply relative flex items-center justify-center bg-gray-900 rounded overflow-hidden w-full select-none;
+      touch-action: pan-y;
     }
 
     .album-scroller {
-      @apply flex overflow-x-auto snap-x snap-mandatory scroll-smooth w-full h-full;
+      @apply flex overflow-x-hidden w-full h-full;
       scrollbar-width: none;
       &::-webkit-scrollbar {
         display: none;
       }
+      touch-action: pan-y;
     }
 
     .album-item {
-      @apply flex-none w-full h-full snap-center flex items-center justify-center;
+      @apply flex-none w-full h-full flex items-center justify-center;
     }
 
     .album-img {
-      @apply w-full h-full object-contain m-0;
+      @apply w-full h-full object-contain m-0 select-none;
+      -webkit-user-drag: none;
     }
 
     .album-nav {
@@ -171,7 +174,8 @@
   }
 
   .album-lightbox {
-    @apply hidden fixed inset-0 z-50 bg-black/90 items-center justify-center;
+    @apply hidden fixed inset-0 z-50 bg-black/90 items-center justify-center select-none;
+    touch-action: pan-y;
   }
 
   .album-lightbox.is-open {
@@ -179,7 +183,8 @@
   }
 
   .album-lightbox-img {
-    @apply max-w-[95vw] max-h-[95vh] object-contain;
+    @apply max-w-[95vw] max-h-[95vh] object-contain select-none;
+    -webkit-user-drag: none;
   }
 
   .album-lightbox-close {

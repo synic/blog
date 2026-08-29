@@ -128,7 +128,7 @@ func (r *CommentRepository) ListBySlug(
 			Body:      row.Body,
 			Username:  row.Username,
 			AvatarURL: row.AvatarUrl,
-			CreatedAt: row.CreatedAt,
+			CreatedAt: row.CreatedAt.UTC(),
 			ParentID:  parentID,
 		}
 	}

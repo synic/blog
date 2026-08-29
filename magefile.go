@@ -17,6 +17,7 @@ import (
 	"path"
 	"path/filepath"
 	"regexp"
+	"strconv"
 	"strings"
 	"time"
 
@@ -247,6 +248,8 @@ func (Images) Build() error {
 	copied := 0
 	skipped := 0
 
+	gitTimes := make(map[string]time.Time)
+
 	err = filepath.WalkDir(imagesInPath, func(srcPath string, d fs.DirEntry, err error) error {
 		if err != nil || d.IsDir() {
 			return err
@@ -266,8 +269,7 @@ func (Images) Build() error {
 		sizes, isXImage := xImageSizes[rel]
 		if !isXImage {
 			dstPath := filepath.Join(imagesOutPath, rel)
-			dstInfo, dstErr := os.Stat(dstPath)
-			if dstErr == nil && dstInfo.ModTime().After(srcInfo.ModTime()) {
+			if isImageUpToDate(srcPath, dstPath, srcInfo, gitTimes) {
 				skipped++
 				return nil
 			}
@@ -302,8 +304,7 @@ func (Images) Build() error {
 
 			dstPath := filepath.Join(imagesOutPath, base+v.suffix+".webp")
 
-			dstInfo, dstErr := os.Stat(dstPath)
-			if dstErr == nil && dstInfo.ModTime().After(srcInfo.ModTime()) {
+			if isImageUpToDate(srcPath, dstPath, srcInfo, gitTimes) {
 				skipped++
 				continue
 			}
@@ -334,6 +335,48 @@ func (Images) Build() error {
 
 	fmt.Printf("🖼️  Images: %d built, %d copied, %d up-to-date\n", built, copied, skipped)
 	return nil
+}
+
+func gitModTime(filePath string) (time.Time, error) {
+	output, err := sh.Output("git", "log", "-1", "--format=%ct", "--", filePath)
+	if err != nil {
+		return time.Time{}, err
+	}
+	trimmed := strings.TrimSpace(output)
+	if trimmed == "" {
+		return time.Time{}, nil
+	}
+	ts, err := strconv.ParseInt(trimmed, 10, 64)
+	if err != nil {
+		return time.Time{}, err
+	}
+	return time.Unix(ts, 0), nil
+}
+
+func isImageUpToDate(srcPath, dstPath string, srcInfo os.FileInfo, gitTimes map[string]time.Time) bool {
+	dstInfo, dstErr := os.Stat(dstPath)
+	if dstErr != nil {
+		return false
+	}
+
+	if dstInfo.ModTime().After(srcInfo.ModTime()) {
+		return true
+	}
+
+	gitTime, ok := gitTimes[srcPath]
+	if !ok {
+		t, err := gitModTime(srcPath)
+		if err == nil {
+			gitTime = t
+			gitTimes[srcPath] = gitTime
+		}
+	}
+
+	if !gitTime.IsZero() && (dstInfo.ModTime().After(gitTime) || dstInfo.ModTime().Equal(gitTime)) {
+		return true
+	}
+
+	return false
 }
 
 func imageWidth(src string) (int, error) {

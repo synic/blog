@@ -3,7 +3,7 @@ FROM golang:1.27.0-trixie AS build-base
 WORKDIR /app
 COPY . .
 
-RUN apt-get update && apt-get install -y webp && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y webp git && rm -rf /var/lib/apt/lists/*
 RUN go tool github.com/magefile/mage build:release
 
 FROM gcr.io/distroless/static-debian13

@@ -56,6 +56,18 @@ jobs:
           restore-keys: |
             images-
 
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: "go.mod"
+          cache: false
+
+      - name: Install webp tools
+        run: sudo apt-get update && sudo apt-get install -y webp
+
+      - name: Build images
+        run: go tool github.com/magefile/mage images:build
+
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
 

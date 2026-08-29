@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/synic/blog/internal/model"
 	"strconv"
+	"time"
 )
 
 func commentCountText(count int) string {
@@ -174,7 +175,7 @@ templ commentCard(articleURL string, c model.Comment, user *model.User) {
 		<div class="flex-1 min-w-0">
 			<div class="flex items-baseline gap-2 flex-wrap">
 				<span class="text-sm font-bold text-slate-200">{ c.Username }</span>
-				<span class="text-xs text-slate-500 whitespace-nowrap">{ c.CreatedAt.Format("Jan 2, 2006 3:04 PM") }</span>
+				<time datetime={ c.CreatedAt.UTC().Format(time.RFC3339) } class="comment-time text-xs text-slate-500 whitespace-nowrap">{ c.CreatedAt.Format("Jan 2, 2006 3:04 PM") }</time>
 			</div>
 			<div class="text-sm text-slate-300 whitespace-pre-wrap mt-0.5">{ c.Body }</div>
 			if user != nil && c.ParentID == nil {

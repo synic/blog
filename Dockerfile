@@ -4,7 +4,7 @@ WORKDIR /app
 COPY . .
 
 RUN apt-get update && apt-get install -y webp git && rm -rf /var/lib/apt/lists/*
-RUN go tool github.com/magefile/mage build:release
+RUN go tool github.com/magefile/mage build:releaseForDocker
 
 FROM gcr.io/distroless/static-debian13
 

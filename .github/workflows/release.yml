@@ -3,6 +3,8 @@ name: Release and publish Docker image
 
 on:  # yamllint disable-line rule:truthy
   push:
+    branches:
+      - main
     tags:
       - "v[0-9]+.[0-9]+.[0-9]+"
       - "v[0-9]+.[0-9]+.[0-9]+-*"
@@ -10,6 +12,7 @@ on:  # yamllint disable-line rule:truthy
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
+  BUILD_CACHE: ghcr.io/${{ github.repository }}:buildcache
 
 permissions:
   contents: write
@@ -17,10 +20,11 @@ permissions:
 
 jobs:
   create-release:
+    if: startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@v7
         with:
           fetch-depth: "0"
 
@@ -30,16 +34,17 @@ jobs:
           generate_release_notes: true
 
   build-and-push-image:
+    if: always() && (needs.create-release.result == 'success' || needs.create-release.result == 'skipped')
     needs: create-release
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@v7
         with:
           fetch-depth: "0"
 
       - name: Log in to the Container registry
-        uses: docker/login-action@v3
+        uses: docker/login-action@v4
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
@@ -48,8 +53,9 @@ jobs:
       - name: Remove out of date articles
         run: ./.github/scripts/pre-build.sh
 
-      - name: Cache generated images
-        uses: actions/cache@v5
+      - name: Restore generated images
+        id: images-cache
+        uses: actions/cache/restore@v5
         with:
           path: static/images
           key: images-${{ hashFiles('assets/images/**', 'assets/articles/**') }}
@@ -57,7 +63,7 @@ jobs:
             images-
 
       - name: Set up Go
-        uses: actions/setup-go@v5
+        uses: actions/setup-go@v7
         with:
           go-version-file: "go.mod"
           cache: false
@@ -68,16 +74,28 @@ jobs:
       - name: Build images
         run: go tool github.com/magefile/mage images:build
 
+      # A cache saved from a tag run lands in a `refs/tags/*` scope that no
+      # future run can read, so only save from the default branch. Tag runs
+      # restore that same cache above.
+      - name: Save generated images
+        if: >-
+          github.ref == 'refs/heads/main'
+          && steps.images-cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v5
+        with:
+          path: static/images
+          key: images-${{ hashFiles('assets/images/**', 'assets/articles/**') }}
+
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
+        uses: docker/setup-qemu-action@v4
 
       - name: Set up Docker Buildx
         id: buildx
-        uses: docker/setup-buildx-action@v3
+        uses: docker/setup-buildx-action@v4
 
       - name: Extract metadata (tags, labels) for Docker
         id: meta
-        uses: docker/metadata-action@v5
+        uses: docker/metadata-action@v6
         with:
           images: |
             ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
@@ -87,12 +105,14 @@ jobs:
             type=raw,value=latest
 
       - name: Build and push Docker image
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           context: .
           push: true
           platforms: linux/amd64
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          # Registry cache is not scoped to the ref, unlike type=gha, so a
+          # tag build can reuse layers built on main.
+          cache-from: type=registry,ref=${{ env.BUILD_CACHE }}
+          cache-to: type=registry,ref=${{ env.BUILD_CACHE }},mode=max

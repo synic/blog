@@ -40,5 +40,4 @@ mine/
 .elixir-tools
 
 # generated images (built from images/ masters)
-/static/images/
-!/static/images/index.html
+/static/images/articles

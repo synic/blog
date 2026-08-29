@@ -1,8 +1,11 @@
 FROM golang:1.27.0-trixie AS build-base
 
 WORKDIR /app
-COPY . .
 
+COPY go.mod go.sum ./
+RUN go mod download
+
+COPY . .
 RUN go tool github.com/magefile/mage build:docker
 
 FROM gcr.io/distroless/static-debian13

@@ -13,5 +13,6 @@
   "openGraph": {
     "title": "Posting articles to Twitter via Django",
     "type": "article"
-  }
+  },
+  "sourceHash": "e5de51a60a2d5e20a4df25eb883144033c4ce53d780173058f09b5d108d74619"
 }

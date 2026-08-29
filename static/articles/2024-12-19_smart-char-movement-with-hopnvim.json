@@ -12,5 +12,6 @@
   "openGraph": {
     "title": "Smart character movement (f,F,t,T) with hop.nvim",
     "type": "article"
-  }
+  },
+  "sourceHash": "e8e7452e6cf93a45de64fb66f5d802b069f1f8181827e891f0b848ae623c76c5"
 }

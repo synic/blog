@@ -13,5 +13,6 @@
   "openGraph": {
     "title": "Django template autoescaping",
     "type": "article"
-  }
+  },
+  "sourceHash": "d4b098dd65503bbd4653fbd7d2bc02e62d269dc73a5389b95a47aca1cc1f7144"
 }

@@ -12,5 +12,6 @@
   "openGraph": {
     "title": "Golang: Static linking with CGO and distroless",
     "type": "article"
-  }
+  },
+  "sourceHash": "cb5fbc526852314c2614a8cbe6fd6f913ce3d4d11817cc90b1ef98d91a1e6dc5"
 }

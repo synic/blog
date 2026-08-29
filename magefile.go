@@ -93,6 +93,7 @@ func (Deps) Dev() error {
 type Build mg.Namespace
 
 func (Build) Dev() error {
+	mg.Deps(Format)
 	mg.Deps(Codegen)
 	mg.Deps(Articles.Convert, Images{}.Build)
 
@@ -115,14 +116,14 @@ func buildRelease() error {
 }
 
 func (Build) Release() error {
-	mg.Deps(Check)
-	mg.Deps(Articles.convertWithGit, Images{}.Build)
+	mg.Deps(Test)
+	mg.Deps(Articles.Convert, Images{}.Build)
 	return buildRelease()
 }
 
 func (Build) ReleaseForDocker() error {
-	mg.Deps(Check)
-	mg.Deps(Articles.convertWithGit) // no image build
+	mg.Deps(Test)
+	mg.Deps(Articles.Convert) // no image build
 	return buildRelease()
 }
 
@@ -154,15 +155,11 @@ func Codegen() error {
 type Articles mg.Namespace
 
 func (Articles) Convert() error {
-	return convertArticles(false, false)
-}
-
-func (Articles) convertWithGit() error {
-	return convertArticles(false, true)
+	return convertArticles(false)
 }
 
 func (Articles) Reconvert() error {
-	return convertArticles(true, false)
+	return convertArticles(true)
 }
 
 func (Articles) Create() error {
@@ -557,7 +554,7 @@ func Test() error {
 	return sh.RunV("go", "test", "-race", "./...")
 }
 
-func Check() error {
+func Format() error {
 	if err := templCmd("fmt", "internal/view"); err != nil {
 		return err
 	}
@@ -666,8 +663,8 @@ func maybeRunTailwind() error {
 	return nil
 }
 
-func convertArticles(reconvert, useGit bool) error {
-	res, err := converter.Convert(articlesInPath, articlesOutPath, reconvert, useGit)
+func convertArticles(reconvert bool) error {
+	res, err := converter.Convert(articlesInPath, articlesOutPath, reconvert)
 
 	if err != nil {
 		return err

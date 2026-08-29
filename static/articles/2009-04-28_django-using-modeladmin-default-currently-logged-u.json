@@ -13,5 +13,6 @@
   "openGraph": {
     "title": "Django: Using ModelAdmin to default to currently logged in user",
     "type": "article"
-  }
+  },
+  "sourceHash": "d551767fbeb5b07f2fcea17b7e924d06cde5c0762068e85b2c844e5347164dee"
 }

@@ -50,9 +50,6 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Remove out of date articles
-        run: ./.github/scripts/pre-build.sh
-
       - name: Restore generated images
         id: images-cache
         uses: actions/cache/restore@v5

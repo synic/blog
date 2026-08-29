@@ -1,15 +1,14 @@
 package converter
 
 import (
+	"crypto/sha256"
+	"encoding/hex"
 	"encoding/json"
-	"errors"
 	"fmt"
 	"os"
-	"os/exec"
 	"path"
 	"path/filepath"
 	"slices"
-	"strconv"
 	"strings"
 	"time"
 )
@@ -37,7 +36,7 @@ func (r ConvertResult) String() string {
 	return b.String()
 }
 
-func Convert(inputPath, outputPath string, reconvert bool, useGit bool) (ConvertResult, error) {
+func Convert(inputPath, outputPath string, reconvert bool) (ConvertResult, error) {
 	res := ConvertResult{reconvert: reconvert}
 	files, err := os.ReadDir(inputPath)
 
@@ -60,7 +59,14 @@ func Convert(inputPath, outputPath string, reconvert bool, useGit bool) (Convert
 		out := path.Join(outputPath, strings.TrimSuffix(file.Name(), ext)+".json")
 		validOutputFiles = append(validOutputFiles, out)
 
-		needsConvert, err := shouldConvert(in, out, useGit)
+		source, err := os.ReadFile(in)
+
+		if err != nil {
+			return res, fmt.Errorf("error reading %s: %w", file.Name(), err)
+		}
+
+		sourceHash := hashSource(source)
+		needsConvert, err := shouldConvert(out, sourceHash)
 
 		if err != nil {
 			return res, fmt.Errorf("error checking %s: %w", file.Name(), err)
@@ -71,11 +77,13 @@ func Convert(inputPath, outputPath string, reconvert bool, useGit bool) (Convert
 			continue
 		}
 
-		article, err := Parse(in)
+		article, err := parseArticleFromData(string(source))
 
 		if err != nil {
 			return res, fmt.Errorf(`error parsing %s: %v`, file.Name(), err)
 		}
+
+		article.SourceHash = sourceHash
 
 		data, err := json.MarshalIndent(article, "", "  ")
 
@@ -125,68 +133,31 @@ func Convert(inputPath, outputPath string, reconvert bool, useGit bool) (Convert
 	return res, nil
 }
 
-func getGitModTime(filePath string) (time.Time, error) {
-	cmd := exec.Command("git", "log", "-1", "--format=%ct", "--", filePath)
-	output, err := cmd.Output()
-
-	if err != nil {
-		return time.Time{}, err
-	}
-
-	trimmed := strings.TrimSpace(string(output))
-
-	if trimmed == "" {
-		return time.Time{}, nil
-	}
-
-	timestamp, err := strconv.ParseInt(trimmed, 10, 64)
-
-	if err != nil {
-		return time.Time{}, err
-	}
-
-	return time.Unix(timestamp, 0), nil
+// hashSource returns the hex-encoded SHA-256 of an article's markdown source.
+func hashSource(source []byte) string {
+	sum := sha256.Sum256(source)
+	return hex.EncodeToString(sum[:])
 }
 
-func shouldConvert(sourceFn, destFn string, useGit bool) (bool, error) {
-	destInfo, err := os.Stat(destFn)
+// shouldConvert reports whether destFn is absent, unreadable as JSON, or was
+// generated from markdown whose hash differs from sourceHash.
+func shouldConvert(destFn, sourceHash string) (bool, error) {
+	data, err := os.ReadFile(destFn)
 
 	if err != nil {
-		if errors.Is(err, os.ErrNotExist) {
+		if os.IsNotExist(err) {
 			return true, nil
 		}
 		return false, err
 	}
 
-	sourceInfo, err := os.Stat(sourceFn)
-
-	if err != nil {
-		return false, err
+	var dest struct {
+		SourceHash string `json:"sourceHash"`
 	}
 
-	if sourceInfo.ModTime().After(destInfo.ModTime()) {
+	if err := json.Unmarshal(data, &dest); err != nil {
 		return true, nil
 	}
 
-	if !useGit {
-		return false, nil
-	}
-
-	inTime, err := getGitModTime(sourceFn)
-
-	if err != nil {
-		return false, err
-	}
-
-	outTime, err := getGitModTime(destFn)
-
-	if err != nil {
-		return false, err
-	}
-
-	if inTime.IsZero() || outTime.IsZero() {
-		return true, nil
-	}
-
-	return inTime.After(outTime), nil
+	return dest.SourceHash != sourceHash, nil
 }

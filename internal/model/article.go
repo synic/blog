@@ -17,6 +17,7 @@ type Article struct {
 	Tags          []string          `json:"tags"            yaml:"tags"`
 	IsPublished   bool              `json:"isPublished"     yaml:"isPublished"`
 	OpenGraphData OpenGraphData     `json:"openGraph"       yaml:"openGraph"`
+	SourceHash    string            `json:"sourceHash"      yaml:"-"`
 	URL           string            `json:"-"`
 }
 

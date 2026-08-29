@@ -12,6 +12,7 @@ on:  # yamllint disable-line rule:truthy
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
+  BUILD_CACHE: ghcr.io/${{ github.repository }}:buildcache
 
 permissions:
   contents: write
@@ -52,8 +53,9 @@ jobs:
       - name: Remove out of date articles
         run: ./.github/scripts/pre-build.sh
 
-      - name: Cache generated images
-        uses: actions/cache@v5
+      - name: Restore generated images
+        id: images-cache
+        uses: actions/cache/restore@v5
         with:
           path: static/images
           key: images-${{ hashFiles('assets/images/**', 'assets/articles/**') }}
@@ -71,6 +73,18 @@ jobs:
 
       - name: Build images
         run: go tool github.com/magefile/mage images:build
+
+      # A cache saved from a tag run lands in a `refs/tags/*` scope that no
+      # future run can read, so only save from the default branch. Tag runs
+      # restore that same cache above.
+      - name: Save generated images
+        if: >-
+          github.ref == 'refs/heads/main'
+          && steps.images-cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v5
+        with:
+          path: static/images
+          key: images-${{ hashFiles('assets/images/**', 'assets/articles/**') }}
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v4
@@ -98,5 +112,7 @@ jobs:
           platforms: linux/amd64
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          # Registry cache is not scoped to the ref, unlike type=gha, so a
+          # tag build can reuse layers built on main.
+          cache-from: type=registry,ref=${{ env.BUILD_CACHE }}
+          cache-to: type=registry,ref=${{ env.BUILD_CACHE }},mode=max

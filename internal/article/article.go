@@ -69,7 +69,7 @@ func CreateBlankArticleTemplate(
 	article model.ArticleCreatePayload,
 ) (string, string) {
 	slug := text.Slugify(article.Title)
-	fn := ArticleFileName("./articles", slug, article.PublishedAt)
+	fn := ArticleFileName("./assets/articles", slug, article.PublishedAt)
 
 	needsQuotes := strings.ContainsAny(article.Title, `:"'[]{}#|>&*?!`)
 	titleField := article.Title

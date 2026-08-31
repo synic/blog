@@ -131,14 +131,12 @@ func buildRelease() error {
 }
 
 func (Build) Release() error {
-	mg.Deps(Deps.Dev)
 	mg.Deps(Test)
 	mg.Deps(Articles.Convert, Images{}.Build)
 	return buildRelease()
 }
 
 func (Build) ReleaseForDocker() error {
-	mg.Deps(Deps.Dev)
 	mg.Deps(Test)
 	mg.Deps(Articles.Convert) // no image build
 	return buildRelease()
@@ -567,7 +565,6 @@ func Vet() error {
 }
 
 func Test() error {
-	mg.Deps(Deps.Dev)
 	mg.Deps(Vet)
 	return sh.RunV("go", "test", "-race", "./...")
 }

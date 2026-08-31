@@ -1,7 +1,7 @@
 {
   "publishedAt": "2008-09-22T20:33:34-07:00",
-  "body": "\u003cp\u003eSo, according to the comments I've been getting on the Exaile 0.3 roundup\narticle, people actually read this blog. A lot of the comments have been\nquestions or answers to previous questions in the comments, so, I've set up an\nemail subscription system for blog comments. Everything is the same, except now\nyou'll notice that there's an \u0026quot;email address\u0026quot; field on the comment form. Note\nthat this field is completely optional. If you fill it in with your valid email\naddress, you'll get an email anytime someone makes another comment on that\narticle. In the email message, there will be a link to unsubscribe from the\ntopic.\u003c/p\u003e\n\u003cdiv class=\"restored-from-archive\"\u003e \u003ch3\u003eRestored from VimTips archive\u003c/h3\u003e \u003cp\u003e\nThis article was restored from the VimTips archive. There's probably missing\nimages and broken links (and even some flash references), but it was still\nimportant to me to bring them back. \u003c/p\u003e \u003c/div\u003e",
-  "summary": "\u003cp\u003eSo, according to the comments I've been getting on the Exaile 0.3 roundup\narticle, people actually read this blog.\u003c/p\u003e\n",
+  "body": "\u003cp\u003eSo, according to the comments I’ve been getting on the Exaile 0.3 roundup\narticle, people actually read this blog.\nA lot of the comments have been questions or answers to previous questions in\nthe comments, so, I’ve set up an email subscription system for blog comments.\nEverything is the same, except now you’ll notice that there’s an “email address”\nfield on the comment form.\nNote that this field is completely optional.\nIf you fill it in with your valid email address, you’ll get an email anytime\nsomeone makes another comment on that article.\nIn the email message, there will be a link to unsubscribe from the topic.\u003c/p\u003e\n\u003cdiv class=\"restored-from-archive\"\u003e \u003ch3\u003eRestored from VimTips archive\u003c/h3\u003e \u003cp\u003e\nThis article was restored from the VimTips archive.\nThere’s probably missing images and broken links (and even some flash\nreferences), but it was still important to me to bring them back.\n\u003c/p\u003e \u003c/div\u003e",
+  "summary": "\u003cp\u003eSo, according to the comments I’ve been getting on the Exaile 0.3 roundup\narticle, people actually read this blog.\u003c/p\u003e\n",
   "title": "People actually read this blog?",
   "slug": "people-actually-read-blog",
   "tags": [
@@ -12,5 +12,5 @@
     "title": "People actually read this blog?",
     "type": "article"
   },
-  "sourceHash": "4d0853b06eb94398a4168ee1b3e5baf3811a200ecef2d9f65aa81be94952c406"
+  "sourceHash": "4c1cf29edbd3fcabc8b6990023ac166758091958a9a46bc58cb323c67633deea"
 }

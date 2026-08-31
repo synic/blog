@@ -5,12 +5,14 @@ publishedAt: 2007-08-07T16:47:40-07:00
 tags: [Exaile]
 ---
 <!-- summary -->
-Exaile now runs on Windows, and runs quite well. Thanks to the GStreamer and
-Songbird people who recently ported GStreamer to Windows...
+Exaile now runs on Windows, and runs quite well.
+Thanks to the GStreamer and Songbird people who recently ported GStreamer to
+Windows …
 <!-- end-summary -->
 
-<p>Exaile now runs on Windows, and runs quite well. Thanks to the GStreamer and
-Songbird people who recently ported GStreamer to Windows.</p>
+<p>Exaile now runs on Windows, and runs quite well.
+Thanks to the GStreamer and Songbird people who recently ported GStreamer to
+Windows.</p>
 
 <p>Functionally this is equivalent to the patched version in
 <a href="http://www.exaile.org/trac/ticket/200">ticket #200</a>, only using
@@ -28,13 +30,14 @@ Linux.</p>
 
 <b>How bad</b>
 
-<p>Encoding errors abound. Don&#8217;t expect to be able to import most of your
-library.</p>
+<p>Encoding errors abound.
+Don&#8217;t expect to be able to import most of your library.</p>
 
-<p>Anything to do with D-Bus has been chopped off and won&#8217;t work. In other
-words, Exaile doesn&#8217;t depend on D-Bus anymore; but that&#8217;s a hack,
-not a feature. I&#8217;m still hoping for D-Bus and dbus-python on Windows so I
-can remove the hack.</p>
+<p>Anything to do with D-Bus has been chopped off and won&#8217;t work.
+In other words, Exaile doesn&#8217;t depend on D-Bus anymore; but that&#8217;s a
+hack, not a feature.
+I&#8217;m still hoping for D-Bus and dbus-python on Windows so I can remove the
+hack.</p>
 
 <p>Things go wrong when Exaile reloads open playlists from the previous session.
 From the symptoms, I&#8217;m guessing that Exaile thinks those tracks are
@@ -72,18 +75,21 @@ Mutagen</a></li> <li>For Python < 2.5,
 
 <h3><strong>vim tip:</strong> <i>Wrapping text</i></h3>
 
-<p> Sometimes it&#8217;s useful to wrap text at a specified column. You can use
-Vim&#8217;s <code>gq</code> command and <code>textwidth</code> (<code>tw</code>)
-option to do this. Now, Vim has tons of options for wrapping lines (it can even
-autowrap text while you&#8217;re typing) and <code>gq</code> itself can be used
-in many different ways, but I normally use <code>gq</code> to wrap a block of
-comments after I finished writing it. Simply select the lines you want to format
-(in Visual mode) and hit <code>gq</code>. The wrapping column is determined by
-<code>textwidth</code>, e.g. <code>:set tw=80</code> to wrap at column 80. </p>
+<p> Sometimes it&#8217;s useful to wrap text at a specified column.
+You can use Vim&#8217;s <code>gq</code> command and <code>textwidth</code>
+(<code>tw</code>) option to do this.
+Now, Vim has tons of options for wrapping lines (it can even autowrap text while
+you&#8217;re typing) and <code>gq</code> itself can be used in many different
+ways, but I normally use <code>gq</code> to wrap a block of comments after I
+finished writing it.
+Simply select the lines you want to format (in Visual mode) and hit
+<code>gq</code>. The wrapping column is determined by <code>textwidth</code>,
+e.g. <code>:set tw=80</code> to wrap at column 80. </p>
 
 </div>
 
 <div class="restored-from-archive"> <h3>Restored from VimTips archive</h3> <p>
-This article was restored from the VimTips archive. There's probably missing
-images and broken links (and even some flash references), but it was still
-important to me to bring them back. </p> </div>
+This article was restored from the VimTips archive.
+There’s probably missing images and broken links (and even some flash
+references), but it was still important to me to bring them back.
+</p> </div>

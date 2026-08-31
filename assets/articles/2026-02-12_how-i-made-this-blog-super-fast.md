@@ -8,10 +8,11 @@ publishedAt: 2026-02-12T12:17:06-07:00
 When I was making the current version of this blog, there was a lot of
 discussion on Twitter around improving load times and responsiveness on dynamic
 websites, complete with lots of demonstrations of instant load times even for
-things that access the database, like searches. I decided to see what I could
-pull off with this little site, served from a cheap VPS. I was able to get it to
-a perfect score on Lighthouse, and indeed, if you click around on the links or
-use the search box, you will see that things load pretty much instantly.
+things that access the database, like searches.
+I decided to see what I could pull off with this little site, served from a
+cheap VPS. I was able to get it to a perfect score on Lighthouse, and indeed, if
+you click around on the links or use the search box, you will see that things
+load pretty much instantly.
 
 <img src="/static/images/articles/2026-02-12_how-i-made-this-blog-super-fast/lighthouseresults.webp" alt="Lighthouse Results" width="600" height="193" />
 <!-- end-summary -->
@@ -29,16 +30,16 @@ I used a few different technologies and ideas:
    where they stay.
 
    There is no database access for individual articles or searching, everything
-   is accessed directly from memory. I did some tests to make sure this was
-   going to be reasonable, even with a ton of articles, and I found that I could
-   probably write a couple articles a week for the rest of my life without
-   causing any real problems. The storage adapter can be change to use a
-   database if it ever becomes absolutely necessary, and then I can just cache
-   frequently accessed articles.
+   is accessed directly from memory.
+   I did some tests to make sure this was going to be reasonable, even with a
+   ton of articles, and I found that I could probably write a couple articles a
+   week for the rest of my life without causing any real problems.
+   The storage adapter can be change to use a database if it ever becomes
+   absolutely necessary, and then I can just cache frequently accessed articles.
 
    At some point I will add a comment system, and while those *will* be in a
    database, they will only be loaded on demand when the viewer clicks on the
-   "View Comments" button.
+   “View Comments” button.
 
 3. When you are navigating around the site, I used HTMX to only change the parts
    of the page that are different; the header, general layout, and footer do not

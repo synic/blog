@@ -5,14 +5,17 @@ publishedAt: 2007-09-01T18:57:19-07:00
 tags: [Random]
 ---
 <!-- summary render-in-body=true -->
-<p>I love trac. <span class="caps">LOVE</span> it. With the recent exaile.org
-hack, however, I wanted my bugs and code to be in a place that isn&#8217;t going
-anywhere soon. I chose Launchpad.</p>
+<p>I love trac. <span class="caps">LOVE</span> it.
+With the recent exaile.org hack, however, I wanted my bugs and code to be in a
+place that isn&#8217;t going anywhere soon.
+I chose Launchpad.</p>
 <!-- end-summary -->
 
-<p>I was faced with a problem &#8211; all of our bugs were in trac. Lots and
-lots of bugs. I had to somehow migrate them from trac to Launchpad, so I wrote
-up a script to do so fairly painlessly. You use it like this:</p>
+<p>I was faced with a problem &#8211; all of our bugs were in trac.
+Lots and lots of bugs.
+I had to somehow migrate them from trac to Launchpad, so I wrote up a script to
+do so fairly painlessly.
+You use it like this:</p>
 
 ```bash
 $ ./trac2lp lpusername lppassword project /path/to/trac.db
@@ -83,22 +86,25 @@ for row in cur.fetchall():
         pass
 ```
 
-<b>Note:</b> This only migrates open tickets. </p>
+<b>Note:</b> This only migrates open tickets.
+</p>
 
 <div class='vimtip'>
 
 <h3><b>vim tip:</b> <i>Ron colorscheme</i></h3>
 
 <p> If you&#8217;re like me, you are used to having your terminal being a white
-foreground on a black background. When using vim in a terminal, I&#8217;ve found
-that the default colorscheme is hard on the eyes, or just plain hard to read
-with a black background. I tried out all the schemes that Vim comes with, and
-the winner is Ron. Try it: <code>:colorscheme ron</code>.
-<span class="caps">IMHO</span>, much better on the eyes.<br /> </p>
+foreground on a black background.
+When using vim in a terminal, I&#8217;ve found that the default colorscheme is
+hard on the eyes, or just plain hard to read with a black background.
+I tried out all the schemes that Vim comes with, and the winner is Ron.
+Try it: <code>:colorscheme ron</code>. <span class="caps">IMHO</span>, much
+better on the eyes.<br /> </p>
 
 </div>
 
 <div class="restored-from-archive"> <h3>Restored from VimTips archive</h3> <p>
-This article was restored from the VimTips archive. There's probably missing
-images and broken links (and even some flash references), but it was still
-important to me to bring them back. </p> </div>
+This article was restored from the VimTips archive.
+There’s probably missing images and broken links (and even some flash
+references), but it was still important to me to bring them back.
+</p> </div>

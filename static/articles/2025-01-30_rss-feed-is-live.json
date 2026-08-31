@@ -1,6 +1,6 @@
 {
   "publishedAt": "2025-01-30T08:23:51-07:00",
-  "body": "\u003cp\u003eIn response to my last article, someone on Bluesky suggested I add an RSS feed,\nand so I did.\u003c/p\u003e\n\u003cp\u003eHere's the link: \u003ca href=\"https://synic.dev/feed.xml\"\u003eRSS Feed\u003c/a\u003e.\u003c/p\u003e\n\u003cp\u003eThanks for the suggestion!\u003c/p\u003e\n",
+  "body": "\u003cp\u003eIn response to my last article, someone on Bluesky suggested I add an RSS feed,\nand so I did.\u003c/p\u003e\n\u003cp\u003eHere’s the link: \u003ca href=\"https://synic.dev/feed.xml\"\u003eRSS Feed\u003c/a\u003e.\u003c/p\u003e\n\u003cp\u003eThanks for the suggestion!\u003c/p\u003e\n",
   "summary": "\u003cp\u003eIn response to my last article, someone on Bluesky suggested I add an RSS feed,\nand so I did. You can find it here:\n\u003ca href=\"https://synic.dev/feed.xml\" title=\"RSS Feed\"\u003eRSS Feed\u003c/a\u003e.\u003c/p\u003e\n\u003cp\u003eThanks for the suggestion!\u003c/p\u003e\n",
   "title": "RSS Feed is Live!",
   "slug": "rss-feed-is-live",
@@ -12,5 +12,5 @@
     "title": "RSS Feed is Live!",
     "type": "article"
   },
-  "sourceHash": "6ea998120007fd04cb9dfc7652bbd9954915ce947ca1edf9207c2babac66c2f3"
+  "sourceHash": "d3e79c1318b3d80eb3815b883ac2eea3f0ca3c52b02c51264ff0aa7c0b67a821"
 }

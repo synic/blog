@@ -1,6 +1,6 @@
 {
   "publishedAt": "2007-11-06T16:30:01-07:00",
-  "body": "\u003cp\u003eSorry about the weird RSS problems my blog has been having. Moving to a new\nsystem caused all the GIDs to be different, so all the old articles showed up as\nnew in readers. Also, I'm fairly new to Django, so I forgot things like\n\u0026quot;categories\u0026quot; and \u0026quot;pub date\u0026quot; in the Feed class (I know, I'm an idiot), so all the\nfeeds showed up in the incorrect order on \u003ca href=\"http://www.openclue.org\"\u003ehttp://www.openclue.org\u003c/a\u003e\u003c/p\u003e\n\u003cp\u003eAnyway, I think I've finally gotten it all figured out, so hopefully you\nshouldn't see these oddities anymore.\u003c/p\u003e\n\u003cdiv class=\"restored-from-archive\"\u003e \u003ch3\u003eRestored from VimTips archive\u003c/h3\u003e \u003cp\u003e\nThis article was restored from the VimTips archive. There's probably missing\nimages and broken links (and even some flash references), but it was still\nimportant to me to bring them back. \u003c/p\u003e \u003c/div\u003e",
+  "body": "\u003cp\u003eSorry about the weird RSS problems my blog has been having.\nMoving to a new system caused all the GIDs to be different, so all the old\narticles showed up as new in readers.\nAlso, I’m fairly new to Django, so I forgot things like “categories” and “pub\ndate” in the Feed class (I know, I’m an idiot), so all the feeds showed up in\nthe incorrect order on \u003ca href=\"http://www.openclue.org\"\u003ehttp://www.openclue.org\u003c/a\u003e\u003c/p\u003e\n\u003cp\u003eAnyway, I think I’ve finally gotten it all figured out, so hopefully you\nshouldn’t see these oddities anymore.\u003c/p\u003e\n\u003cdiv class=\"restored-from-archive\"\u003e \u003ch3\u003eRestored from VimTips archive\u003c/h3\u003e \u003cp\u003e\nThis article was restored from the VimTips archive.\nThere’s probably missing images and broken links (and even some flash\nreferences), but it was still important to me to bring them back.\n\u003c/p\u003e \u003c/div\u003e",
   "summary": "\u003cp\u003eSorry about the weird RSS problems my blog has been having.\u003c/p\u003e\n",
   "title": "Feed Problems",
   "slug": "feed-problems",
@@ -13,5 +13,5 @@
     "title": "Feed Problems",
     "type": "article"
   },
-  "sourceHash": "1dc3608c045c331840d0df73fb4f0cd83ca709d7bc2a571a1cee5bae2fc97506"
+  "sourceHash": "0b878ae9296875f8905359df1ccae334e9994698ac6473b109515b18ebd97853"
 }

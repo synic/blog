@@ -6,18 +6,18 @@ tags: [Programming, Python, Django]
 ---
 <!-- summary -->
 I noticed that every time Clint Savage makes a blog update, he posts the URL to
-Twitter twice (yeah, that's you herlo :P). The URLs for each Twitter post are
+Twitter twice (yeah, that’s you herlo :P). The URLs for each Twitter post are
 different, so I figured it must be some sort of automated Wordpress script with
-a bug in it...
+a bug in it …
 <!-- end-summary -->
 
 <p>I noticed that every time Clint Savage makes a blog update, he posts the URL
-to Twitter twice (yeah, that's you herlo :P). The URLs for each Twitter post are
+to Twitter twice (yeah, that’s you herlo :P). The URLs for each Twitter post are
 different, so I figured it must be some sort of automated Wordpress script with
 a bug in it.</p> <p>So, I decided to write something to do the same for my own
-blog. Clint's passes the URL through tinyurl to get an address that's not too
-long for Twitter, but in my blog's case, http://vimtips.org/article_id works
-just fine.</p> <p>Here's the code I used to do it:</p>
+blog. Clint’s passes the URL through tinyurl to get an address that’s not too
+long for Twitter, but in my blog’s case, http://vimtips.org/article_id works
+just fine.</p> <p>Here’s the code I used to do it:</p>
 
 ```python
 from vimtips import settings
@@ -69,6 +69,7 @@ class Article(models.Model):
 <a href='http://code.google.com/p/python-twitter/'>http://code.google.com/p/python-twitter/</a>.
 
 <div class="restored-from-archive"> <h3>Restored from VimTips archive</h3> <p>
-This article was restored from the VimTips archive. There's probably missing
-images and broken links (and even some flash references), but it was still
-important to me to bring them back. </p> </div>
+This article was restored from the VimTips archive.
+There’s probably missing images and broken links (and even some flash
+references), but it was still important to me to bring them back.
+</p> </div>

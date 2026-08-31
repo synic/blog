@@ -6,24 +6,28 @@ tags: [Exaile, Programming]
 ---
 <!-- summary -->
 <p><span class="caps">GNOME</span> 2.18 introduced a new way for applications to
-handle multimedia keys. Previously you have to muck around with X events, while
-now <span class="caps">GNOME</span> does it for you and you can get control of
+handle multimedia keys.
+Previously you have to muck around with X events, while now
+<span class="caps">GNOME</span> does it for you and you can get control of
 mmkeys by requesting through D-Bus (to <span class="caps">GNOME</span> Control
-Center&#8217;s Settings Daemon). All good until you realise that for
-cross-desktop support you still need the old method anyway&#8212;unless, like
-Rhythmbox and Banshee, your app is GNOME-based.</p>
+Center&#8217;s Settings Daemon).
+All good until you realise that for cross-desktop support you still need the old
+method anyway&#8212;unless, like Rhythmbox and Banshee, your app is
+GNOME-based.</p>
 
 <p>This article shows how we support both methods in Exaile, and how you can do
 it, too.</p>
 <!-- end-summary -->
 
 <p><span class="caps">GNOME</span> 2.18 introduced a new way for applications to
-handle multimedia keys. Previously you have to muck around with X events, while
-now <span class="caps">GNOME</span> does it for you and you can get control of
+handle multimedia keys.
+Previously you have to muck around with X events, while now
+<span class="caps">GNOME</span> does it for you and you can get control of
 mmkeys by requesting through D-Bus (to <span class="caps">GNOME</span> Control
-Center&#8217;s Settings Daemon). All good until you realise that for
-cross-desktop support you still need the old method anyway&#8212;unless, like
-Rhythmbox and Banshee, your app is GNOME-based.</p>
+Center&#8217;s Settings Daemon).
+All good until you realise that for cross-desktop support you still need the old
+method anyway&#8212;unless, like Rhythmbox and Banshee, your app is
+GNOME-based.</p>
 
 <p>Few people are aware of this change&#8212;most only realised after their
 mmkeys didn&#8217;t work anymore
@@ -43,9 +47,10 @@ write one to help other media player writers.</p>
      * `application` is simply the application name.
      * `time` determines which application name gets sent with the
        MediaPlayerKeyPressed signal if multiple applications have registered
-       interest in controlling mmkeys. Rhythmbox uses 0 for <em>time</em> (I
-       think 0 simply pushes your application to a stack), so that&#8217;s
-       probably what you should use as well.
+       interest in controlling mmkeys.
+       Rhythmbox uses 0 for <em>time</em> (I think 0 simply pushes your
+       application to a stack), so that&#8217;s probably what you should use as
+       well.
    * <strong>ReleaseMediaPlayerKeys</strong>(application)
 5. <strong>Signals</strong>:
    * <strong>MediaPlayerKeyPressed</strong>(application, key)
@@ -55,10 +60,10 @@ write one to help other media player writers.</p>
        gnomecc).
 
 <p><a href="http://exaile.org/trac/changeset/2255">Exaile&#8217;s revision
-2255</a> shows how we added common mmkeys support to Exaile. I have made the
-MmKeys class generic so other players can also use it if they want to. Note that
-I&#8217;ve added a &#8216;PlayPause&#8217; key to match the signal from the
-mmkeys module.</p>
+2255</a> shows how we added common mmkeys support to Exaile.
+I have made the MmKeys class generic so other players can also use it if they
+want to. Note that I&#8217;ve added a &#8216;PlayPause&#8217; key to match the
+signal from the mmkeys module.</p>
 
 <p>This post has been in my blog queue for some time, and meanwhile in the Quod
 Libet world, Joe Wreschnig has
@@ -93,11 +98,11 @@ ago, yay!</p>
 
 <h3><b>vim tip:</b> <i>Color schemes</i></h3>
 
-<p> Tired of looking at the same colours in Vim all the time? Use the
-<code>colorscheme</code> (<code>colo</code>) command. For example, try
-<code>:colorscheme evening</code> (if you want to revert, the default scheme is
-named &#8220;default&#8221;). The effects of colour schemes are more noticable
-when you&#8217;re using GVim.
+<p> Tired of looking at the same colours in Vim all the time?
+Use the <code>colorscheme</code> (<code>colo</code>) command.
+For example, try <code>:colorscheme evening</code> (if you want to revert, the
+default scheme is named &#8220;default&#8221;). The effects of colour schemes
+are more noticable when you&#8217;re using GVim.
 
 There are a few colour schemes included with Vim, normally located in
 <code>/usr/share/vim/vimXX/colors/</code> (XX is 70 if you use Vim 7.0). </p>
@@ -105,6 +110,7 @@ There are a few colour schemes included with Vim, normally located in
 </div>
 
 <div class="restored-from-archive"> <h3>Restored from VimTips archive</h3> <p>
-This article was restored from the VimTips archive. There's probably missing
-images and broken links (and even some flash references), but it was still
-important to me to bring them back. </p> </div>
+This article was restored from the VimTips archive.
+There’s probably missing images and broken links (and even some flash
+references), but it was still important to me to bring them back.
+</p> </div>

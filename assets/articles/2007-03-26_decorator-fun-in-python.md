@@ -5,8 +5,9 @@ publishedAt: 2007-03-26T18:25:00-07:00
 tags: [Programming, Python]
 ---
 <!-- summary render-in-body=true -->
-I came across the following code a while ago. I can't take credit for it, and I
-can't remember where I got it. Oh well. It's pretty cool nonetheless.
+I came across the following code a while ago.
+I can’t take credit for it, and I can’t remember where I got it.
+Oh well. It’s pretty cool nonetheless.
 <!-- end-summary -->
 
 ```python
@@ -58,9 +59,11 @@ def this_is_a_long_running_function():
 
 <p> <b>A</b> will take you to the end of the line and put you in insert mode.
 <b>D</b> will delete until the end of the line, and <b>C</b> will delete to the
-end of the line and put you in insert mode. </p> </div>
+end of the line and put you in insert mode.
+</p> </div>
 
 <div class="restored-from-archive"> <h3>Restored from VimTips archive</h3> <p>
-This article was restored from the VimTips archive. There's probably missing
-images and broken links (and even some flash references), but it was still
-important to me to bring them back. </p> </div>
+This article was restored from the VimTips archive.
+There’s probably missing images and broken links (and even some flash
+references), but it was still important to me to bring them back.
+</p> </div>

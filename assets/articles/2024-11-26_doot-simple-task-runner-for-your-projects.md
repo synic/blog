@@ -8,8 +8,8 @@ openGraph:
 ---
 <!-- summary render-in-body=true -->
 Doot is a simple, zero dependency (except Python 3, which comes installed on
-most *nix operating systems) task runner. Similar to `make`, but meant to be
-used for non-C style projects.
+most *nix operating systems) task runner.
+Similar to `make`, but meant to be used for non-C style projects.
 <!-- end-summary -->
 
 # Getting Started
@@ -98,6 +98,7 @@ For more information, see the [GitHub Repository](https://github.com/synic/doot)
 
 ## Acknowledgements
 
-This project was named after our beloved Doots. She will be missed.
+This project was named after our beloved Doots.
+She will be missed.
 
 ![Doots](https://github.com/synic/doot/raw/aec35bbc68fc846c606ce04a14b9a1cce8c7ccdd/docs/images/thebestdoots.jpg)

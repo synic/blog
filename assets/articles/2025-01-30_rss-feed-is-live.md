@@ -15,6 +15,6 @@ Thanks for the suggestion!
 In response to my last article, someone on Bluesky suggested I add an RSS feed,
 and so I did.
 
-Here's the link: [RSS Feed](https://synic.dev/feed.xml).
+Here’s the link: [RSS Feed](https://synic.dev/feed.xml).
 
 Thanks for the suggestion!

@@ -26,8 +26,9 @@ mine/
 /go.work.sum
 /go.work
 
-# tailwind
+# other language modules
 /node_modules
+/.venv
 
 # sqlite
 *.sqlite

@@ -6,12 +6,13 @@ publishedAt: 2025-01-29T03:35:36-07:00
 ---
 <!-- summary -->
 When copying code blocks to share on GitHub or other platforms, preserving
-proper indentation can be tricky. I created a NeoVim function that automatically
-normalizes indentation when copying, making your shared code snippets clean and
-consistent. Here's how to set it up!
+proper indentation can be tricky.
+I created a NeoVim function that automatically normalizes indentation when
+copying, making your shared code snippets clean and consistent.
+Here’s how to set it up!
 <!-- end-summary -->
 
-Let's say I wanted to copy this block of code so that I can paste it into a
+Let’s say I wanted to copy this block of code so that I can paste it into a
 github comment:
 
 ![Copy block](https://github.com/user-attachments/assets/4ce11648-30fd-447d-b10c-74a5552a9740)
@@ -26,7 +27,7 @@ If I use my function (see below), it looks like this when pasted:
 
 Much better!
 
-Here's the function:
+Here’s the function:
 
 ```lua
 local function copy_normalized_block()

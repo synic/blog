@@ -66,6 +66,7 @@ var (
 	airCmd      = sh.RunCmd("go", "tool", "air")
 	gooseCmd    = sh.RunCmd("go", "tool", "goose")
 	sqlcCmd     = sh.RunCmd("go", "tool", "sqlc")
+	flowMarkCmd = sh.RunCmd("./.venv/bin/flowmark", "--auto", "--width=80")
 )
 
 func Dev() error {
@@ -87,14 +88,28 @@ func (Deps) Dev() error {
 		}
 	}
 
+	if _, err := os.Stat("./.venv/bin/flowmark"); err != nil {
+		if !errors.Is(err, os.ErrNotExist) {
+			return err
+		}
+
+		if err = sh.RunV("python3", "-m", "venv", ".venv"); err != nil {
+			return err
+		}
+
+		if err = sh.RunV("./.venv/bin/pip", "install", "-r", "requirements.txt"); err != nil {
+			return err
+		}
+	}
+
 	return nil
 }
 
 type Build mg.Namespace
 
 func (Build) Dev() error {
-	mg.Deps(Format)
 	mg.Deps(Codegen)
+	mg.Deps(Format)
 	mg.Deps(Articles.Convert, Images{}.Build)
 
 	return buildCmd("-tags", "debug",
@@ -116,12 +131,14 @@ func buildRelease() error {
 }
 
 func (Build) Release() error {
+	mg.Deps(Deps.Dev)
 	mg.Deps(Test)
 	mg.Deps(Articles.Convert, Images{}.Build)
 	return buildRelease()
 }
 
 func (Build) ReleaseForDocker() error {
+	mg.Deps(Deps.Dev)
 	mg.Deps(Test)
 	mg.Deps(Articles.Convert) // no image build
 	return buildRelease()
@@ -550,24 +567,26 @@ func Vet() error {
 }
 
 func Test() error {
+	mg.Deps(Deps.Dev)
 	mg.Deps(Vet)
 	return sh.RunV("go", "test", "-race", "./...")
 }
 
 func Format() error {
+	mg.Deps(Deps.Dev)
 	if err := templCmd("fmt", "internal/view"); err != nil {
 		return err
 	}
 
-	if err := sh.RunV("go", "fmt", "./..."); err != nil {
-		return err
-	}
+	return sh.RunV("go", "fmt", "./...")
+}
 
+func Check() error {
 	if err := Vet(); err != nil {
 		return err
 	}
 
-	return sh.RunV("go", "test", "-race", "./...")
+	return Test()
 }
 
 func Clean() error {

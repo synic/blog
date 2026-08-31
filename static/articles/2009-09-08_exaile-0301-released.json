@@ -1,7 +1,7 @@
 {
   "publishedAt": "2009-09-08T16:23:58-07:00",
-  "body": "\u003cp\u003eThis month is my company's national convention. This combined with a secret\nproject I'm working on after hours means I basically have no time to work on\nExaile until October. So, no thanks to me, Exaile 0.3.0.1 has been released.\nThis one is brought to you by the other members of the team, and is a bugfix\nrelease for 0.3.0. This includes fixing the bug that was causing 0.2.14-\u0026gt;0.3\nmigration problems for most people. Enjoy!\u003c/p\u003e\n\u003cp\u003eCheck out our \u003ca href='http://www.exaile.org'\u003ehomepage\u003c/a\u003e for more information.\u003c/p\u003e\n\u003cdiv class=\"restored-from-archive\"\u003e \u003ch3\u003eRestored from VimTips archive\u003c/h3\u003e \u003cp\u003e\nThis article was restored from the VimTips archive. There's probably missing\nimages and broken links (and even some flash references), but it was still\nimportant to me to bring them back. \u003c/p\u003e \u003c/div\u003e",
-  "summary": "\u003cp\u003eThis month is my company's national convention. This combined with a secret\nproject I'm working on after hours means I basically have no time to work on\nExaile until October. So, no thanks to me, Exaile 0.3.0.1 has been released.\nThis one is brought to you by the other members of the team, and is a bugfix\nrelease for 0.3.0. This includes fixing the bug that was causing 0.2.14-\u0026gt;0.3\nmigration problems for most people. Enjoy!\u003c/p\u003e\n",
+  "body": "\u003cp\u003eThis month is my company’s national convention.\nThis combined with a secret project I’m working on after hours means I basically\nhave no time to work on Exaile until October.\nSo, no thanks to me, Exaile 0.3.0.1 has been released.\nThis one is brought to you by the other members of the team, and is a bugfix\nrelease for 0.3.0. This includes fixing the bug that was causing 0.2.14-\u0026gt;0.3\nmigration problems for most people.\nEnjoy!\u003c/p\u003e\n\u003cp\u003eCheck out our \u003ca href='http://www.exaile.org'\u003ehomepage\u003c/a\u003e for more information.\u003c/p\u003e\n\u003cdiv class=\"restored-from-archive\"\u003e \u003ch3\u003eRestored from VimTips archive\u003c/h3\u003e \u003cp\u003e\nThis article was restored from the VimTips archive.\nThere’s probably missing images and broken links (and even some flash\nreferences), but it was still important to me to bring them back.\n\u003c/p\u003e \u003c/div\u003e",
+  "summary": "\u003cp\u003eThis month is my company’s national convention.\nThis combined with a secret project I’m working on after hours means I basically\nhave no time to work on Exaile until October.\nSo, no thanks to me, Exaile 0.3.0.1 has been released.\nThis one is brought to you by the other members of the team, and is a bugfix\nrelease for 0.3.0. This includes fixing the bug that was causing 0.2.14-\u0026gt;0.3\nmigration problems for most people.\nEnjoy!\u003c/p\u003e\n",
   "title": "Exaile 0.3.0.1 Released!",
   "slug": "exaile-0301-released",
   "tags": [
@@ -15,5 +15,5 @@
     "title": "Exaile 0.3.0.1 Released!",
     "type": "article"
   },
-  "sourceHash": "ac11db9f0cb9183f254c3753bf5abba06ee2ef13451befd7c432fa87458092e5"
+  "sourceHash": "f4b09cc04794c60a5336b913579b775b8269f5e30dd982a00fc934c7be4571fa"
 }

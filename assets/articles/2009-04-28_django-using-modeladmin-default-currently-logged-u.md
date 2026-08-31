@@ -5,14 +5,15 @@ publishedAt: 2009-04-28T17:51:36-07:00
 tags: [Programming, Python, Django]
 ---
 <!-- summary render-in-body=true -->
-Yeah, you may have noticed that I've been working on the blog lately. Poor
-openclue.org got flooded with already posted RSS feeds again. This happens all
-to often. Sorry guys.
+Yeah, you may have noticed that I’ve been working on the blog lately.
+Poor openclue.org got flooded with already posted RSS feeds again.
+This happens all to often.
+Sorry guys.
 <!-- end-summary -->
 
 Anyway, this blog system has the ability to have more than one person post
-articles. In the past, sjohannes used to post here too. The model for articles
-looks something like this:
+articles. In the past, sjohannes used to post here too.
+The model for articles looks something like this:
 
 ```python
 from django.contrib.auth.models import User
@@ -28,10 +29,12 @@ class Article(models.Model):
     publisher = models.ForeignKey(User)
 ```
 
-As you can see, there's a ForeignKey to django.contrib.auth.models.User. The
-question here is: how do I make the `publisher` field default to the currently
-logged in user? It was harder than I thought it should be, but it can be done
-using hooks in the ModelAdmin for the Article model. Take a look:
+As you can see, there’s a ForeignKey to django.contrib.auth.models.User.
+The question here is: how do I make the `publisher` field default to the
+currently logged in user?
+It was harder than I thought it should be, but it can be done using hooks in the
+ModelAdmin for the Article model.
+Take a look:
 
 ```python
 class ArticleAdmin(admin.ModelAdmin):
@@ -60,16 +63,18 @@ admin.site.register(models.Article, ArticleAdmin)
 
 As you can see, I overload `get_form` for one purpose: It takes the HttpRequest
 as the first argument, which we can use to save the currently logged in user.
-The other method that's overloaded, `formfield_for_dbfield` is called for every
+The other method that’s overloaded, `formfield_for_dbfield` is called for every
 field in the model, and is made for the purpose of specifying your own custom
-form fields (and widgets). In this case, we use the same field type that the
-admin would have used - `ModelChoiceField` and give it an initial, which is the
-id of the currently logged in user.
+form fields (and widgets).
+In this case, we use the same field type that the admin would have used -
+`ModelChoiceField` and give it an initial, which is the id of the currently
+logged in user.
 
-There you have it. It's a little hacky, but it's the only way I could find to do
-it. If you've seen a cleaner way, let me know!
+There you have it. It’s a little hacky, but it’s the only way I could find to do
+it. If you’ve seen a cleaner way, let me know!
 
 <div class="restored-from-archive"> <h3>Restored from VimTips archive</h3> <p>
-This article was restored from the VimTips archive. There's probably missing
-images and broken links (and even some flash references), but it was still
-important to me to bring them back. </p> </div>
+This article was restored from the VimTips archive.
+There’s probably missing images and broken links (and even some flash
+references), but it was still important to me to bring them back.
+</p> </div>

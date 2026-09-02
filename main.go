@@ -116,6 +116,7 @@ func main() {
 
 	authMW := middleware.AuthMiddleware(queries, conf.AdminEmail)
 	csrfMW := middleware.CSRFMiddleware()
+	cacheMW := middleware.CacheControlMiddleware()
 
 	server := &http.Server{
 		Addr:              conf.HttpAddress,
@@ -144,6 +145,7 @@ func main() {
 		staticFS,
 		authMW,
 		csrfMW,
+		cacheMW,
 		articleController,
 		commentController,
 		authController,

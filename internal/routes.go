@@ -15,13 +15,14 @@ func RegisterRoutes(
 	staticFS fs.FS,
 	auth middleware.Middleware,
 	csrf middleware.Middleware,
+	cacheControl middleware.Middleware,
 	articleController controller.ArticleController,
 	commentController controller.CommentController,
 	authController controller.AuthController,
 	leaderboardController controller.LeaderboardController,
 ) {
 	// static files
-	handler.Handle("GET /static/", static.StaticHandler(staticFS))
+	handler.Handle("GET /static/", cacheControl(static.StaticHandler(staticFS)))
 	handler.HandleFunc("GET /favicon.ico", func(w http.ResponseWriter, r *http.Request) {
 		http.ServeFileFS(w, r, staticFS, "images/favicon.ico")
 	})

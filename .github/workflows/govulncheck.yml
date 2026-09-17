@@ -1,5 +1,5 @@
 ---
-name: Vulnerability Check
+name: Blog Vulnerability Check
 
 on:  # yamllint disable-line rule:truthy
   schedule:
@@ -10,9 +10,9 @@ jobs:
   vulncheck:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-go@v6
+      - uses: actions/setup-go@v7
         with:
           go-version-file: go.mod
 

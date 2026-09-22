@@ -19,12 +19,9 @@ use bzr snapshots. The first of these is located at
 They will be posted every Wednesday at 5:00pm.</p>
 
 <p><b>Note</b>: These are *automated* tarballs, and are in no way guaranteed to
-be remotely stable, or to even run at all.
-Use at your own risk.
-</p>
+be remotely stable, or to even run at all. Use at your own risk. </p>
 
 <div class="restored-from-archive"> <h3>Restored from VimTips archive</h3> <p>
-This article was restored from the VimTips archive.
-There’s probably missing images and broken links (and even some flash
-references), but it was still important to me to bring them back.
-</p> </div>
+This article was restored from the VimTips archive. There’s probably missing
+images and broken links (and even some flash references), but it was still
+important to me to bring them back. </p> </div>

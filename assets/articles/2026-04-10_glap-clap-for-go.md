@@ -9,15 +9,13 @@ openGraph:
 ---
 <!-- summary -->
 Rustaceans have been spoiled by Rust’s [clap](https://github.com/clap-rs/clap)
-(or, at least, I think they have).
-The derive macros, the ergonomics, the fact that you can describe an entire CLI
-with a struct and be done with it — it’s really nice.
-I’ve never actually used (never tried Rust), but every time I see an example, I
-think “I wish Go had this.”
-Go’s standard `flag` package works, and
-[urfave/cli](https://github.com/urfave/cli) is the one I reach for when I need
-more, but neither has that declarative feel.
-So I wrote [glap](https://github.com/synic/glap).
+(or, at least, I think they have). The derive macros, the ergonomics, the fact
+that you can describe an entire CLI with a struct and be done with it — it’s
+really nice. I’ve never actually used (never tried Rust), but every time I see
+an example, I think “I wish Go had this.” Go’s standard `flag` package works,
+and [urfave/cli](https://github.com/urfave/cli) is the one I reach for when I
+need more, but neither has that declarative feel. So I wrote
+[glap](https://github.com/synic/glap).
 
 <img src="/static/images/articles/2026-04-10_glap-clap-for-go/glap-gopher.webp" alt="Go gopher" width="115" height="128" />
 
@@ -33,28 +31,25 @@ type CLI struct {
 ```
 
 Parse it, use it. Subcommands, env var fallback, validators, groups,
-conflicts/requires, colored help, shell completions — all there.
-It’s still beta, but it’s working well for me.
+conflicts/requires, colored help, shell completions — all there. It’s still
+beta, but it’s working well for me.
 <!-- end-summary -->
 
 Rustaceans have been spoiled by Rust’s [clap](https://github.com/clap-rs/clap)
-(or, at least, I think they have).
-The derive macros, the ergonomics, the fact that you can describe an entire CLI
-with a struct and be done with it — it’s really nice.
-I’ve never actually used (never tried Rust), but every time I see an example, I
-think “I wish Go had this.”
-Go’s standard `flag` package works, and
-[urfave/cli](https://github.com/urfave/cli) is the one I reach for when I need
-more, but neither has that declarative feel.
-So I wrote [glap](https://github.com/synic/glap).
+(or, at least, I think they have). The derive macros, the ergonomics, the fact
+that you can describe an entire CLI with a struct and be done with it — it’s
+really nice. I’ve never actually used (never tried Rust), but every time I see
+an example, I think “I wish Go had this.” Go’s standard `flag` package works,
+and [urfave/cli](https://github.com/urfave/cli) is the one I reach for when I
+need more, but neither has that declarative feel. So I wrote
+[glap](https://github.com/synic/glap).
 
 <img src="/static/images/articles/2026-04-10_glap-clap-for-go/glap-gopher.webp" alt="Go gopher" width="115" height="128" />
 
 ## The struct tag API
 
-This is the part that felt the most like clap.
-You describe your CLI as a struct, put some tags on the fields, and hand it to
-glap:
+This is the part that felt the most like clap. You describe your CLI as a
+struct, put some tags on the fields, and hand it to glap:
 
 ```go
 package main
@@ -85,9 +80,8 @@ func main() {
 }
 ```
 
-That’s the whole program.
-You get `--help`, `--version`, validation of `possible` values, defaults,
-required fields, short flags — all from the tags.
+That’s the whole program. You get `--help`, `--version`, validation of
+`possible` values, defaults, required fields, short flags — all from the tags.
 
 ## The builder API
 
@@ -108,8 +102,8 @@ app := glap.NewCommand("myapp").
 matches, err := app.Parse(os.Args[1:])
 ```
 
-Same CLI, but without those pesky struct tags.
-Pick whichever one fits your project.
+Same CLI, but without those pesky struct tags. Pick whichever one fits your
+project.
 
 ## What else it does
 
@@ -126,8 +120,8 @@ A few things I won’t demo here but are worth knowing about:
 ## Status
 
 It’s still pre-1.0 and the API might shift a bit before I tag a stable release,
-but I’ve been using it in my own projects and it’s been solid.
-The code, examples, and full docs live at
+but I’ve been using it in my own projects and it’s been solid. The code,
+examples, and full docs live at
 [github.com/synic/glap](https://github.com/synic/glap).
 
 Give it a try!

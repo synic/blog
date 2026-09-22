@@ -16,7 +16,6 @@ installation instructions that Lasse Riis has written up for us on our wiki.</p>
 Instructions</a></p> <p>Special thanks to Lasse for his work!</p>
 
 <div class="restored-from-archive"> <h3>Restored from VimTips archive</h3> <p>
-This article was restored from the VimTips archive.
-There’s probably missing images and broken links (and even some flash
-references), but it was still important to me to bring them back.
-</p> </div>
+This article was restored from the VimTips archive. There’s probably missing
+images and broken links (and even some flash references), but it was still
+important to me to bring them back. </p> </div>

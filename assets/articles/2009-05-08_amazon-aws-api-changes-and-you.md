@@ -13,19 +13,16 @@ authenticating. What does this mean to you?
 <!-- end-summary -->
 
 This signature is created using your “Secret Access Key”, which is available on
-their website in your account details.
-From their website: ??"Your Shared Access Key is secret, and should only be
-known by you and AWS."??
+their website in your account details. From their website: ??"Your Shared Access
+Key is secret, and should only be known by you and AWS."??
 
 **This means that in order to use the Product Advertising API (Amazon Web
-Services), you will need to sign up for an AWS account.
-No more is the zeroconf album art downloading in programs like Exaile and
-Amarok**.
+Services), you will need to sign up for an AWS account. No more is the zeroconf
+album art downloading in programs like Exaile and Amarok**.
 
 Time to move to Last.FM for album art.
 
 <div class="restored-from-archive"> <h3>Restored from VimTips archive</h3> <p>
-This article was restored from the VimTips archive.
-There’s probably missing images and broken links (and even some flash
-references), but it was still important to me to bring them back.
-</p> </div>
+This article was restored from the VimTips archive. There’s probably missing
+images and broken links (and even some flash references), but it was still
+important to me to bring them back. </p> </div>

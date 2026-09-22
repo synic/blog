@@ -6,15 +6,15 @@ tags: [Programming, Django]
 ---
 <!-- summary render-in-body=true -->
 <a href='http://www.djangoproject.com'>Django</a> is a “high-level Python Web
-framework that encourages rapid development and clean, pragmatic design.”
-So far, I have absolutely no complaints … and much praise.
+framework that encourages rapid development and clean, pragmatic design.” So
+far, I have absolutely no complaints … and much praise.
 <!-- end-summary -->
 
 Going from never using Django to entirely rewriting my blog and converting all
-the old entries took me only a few days.
-I only had to write the HTML templates and a little Python code, and Django does
-the rest for me, including the entire administration panel where I can edit
-articles, article categories, links and etc.
+the old entries took me only a few days. I only had to write the HTML templates
+and a little Python code, and Django does the rest for me, including the entire
+administration panel where I can edit articles, article categories, links and
+etc.
 
 Initial impressions are this: I can tell that this is going to be one of those
 things (like VIM) that is going to make me think “why, oh why, didn’t I learn
@@ -22,8 +22,8 @@ this earlier?”
 
 I had a bit of trouble installing it on my
 <a href='http://www.dreamhost.com'>Dreamhost</a> account, but nothing that
-wasn’t covered in their wiki (http://wiki.dreamhost.com/index.php/Django).
-I basically just had to contact support and ask them to configure my site for
+wasn’t covered in their wiki (http://wiki.dreamhost.com/index.php/Django). I
+basically just had to contact support and ask them to configure my site for
 Python+FCGI. They were quick to respond and I had it working in a few hours from
 begin to end.
 
@@ -37,7 +37,6 @@ syntax definition file, which you can find here:
 http://www.vim.org/scripts/script.php?script_id=1487</a> </div> </p>
 
 <div class="restored-from-archive"> <h3>Restored from VimTips archive</h3> <p>
-This article was restored from the VimTips archive.
-There’s probably missing images and broken links (and even some flash
-references), but it was still important to me to bring them back.
-</p> </div>
+This article was restored from the VimTips archive. There’s probably missing
+images and broken links (and even some flash references), but it was still
+important to me to bring them back. </p> </div>

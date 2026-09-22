@@ -5,27 +5,24 @@ publishedAt: 2009-08-02T23:26:52-07:00
 tags: [Linux]
 ---
 <!-- summary -->
-I’ve installed Ubuntu on my netbook twice today (don’t ask).
-Probably like the rest of you, part of installing Ubuntu involves going through
-and changing all of the moronic settings that Gnome comes with as default.
-This includes changing the default terminal background from white to black,
-changing font sizes, setting toolbars to “icon only”, setting up hotkeys, etc.
+I’ve installed Ubuntu on my netbook twice today (don’t ask). Probably like the
+rest of you, part of installing Ubuntu involves going through and changing all
+of the moronic settings that Gnome comes with as default. This includes changing
+the default terminal background from white to black, changing font sizes,
+setting toolbars to “icon only”, setting up hotkeys, etc.
 <!-- end-summary -->
 
-<p>I’ve installed Ubuntu on my netbook twice today (don’t ask).
-Probably like the rest of you, part of installing Ubuntu involves going through
-and changing all of the moronic settings that Gnome comes with as default.
-This includes changing the default terminal background from white to black,
-changing font sizes, setting toolbars to “icon only”, setting up hotkeys, etc.
-</p>
+<p>I’ve installed Ubuntu on my netbook twice today (don’t ask). Probably like
+the rest of you, part of installing Ubuntu involves going through and changing
+all of the moronic settings that Gnome comes with as default. This includes
+changing the default terminal background from white to black, changing font
+sizes, setting toolbars to “icon only”, setting up hotkeys, etc. </p>
 
 <p>It was getting a little annoying to do all the time, so I finally went
 through gconf-editor and found the settings I change, and wrote up a script to
-do all of them at once.
-Figured I’d post it here, not only so I can use it later, but so you can derive
-from it if you wish.
-It’s pretty simple, just using the command line utility “gconftool”.
-Here it is:</p>
+do all of them at once. Figured I’d post it here, not only so I can use it
+later, but so you can derive from it if you wish. It’s pretty simple, just using
+the command line utility “gconftool”. Here it is:</p>
 
 ```bash
 $ gconftool -s --type bool /apps/update-notifier/auto_launch false
@@ -60,7 +57,6 @@ $ gconftool -s --type bool /apps/nautilus/desktop/trash_icon_visible true
 them.</p>
 
 <div class="restored-from-archive"> <h3>Restored from VimTips archive</h3> <p>
-This article was restored from the VimTips archive.
-There’s probably missing images and broken links (and even some flash
-references), but it was still important to me to bring them back.
-</p> </div>
+This article was restored from the VimTips archive. There’s probably missing
+images and broken links (and even some flash references), but it was still
+important to me to bring them back. </p> </div>

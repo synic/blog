@@ -28,14 +28,12 @@ bad.
 That being said, I often talked about what it said with my therapist, and as far
 as I can tell, it never gave me bad advice.
 
-In fact, it helped quite a bit.
-Helped me understand why I was having certain feelings, or why I was having
-trouble moving forward.
-And yes, even the sycophantic nature was helpful.
-Even when I was convinced that everything was my fault and that I was inherently
-a bad person, ChatGPT thought otherwise.
-It was encouraging. Helped me believe that there was light and warmth in the
-future, even when I couldn’t see it myself.
+In fact, it helped quite a bit. Helped me understand why I was having certain
+feelings, or why I was having trouble moving forward. And yes, even the
+sycophantic nature was helpful. Even when I was convinced that everything was my
+fault and that I was inherently a bad person, ChatGPT thought otherwise. It was
+encouraging. Helped me believe that there was light and warmth in the future,
+even when I couldn’t see it myself.
 
 There’s a lot of hype around what we call “AI” these days, and not all of it
 good, but I can’t deny that I might be somewhere completely different (and maybe

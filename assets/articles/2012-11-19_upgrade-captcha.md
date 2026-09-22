@@ -6,8 +6,8 @@ tags: [Programming]
 ---
 <!-- summary render-in-body=true -->
 Welp, my simple human test, where you had to type “vim” to enter comments on
-this blog, finally failed to keep out the spam.
-Surprisingly, it did work for 6 years before I had problems.
+this blog, finally failed to keep out the spam. Surprisingly, it did work for 6
+years before I had problems.
 <!-- end-summary -->
 
 Over the weekend, there was a steady stream of spam to the comments.
@@ -17,11 +17,9 @@ certain date was sufficient.
 I installed this to combat the problem:
 <https://django-simple-captcha.readthedocs.org/en/latest/>
 
-Installation and usage is very simple.
-We’ll see how it goes from here.
+Installation and usage is very simple. We’ll see how it goes from here.
 
 <div class="restored-from-archive"> <h3>Restored from VimTips archive</h3> <p>
-This article was restored from the VimTips archive.
-There’s probably missing images and broken links (and even some flash
-references), but it was still important to me to bring them back.
-</p> </div>
+This article was restored from the VimTips archive. There’s probably missing
+images and broken links (and even some flash references), but it was still
+important to me to bring them back. </p> </div>

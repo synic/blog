@@ -93,10 +93,15 @@ publishedAt: %s
 ---
 <!-- summary render-in-body=true -->
 %s
-<!-- end-summary -->
+<!-- end-summary -->%s`, titleField, slug, tagsField, article.PublishedAt.Format(time.RFC3339), summary, maybeInsertBody(article.Body))
+}
 
-%s
-`, titleField, slug, tagsField, article.PublishedAt.Format(time.RFC3339), summary, article.Body)
+func maybeInsertBody(body string) string {
+	if body == "" {
+		return body
+	}
+
+	return "\n" + strings.TrimSpace(body) + "\n"
 }
 
 func BuildArticleURL(publishedAt time.Time, slug string) string {

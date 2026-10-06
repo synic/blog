@@ -42,12 +42,10 @@ Eventually I just let the domain expire.
 
 # Someone Else Has Taken Over?
 
-<a href="https://jbother.org">
 <img src="/static/images/articles/2024-11-25_jbother-brought-back-to-life/jbothersite.webp" alt="Jbother site screenshot, click to go to the new site" />
-</a>
 
 The other day I was looking for screenshots of it, and found that the main site,
-https://jbother.org was back, and looked nearly identical to the site I had
+jbother *dot* org was back, and looked nearly identical to the site I had
 abandoned. The whois info shows nameservers that I’ve never used before.
 
 It’s serving up a single release, `JBother-0.8.9.jar`, the last one I ever made.

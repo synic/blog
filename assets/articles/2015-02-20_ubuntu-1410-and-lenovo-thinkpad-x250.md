@@ -7,7 +7,7 @@ tags: [Linux]
 <!-- summary render-in-body=true -->
 I recently purchased and received a
 [Lenovo ThinkPad x250](http://shop.lenovo.com/us/en/laptops/thinkpad/x-series/x250/)
-and immediately proceeded to install [Ubuntu](http://ubuntu.org) over whatever
+and immediately proceeded to install [Ubuntu](http://ubuntu.com) over whatever
 version of Windows it came with.
 <!-- end-summary -->
 

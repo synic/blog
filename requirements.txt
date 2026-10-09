@@ -1,4 +1,4 @@
-flowmark==0.7.3
+flowmark==0.8.0
 marko==2.2.4
 pathspec==1.1.1
 regex==2026.8.31

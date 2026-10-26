@@ -6,6 +6,7 @@ require (
 	github.com/a-h/templ v0.3.1070
 	github.com/alecthomas/chroma/v2 v2.27.0
 	github.com/gorilla/feeds v1.2.0
+	github.com/jackc/pgx/v5 v5.11.0
 	github.com/joho/godotenv v1.5.1
 	github.com/magefile/mage v1.17.2
 	github.com/pressly/goose/v3 v3.29.0
@@ -17,7 +18,6 @@ require (
 	golang.org/x/image v0.47.0
 	golang.org/x/net v0.61.0
 	gopkg.in/yaml.v3 v3.0.1
-	modernc.org/sqlite v1.61.0
 )
 
 require (
@@ -138,6 +138,7 @@ require (
 	modernc.org/libc v1.79.0 // indirect
 	modernc.org/mathutil v1.7.1 // indirect
 	modernc.org/memory v1.12.1 // indirect
+	modernc.org/sqlite v1.60.1 // indirect
 )
 
 tool (

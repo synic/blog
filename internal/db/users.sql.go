@@ -10,7 +10,7 @@ import (
 )
 
 const getUserByEmail = `-- name: GetUserByEmail :one
-SELECT id, username, email, unsubscribed, unsubscribe_token FROM users WHERE email = ?
+SELECT id, username, email, unsubscribed, unsubscribe_token FROM users WHERE email = $1
 `
 
 type GetUserByEmailRow struct {
@@ -35,7 +35,7 @@ func (q *Queries) GetUserByEmail(ctx context.Context, email string) (GetUserByEm
 }
 
 const unsubscribeUser = `-- name: UnsubscribeUser :execrows
-UPDATE users SET unsubscribed = true WHERE unsubscribe_token = ? AND unsubscribed = false
+UPDATE users SET unsubscribed = true WHERE unsubscribe_token = $1 AND unsubscribed = false
 `
 
 func (q *Queries) UnsubscribeUser(ctx context.Context, unsubscribeToken string) (int64, error) {
@@ -48,9 +48,9 @@ func (q *Queries) UnsubscribeUser(ctx context.Context, unsubscribeToken string) 
 
 const upsertUser = `-- name: UpsertUser :one
 INSERT INTO users (github_id, username, avatar_url, email)
-VALUES (?, ?, ?, ?)
+VALUES ($1, $2, $3, $4)
 ON CONFLICT (github_id)
-DO UPDATE SET username = EXCLUDED.username, avatar_url = EXCLUDED.avatar_url, email = EXCLUDED.email, updated_at = datetime('now')
+DO UPDATE SET username = EXCLUDED.username, avatar_url = EXCLUDED.avatar_url, email = EXCLUDED.email, updated_at = now()
 RETURNING id, github_id, username, avatar_url, created_at, updated_at, email, unsubscribed, unsubscribe_token
 `
 

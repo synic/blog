@@ -523,15 +523,15 @@ func databaseUrl() string {
 }
 
 func (DB) Migrate() error {
-	return gooseCmd("-dir", migrationsPath, "sqlite3", databaseUrl(), "up")
+	return gooseCmd("-dir", migrationsPath, "postgres", databaseUrl(), "up")
 }
 
 func (DB) Rollback() error {
-	return gooseCmd("-dir", migrationsPath, "sqlite3", databaseUrl(), "down")
+	return gooseCmd("-dir", migrationsPath, "postgres", databaseUrl(), "down")
 }
 
 func (DB) Status() error {
-	return gooseCmd("-dir", migrationsPath, "sqlite3", databaseUrl(), "status")
+	return gooseCmd("-dir", migrationsPath, "postgres", databaseUrl(), "status")
 }
 
 func Sqlc() error {

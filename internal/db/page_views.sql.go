@@ -10,7 +10,7 @@ import (
 )
 
 const countPageViewsBySlug = `-- name: CountPageViewsBySlug :many
-SELECT article_slug, CAST(count(*) AS int) AS view_count
+SELECT article_slug, count(*) AS view_count
 FROM page_views
 GROUP BY article_slug
 ORDER BY view_count DESC
@@ -46,7 +46,7 @@ func (q *Queries) CountPageViewsBySlug(ctx context.Context) ([]CountPageViewsByS
 
 const createPageView = `-- name: CreatePageView :exec
 INSERT INTO page_views (article_slug, ip_address, user_agent)
-VALUES (?, ?, ?)
+VALUES ($1, $2, $3)
 `
 
 type CreatePageViewParams struct {

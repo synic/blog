@@ -12,7 +12,7 @@ import (
 
 const createSession = `-- name: CreateSession :one
 INSERT INTO sessions (user_id, token, csrf_token, expires_at)
-VALUES (?, ?, ?, ?)
+VALUES ($1, $2, $3, $4)
 RETURNING id, user_id, token, csrf_token, expires_at, created_at
 `
 
@@ -43,7 +43,7 @@ func (q *Queries) CreateSession(ctx context.Context, arg CreateSessionParams) (S
 }
 
 const deleteExpiredSessions = `-- name: DeleteExpiredSessions :execrows
-DELETE FROM sessions WHERE expires_at < datetime('now')
+DELETE FROM sessions WHERE expires_at < now()
 `
 
 func (q *Queries) DeleteExpiredSessions(ctx context.Context) (int64, error) {
@@ -55,7 +55,7 @@ func (q *Queries) DeleteExpiredSessions(ctx context.Context) (int64, error) {
 }
 
 const deleteSession = `-- name: DeleteSession :exec
-DELETE FROM sessions WHERE token = ?
+DELETE FROM sessions WHERE token = $1
 `
 
 func (q *Queries) DeleteSession(ctx context.Context, token string) error {
@@ -67,7 +67,7 @@ const getSessionByToken = `-- name: GetSessionByToken :one
 SELECT s.id, s.user_id, s.token, s.csrf_token, s.expires_at, u.username, u.avatar_url, u.email
 FROM sessions s
 JOIN users u ON s.user_id = u.id
-WHERE s.token = ? AND s.expires_at > datetime('now')
+WHERE s.token = $1 AND s.expires_at > now()
 `
 
 type GetSessionByTokenRow struct {

@@ -10,8 +10,8 @@ import (
 	"os"
 	"time"
 
+	_ "github.com/jackc/pgx/v5/stdlib"
 	"github.com/pressly/goose/v3"
-	_ "modernc.org/sqlite"
 
 	"github.com/synic/blog/internal"
 	"github.com/synic/blog/internal/config"
@@ -56,7 +56,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	sqlDB, err := sql.Open("sqlite", conf.DatabaseURL)
+	sqlDB, err := sql.Open("pgx", conf.DatabaseURL)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -66,19 +66,8 @@ func main() {
 	sqlDB.SetMaxIdleConns(5)
 	sqlDB.SetConnMaxLifetime(time.Hour)
 
-	for _, pragma := range []string{
-		"PRAGMA journal_mode=WAL",
-		"PRAGMA busy_timeout=5000",
-		"PRAGMA foreign_keys=ON",
-		"PRAGMA synchronous=NORMAL",
-	} {
-		if _, err := sqlDB.Exec(pragma); err != nil {
-			log.Fatal(err)
-		}
-	}
-
 	goose.SetBaseFS(os.DirFS(conf.MigrationsDir))
-	if err := goose.SetDialect("sqlite3"); err != nil {
+	if err := goose.SetDialect("postgres"); err != nil {
 		log.Fatal(err)
 	}
 	if err := goose.Up(sqlDB, "."); err != nil {

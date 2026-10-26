@@ -12,7 +12,7 @@ import (
 )
 
 const approveComment = `-- name: ApproveComment :one
-UPDATE comments SET approved = true WHERE id = ? RETURNING id, article_slug, user_id, body, created_at, parent_id, approved
+UPDATE comments SET approved = true WHERE id = $1 RETURNING id, article_slug, user_id, body, created_at, parent_id, approved
 `
 
 func (q *Queries) ApproveComment(ctx context.Context, id int64) (Comment, error) {
@@ -31,7 +31,7 @@ func (q *Queries) ApproveComment(ctx context.Context, id int64) (Comment, error)
 }
 
 const countCommentsBySlug = `-- name: CountCommentsBySlug :many
-SELECT article_slug, CAST(count(*) AS int) AS comment_count
+SELECT article_slug, count(*) AS comment_count
 FROM comments
 WHERE approved = true
 GROUP BY article_slug
@@ -67,7 +67,7 @@ func (q *Queries) CountCommentsBySlug(ctx context.Context) ([]CountCommentsBySlu
 
 const createComment = `-- name: CreateComment :one
 INSERT INTO comments (article_slug, user_id, body, parent_id, approved)
-VALUES (?, ?, ?, ?, ?)
+VALUES ($1, $2, $3, $4, $5)
 RETURNING id, article_slug, user_id, body, created_at, parent_id, approved
 `
 
@@ -101,7 +101,7 @@ func (q *Queries) CreateComment(ctx context.Context, arg CreateCommentParams) (C
 }
 
 const deleteComment = `-- name: DeleteComment :exec
-DELETE FROM comments WHERE id = ?
+DELETE FROM comments WHERE id = $1
 `
 
 func (q *Queries) DeleteComment(ctx context.Context, id int64) error {
@@ -114,7 +114,7 @@ SELECT c.id, c.article_slug, c.body, c.created_at, c.parent_id, c.approved,
        u.username, u.avatar_url, u.email, u.unsubscribe_token, u.unsubscribed
 FROM comments c
 JOIN users u ON c.user_id = u.id
-WHERE c.id = ?
+WHERE c.id = $1
 `
 
 type GetCommentWithUserRow struct {
@@ -155,7 +155,7 @@ SELECT c.id, c.article_slug, c.body, c.created_at, c.parent_id,
        u.username, u.avatar_url
 FROM comments c
 JOIN users u ON c.user_id = u.id
-WHERE c.article_slug = ? AND c.approved = true
+WHERE c.article_slug = $1 AND c.approved = true
 ORDER BY c.created_at ASC
 `
 

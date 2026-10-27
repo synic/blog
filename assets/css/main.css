@@ -135,8 +135,12 @@
       @apply flex-none w-full h-full flex items-center justify-center;
     }
 
+    .album-item > picture {
+      @apply w-full flex justify-center;
+    }
+
     .album-img {
-      @apply w-full h-full object-contain m-0 select-none;
+      @apply w-full md:w-[75vw] h-auto m-0 select-none;
       -webkit-user-drag: none;
     }
 

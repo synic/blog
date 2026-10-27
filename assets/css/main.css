@@ -136,7 +136,7 @@
     }
 
     .album-img {
-      @apply w-full h-full object-contain m-0 select-none;
+      @apply w-full h-auto m-0 select-none;
       -webkit-user-drag: none;
     }
 

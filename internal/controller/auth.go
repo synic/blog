@@ -31,6 +31,10 @@ func NewAuthController(queries *db.Queries, cfg config.Config) AuthController {
 	}
 }
 
+func (c AuthController) Enabled() bool {
+	return c.queries != nil
+}
+
 func (c AuthController) Login(w http.ResponseWriter, r *http.Request) {
 	state := generateToken()
 

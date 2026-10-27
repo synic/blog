@@ -89,7 +89,7 @@ func (r *PageViewRepository) worker() {
 }
 
 func (r *PageViewRepository) LogView(slug, ip, userAgent string) {
-	if isBot(userAgent) {
+	if r == nil || isBot(userAgent) {
 		return
 	}
 	select {
@@ -104,6 +104,10 @@ func (r *PageViewRepository) LogView(slug, ip, userAgent string) {
 }
 
 func (r *PageViewRepository) ViewCounts(ctx context.Context) ([]model.PageViewEntry, error) {
+	if r == nil {
+		return []model.PageViewEntry{}, nil
+	}
+
 	rows, err := r.queries.CountPageViewsBySlug(ctx)
 	if err != nil {
 		return nil, err

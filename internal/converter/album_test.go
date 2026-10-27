@@ -1,6 +1,10 @@
 package converter
 
 import (
+	"image"
+	"image/jpeg"
+	"os"
+	"path/filepath"
 	"strings"
 	"testing"
 
@@ -91,4 +95,23 @@ func TestTransformAlbumsPreservesSurroundingContent(t *testing.T) {
 	assert.Contains(t, out, "<p>Intro</p>")
 	assert.Contains(t, out, "<p>Outro</p>")
 	assert.Contains(t, out, `class="album"`)
+}
+
+func TestTransformAlbumsImageDimensions(t *testing.T) {
+	dir := t.TempDir()
+	imgDir := filepath.Join(dir, "images")
+	os.MkdirAll(imgDir, 0o755)
+
+	img := image.NewRGBA(image.Rect(0, 0, 800, 600))
+	f, err := os.Create(filepath.Join(imgDir, "test.jpg"))
+	assert.NoError(t, err)
+	assert.NoError(t, jpeg.Encode(f, img, nil))
+	f.Close()
+
+	input := `<x-album><x-image src="/static/images/test.jpg" alt="A"/></x-album>`
+	out, err := TransformAlbums(input, "b", dir, nil)
+	assert.NoError(t, err)
+	assert.Contains(t, out, `width="800"`)
+	assert.Contains(t, out, `height="600"`)
+	assert.Contains(t, out, `style="aspect-ratio:800/600"`)
 }

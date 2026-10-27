@@ -5,12 +5,14 @@ import (
 	"github.com/synic/blog/internal/model"
 )
 
-templ ArticleView(a *model.Article, commentCount int, showComments bool) {
+templ ArticleView(a *model.Article, commentsEnabled bool, commentCount int, showComments bool) {
 	@BaseLayout(a.Title, WithOpenGraphData(a.OpenGraphData)) {
 		@article(a, false)
-		<div id="comment-area" class="mt-4">
-			@CommentArea(a.URL, commentCount, showComments)
-		</div>
+		if commentsEnabled {
+			<div id="comment-area" class="mt-4">
+				@CommentArea(a.URL, commentCount, showComments)
+			</div>
+		}
 	}
 }
 

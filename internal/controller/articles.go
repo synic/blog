@@ -177,7 +177,7 @@ func (h ArticleController) Article(w http.ResponseWriter, r *http.Request) {
 	}
 	showComments := r.URL.Query().Get("show_comments") == "1"
 
-	view.Render(w, r, view.ArticleView(article, commentCount, showComments))
+	view.Render(w, r, view.ArticleView(article, h.comments != nil, commentCount, showComments))
 }
 
 func (h ArticleController) Create(w http.ResponseWriter, r *http.Request) {

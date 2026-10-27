@@ -39,6 +39,9 @@ func (r *CommentRepository) LoadCounts(ctx context.Context) error {
 }
 
 func (r *CommentRepository) CommentCount(slug string) int {
+	if r == nil {
+		return 0
+	}
 	r.mu.RLock()
 	defer r.mu.RUnlock()
 	return r.counts[slug]

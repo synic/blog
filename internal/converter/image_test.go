@@ -37,6 +37,7 @@ func TestTransformImagesManualDimensions(t *testing.T) {
 	assert.NoError(t, err)
 	assert.Contains(t, out, `width="400"`)
 	assert.Contains(t, out, `height="300"`)
+	assert.Contains(t, out, `style="aspect-ratio:400/300"`)
 }
 
 func TestTransformImagesAutoDimensions(t *testing.T) {
@@ -60,6 +61,7 @@ func TestTransformImagesAutoDimensions(t *testing.T) {
 	assert.NoError(t, err)
 	assert.Contains(t, out, `width="800"`)
 	assert.Contains(t, out, `height="600"`)
+	assert.Contains(t, out, `style="aspect-ratio:800/600"`)
 }
 
 func TestTransformImagesPartialManualWidth(t *testing.T) {

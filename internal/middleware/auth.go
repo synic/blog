@@ -21,6 +21,9 @@ func UserFromContext(ctx context.Context) *model.User {
 
 func AuthMiddleware(queries *db.Queries, adminEmail string) func(http.Handler) http.Handler {
 	return func(next http.Handler) http.Handler {
+		if queries == nil {
+			return next
+		}
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			cookie, err := r.Cookie("session_token")
 			if err != nil {

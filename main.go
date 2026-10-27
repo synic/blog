@@ -57,44 +57,29 @@ func main() {
 		log.Fatal(err)
 	}
 
-	sqlDB, err := sql.Open("pgx", conf.DatabaseURL)
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer sqlDB.Close()
+	var (
+		queries     *db.Queries
+		commentRepo *store.CommentRepository
+		viewRepo    *store.PageViewRepository
+	)
 
-	sqlDB.SetMaxOpenConns(10)
-	sqlDB.SetMaxIdleConns(5)
-	sqlDB.SetConnMaxLifetime(time.Hour)
+	if conf.DatabaseURL == "" {
+		log.Println("⚠️ DATABASE_URL is not set; comments, auth, and page views are disabled")
+	} else {
+		sqlDB := setupDatabase(conf)
+		defer sqlDB.Close()
 
-	goose.SetBaseFS(os.DirFS(conf.MigrationsDir))
-	if err := goose.SetDialect("postgres"); err != nil {
-		log.Fatal(err)
-	}
-	if err := goose.Up(sqlDB, "."); err != nil {
-		log.Fatal(err)
-	}
+		queries = db.New(sqlDB)
 
-	queries := db.New(sqlDB)
-
-	commentRepo := store.NewCommentRepository(queries)
-	if err := commentRepo.LoadCounts(ctx); err != nil {
-		log.Fatal(err)
-	}
-
-	go func() {
-		ticker := time.NewTicker(1 * time.Hour)
-		defer ticker.Stop()
-		for range ticker.C {
-			if n, err := queries.DeleteExpiredSessions(context.Background()); err != nil {
-				log.Printf("Error cleaning expired sessions: %v", err)
-			} else if n > 0 {
-				log.Printf("Cleaned %d expired sessions", n)
-			}
+		commentRepo = store.NewCommentRepository(queries)
+		if err := commentRepo.LoadCounts(ctx); err != nil {
+			log.Fatal(err)
 		}
-	}()
 
-	viewRepo := store.NewPageViewRepository(queries, repo)
+		go cleanExpiredSessions(queries)
+
+		viewRepo = store.NewPageViewRepository(queries, repo)
+	}
 
 	mailer := mail.NewMailer(conf)
 	articleController := controller.NewArticleController(repo, commentRepo, viewRepo)
@@ -145,5 +130,38 @@ func main() {
 	log.Printf("🚀 Serving on %s...", server.Addr)
 	if err = server.ListenAndServe(); err != nil {
 		log.Fatal(err)
+	}
+}
+
+func setupDatabase(conf config.Config) *sql.DB {
+	sqlDB, err := sql.Open("pgx", conf.DatabaseURL)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	sqlDB.SetMaxOpenConns(10)
+	sqlDB.SetMaxIdleConns(5)
+	sqlDB.SetConnMaxLifetime(time.Hour)
+
+	goose.SetBaseFS(os.DirFS(conf.MigrationsDir))
+	if err := goose.SetDialect("postgres"); err != nil {
+		log.Fatal(err)
+	}
+	if err := goose.Up(sqlDB, "."); err != nil {
+		log.Fatal(err)
+	}
+
+	return sqlDB
+}
+
+func cleanExpiredSessions(queries *db.Queries) {
+	ticker := time.NewTicker(1 * time.Hour)
+	defer ticker.Stop()
+	for range ticker.C {
+		if n, err := queries.DeleteExpiredSessions(context.Background()); err != nil {
+			log.Printf("Error cleaning expired sessions: %v", err)
+		} else if n > 0 {
+			log.Printf("Cleaned %d expired sessions", n)
+		}
 	}
 }

@@ -85,6 +85,9 @@ func TransformImages(htmlStr, staticDir string, firstSeen *bool) (string, error)
 		if heightStr != "" {
 			fmt.Fprintf(&b, ` height="%s"`, heightStr)
 		}
+		if widthStr != "" && heightStr != "" {
+			fmt.Fprintf(&b, ` style="aspect-ratio:%s/%s"`, widthStr, heightStr)
+		}
 		if srcset := buildSrcset(src, staticDir, ""); srcset != "" {
 			fmt.Fprintf(&b, ` srcset="%s"`, srcset)
 			b.WriteString(` sizes="(max-width: 640px) 100vw, 75vw"`)

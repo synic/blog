@@ -63,7 +63,6 @@ var (
 	minifyCmd   = sh.RunCmd("node_modules/.bin/css-minify")
 	terserCmd   = sh.RunCmd("node_modules/.bin/terser")
 	templCmd    = sh.RunCmd("go", "tool", "templ")
-	airCmd      = sh.RunCmd("go", "tool", "air")
 	gooseCmd    = sh.RunCmd("go", "tool", "goose")
 	sqlcCmd     = sh.RunCmd("go", "tool", "sqlc")
 	flowMarkCmd = sh.RunCmd("./.venv/bin/flowmark", "--auto", "--width=80")
@@ -72,7 +71,7 @@ var (
 func Dev() error {
 	mg.Deps(Deps.Dev)
 
-	return airCmd()
+	return sh.RunV("go", "tool", "air")
 }
 
 type Deps mg.Namespace
@@ -517,21 +516,32 @@ func copyFile(src, dst string) error {
 
 type DB mg.Namespace
 
-func databaseUrl() string {
+func databaseUrl() (string, error) {
 	conf := config.Load()
-	return conf.DatabaseURL
+	if conf.DatabaseURL == "" {
+		return "", errors.New("DATABASE_URL is not set")
+	}
+	return conf.DatabaseURL, nil
+}
+
+func runGoose(command string) error {
+	url, err := databaseUrl()
+	if err != nil {
+		return err
+	}
+	return gooseCmd("-dir", migrationsPath, "postgres", url, command)
 }
 
 func (DB) Migrate() error {
-	return gooseCmd("-dir", migrationsPath, "postgres", databaseUrl(), "up")
+	return runGoose("up")
 }
 
 func (DB) Rollback() error {
-	return gooseCmd("-dir", migrationsPath, "postgres", databaseUrl(), "down")
+	return runGoose("down")
 }
 
 func (DB) Status() error {
-	return gooseCmd("-dir", migrationsPath, "postgres", databaseUrl(), "status")
+	return runGoose("status")
 }
 
 func Sqlc() error {

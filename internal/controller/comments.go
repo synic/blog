@@ -40,6 +40,10 @@ func NewCommentController(
 	}
 }
 
+func (c CommentController) Enabled() bool {
+	return c.queries != nil
+}
+
 func (c CommentController) List(w http.ResponseWriter, r *http.Request) {
 	slug := r.PathValue("slug")
 

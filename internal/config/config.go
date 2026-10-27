@@ -38,9 +38,6 @@ func Load() Config {
 	}
 
 	databaseURL := os.Getenv("DATABASE_URL")
-	if databaseURL == "" {
-		databaseURL = "postgres://localhost:5432/blog?sslmode=disable"
-	}
 
 	staticDir := os.Getenv("STATIC_DIR")
 	if staticDir == "" {

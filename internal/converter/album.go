@@ -194,6 +194,9 @@ func buildAlbumReplacement(albumNode *html.Node, idPrefix, staticDir string, cou
 		if imgData.Height > 0 {
 			imgAttrs = append(imgAttrs, html.Attribute{Key: "height", Val: strconv.Itoa(imgData.Height)})
 		}
+		if imgData.Width > 0 && imgData.Height > 0 {
+			imgAttrs = append(imgAttrs, html.Attribute{Key: "style", Val: fmt.Sprintf("aspect-ratio:%d/%d", imgData.Width, imgData.Height)})
+		}
 		if imgData.Srcset != "" {
 			imgAttrs = append(imgAttrs, html.Attribute{Key: "srcset", Val: imgData.Srcset})
 			imgAttrs = append(imgAttrs, html.Attribute{Key: "sizes", Val: "(max-width: 640px) 100vw, 75vw"})

@@ -104,6 +104,7 @@ func main() {
 			middleware.LoggerMiddleware(),
 			middleware.HtmxMiddleware(),
 			middleware.SearchMiddleware(),
+			middleware.SecurityHeadersMiddleware(),
 		),
 		BaseContext: func(net.Listener) context.Context {
 			data := model.ContextData{

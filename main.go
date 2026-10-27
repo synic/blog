@@ -25,6 +25,7 @@ import (
 )
 
 func main() {
+	log.SetOutput(os.Stdout)
 	ctx := context.Background()
 	conf := config.Load()
 	staticFS := os.DirFS(conf.StaticDir)

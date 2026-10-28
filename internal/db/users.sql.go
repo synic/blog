@@ -22,7 +22,7 @@ type GetUserByEmailRow struct {
 }
 
 func (q *Queries) GetUserByEmail(ctx context.Context, email string) (GetUserByEmailRow, error) {
-	row := q.db.QueryRowContext(ctx, getUserByEmail, email)
+	row := q.db.QueryRow(ctx, getUserByEmail, email)
 	var i GetUserByEmailRow
 	err := row.Scan(
 		&i.ID,
@@ -39,11 +39,11 @@ UPDATE users SET unsubscribed = true WHERE unsubscribe_token = $1 AND unsubscrib
 `
 
 func (q *Queries) UnsubscribeUser(ctx context.Context, unsubscribeToken string) (int64, error) {
-	result, err := q.db.ExecContext(ctx, unsubscribeUser, unsubscribeToken)
+	result, err := q.db.Exec(ctx, unsubscribeUser, unsubscribeToken)
 	if err != nil {
 		return 0, err
 	}
-	return result.RowsAffected()
+	return result.RowsAffected(), nil
 }
 
 const upsertUser = `-- name: UpsertUser :one
@@ -62,7 +62,7 @@ type UpsertUserParams struct {
 }
 
 func (q *Queries) UpsertUser(ctx context.Context, arg UpsertUserParams) (User, error) {
-	row := q.db.QueryRowContext(ctx, upsertUser,
+	row := q.db.QueryRow(ctx, upsertUser,
 		arg.GithubID,
 		arg.Username,
 		arg.AvatarUrl,

@@ -2,7 +2,6 @@ package store
 
 import (
 	"context"
-	"database/sql"
 	"sync"
 
 	"github.com/synic/blog/internal/db"
@@ -59,10 +58,8 @@ func (r *CommentRepository) Create(
 		ArticleSlug: slug,
 		UserID:      userID,
 		Body:        body,
+		ParentID:    parentID,
 		Approved:    approved,
-	}
-	if parentID != nil {
-		params.ParentID = sql.NullInt64{Int64: *parentID, Valid: true}
 	}
 
 	comment, err := r.queries.CreateComment(ctx, params)
@@ -122,17 +119,13 @@ func (r *CommentRepository) ListBySlug(
 
 	comments := make([]model.Comment, len(rows))
 	for i, row := range rows {
-		var parentID *int64
-		if row.ParentID.Valid {
-			parentID = &row.ParentID.Int64
-		}
 		comments[i] = model.Comment{
 			ID:        row.ID,
 			Body:      row.Body,
 			Username:  row.Username,
 			AvatarURL: row.AvatarUrl,
 			CreatedAt: row.CreatedAt.UTC(),
-			ParentID:  parentID,
+			ParentID:  row.ParentID,
 		}
 	}
 

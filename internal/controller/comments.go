@@ -220,10 +220,10 @@ func (c CommentController) Approve(w http.ResponseWriter, r *http.Request) {
 				)
 			}
 
-			if approvedComment.ParentID.Valid {
+			if approvedComment.ParentID != nil {
 				parentComment, err := c.comments.GetCommentWithUser(
 					r.Context(),
-					approvedComment.ParentID.Int64,
+					*approvedComment.ParentID,
 				)
 				if err == nil && parentComment.Email != "" && !parentComment.Unsubscribed {
 					c.mailer.NotifyReply(
@@ -237,7 +237,7 @@ func (c CommentController) Approve(w http.ResponseWriter, r *http.Request) {
 				} else if err != nil {
 					log.Printf(
 						"Failed to look up parent comment %d for reply notification: %v",
-						approvedComment.ParentID.Int64,
+						*approvedComment.ParentID,
 						err,
 					)
 				}

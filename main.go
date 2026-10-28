@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"database/sql"
 	"io/fs"
 	"log"
 	"net"
@@ -10,7 +9,8 @@ import (
 	"os"
 	"time"
 
-	_ "github.com/jackc/pgx/v5/stdlib"
+	"github.com/jackc/pgx/v5/pgxpool"
+	"github.com/jackc/pgx/v5/stdlib"
 	"github.com/pressly/goose/v3"
 
 	"github.com/synic/blog/internal"
@@ -65,10 +65,10 @@ func main() {
 	if conf.DatabaseURL == "" {
 		log.Println("⚠️ DATABASE_URL is not set; comments, auth, and page views are disabled")
 	} else {
-		sqlDB := setupDatabase(conf)
-		defer sqlDB.Close()
+		pool := setupDatabase(ctx, conf)
+		defer pool.Close()
 
-		queries = db.New(sqlDB)
+		queries = db.New(pool)
 
 		commentRepo = store.NewCommentRepository(queries)
 		if err := commentRepo.LoadCounts(ctx); err != nil {
@@ -133,15 +133,22 @@ func main() {
 	}
 }
 
-func setupDatabase(conf config.Config) *sql.DB {
-	sqlDB, err := sql.Open("pgx", conf.DatabaseURL)
+func setupDatabase(ctx context.Context, conf config.Config) *pgxpool.Pool {
+	poolConf, err := pgxpool.ParseConfig(conf.DatabaseURL)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	sqlDB.SetMaxOpenConns(10)
-	sqlDB.SetMaxIdleConns(5)
-	sqlDB.SetConnMaxLifetime(time.Hour)
+	poolConf.MaxConns = 10
+	poolConf.MaxConnLifetime = time.Hour
+
+	pool, err := pgxpool.NewWithConfig(ctx, poolConf)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	sqlDB := stdlib.OpenDBFromPool(pool)
+	defer sqlDB.Close()
 
 	goose.SetBaseFS(os.DirFS(conf.MigrationsDir))
 	if err := goose.SetDialect("postgres"); err != nil {
@@ -151,7 +158,7 @@ func setupDatabase(conf config.Config) *sql.DB {
 		log.Fatal(err)
 	}
 
-	return sqlDB
+	return pool
 }
 
 func cleanExpiredSessions(queries *db.Queries) {

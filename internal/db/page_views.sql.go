@@ -22,7 +22,7 @@ type CountPageViewsBySlugRow struct {
 }
 
 func (q *Queries) CountPageViewsBySlug(ctx context.Context) ([]CountPageViewsBySlugRow, error) {
-	rows, err := q.db.QueryContext(ctx, countPageViewsBySlug)
+	rows, err := q.db.Query(ctx, countPageViewsBySlug)
 	if err != nil {
 		return nil, err
 	}
@@ -35,27 +35,14 @@ func (q *Queries) CountPageViewsBySlug(ctx context.Context) ([]CountPageViewsByS
 		}
 		items = append(items, i)
 	}
-	if err := rows.Close(); err != nil {
-		return nil, err
-	}
 	if err := rows.Err(); err != nil {
 		return nil, err
 	}
 	return items, nil
 }
 
-const createPageView = `-- name: CreatePageView :exec
-INSERT INTO page_views (article_slug, ip_address, user_agent)
-VALUES ($1, $2, $3)
-`
-
-type CreatePageViewParams struct {
+type CreatePageViewsParams struct {
 	ArticleSlug string
 	IpAddress   string
 	UserAgent   string
-}
-
-func (q *Queries) CreatePageView(ctx context.Context, arg CreatePageViewParams) error {
-	_, err := q.db.ExecContext(ctx, createPageView, arg.ArticleSlug, arg.IpAddress, arg.UserAgent)
-	return err
 }

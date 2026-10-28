@@ -71,7 +71,12 @@ var (
 func Dev() error {
 	mg.Deps(Deps.Dev)
 
-	return sh.RunV("go", "tool", "air")
+	args := []string{"tool", "air"}
+	if os.Getenv("AIR_POLL") == "true" {
+		args = append(args, "-build.poll", "true")
+	}
+
+	return sh.RunV("go", args...)
 }
 
 type Deps mg.Namespace

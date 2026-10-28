@@ -61,30 +61,43 @@ func isBot(userAgent string) bool {
 	return false
 }
 
+const maxPageViewBatch = 500
+
 type PageViewRepository struct {
 	queries *db.Queries
 	repo    ArticleRepository
-	queue   chan db.CreatePageViewParams
+	queue   chan db.CreatePageViewsParams
 }
 
 func NewPageViewRepository(queries *db.Queries, repo ArticleRepository) *PageViewRepository {
 	r := &PageViewRepository{
 		queries: queries,
 		repo:    repo,
-		queue:   make(chan db.CreatePageViewParams, 1024),
+		queue:   make(chan db.CreatePageViewsParams, 1024),
 	}
 	go r.worker()
 	return r
 }
 
 func (r *PageViewRepository) worker() {
-	for param := range r.queue {
-		ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
-		err := r.queries.CreatePageView(ctx, param)
-		cancel()
-		if err != nil {
-			log.Printf("Error logging page view for %s: %v", param.ArticleSlug, err)
+	batch := make([]db.CreatePageViewsParams, 0, maxPageViewBatch)
+	for view := range r.queue {
+		batch = append(batch[:0], view)
+	drain:
+		for len(batch) < maxPageViewBatch {
+			select {
+			case view := <-r.queue:
+				batch = append(batch, view)
+			default:
+				break drain
+			}
 		}
+
+		ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+		if _, err := r.queries.CreatePageViews(ctx, batch); err != nil {
+			log.Printf("Error logging %d page views: %v", len(batch), err)
+		}
+		cancel()
 	}
 }
 
@@ -93,7 +106,7 @@ func (r *PageViewRepository) LogView(slug, ip, userAgent string) {
 		return
 	}
 	select {
-	case r.queue <- db.CreatePageViewParams{
+	case r.queue <- db.CreatePageViewsParams{
 		ArticleSlug: slug,
 		IpAddress:   ip,
 		UserAgent:   userAgent,

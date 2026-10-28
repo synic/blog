@@ -5,7 +5,6 @@
 package db
 
 import (
-	"database/sql"
 	"time"
 )
 
@@ -15,7 +14,7 @@ type Comment struct {
 	UserID      int64
 	Body        string
 	CreatedAt   time.Time
-	ParentID    sql.NullInt64
+	ParentID    *int64
 	Approved    bool
 }
 

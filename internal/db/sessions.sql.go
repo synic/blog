@@ -24,7 +24,7 @@ type CreateSessionParams struct {
 }
 
 func (q *Queries) CreateSession(ctx context.Context, arg CreateSessionParams) (Session, error) {
-	row := q.db.QueryRowContext(ctx, createSession,
+	row := q.db.QueryRow(ctx, createSession,
 		arg.UserID,
 		arg.Token,
 		arg.CsrfToken,
@@ -47,11 +47,11 @@ DELETE FROM sessions WHERE expires_at < now()
 `
 
 func (q *Queries) DeleteExpiredSessions(ctx context.Context) (int64, error) {
-	result, err := q.db.ExecContext(ctx, deleteExpiredSessions)
+	result, err := q.db.Exec(ctx, deleteExpiredSessions)
 	if err != nil {
 		return 0, err
 	}
-	return result.RowsAffected()
+	return result.RowsAffected(), nil
 }
 
 const deleteSession = `-- name: DeleteSession :exec
@@ -59,7 +59,7 @@ DELETE FROM sessions WHERE token = $1
 `
 
 func (q *Queries) DeleteSession(ctx context.Context, token string) error {
-	_, err := q.db.ExecContext(ctx, deleteSession, token)
+	_, err := q.db.Exec(ctx, deleteSession, token)
 	return err
 }
 
@@ -82,7 +82,7 @@ type GetSessionByTokenRow struct {
 }
 
 func (q *Queries) GetSessionByToken(ctx context.Context, token string) (GetSessionByTokenRow, error) {
-	row := q.db.QueryRowContext(ctx, getSessionByToken, token)
+	row := q.db.QueryRow(ctx, getSessionByToken, token)
 	var i GetSessionByTokenRow
 	err := row.Scan(
 		&i.ID,

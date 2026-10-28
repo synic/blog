@@ -1,6 +1,9 @@
 ---
 name: Release and publish Docker image
 
+# Pushes to main only build and save the generated images cache, since tag runs
+# can only restore caches saved from the default branch. Docker images are
+# built and published on release tags only.
 on:  # yamllint disable-line rule:truthy
   push:
     branches:
@@ -84,13 +87,16 @@ jobs:
           key: images-${{ hashFiles('assets/images/**', 'assets/articles/**') }}
 
       - name: Set up QEMU
+        if: startsWith(github.ref, 'refs/tags/v')
         uses: docker/setup-qemu-action@v4
 
       - name: Set up Docker Buildx
+        if: startsWith(github.ref, 'refs/tags/v')
         id: buildx
         uses: docker/setup-buildx-action@v4
 
       - name: Extract metadata (tags, labels) for Docker
+        if: startsWith(github.ref, 'refs/tags/v')
         id: meta
         uses: docker/metadata-action@v6
         with:
@@ -102,6 +108,7 @@ jobs:
             type=raw,value=latest
 
       - name: Build and push Docker image
+        if: startsWith(github.ref, 'refs/tags/v')
         uses: docker/build-push-action@v7
         with:
           context: .

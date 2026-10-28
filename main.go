@@ -50,7 +50,6 @@ func main() {
 		staticFS,
 		"css/main.min.css",
 		"css/syntax.min.css",
-		"js/app.min.js",
 	)
 
 	if err != nil {

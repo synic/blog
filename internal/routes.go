@@ -26,6 +26,9 @@ func RegisterRoutes(
 	handler.HandleFunc("GET /favicon.ico", func(w http.ResponseWriter, r *http.Request) {
 		http.ServeFileFS(w, r, staticFS, "images/favicon.ico")
 	})
+	handler.HandleFunc("GET /robots.txt", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFileFS(w, r, staticFS, "robots.txt")
+	})
 
 	// articles
 	handler.HandleFunc("/{$}", articleController.Index)

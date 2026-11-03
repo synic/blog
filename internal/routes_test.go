@@ -51,3 +51,41 @@ func TestRegisterRoutes_StaticCacheHeaders(t *testing.T) {
 		t.Errorf("expected Cache-Control %q, got %q", expectedCacheControl, actual)
 	}
 }
+
+func TestRegisterRoutes_RobotsTxt(t *testing.T) {
+	mux := http.NewServeMux()
+	staticFS := fstest.MapFS{
+		"robots.txt": &fstest.MapFile{
+			Data: []byte("User-agent: *\n"),
+		},
+	}
+
+	noopMW := func(next http.Handler) http.Handler {
+		return next
+	}
+
+	internal.RegisterRoutes(
+		mux,
+		staticFS,
+		noopMW,
+		noopMW,
+		noopMW,
+		controller.ArticleController{},
+		controller.CommentController{},
+		controller.AuthController{},
+		controller.LeaderboardController{},
+	)
+
+	req := httptest.NewRequest(http.MethodGet, "/robots.txt", nil)
+	rec := httptest.NewRecorder()
+
+	mux.ServeHTTP(rec, req)
+
+	if rec.Code != http.StatusOK {
+		t.Fatalf("expected status 200, got %d", rec.Code)
+	}
+
+	if body := rec.Body.String(); body != "User-agent: *\n" {
+		t.Errorf("unexpected body %q", body)
+	}
+}

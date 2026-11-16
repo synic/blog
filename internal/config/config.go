@@ -16,6 +16,7 @@ type Config struct {
 	AdminEmail         string
 	HttpAddress        string
 	StaticDir          string
+	CollectStaticDir   string
 	MigrationsDir      string
 	Debug              bool
 	BuildTime          string
@@ -64,6 +65,7 @@ func Load() Config {
 		AdminEmail:         os.Getenv("ADMIN_EMAIL"),
 		HttpAddress:        httpAddress,
 		StaticDir:          staticDir,
+		CollectStaticDir:   os.Getenv("COLLECT_STATIC_DIR"),
 		MigrationsDir:      migrationsDir,
 		Debug:              Debug,
 		BuildTime:          BuildTime,

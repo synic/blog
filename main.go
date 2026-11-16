@@ -20,6 +20,7 @@ import (
 	"github.com/synic/blog/internal/mail"
 	"github.com/synic/blog/internal/middleware"
 	"github.com/synic/blog/internal/model"
+	"github.com/synic/blog/internal/static"
 	"github.com/synic/blog/internal/store"
 	"github.com/synic/blog/internal/view"
 )
@@ -29,6 +30,14 @@ func main() {
 	ctx := context.Background()
 	conf := config.Load()
 	staticFS := os.DirFS(conf.StaticDir)
+
+	if conf.CollectStaticDir != "" {
+		n, err := static.Collect(staticFS, conf.CollectStaticDir)
+		if err != nil {
+			log.Fatal(err)
+		}
+		log.Printf("📦 Collected %d static files to %s", n, conf.CollectStaticDir)
+	}
 
 	articlesFS, err := fs.Sub(staticFS, "articles")
 	if err != nil {
